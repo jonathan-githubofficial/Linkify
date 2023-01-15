@@ -19,9 +19,9 @@ xxx
 * TBD
 
 ## Team Members
-|   Name   | ID      | GitHub   
-| ------------- | ------------- | --------    |
-| `Jonathan Haddad`         | `40111053`         | ([GitHub/jonathan-githubofficial](https://github.com/jonathan-githubofficial))   |
+|   Name   | ID      | GitHub   | Email  
+| ------------- | ------------- | --------    | -------- |
+| `Jonathan Haddad`         | `40111053`         | ([GitHub/jonathan-githubofficial](https://github.com/jonathan-githubofficial))   | jonathan200023@gmail.com
 
 
 
