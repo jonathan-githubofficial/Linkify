@@ -25,5 +25,5 @@ xxx
 | `Nadine El-Mufti`         | `40017347`         | ([GitHub/njayem](https://github.com/njayem))   | nadine.el.mufti@gmail.com
 | `Hadi Hawi`         | `40096690`         | ([GitHub/hadihw](https://github.com/hadihw))   | hw.hadi97@gmail.com
 | `Mohamad Salim`           | `40111460`         | ([GitHub/MohamadGSalim](https://github.com/MohamadGSalim))   | mohammedsalim1909@hotmail.com
-
+| `Daria Koroleva`           | `40096402`         | ([GitHub/daria-koroleva](https://github.com/daria-koroleva))   | dasha.koroleva499@gmail.com
 
