@@ -15,8 +15,11 @@ xxx
 
 ## Technologies
 
-* Figma
-* TBD
+* FLutter 
+* Dart 
+* FireBase
+* Javascript
+* Figma 
 
 ## Team Members
 |   Name   | ID      | GitHub   | Email  
