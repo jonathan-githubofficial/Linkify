@@ -38,4 +38,4 @@ TBH
 | `Nadine El-Mufti`         | `40017347`         | ([GitHub/njayem](https://github.com/njayem))   | nadine.el.mufti@gmail.com
 | `Hadi Hawi`         | `40096690`         | ([GitHub/hadihw](https://github.com/hadihw))   | hw.hadi97@gmail.com
 | `Ayeshah Rehman`         | `40129398`         | ([GitHub/ayeshahrh](https://github.com/ayeshahrh))   | ayeshah.rehman@outlook.com
-
+| `Khalid Sadat`         | `40177334`         | ([GitHub/khalidsaadat](https://github.com/khalidsaadat))   | khalid_saadat@hotmail.com
