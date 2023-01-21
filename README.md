@@ -20,29 +20,17 @@ Initially, users are asked to sign up, fill in their personal detials and select
 **CANDIDATES can:**
 
 :large_blue_circle: &nbsp; Build and maintain a professional online presence <br>
-23
 :large_blue_circle: &nbsp; Network and connect with classmates, alumni, and professionals in their field of interest <br>
-24
 :large_blue_circle: &nbsp; Directly message connections provided both users are online <br>
-25
 :large_blue_circle: &nbsp; Search for job and internship opportunities <br>
-26
 :large_blue_circle: &nbsp; Receive job suggestions and alerts <br>
-27
 :large_blue_circle: &nbsp; Apply for job position using the "Easy Apply" feature which uses a candidate's stored CV, cover letter and personal information to <br>
-28
 &nbsp; &nbsp; &nbsp; &nbsp; auto-fill job applications with just one click <br>
-29
 :large_blue_circle: &nbsp; Clearly distinguish between job postings that can be applied to through the app from those that require external applications <br>
-30
 :large_blue_circle: &nbsp; Get personal recommendations and endorsements from peers and professors <br>
-31
 :large_blue_circle: &nbsp; Enhance their personal branding <br>
-32
 :large_blue_circle: &nbsp; Access a personal feed containing posts from the user's network <br>
-33
 :large_blue_circle: &nbsp; A notifications page feed informing the user of all recent activities such as connection invites, followed job postings and followed <br> 
-34
 &nbsp; &nbsp; &nbsp; &nbsp; user activities
 
 ## Additional Features
