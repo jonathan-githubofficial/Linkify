@@ -77,3 +77,4 @@ Linkify is an employment focused platform for hiring managers and recruiters to 
 | `Hadi Hawi`         | `40096690`         | ([GitHub/hadihw](https://github.com/hadihw))   | hw.hadi97@gmail.com
 | `Ayeshah Rehman`         | `40129398`         | ([GitHub/ayeshahrh](https://github.com/ayeshahrh))   | ayeshah.rehman@outlook.com
 | `Khalid Sadat`         | `40177334`         | ([GitHub/khalidsaadat](https://github.com/khalidsaadat))   | khalid_saadat@hotmail.com
+| `Saad Hanna`         | `40113826`         | ([GitHub/iq882](https://github.com/iq882))   | saadhanna882@gmail.com
