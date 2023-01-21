@@ -25,7 +25,7 @@ Linkify is an employment focused platform for hiring managers and recruiters to 
 :large_blue_circle: &nbsp; Get personal recommendations and endorsements from peers and professors <br>
 :large_blue_circle: &nbsp; Enhance their personal branding <br>
 :large_blue_circle: &nbsp; Access a personal feed containing posts from the user's network <br>
-:large_blue_circle: &nbsp; A notifications page informing the user of all recent activities such as connection invites, followed job postings and <br> 
+:large_blue_circle: &nbsp; A notifications page informing the user of all recent activities such as connection invites, jobs posted and <br> 
 &nbsp; &nbsp; &nbsp; &nbsp; followed user activities
 
 **RECRUITERS can:**
