@@ -20,8 +20,8 @@ Linkify is an employment focused platform for hiring managers and recruiters to 
 :large_blue_circle: &nbsp; Directly message connections provided both users are online <br>
 :large_blue_circle: &nbsp; Search for job and internship opportunities <br>
 :large_blue_circle: &nbsp; Receive job suggestions and alerts <br>
-:large_blue_circle: &nbsp; Apply for job position using the "Easy Apply" feature which uses a candidate's stored CV, cover letter and &nbsp; &nbsp; &nbsp; personal information to auto-fill job applications with just one click <br>
-:large_blue_circle: &nbsp; Clearly distinguish between job postings that can be applied to through the app from those that require &nbsp; &nbsp; &nbsp; external applications <br>
+:large_blue_circle: &nbsp; Apply for job position using the "Easy Apply" feature which uses a candidate's stored CV, cover letter and <br> &nbsp; &nbsp; &nbsp; personal information to auto-fill job applications with just one click <br>
+:large_blue_circle: &nbsp; Clearly distinguish between job postings that can be applied to through the app from those that require <br> &nbsp; &nbsp; &nbsp; external applications <br>
 :large_blue_circle: &nbsp; Get personal recommendations and endorsements from peers and professors <br>
 :large_blue_circle: &nbsp; Enhance their personal branding <br>
 :large_blue_circle: &nbsp; Access a personal feed containing posts from the user's network <br>
