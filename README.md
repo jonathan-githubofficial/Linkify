@@ -5,9 +5,7 @@ This project is part of the SOEN 390 — Software Engineering Team Design Projec
 
 ## Course Description
 
-Throughout this course, we as a team got the chance to put the knowledge and skillset we've acquired over the course of our studies to work by applying them in a real-world setting. By creating a collaborative work environment where every team member participates in every stage of the software development cycle and by following the Agile methodology, we were able to keep up with the changing demands of a typical modern workplace.
-
-Furthermore, using project management tools to monitor team progress against our devised plan, effectively communicating as a team, and then refining the plan based on our observations has made a world of difference in terms of overall project success!
+Throughout this course, we as a team got the chance to put the knowledge and skillset we've acquired over the course of our studies to work by applying them in a real-world setting. By creating a collaborative work environment where every team member participates in every stage of the software development cycle and by following the Agile methodology, we were able to keep up with the changing demands of a typical modern workplace. Furthermore, using project management tools to monitor team progress against our devised plan, effectively communicating as a team, and then refining the plan based on our observations has made a world of difference in terms of overall project success!
 
 ## Project Description
 
