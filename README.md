@@ -1,35 +1,67 @@
-# Linkify-390
-This is the repo for the mini-capstone (SOEN 390) Project Winter 2023
 
-## Objective
- this project will allow students to apply their knowledge and skills in a real-world setting. It provides the opportunity to gain experience working on a team, developing a portfolio of work, and solving complex problems using the software development process. Additionally, students can learn new tools and technologies, improve their ability to communicate technical ideas to non-technical stakeholders, and build self-confidence in their capabilities to take on software engineering projects independently. The capstone project also provides students with an opportunity to present and defend their work to a panel of experts.
+# Linkify-390
+
+This project is part of the SOEN 390 — Software Engineering Team Design Project coursework.
+
+## Course Description
+
+Throughout this course, we as a team got the chance to put the knowledge and skillset we've acquired over the course of our studies to work by applying them in a real-world setting. By creating a collaborative work environment where every team member participates in every stage of the software development cycle and by following the Agile methodology, we were able to keep up with the changing demands of a typical modern workplace.
+
+Furthermore, using project management tools to monitor team progress against our devised plan, effectively communicating as a team, and then refining the plan based on our observations has made a world of difference in terms of overall project success!
 
 ## Project Description
 
-In this project the Linkify team is creating a new platform that provide students and other professionals the ability to connect with their peers, professors, and potential employers. By using this app, users will be able to:
+Linkify is an employment focused platform for hiring managers and recruiters to connect with potential candidates. provide students and other professionals the ability to connect with their peers, professors, and potential employers.
 
-Build and maintain a professional online presence
-1- Network with classmates, alumni, and professionals in their field of interest
-2- Discover job and internship opportunities
-3- Learn about upcoming events and opportunities
-4- Get recommendations and endorsements from peers and professors
-5- Enhance their personal branding
+Initially, users are asked to sign up, fill in their personal detials and select their account type (recruiter or candidate). In order for a public user to create their profile, every account must be associated with one email address. Once a user's account has been set up, they can invite others to join their network and invited users can either accept or reject the invitations they receive. Once an invitation has been accepted, conncted users can direct message and send one another a variety of different file types such as PDF, DOC, PPT and XLS. Most importantly, all DMs are moderated and reviewed to prevent potential illegal activities such as harrasment. 
 
-the app aims to help students build valuable connections, acquire new skills, and prepare for the workforce.
+## Core Features
+ 
+**CANDIDATES can:**
 
-## Features
-TBH
+:large_blue_circle: &nbsp; Build and maintain a professional online presence <br>
+23
+:large_blue_circle: &nbsp; Network and connect with classmates, alumni, and professionals in their field of interest <br>
+24
+:large_blue_circle: &nbsp; Directly message connections provided both users are online <br>
+25
+:large_blue_circle: &nbsp; Search for job and internship opportunities <br>
+26
+:large_blue_circle: &nbsp; Receive job suggestions and alerts <br>
+27
+:large_blue_circle: &nbsp; Apply for job position using the "Easy Apply" feature which uses a candidate's stored CV, cover letter and personal information to <br>
+28
+&nbsp; &nbsp; &nbsp; &nbsp; auto-fill job applications with just one click <br>
+29
+:large_blue_circle: &nbsp; Clearly distinguish between job postings that can be applied to through the app from those that require external applications <br>
+30
+:large_blue_circle: &nbsp; Get personal recommendations and endorsements from peers and professors <br>
+31
+:large_blue_circle: &nbsp; Enhance their personal branding <br>
+32
+:large_blue_circle: &nbsp; Access a personal feed containing posts from the user's network <br>
+33
+:large_blue_circle: &nbsp; A notifications page feed informing the user of all recent activities such as connection invites, followed job postings and followed <br> 
+34
+&nbsp; &nbsp; &nbsp; &nbsp; user activities
 
 ## Additional Features
-TBH
+:red_circle: &nbsp; Companies can have their dedicated pages <br>
+:red_circle: &nbsp; All users can archive posts and jobs <br>
+:red_circle: &nbsp; All users can create events and invite other to them <br>
+:red_circle: &nbsp; Suggest users to connect with <br>
 
 ## Technologies
 
-* FLutter
-* Dart
-* Firebase
-* Javascript 
-* Figma
+:radio_button: &nbsp; Flutter <br>
+:radio_button: &nbsp; Dart <br>
+:radio_button: &nbsp; Firebase <br>
+:radio_button: &nbsp; Javascript <br>
+:radio_button: &nbsp; Figma <br>
+
+## Testing 
+:green_circle: &nbsp; TBD <br>
+
 
 ## Team Members
 |   Name   | ID      | GitHub   | Email  
