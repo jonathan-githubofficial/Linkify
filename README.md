@@ -72,7 +72,20 @@ Linkify is an employment focused platform for hiring managers and recruiters to 
 :yellow_circle: &nbsp; Available in English and Arabic <br>
 :yellow_circle: &nbsp; Offer users multiple sign-in options <br>
 
+## Naming Conventions (for Github organization) 
 
+
+**:red_circle: &nbsp; Naming Convention Used For Branches** <br>
+* **Syntax:** feature-(#issue_number/Issue-Topic) <br>
+* **Example:** feature-(#40/Add-a-README.md-File) <br><br>
+   
+**:red_circle: &nbsp; Naming Convention Used For Issues** <br>
+* **Syntax:** [#issue_number: FEATURE/BUG] Issue Topic <br>
+* **Example:** [#40: FEATURE] Add a README.md File <br><br>
+
+**:red_circle: &nbsp; Naming Convention Used For Pull-Requests** <br>
+* **Syntax:** [Solves #issue_number] Pull-Request Topic <br>
+* **Example:** [Solves #40] Add a README.md File<br>
 
 
 ## Team Members
