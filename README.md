@@ -26,14 +26,28 @@ Linkify is an employment focused platform for hiring managers and recruiters to 
 :large_blue_circle: &nbsp; Get personal recommendations and endorsements from peers and professors <br>
 :large_blue_circle: &nbsp; Enhance their personal branding <br>
 :large_blue_circle: &nbsp; Access a personal feed containing posts from the user's network <br>
-:large_blue_circle: &nbsp; A notifications page feed informing the user of all recent activities such as connection invites, followed job postings and followed <br> 
+:large_blue_circle: &nbsp; A notifications page informing the user of all recent activities such as connection invites, followed job postings and followed <br> 
+&nbsp; &nbsp; &nbsp; &nbsp; user activities
+
+**RECRUITERS can:**
+
+:white_circle: &nbsp; Build and maintain a professional online presence <br>
+:white_circle: &nbsp; Network and connect with classmates, alumni, and professionals in their field of interest <br>
+:white_circle: &nbsp; Directly message connections provided both users are online <br>
+:white_circle: &nbsp; Manage job opportunities (add/remove/modify job postings) <br>
+:white_circle: &nbsp; Configure their job postings to indicate ehich documents are mandatory for an application <br>
+:white_circle: &nbsp; Advertise or post jobs hosted on 3rd party platforms like Indeed and Glassdoor etc. <br>
+:white_circle: &nbsp; Get personal recommendations and endorsements from peers and professors <br>
+:white_circle: &nbsp; Enhance their personal branding <br>
+:white_circle: &nbsp; Access a personal feed containing posts from the recruiter's network <br>
+:white_circle: &nbsp; A notifications page informing the user of all recent activities such as connection invites, jobs posted and followed <br> 
 &nbsp; &nbsp; &nbsp; &nbsp; user activities
 
 ## Additional Features
-:red_circle: &nbsp; Companies can have their dedicated pages <br>
-:red_circle: &nbsp; All users can archive posts and jobs <br>
-:red_circle: &nbsp; All users can create events and invite other to them <br>
-:red_circle: &nbsp; Suggest users to connect with <br>
+:purple_circle: &nbsp; Companies can have their dedicated pages <br>
+:purple_circle: &nbsp; All users can archive posts and jobs <br>
+:purple_circle: &nbsp; All users can create events and invite other to them <br>
+:purple_circle: &nbsp; Suggest users to connect with <br>
 
 ## Technologies
 
@@ -45,6 +59,14 @@ Linkify is an employment focused platform for hiring managers and recruiters to 
 
 ## Testing 
 :green_circle: &nbsp; TBD <br>
+
+## App Specifications
+:yellow_circle: &nbsp; Responsive and can accomodate different screen sizes <br>
+:yellow_circle: &nbsp; Accessible on Android, iOS, Linux, MacOS, and Windows <br>
+:yellow_circle: &nbsp; Available in English and Arabic <br>
+:yellow_circle: &nbsp; Offer users multiple sign-in options <br>
+
+
 
 
 ## Team Members
