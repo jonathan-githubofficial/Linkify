@@ -88,7 +88,8 @@ Linkify is an employment focused platform for hiring managers and recruiters to 
 * **Example:** [Solves #40] Add a README.md File<br>
 
 
-## Team Members
+## Team #9 Members
+
 |   Name   | ID      | GitHub   | Email  
 | ------------- | ------------- | --------    | -------- |
 | `Jonathan Haddad`         | `40111053`         | ([GitHub/jonathan-githubofficial](https://github.com/jonathan-githubofficial))   | jonathan200023@gmail.com
