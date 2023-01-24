@@ -99,3 +99,4 @@ Linkify is an employment focused platform for hiring managers and recruiters to 
 | `Khalid Sadat`         | `40177334`         | ([GitHub/khalidsaadat](https://github.com/khalidsaadat))   | khalid_saadat@hotmail.com
 | `Saad Hanna`         | `40113826`         | ([GitHub/iq882](https://github.com/iq882))   | saadhanna882@gmail.com
 | `Daria Koroleva`         | `40096402`         | ([GitHub/daria-koroleva](https://github.com/daria-koroleva))   | dasha.koroleva499@gmail.com
+| `Mohamad Salim`           | `40111460`         | ([GitHub/MohamadGSalim](https://github.com/MohamadGSalim))   | mohammedsalim1909@hotmail.com
