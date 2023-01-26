@@ -1,15 +1,15 @@
 
 # Linkify-390
 
-This project is part of the SOEN 390 — Software Engineering Team Design Project coursework.
+This project is part of the SOEN 390 — Software Engineering Team Design Project coursework <br>
 
 ## Course Description
 
-Throughout this course, we as a team got the chance to put the knowledge and skillset we've acquired over the course of our studies to work by applying them in a real-world setting. By creating a collaborative work environment where every team member participates in every stage of the software development cycle and by following the Agile methodology, we were able to keep up with the changing demands of a typical modern workplace. Furthermore, using project management tools to monitor team progress against our devised plan, effectively communicating as a team, and then refining the plan based on our observations has made a world of difference in terms of overall project success!
+Throughout the duration of this course, we as a team got the chance to put the knowledge and skillsets we've acquired over the course of our studies to work by applying them in a real-world setting. By creating a collaborative work environment, where every team member participated in every stage of the software development lifecycle, and by following the Agile methodology, we were able to keep up with the changing demands of a typical modern workplace. Furthermore, utilisng project management tools to monitor our team's progress against our devised plan, effectively communicating as a team, and refining our plan based on our observations has made a world of difference!
 
 ## Project Description
 
-Linkify is an employment focused platform for hiring managers and recruiters to connect with potential candidates. provide students and other professionals the ability to connect with their peers, professors, and potential employers. Initially, users are asked to sign up, fill in their personal detials and select their account type (recruiter or candidate). In order for a public user to create their profile, every account must be associated with one email address. Once a user's account has been set up, they can invite others to join their network and invited users can either accept or reject the invitations they receive. Once an invitation has been accepted, conncted users can direct message and send one another a variety of different file types such as PDF, DOC, PPT and XLS. Most importantly, all DMs are moderated and reviewed to prevent potential illegal activities such as harrasment.
+Linkify is an employment focused platform for hiring managers and recruiters to connect with potential candidates giving students and other professionals the ability to connect with their peers, professors, and potential employers. Initially, users are asked to sign up, fill in their personal detials and select their account type (recruiter or candidate). In order for a public user to create their profile, every account must be associated with one email address. Once a user's account has been set up, they can invite others to join their network and invited users can opt to accept or reject the invitation. Once an invitation has been accepted, connEcted users can direct message and exchange an array of different file types such as PDF, DOC, PPT and XLS. Most importantly, all DMs are moderated and reviewed to prevent potential illegal activities such as harrasment.
 
 ## Progress
 - [ ] Sprint 1
@@ -27,11 +27,10 @@ Linkify is an employment focused platform for hiring managers and recruiters to 
 :large_blue_circle: &nbsp; Directly message connections provided both users are online <br>
 :large_blue_circle: &nbsp; Search for job and internship opportunities <br>
 :large_blue_circle: &nbsp; Receive job suggestions and alerts <br>
-:large_blue_circle: &nbsp; Apply for job position using the "Easy Apply" feature which uses a candidate's stored CV, cover letter and <br> &nbsp; &nbsp; &nbsp; &nbsp; personal information to auto-fill job applications with just one click <br>
+:large_blue_circle: &nbsp; Apply for job position using the "Easy Apply" feature which uses a candidate's stored CV, cover letter and <br> &nbsp; &nbsp; &nbsp; &nbsp; personal information to auto-fill job applications with just one click or the otherwise traditional way <br>
 :large_blue_circle: &nbsp; Clearly distinguish between job postings that can be applied to through the app from those that require <br> &nbsp; &nbsp; &nbsp; &nbsp; external applications <br>
 :large_blue_circle: &nbsp; Get personal recommendations and endorsements from peers and professors <br>
 :large_blue_circle: &nbsp; Enhance their personal branding <br>
-:large_blue_circle: &nbsp; Access a personal feed containing posts from the user's network <br>
 :large_blue_circle: &nbsp; A notifications page informing the user of all recent activities such as connection invites, jobs posted and <br> 
 &nbsp; &nbsp; &nbsp; &nbsp; followed user activities
 
@@ -39,20 +38,19 @@ Linkify is an employment focused platform for hiring managers and recruiters to 
 
 :white_circle: &nbsp; Build and maintain a professional online presence <br>
 :white_circle: &nbsp; Network and connect with classmates, alumni, and professionals in their field of interest <br>
-:white_circle: &nbsp; Directly message connections provided both users are online <br>
+:white_circle: &nbsp; Directly message connections (provided both users are online) <br>
 :white_circle: &nbsp; Manage job opportunities (add/remove/modify job postings) <br>
-:white_circle: &nbsp; Configure their job postings to indicate ehich documents are mandatory for an application <br>
+:white_circle: &nbsp; Configure their job postings to indicate which documents are mandatory for an application <br>
 :white_circle: &nbsp; Advertise or post jobs hosted on 3rd party platforms like Indeed and Glassdoor etc. <br>
 :white_circle: &nbsp; Get personal recommendations and endorsements from peers and professors <br>
 :white_circle: &nbsp; Enhance their personal branding <br>
-:white_circle: &nbsp; Access a personal feed containing posts from the recruiter's network <br>
 :white_circle: &nbsp; A notifications page informing the user of all recent activities such as connection invites, jobs posted and <br> 
 &nbsp; &nbsp; &nbsp; &nbsp; followed user activities
 
 ## Additional Features
 :purple_circle: &nbsp; Companies can have their dedicated pages <br>
 :purple_circle: &nbsp; All users can archive posts and jobs <br>
-:purple_circle: &nbsp; All users can create events and invite other to them <br>
+:purple_circle: &nbsp; All users can create events and invite others to them <br>
 :purple_circle: &nbsp; Suggest users to connect with <br>
 
 ## Technologies
