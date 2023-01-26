@@ -1,7 +1,7 @@
 
 # Linkify-390
 
-This project is part of the SOEN 390 — Software Engineering Team Design Project coursework.
+This project is part of the SOEN 390 — Software Engineering Team Design Project coursework <br>
 
 ## Course Description
 
