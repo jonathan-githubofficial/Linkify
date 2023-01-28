@@ -98,4 +98,4 @@ Linkify is an employment focused platform for hiring managers and recruiters to 
 | `Saad Hanna`         | `40113826`         | ([GitHub/iq882](https://github.com/iq882))   | saadhanna882@gmail.com
 | `Daria Koroleva`         | `40096402`         | ([GitHub/daria-koroleva](https://github.com/daria-koroleva))   | dasha.koroleva499@gmail.com
 | `Mohamad Salim`           | `40111460`         | ([GitHub/MohamadGSalim](https://github.com/MohamadGSalim))   | mohammedsalim1909@hotmail.com
-| Jean-Claude Abou-Elias      '40086851'          
+| Jean-Claude Abou-Elias      '40086851'         | ([ https://github.com/jcjc1233/jcjc1233.git))                | jeanclaudeabouelias@gmail.com 
