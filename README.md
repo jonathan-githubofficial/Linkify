@@ -12,7 +12,7 @@ Throughout the duration of this course, we as a team got the chance to put the k
 Linkify is an employment focused platform for hiring managers and recruiters to connect with potential candidates giving students and other professionals the ability to connect with their peers, professors, and potential employers. Initially, users are asked to sign up, fill in their personal detials and select their account type (recruiter or candidate). In order for a public user to create their profile, every account must be associated with one email address. Once a user's account has been set up, they can invite others to join their network and invited users can opt to accept or reject the invitation. Once an invitation has been accepted, connEcted users can direct message and exchange an array of different file types such as PDF, DOC, PPT and XLS. Most importantly, all DMs are moderated and reviewed to prevent potential illegal activities such as harrasment.
 
 ## Progress
-- [ ] Sprint 1
+- [X] Sprint 1
 - [ ] Sprint 2
 - [ ] Sprint 3
 - [ ] Sprint 4
