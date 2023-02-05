@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// connection to mongo DB using mongoose, uri is stored in .env file
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGO_URI, {
