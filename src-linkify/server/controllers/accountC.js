@@ -94,7 +94,10 @@ const updatePassword = asyncHandler(async (req, res) => {
     if (await user.matchPassword(oldPassword)) {
       user.password = newPassword;
       const updatedUser = await user.save();
-      res.json(updatedUser);
+      res.json({
+        message: "Password updated successfully",
+        id: updatedUser._id,
+      });
     } else {
       res.status(401);
       throw new Error("Old password is incorrect");
@@ -109,9 +112,12 @@ const addProfileImage = asyncHandler(async (req, res) => {
   const { id } = req.query;
   const user = await accountM.findById(id);
   if (user) {
-    user.profilePic = req.imageURL;
+    user.profilePic = req.body.imageURL;
     const updatedUser = await user.save();
-    res.json(updatedUser);
+    res.json({
+      message: "Profile image updated successfully",
+      profilePic: updatedUser.profilePic,
+    });
   } else {
     res.status(401);
     throw new Error("User not found");

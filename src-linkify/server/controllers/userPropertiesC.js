@@ -9,7 +9,10 @@ const addSkill = asyncHandler(async (req, res) => {
   if (user) {
     user.skills.push(skill);
     await user.save();
-    res.json(user);
+    res.json({
+      message: "Skill added successfully",
+      userSkillList: user.skills,
+    });
   } else {
     res.status(401);
     throw new Error("User not found");
@@ -23,7 +26,10 @@ const deleteSkill = asyncHandler(async (req, res) => {
   if (user) {
     user.skills = user.skills.filter((item) => item !== skill);
     await user.save();
-    res.json(user);
+    res.json({
+      message: "Skill deleted successfully",
+      userSkillList: user.skills,
+    });
   } else {
     res.status(401);
     throw new Error("User not found");
@@ -37,7 +43,10 @@ const addLanguage = asyncHandler(async (req, res) => {
   if (user) {
     user.languages.push(language);
     await user.save();
-    res.json(user);
+    res.json({
+      message: "Language added successfully",
+      userLanguageList: user.languages,
+    });
   } else {
     res.status(401);
     throw new Error("User not found");
@@ -51,7 +60,10 @@ const deleteLanguage = asyncHandler(async (req, res) => {
   if (user) {
     user.languages = user.languages.filter((item) => item !== language);
     await user.save();
-    res.json(user);
+    res.json({
+      message: "Language deleted successfully",
+      userLanguageList: user.languages,
+    });
   } else {
     res.status(401);
     throw new Error("User not found");
@@ -65,7 +77,10 @@ const editExperience = asyncHandler(async (req, res) => {
   if (user) {
     user.experience = experience;
     await user.save();
-    res.json(user);
+    res.json({
+      message: "Experience added successfully",
+      userExperience: user.experience,
+    });
   } else {
     res.status(401);
     throw new Error("User not found");
@@ -77,9 +92,12 @@ const addEducation = asyncHandler(async (req, res) => {
   const { id, education } = req.body;
   const user = await accountM.findById(id);
   if (user) {
-    user.education.push = education;
+    user.education.push(education);
     await user.save();
-    res.json(user);
+    res.json({
+      message: "Education added successfully",
+      userEducation: user.education,
+    });
   } else {
     res.status(401);
     throw new Error("User not found");
@@ -88,12 +106,17 @@ const addEducation = asyncHandler(async (req, res) => {
 
 // delete education
 const deleteEducation = asyncHandler(async (req, res) => {
-  const { id, education } = req.body;
+  const { id, educationId } = req.body;
   const user = await accountM.findById(id);
   if (user) {
-    user.education = user.education.filter((item) => item !== education);
+    user.education = user.education.filter(
+      (item) => item._id.toString() !== educationId
+    );
     await user.save();
-    res.json(user);
+    res.json({
+      message: "Education deleted successfully",
+      userEducation: user.education,
+    });
   } else {
     res.status(401);
     throw new Error("User not found");
@@ -107,7 +130,10 @@ const addLocation = asyncHandler(async (req, res) => {
   if (user) {
     user.location = location;
     await user.save();
-    res.json(user);
+    res.json({
+      message: "Location added successfully",
+      userLocation: user.location,
+    });
   } else {
     res.status(401);
     throw new Error("User not found");

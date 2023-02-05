@@ -8,7 +8,10 @@ const addCoverLetter = asyncHandler(async (req, res) => {
   if (user) {
     user.coverLetter.push(coverLetter);
     await user.save();
-    res.json(user);
+    res.json({
+      message: "Cover letter added successfully",
+      userCoverLetterList: user.coverLetter,
+    });
   } else {
     res.status(401);
     throw new Error("User not found");
@@ -22,7 +25,10 @@ const deleteCoverLetter = asyncHandler(async (req, res) => {
   if (user) {
     user.coverLetter = user.coverLetter.filter((item) => item !== coverLetter);
     await user.save();
-    res.json(user);
+    res.json({
+      message: "Cover letter deleted successfully",
+      userCoverLetterList: user.coverLetter,
+    });
   } else {
     res.status(401);
     throw new Error("User not found");
@@ -36,7 +42,10 @@ const addResume = asyncHandler(async (req, res) => {
   if (user) {
     user.resume.push(resume);
     await user.save();
-    res.json(user);
+    res.json({
+      message: "Resume added successfully",
+      userResunmeList: user.resume,
+    });
   } else {
     res.status(401);
     throw new Error("User not found");
@@ -50,7 +59,10 @@ const deleteResume = asyncHandler(async (req, res) => {
   if (user) {
     user.resume = user.resume.filter((item) => item !== resume);
     await user.save();
-    res.json(user);
+    res.json({
+      message: "Resume deleted successfully",
+      userResunmeList: user.resume,
+    });
   } else {
     res.status(401);
     throw new Error("User not found");
