@@ -22,25 +22,9 @@ const jobSchema = new Schema({
     type: String,
     required: true,
   },
-  skills: {
-    type: Array,
-    required: true,
-  },
-  postedBy: {
-    type: String,
-    required: true,
-  },
-  postedOn: {
-    type: Date,
-    required: true,
-  },
-  applicants: {
-    type: Array,
-    required: true,
-  },
-  status: {
-    type: String,
-    required: true,
+  user: {
+    type: mongoose.Types.ObjectId,
+    ref: "Account",
   },
 });
 

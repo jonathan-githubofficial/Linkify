@@ -36,11 +36,32 @@ const accountSchema = new mongoose.Schema({
   experience: {
     type: Number,
     required: false,
+    default: 0,
   },
-  education: {
-    type: Array,
-    required: false,
-  },
+  education: [
+    {
+      school: {
+        type: String,
+        required: true,
+      },
+      degree: {
+        type: String,
+        required: true,
+      },
+      fieldOfStudy: {
+        type: String,
+        required: true,
+      },
+      from: {
+        type: Date,
+        required: true,
+      },
+      to: {
+        type: Date,
+        required: true,
+      },
+    },
+  ],
   location: {
     type: String,
     required: false,
@@ -57,38 +78,53 @@ const accountSchema = new mongoose.Schema({
     type: Array,
     required: false,
   },
-  appliedJobs: {
-    type: Array,
-    required: false,
-  },
-  postedJobs: {
-    type: Array,
-    required: false,
-  },
-  savedJobs: {
-    type: Array,
-    required: false,
-  },
-  savedCompanies: {
-    type: Array,
-    required: false,
-  },
-  savedProfiles: {
-    type: Array,
-    required: false,
-  },
-  connections: {
-    type: Array,
-    required: false,
-  },
+  jobs: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Job",
+      required: false,
+    },
+  ],
+  appliedJobs: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Job",
+    },
+  ],
+  postedJobs: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Job",
+    },
+  ],
+  savedJobs: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Job",
+    },
+  ],
+  connections: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Account",
+    },
+  ],
+  connectionRequests: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Account",
+    },
+  ],
   notifications: {
     type: Array,
     required: false,
   },
-  messages: {
-    type: Array,
-    required: false,
-  },
+  messages: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Message",
+    },
+  ],
   createdAt: {
     type: Date,
     default: Date.now,
@@ -109,6 +145,6 @@ accountSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-const accountM = mongoose.model("account", accountSchema);
+const accountM = mongoose.model("Account", accountSchema);
 
 module.exports = accountM;

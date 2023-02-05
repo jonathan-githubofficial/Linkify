@@ -105,6 +105,19 @@ const updatePassword = asyncHandler(async (req, res) => {
   }
 });
 
+const addProfileImage = asyncHandler(async (req, res) => {
+  const { id } = req.query;
+  const user = await accountM.findById(id);
+  if (user) {
+    user.profilePic = req.imageURL;
+    const updatedUser = await user.save();
+    res.json(updatedUser);
+  } else {
+    res.status(401);
+    throw new Error("User not found");
+  }
+});
+
 const deleteUser = asyncHandler(async (req, res) => {
   const { id } = req.query;
   const user = await accountM.findById(id);
@@ -128,4 +141,5 @@ module.exports = {
   updateUser,
   deleteUser,
   updatePassword,
+  addProfileImage,
 };
