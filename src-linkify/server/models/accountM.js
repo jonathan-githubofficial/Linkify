@@ -20,6 +20,79 @@ const accountSchema = new mongoose.Schema({
     required: true,
     default: false,
   },
+  isRecruiter: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  skills: {
+    type: Array,
+    required: false,
+  },
+  languages: {
+    type: Array,
+    required: false,
+  },
+  experience: {
+    type: Number,
+    required: false,
+  },
+  education: {
+    type: Array,
+    required: false,
+  },
+  location: {
+    type: String,
+    required: false,
+  },
+  profilePic: {
+    type: String,
+    required: false,
+  },
+  resume: {
+    type: Array,
+    required: false,
+  },
+  coverLetter: {
+    type: Array,
+    required: false,
+  },
+  appliedJobs: {
+    type: Array,
+    required: false,
+  },
+  postedJobs: {
+    type: Array,
+    required: false,
+  },
+  savedJobs: {
+    type: Array,
+    required: false,
+  },
+  savedCompanies: {
+    type: Array,
+    required: false,
+  },
+  savedProfiles: {
+    type: Array,
+    required: false,
+  },
+  connections: {
+    type: Array,
+    required: false,
+  },
+  notifications: {
+    type: Array,
+    required: false,
+  },
+  messages: {
+    type: Array,
+    required: false,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 // encrypting password before saving
