@@ -87,6 +87,24 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 });
 
+const updatePassword = asyncHandler(async (req, res) => {
+  const { id, oldPassword, newPassword } = req.body;
+  const user = await accountM.findById(id);
+  if (user) {
+    if (await user.matchPassword(oldPassword)) {
+      user.password = newPassword;
+      const updatedUser = await user.save();
+      res.json(updatedUser);
+    } else {
+      res.status(401);
+      throw new Error("Old password is incorrect");
+    }
+  } else {
+    res.status(401);
+    throw new Error("User not found");
+  }
+});
+
 const deleteUser = asyncHandler(async (req, res) => {
   const { id } = req.query;
   const user = await accountM.findById(id);
@@ -109,4 +127,5 @@ module.exports = {
   getUserByMail,
   updateUser,
   deleteUser,
+  updatePassword,
 };
