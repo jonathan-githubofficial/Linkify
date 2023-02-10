@@ -1,8 +1,9 @@
 import React from "react";
 import {Link} from 'react-router-dom';
 
-import profile_pic from '../static/images/profile.jpg'
+import profile_pic from '../../static/images/profile.jpg'
 import { BsHandbag } from 'react-icons/bs';
+import { FaSuitcase } from 'react-icons/fa';
 
 
 function DaisyNavbar() {
@@ -32,7 +33,7 @@ function DaisyNavbar() {
             <div className="navbar-end">
                 <Link to="/jobs">
                     <div className="mr-2 btn btn-ghost btn-circle" style={{fontSize: "20px"}}>
-                        <BsHandbag />
+                        <FaSuitcase />
                     </div>
                 </Link>
                 <div className="dropdown dropdown-end mr-5">

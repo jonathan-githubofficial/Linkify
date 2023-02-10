@@ -1,6 +1,6 @@
 import React from 'react';
-import Navbar from './components/Navbar';
-import DaisyNavbar from './components/DaisyNavbar';
+
+import DaisyNavbar from './components/shared/DaisyNavbar';
 import {BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Jobs from './pages/Jobs';
