@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet'
 
 function Profile() {
   return (
-    <div className='container mx-auto px-5'>
+    <div className='container mx-auto px-5 mt-5'>
         <Helmet>
             <meta charSet='utf-8' />
             <title>User Profile</title>

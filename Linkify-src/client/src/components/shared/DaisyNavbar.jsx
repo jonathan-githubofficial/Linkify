@@ -8,7 +8,7 @@ import { FaSuitcase } from 'react-icons/fa';
 
 function DaisyNavbar() {
     return (
-        <div className="navbar bg-base-100 shadow-md pt-2 px-10 mb-5 flex">            
+        <div className="navbar bg-base-100 shadow-md pt-2 px-10 flex bg-transparent">            
             <div className="navbar-start">
                 <div className="dropdown">
                     <Link to="/">
@@ -26,7 +26,7 @@ function DaisyNavbar() {
                 </div>
             </div>
             <div className="navbar-center hidden lg:block">
-                <div className="form-control w-96">
+                <div className="form-control w-[47rem]">
                     <input type="text" placeholder="Search Linkify..." className="input input-bordered" />
                 </div>
             </div>
@@ -42,7 +42,7 @@ function DaisyNavbar() {
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
                             </svg>
-                            <span className="badge badge-sm indicator-item">8</span>
+                            {/* <span className="badge badge-sm indicator-item">8</span> */}
                         </div>
                     </label>
                     <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">
