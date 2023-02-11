@@ -5,6 +5,8 @@ import profile_pic from '../../static/images/profile.jpg'
 import { BsHandbag } from 'react-icons/bs';
 import { FaSuitcase } from 'react-icons/fa';
 
+import logo from '../../static/images/logo.svg'
+
 
 function DaisyNavbar() {
     return (
@@ -12,15 +14,16 @@ function DaisyNavbar() {
             <div className="navbar-start">
                 <div className="dropdown">
                     <Link to="/">
-                        <h1 className="font-semibold uppercase text-lg text-gray-200">
-                            <img
-                                className="mx-auto h-7 w-auto"
-                                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                                alt="Linkify"
-                            />
-                            <span className="text-black"> 
+                        <img
+                            className="h-10"
+                            src={logo}
+                            alt="Linkify"
+                        />
+                        <h1 className="">
+                            
+                            {/* <span className="text-black"> 
                                 Linkify
-                            </span>
+                            </span> */}
                         </h1>
                     </Link>
                 </div>
