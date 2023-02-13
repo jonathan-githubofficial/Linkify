@@ -2,7 +2,10 @@ const accountM = require("../models/accountM.js");
 const asyncHandler = require("express-async-handler");
 
 const login = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
+  // const email = req.query.email;
+  // const password = req.query.password;
+  const {email, password} = req.query;
+
   const user = await accountM.findOne({ email });
   if (user && (await user.matchPassword(password))) {
     res.json({
@@ -19,12 +22,12 @@ const login = asyncHandler(async (req, res) => {
 });
 
 const registerUser = asyncHandler(async (req, res) => {
-  const user = await accountM.findOne({ email: req.body.email });
+  const user = await accountM.findOne({ email: req.query.email });
   if (user) {
     res.status(400);
     throw new Error("User already exists");
   } else {
-    const { name, email, password } = req.body;
+    const { name, email, password } = req.query;
     const newUser = await accountM.create({
       name,
       email,
