@@ -61,7 +61,7 @@ const getUserDetailsById = asyncHandler(async (req, res) => {
 });
 
 const getUserByMail = asyncHandler(async (req, res) => {
-  const { email } = req.body;
+  const { email } = req.query;
   const user = await accountM.findOne({ email });
   if (user) {
     res.json(user);

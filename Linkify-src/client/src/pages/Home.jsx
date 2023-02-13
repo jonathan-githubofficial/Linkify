@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet'
+
+import axios from 'axios'
 
 import '../static/css/index.css'
 
@@ -11,6 +13,9 @@ import profile_pic from '../static/images/profile.jpg'
 import firstFeed from '../static/local_feed'
 
 function Home() {
+
+  
+
   return (
     
     <div>
