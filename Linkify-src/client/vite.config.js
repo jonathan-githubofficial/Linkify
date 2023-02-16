@@ -3,5 +3,11 @@ import reactRefresh from '@vitejs/plugin-react-refresh'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [reactRefresh()]
+  plugins: [reactRefresh()],
+  server: {
+    // host: true
+    proxy: {
+      '/api': 'http://localhost:8080'
+    }
+  }
 })
