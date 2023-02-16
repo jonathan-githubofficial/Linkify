@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 
 import axios from 'axios'
@@ -14,7 +14,21 @@ import firstFeed from '../static/local_feed'
 
 function Home() {
 
-  
+  var email = 'test1@gmail.com';
+  const [user, setUser] = useState([]);
+
+  useEffect (() => {
+    axios.get('/api/account/userbymail?', {
+        params: {email}
+    })
+        .then(res => {
+            setUser(res.data)
+        }).catch(err => {
+            console.log(err)
+        })
+  }, [])
+
+  var skills = user.skills;
 
   return (
     
@@ -40,6 +54,12 @@ function Home() {
                       <p>Software Engineer</p>
                       <p>My Company Inc.</p>
                     </div>
+                    <hr />
+                    <div className="side-user-info items-left italic">
+                      <p>Skills:
+                        {skills}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -49,6 +69,7 @@ function Home() {
               <div class="flex flex-col my-auto items-center bgimg bg-cover">
                 {firstFeed.map(feed => (
                   <div className="sm:w-2/3 lg:w-4/5 p-5 mb-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 text-black">
+                    
                     <div className="flex items-center justify-left">
                       <div className="flex items-center">
                         <div className='avatar'>

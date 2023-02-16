@@ -22,7 +22,7 @@ app.use(function(req, res, next) {
 
 app.use(express.json());
 
-app.use("/account", userRouter);
+app.use("/api/account", userRouter);
 app.use("/user/cv", cvRouter);
 app.use("/user/property", userPropertyRouter);
 app.use("/user/connection", connectionRoutes);

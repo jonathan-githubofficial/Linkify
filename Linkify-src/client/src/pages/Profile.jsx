@@ -5,13 +5,15 @@ import { Helmet } from 'react-helmet'
 import axios from 'axios'
 
 function Profile() {
-    var id = '63e144d738f480e203faffdc';
+    // var id = '63e144d738f480e203faffdc';
+    // var email = 'test1@gmail.com';
+    var email = 'khalid@test.com';
 
     const [profile, setProfile] = useState([])
 
     useEffect (() => {
-        axios.get('/api/account/getUser?', {
-            params: {id}
+        axios.get('/api/account/userbymail?', {
+            params: {email}
         })
             .then(res => {
                 setProfile(res.data)
@@ -19,6 +21,9 @@ function Profile() {
                 console.log(err)
             })
     }, [])
+
+    var first_job = profile.jobs;
+    console.log(profile.skills);
 
     return (
         <div className='container mx-auto px-5 mt-5'>
