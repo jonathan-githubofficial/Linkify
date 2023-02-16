@@ -6,18 +6,15 @@ import { MdWarning } from "react-icons/md";
 import { FaCheckCircle } from "react-icons/fa";
 import { FaUsers } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
-
 import axios from 'axios'
-import firstFeed from '../static/local_feed'
-import { RiSendPlaneFill } from 'react-icons/ri'
-import { SlLike } from "react-icons/sl"
+
 
 
 function Jobs() {
 
     var email = 'test1@gmail.com';
     const [user, setUser] = useState([]);
-  
+
     useEffect (() => {
       axios.get('/api/account/userbymail?', {
           params: {email}
@@ -28,9 +25,9 @@ function Jobs() {
               console.log(err)
           })
     }, [])
-  
+
     var skills = user.skills;
-  
+
 
     const jobData = [
         {
@@ -111,20 +108,86 @@ function Jobs() {
                     {/* Jobs */}
                     <div class="w-100 lg:w-2/3">
                         <div class="flex flex-col my-auto items-center bgimg bg-cover">
-                            {firstFeed.map(feed => (
-                            <div className="sm:w-2/3 lg:w-4/5 p-5 mb-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 text-black">
-                                
-                                <div className="">
-                                    <figure><img src="/images/stock/photo-1635805737707-575885ab0820.jpg" alt="Movie"/></figure>
-                                    <div className="card-body">
-                                        {/* Your loop here */}
-                                        <h2 className="card-title">New movie is released!</h2>
-                                        <p>Click the button to watch on Jetflix app.</p>
-                                        <div className="card-actions justify-end">
-                                            <button className="btn btn-primary">Watch</button>
+                            {jobData.map((job, index)=> (
+                            <div className="sm:w-2/3 lg:w-4/5 items-center text-center p-5 mb-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 text-black">
+                                    <div className='avatar'>
+                                        <div className="px-4 py-4 lg:w-60">
+                                            <img src={profile_pic} />
                                         </div>
                                     </div>
-                                </div>
+                                    <div className="card-body text-center items-center">
+                                        {/* Your loop here */}
+                                        <h2 className="card-title">{job.title}</h2>
+                                        <p>{job.company}</p>
+                                        <p>{job.location}</p>
+                                        <div className="flex flex-row">
+                                            <div className="flex flex-col card-actions items-center px-2 pt-10">
+                                                <div className="" style={{fontSize: "20px"}}>
+                                                    <FaPaperPlane />
+                                                </div>
+                                                <p className="text-center font-semibold text-sm text-gray-500">
+                                                    Sent
+                                                </p>
+                                                <div className={`h-3 w-20 mb-2 ${
+                                                    job.sent ? "bg-blue-500" : "bg-gray-500"
+                                                }`}
+                                                ></div>
+
+                                            </div>
+                                            <div className="flex flex-col card-actions items-center px-2 pt-10">
+                                                <div className="" style={{fontSize: "20px"}}>
+                                                    <FaCheckCircle/>
+                                                </div>
+                                                <p className="text-center font-semibold text-sm text-gray-500">
+                                                    Confirmation
+                                                </p>
+                                                <div className={`h-3 w-20 mb-2 ${
+                                                    job.confirmation ? "bg-blue-500" : "bg-gray-500"
+                                                }`}
+                                                ></div>
+
+                                            </div>
+                                            <div className="flex flex-col card-actions items-center px-2 pt-10">
+                                                <div className="" style={{fontSize: "20px"}}>
+                                                    <MdWarning />
+                                                </div>
+                                                <p className="text-center font-semibold text-sm text-gray-500">
+                                                    Action Needed
+                                                </p>
+                                                <div className={`h-3 w-20 mb-2 ${
+                                                    job.action ? "bg-blue-500" : "bg-gray-500"
+                                                }`}
+                                                ></div>
+
+                                            </div>
+                                            <div className="flex flex-col card-actions items-center px-2 pt-10">
+                                                <div className="" style={{fontSize: "20px"}}>
+                                                    <FaUsers />
+                                                </div>
+                                                <p className="text-center font-semibold text-sm text-gray-500">
+                                                    Interview
+                                                </p>
+                                                <div className={`h-3 w-20 mb-2 ${
+                                                    job.interview ? "bg-blue-500" : "bg-gray-500"
+                                                }`}
+                                                ></div>
+
+                                            </div>
+                                            <div className="flex flex-col card-actions items-center px-2 pt-10">
+                                                <div className="" style={{fontSize: "20px"}}>
+                                                    <FaStar />
+                                                </div>
+                                                <p className="text-center font-semibold text-sm text-gray-500">
+                                                    Offer
+                                                </p>
+                                                <div className={`h-3 w-20 mb-2 ${
+                                                    job.offer ? "bg-blue-500" : "bg-gray-500"
+                                                }`}
+                                                ></div>
+
+                                            </div>
+                                        </div>
+                                    </div>
 
                             </div>
                             ))}
