@@ -1,31 +1,33 @@
 import React from 'react';
-import Navbar from './components/Navbar';
-import DaisyNavbar from './components/DaisyNavbar';
-import NewNavbar from './components/NewNavbar';
+
+import './static/css/index.css'
 import {BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import Jobs from './pages/Jobs';
-import Profile from './pages/Profile';
-import Login from './pages/auth/Login';
-import Register from './pages/auth/Register';
-import Notifications from './pages/Notifications';
+
+import RegularRoutes from './routes/generalRoutes';
+import AuthRoutes from './routes/authRoutes';
+
+
 
 function App() {
-  return (
-    <Router>
-    <div>
-      <DaisyNavbar />
-      <Routes>
-        <Route path="/" element={<Home />}/>
-        <Route path="/jobs" element={<Jobs />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/notifications" element={<Notifications />} />
-      </Routes>
-    </div>
-    </Router>
-  )
+  let res = "reg";
+
+  if (res == "reg") {
+    return (
+      <Router>
+          <RegularRoutes />
+      </Router>
+    )
+  }
+  else {
+    return (
+      <div className='root-bg'>
+        <Router>
+          <AuthRoutes />
+        </Router>
+      </div>
+    )
+  }
 }
 
 export default App
+
