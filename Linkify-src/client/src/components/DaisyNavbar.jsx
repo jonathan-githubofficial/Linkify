@@ -1,35 +1,38 @@
 import React from "react";
 import {Link} from 'react-router-dom';
 
-import profile_pic from '../../static/images/profile.jpg'
-import { FaSuitcase } from 'react-icons/fa';
-
-import logo from '../../static/images/logo.svg'
+import profile_pic from '../static/images/profile.jpg'
+import { BsHandbag } from 'react-icons/bs';
 
 
 function DaisyNavbar() {
     return (
-        <div className="navbar bg-base-100 shadow-md pt-2 px-10 flex bg-transparent">            
+        <div className="navbar bg-base-100 shadow-md pt-2 px-10 mb-5 flex">            
             <div className="navbar-start">
                 <div className="dropdown">
                     <Link to="/">
-                        <img
-                            className="h-10"
-                            src={logo}
-                            alt="Linkify"
-                        />
+                        <h1 className="font-semibold uppercase text-lg text-gray-200">
+                            <img
+                                className="mx-auto h-7 w-auto"
+                                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                                alt="Linkify"
+                            />
+                            <span className="text-black"> 
+                                Linkify
+                            </span>
+                        </h1>
                     </Link>
                 </div>
             </div>
             <div className="navbar-center hidden lg:block">
-                <div className="form-control w-[47rem]">
+                <div className="form-control w-96">
                     <input type="text" placeholder="Search Linkify..." className="input input-bordered" />
                 </div>
             </div>
             <div className="navbar-end">
                 <Link to="/jobs">
                     <div className="mr-2 btn btn-ghost btn-circle" style={{fontSize: "20px"}}>
-                        <FaSuitcase />
+                        <BsHandbag />
                     </div>
                 </Link>
 
@@ -47,7 +50,7 @@ function DaisyNavbar() {
                         </div>
                     </div>
                 </Link>
-                
+
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
