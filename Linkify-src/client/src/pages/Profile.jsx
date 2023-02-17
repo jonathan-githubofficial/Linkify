@@ -15,6 +15,8 @@ import google_icon from '../static/images/companies/google.png'
 import microsoft_icon from '../static/images/companies/microsoft.png'
 import meta_icon from '../static/images/companies/meta.png'
 
+import localExperiences from '../static/local_experience'
+
 function Profile() {
     // var id = '63e144d738f480e203faffdc';
     // var email = 'test1@gmail.com';
@@ -86,102 +88,44 @@ function Profile() {
                                 </div>
                             </div>
                             <hr />
-
-                            {/* Experiences */}
                             <div className='p-5'>
-                                <div>
-                                    <h1 className='text-xl font-semibold mb-5'>Experience</h1>
-                                    <div className="flex justify-left mt-2">
-                                        <div className="flex items-start">
-                                            <div className='avatar'>
-                                                <div className="w-12">
-                                                    <img src={google_icon} />
+                                <h1 className='text-xl font-semibold mb-5'>Experience</h1>
+                                {localExperiences.map(experience => (
+                                    <div>
+                                        <div className="flex justify-left mt-2">
+                                            <div className="flex items-start">
+                                                <div className='avatar'>
+                                                    <div className="w-12">
+                                                        <img src={experience.company_logo} />
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div className="flex flex-col pl-5">
-                                                <p className="text-lg lg:text-xl">Software Engineer</p>
-                                                <span className="text-s">Google Inc.</span>
-                                                <span className='text-xs mt-1'>May 2022 - Present</span>
-                                                <span className='text-xs mt-1'>
-                                                    United States
-                                                </span>
-                                                <div className='mt-2'>
-                                                    <p className='text-s'>
-                                                        - Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                                                    </p>
-                                                    <p>
-                                                        - Voluptatibus quia, nulla! Maiores et perferendis eaque.
-                                                    </p>
-                                                    <p>
-                                                        - Exercitationem praesentium nihil.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr className='mt-5' />
-
-                                    <div className="flex items-center justify-left mt-2">
-                                        <div className="flex items-start">
-                                            <div className='avatar'>
-                                            <div className="w-12">
-                                                <img src={microsoft_icon} />
-                                            </div>
-                                            </div>
-                                            <div className="flex flex-col pl-5">
-                                                <p className="text-lg lg:text-xl">Software Engineer Intern</p>
-                                                <span className="text-s">Microsoft Inc.</span>
-                                                <span className='text-xs mt-1'>December 2021 - April 2022</span>
-                                                <span className='text-xs mt-1'>
-                                                    United States
-                                                </span>
-                                                <div className='mt-2'>
-                                                    <p className='text-s'>
-                                                        - Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                                                    </p>
-                                                    <p>
-                                                        - Voluptatibus quia, nulla! Maiores et perferendis eaque.
-                                                    </p>
-                                                    <p>
-                                                        - Exercitationem praesentium nihil.
-                                                    </p>
+                                                <div className="flex flex-col pl-5">
+                                                    <p className="text-lg lg:text-xl">Software Engineer</p>
+                                                    <span className="text-s">Google Inc.</span>
+                                                    <span className='text-xs mt-1'>May 2022 - Present</span>
+                                                    <span className='text-xs mt-1'>
+                                                        United States
+                                                    </span>
+                                                    <div className='mt-2'>
+                                                        <p className='text-s'>
+                                                            - Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                                        </p>
+                                                        <p>
+                                                            - Voluptatibus quia, nulla! Maiores et perferendis eaque.
+                                                        </p>
+                                                        <p>
+                                                            - Exercitationem praesentium nihil.
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <hr className='mt-5' />
                                     </div>
-                                    <hr className='mt-5' />
-
-                                    <div className="flex items-center justify-left mt-2">
-                                        <div className="flex items-start">
-                                            <div className='avatar'>
-                                            <div className="w-12">
-                                                <img src={meta_icon} />
-                                            </div>
-                                            </div>
-                                            <div className="flex flex-col pl-5">
-                                                <p className="text-lg lg:text-xl">QA Engineer Intern</p>
-                                                <span className="text-s">Meta Inc.</span>
-                                                <span className='text-xs mt-1'>January 2021 - May 201</span>
-                                                <span className='text-xs mt-1'>
-                                                    United States
-                                                </span>
-                                                <div className='mt-2'>
-                                                    <p className='text-s'>
-                                                        - Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                                                    </p>
-                                                    <p>
-                                                        - Voluptatibus quia, nulla! Maiores et perferendis eaque.
-                                                    </p>
-                                                    <p>
-                                                        - Exercitationem praesentium nihil.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr className='mt-5' />
-                                </div>
+                                ))}
                             </div>
+
+                            
                         </div>
 
                         {/* My Connections */}
