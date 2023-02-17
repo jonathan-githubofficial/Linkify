@@ -12,10 +12,12 @@ import profile_pic from '../static/images/profile.jpg'
 import profile_cover from '../static/images/profile-cover.png'
 
 import google_icon from '../static/images/companies/google.png'
-import microsoft_icon from '../static/images/companies/microsoft.png'
-import meta_icon from '../static/images/companies/meta.png'
+
+import concordia_icon from '../static/images/education/concordia.png'
+import vanier_icon from '../static/images/education/vanier.png'
 
 import localExperiences from '../static/local_experience'
+import localEducation from '../static/local_education'
 
 function Profile() {
     // var id = '63e144d738f480e203faffdc';
@@ -48,7 +50,7 @@ function Profile() {
                 <div class="flex-auto w-full md:w-3/4 lg:w-4/5 lg:p-5">
                     <div className="flex lg:gap-8">
                         {/* Profile */}
-                        <div class="w-full lg:w-3/4 bg-white relative lg:rounded-xl">
+                        <div class="w-full lg:w-3/4 bg-white relative lg:rounded-t-xl">
                             {/* Cover Picture with Name */}
                             <div class="">
                                 <img src={profile_cover} className='lg:rounded-t-xl'/>
@@ -88,6 +90,8 @@ function Profile() {
                                 </div>
                             </div>
                             <hr />
+                            
+                            {/* Experience */}
                             <div className='p-5'>
                                 <h1 className='text-xl font-semibold mb-5'>Experience</h1>
                                 {localExperiences.map(experience => (
@@ -100,9 +104,9 @@ function Profile() {
                                                     </div>
                                                 </div>
                                                 <div className="flex flex-col pl-5">
-                                                    <p className="text-lg lg:text-xl">Software Engineer</p>
-                                                    <span className="text-s">Google Inc.</span>
-                                                    <span className='text-xs mt-1'>May 2022 - Present</span>
+                                                    <p className="text-lg lg:text-xl">{experience.position}</p>
+                                                    <span className="text-sm">{experience.company}</span>
+                                                    <span className='text-xs mt-1'>{experience.startDate} - {experience.endDate}</span>
                                                     <span className='text-xs mt-1'>
                                                         United States
                                                     </span>
@@ -122,6 +126,38 @@ function Profile() {
                                         </div>
                                         <hr className='mt-5' />
                                     </div>
+                                ))}
+                            </div>
+
+                            {/* Education */}
+                            <div className='p-5'>
+                                <h1 className='text-xl font-semibold mb-5'>Education</h1>
+                                {localEducation.map(education => (
+                                    <div>
+                                        <div className="flex justify-left mt-2">
+                                            <div className="flex items-start">
+                                                <div className='avatar'>
+                                                    <div className="w-12">
+                                                        <img src={education.school_logo} className='eduLogo' />
+                                                    </div>
+                                                </div>
+                                                <div className="flex flex-col pl-5">
+                                                    <p className="text-lg lg:text-xl">{education.school_name}</p>
+                                                    <span className="text-sm">{education.degree}</span>
+                                                    <span className='text-xs mt-1'>{education.startDate} - {education.endDate}</span>
+
+                                                    <div className='mt-2'>
+                                                        <p className='text-s'>
+                                                            - {education.description}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr className='mt-5' />
+                                    </div>
+
+                                    
                                 ))}
                             </div>
 
