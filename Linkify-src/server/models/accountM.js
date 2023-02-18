@@ -35,9 +35,9 @@ const accountSchema = new mongoose.Schema({
     required: false,
   },
   experience: {
-    type: Number,
+    type: Array,
     required: false,
-    default: 0,
+    // default: 0,
   },
   education: [
     {

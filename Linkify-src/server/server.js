@@ -24,7 +24,7 @@ app.use(express.json());
 
 app.use("/api/account", userRouter);
 app.use("/user/cv", cvRouter);
-app.use("/user/property", userPropertyRouter);
+app.use("/api/user/property", userPropertyRouter);
 app.use("/user/connection", connectionRoutes);
 
 app.listen(process.env.PORT || 8080, () =>
