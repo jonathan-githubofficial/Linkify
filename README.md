@@ -55,11 +55,14 @@ Linkify is an employment focused platform for hiring managers and recruiters to 
 
 ## Technologies
 
-:radio_button: &nbsp; Flutter <br>
-:radio_button: &nbsp; Dart <br>
-:radio_button: &nbsp; Firebase <br>
-:radio_button: &nbsp; Javascript <br>
-:radio_button: &nbsp; Figma <br>
+:radio_button: &nbsp; EXPRESS <br>
+:radio_button: &nbsp; REACT.JS <br>
+:radio_button: &nbsp; MOONGODB <br>
+:radio_button: &nbsp; NODE.JS <br>
+:radio_button: &nbsp; FIREBASE <br>
+:radio_button: &nbsp; JAVASCRIPT <br>
+:radio_button: &nbsp; TAILWIND CSS<br>
+:radio_button: &nbsp; FIGMA <br>
 
 ## Testing 
 :green_circle: &nbsp; TBD <br>
