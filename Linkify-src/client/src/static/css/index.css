@@ -6,6 +6,37 @@
     background-color: #F6F8FA;
 }
 
+.primaryBtn {
+    background: #1F255E;
+}
+
+.whiteBtn {
+    background: #fff;
+    color: #1F255E;
+    border: 1px solid #797979;
+}
+
+.whiteBtn:hover {
+    background: #1F255E;
+    color: #fff;
+}
+
+.primaryBtn:hover {
+    background: #111640;
+}
+
+.primaryGray {
+    color: #797979;
+}
+
 .side-user-info p {
     font-size: 12px;
+}
+
+.editProfileBtn {
+    background: red;
+}
+
+img.eduLogo {
+    height: auto;
 }

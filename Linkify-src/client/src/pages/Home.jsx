@@ -40,9 +40,9 @@ function Home() {
 
       <div className='flex flex-col items-center mt-5'>
         <div className='w-full lg:w-2/3'>
-          <div class="flex ...">
+          <div class="flex">
             {/* Side Profile Bar */}
-            <div class="flex flex-items items-center hidden lg:block">
+            <div class="flex flex-items items-center hidden lg:block bg-gray-300">
               <div className='w-[15rem]'>
                 <div className="card bg-base-100 shadow-xl p-5">
                   <figure className="px-10 pt-10">

@@ -75,7 +75,7 @@ const getUserByMail = asyncHandler(async (req, res) => {
 });
 
 const updateUser = asyncHandler(async (req, res) => {
-  const { id, name, email, password, isAdmin } = req.body;
+  const { id, name, email, password, isAdmin } = req.query;
   const user = await accountM.findById(id);
   if (user) {
     user.name = name;
@@ -91,7 +91,7 @@ const updateUser = asyncHandler(async (req, res) => {
 });
 
 const updatePassword = asyncHandler(async (req, res) => {
-  const { id, oldPassword, newPassword } = req.body;
+  const { id, oldPassword, newPassword } = req.query;
   const user = await accountM.findById(id);
   if (user) {
     if (await user.matchPassword(oldPassword)) {
