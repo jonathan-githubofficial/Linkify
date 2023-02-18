@@ -54,15 +54,19 @@ Linkify is an employment focused platform for hiring managers and recruiters to 
 :purple_circle: &nbsp; Suggest users to connect with <br>
 
 ## Technologies
-
-:radio_button: &nbsp; EXPRESS <br>
+<br>
+FRONTEND DEVELOPMENT :  <br>
 :radio_button: &nbsp; REACT.JS <br>
-:radio_button: &nbsp; MOONGODB <br>
-:radio_button: &nbsp; NODE.JS <br>
-:radio_button: &nbsp; FIREBASE <br>
-:radio_button: &nbsp; JAVASCRIPT <br>
 :radio_button: &nbsp; TAILWIND CSS<br>
 :radio_button: &nbsp; FIGMA <br>
+<br>
+BACKEND DEVELOPMENT,DATABASES,AND ENVIRONMENT: <br>
+:radio_button: &nbsp; EXPRESS <br>
+:radio_button: &nbsp; MOONGODB <br>
+:radio_button: &nbsp; FIREBASE <br>
+:radio_button: &nbsp; NODE.JS <br>
+:radio_button: &nbsp; JAVASCRIPT <br>
+
 
 ## Testing 
 :green_circle: &nbsp; TBD <br>
