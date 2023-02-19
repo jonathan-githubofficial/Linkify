@@ -67,7 +67,7 @@ export default function Experience(props) {
                                     <input value={experience} onChange={handleExperience} placeholder="Experience" className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="text"/>
                                 </div>
                             </div>
-                            <button onClick={addExperience} className='primaryBtn btn mt-5'>Submit</button>
+                            <button onClick={addExperience} className='primaryBtn btn mt-5'>Add</button>
                             {/* <input type="submit" /> */}
                         </form>
                     </div>

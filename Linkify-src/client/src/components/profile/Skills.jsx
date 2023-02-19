@@ -29,6 +29,7 @@ export default function Skills(props) {
                 </div>
                 <SkillsModal id={id} skills={user_skills} getUser={props.getUser}/>
                 <div>
+                    {(user_skills && user_skills.length == 0) ? 'You did not add your skills yet.' : ''}
                     {user_skills && Object.keys(user_skills).map((skills_txt) => (
                         <p>&bull; {user_skills[skills_txt]}</p>
                     ))}

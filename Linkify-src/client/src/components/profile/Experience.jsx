@@ -34,7 +34,7 @@ export default function Experience(props) {
                 </div>
                 <ExperienceModal id={id} experience={experiences} getUser={props.getUser}/>
                 <div>
-                    {(experiences == null) ? 'You did not add your experience yet.' : ''}
+                    {(experiences && experiences.length == 0) ? 'You did not add your experience yet.' : ''}
                     {experiences && Object.keys(experiences).slice(0).reverse().map((exp) => {
                         var experience = experiences[exp];
                         const pos_comma_split = experience.indexOf(',');

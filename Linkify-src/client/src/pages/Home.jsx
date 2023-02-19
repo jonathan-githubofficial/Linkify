@@ -28,11 +28,33 @@ function Home() {
         })
   }, [])
 
+  const [profile, setProfile] = useState([])
+  const [user_skills, setSkills] = useState([]);
+
+
+  const getUser = () => {
+      axios.get('/api/account/userbymail?', {
+          params: {email}
+      })
+      .then(res => {
+          setProfile(res.data)
+      }).catch(err => {
+          console.log(err)
+      })
+  }
+
+  useEffect (() => {
+      getUser();
+  }, [])
+
+  useEffect(async () => {
+    setSkills(await profile.skills);
+  });
+
+
   const experiences = user.experience;
   // var occupation = experiences[experiences.length - 1];
-  var occupation = 'soft';
-
-  var skills = user.skills;
+  var occupation = '';
 
   return (
     
@@ -53,18 +75,23 @@ function Home() {
                     <img src={profile_pic} alt="Shoes" className="rounded-xl" />
                   </figure>
                   <div className="card-body items-center text-center">
-                    <h2 className="card-title">Khalid Sadat</h2>
+                    <h2 className="card-title">{profile.name}</h2>
                     <div className='side-user-info'>
                       <p>{occupation}</p>
-                      <p>My Company Inc.</p>
+                      {/* <p>My Company Inc.</p> */}
                     </div>
                     <hr />
-                    <div className="side-user-info items-left italic">
-                      {/* <p>Skills:
-                      {Object.keys(skills).map((skills_txt) => (
-                          <p>&bull; {skills[skills_txt]}</p>
-                      ))}
-                      </p> */}
+                    <div className="side-user-info items-left">
+                      <p>
+                        <span className='font-semibold'>
+                          Skills: <br />
+                        </span>
+                      {/* {user_skills && Object.keys(user_skills).map((skills_txt) => (
+                          <span>{user_skills[skills_txt]}</span>
+                      ))} */}
+                      {user_skills && Object.keys(user_skills).map(skill => user_skills[skill]).join(', ')}
+                      </p>
+                      {/* {user_skills} */}
                     </div>
                   </div>
                 </div>

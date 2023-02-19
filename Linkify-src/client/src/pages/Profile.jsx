@@ -11,7 +11,7 @@ function Profile() {
     var email = 'khalid@test.com';
 
     const [profile, setProfile] = useState([])
-
+    
     const getUser = () => {
         axios.get('/api/account/userbymail?', {
             params: {email}
@@ -26,7 +26,8 @@ function Profile() {
     useEffect (() => {
         getUser();
     }, [])
-
+    
+    
     return (
         <div className=''>
             <Helmet>
