@@ -13,7 +13,7 @@ Linkify is an employment focused platform for hiring managers and recruiters to 
 
 ## Progress
 - [X] Sprint 1
-- [ ] Sprint 2
+- [X] Sprint 2
 - [ ] Sprint 3
 - [ ] Sprint 4
 - [ ] Sprint 5
@@ -69,7 +69,19 @@ BACKEND DEVELOPMENT,DATABASES,AND ENVIRONMENT: <br>
 
 
 ## Testing 
-:green_circle: &nbsp; TBD <br>
+:green_circle: &nbsp; We use Newman to test our API endpoints. To run the tests, follow these steps:<br>
+ :green_circle: &nbsp; Install Newman:
+```
+npm install -g newman
+```
+<br>
+:green_circle: &nbsp; Run the test collection: <br>
+
+```
+newman run <collection_file>.json
+```
+
+:green_circle: &nbsp; This will execute all the requests in the collection and provide the results in the terminal. <br>
 
 ## App Specifications
 :yellow_circle: &nbsp; Responsive and can accomodate different screen sizes <br>
