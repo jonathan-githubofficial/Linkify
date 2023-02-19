@@ -91,19 +91,30 @@ newman run <collection_file>.json
 
 ## Code Management (for Github organization) 
 
-
-**:red_circle: &nbsp; Naming Convention Used For Branches** <br>
-* **Syntax:** feature-(#issue_number/Issue-Topic) <br>
-* **Example:** feature-(#40/Add-a-README.md-File) <br><br>
    
 **:red_circle: &nbsp; Naming Convention Used For Issues** <br>
 * **Syntax:** [#issue_number: FEATURE/BUG] Issue Topic <br>
-* **Example:** [#40: FEATURE] Add a README.md File <br><br>
+* **Example:** [#40: FEATURE] Add a README.md File <br>
 
 **:red_circle: &nbsp; Naming Convention Used For Pull-Requests** <br>
 * **Syntax:** [Solves #issue_number] Pull-Request Topic <br>
 * **Example:** [Solves #40] Add a README.md File<br>
 
+**:red_circle: &nbsp; Naming Convention Used For Branches** <br>
+* **Syntax:** feature-(#issue_number/Issue-Topic) <br>
+* **Example:** feature-(#40/Add-a-README.md-File) <br>
+
+**:red_circle: &nbsp; Naming Convention Used For features branches** <br>
+* **Syntax:** feature/feature_name <br>
+* **Example:** feature/job_listing<br>
+
+**:red_circle: &nbsp; Naming Convention Used For for tasks branches** <br>
+* **Syntax:**  task/task_name <br>
+* **Example:** task/user_integration <br>
+
+:red_circle: &nbsp; Naming Convention Used For Variables <br>
+* **Syntax:** CamelCase <br>
+* **Example:** userName, userEmail, jobListing, taskName<br>
 
 ## Team #9 Members
 
