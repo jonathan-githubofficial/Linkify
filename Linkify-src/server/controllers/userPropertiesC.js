@@ -29,7 +29,7 @@ const addSkill = asyncHandler(async (req, res) => {
 // Function to delete a skill from the user's skills list
 const deleteSkill = asyncHandler(async (req, res) => {
   // Destructure the id and skill from the request body
-  const { id, skill } = req.body;
+  const { id, skill } = req.query;
   // Find the user with the given id
   const user = await accountM.findById(id);
   // If the user is found
@@ -97,7 +97,8 @@ const editExperience = asyncHandler(async (req, res) => {
   const { id, experience } = req.body;
   const user = await accountM.findById(id);
   if (user) {
-    user.experience = experience;
+    // user.experience = experience;
+    user.experience.push(experience);
     await user.save();
     res.json({
       message: "Experience added successfully",
@@ -109,9 +110,10 @@ const editExperience = asyncHandler(async (req, res) => {
   }
 });
 
+
 // add education
 const addEducation = asyncHandler(async (req, res) => {
-  const { id, education } = req.body;
+  const { id, education } = req.query;
   const user = await accountM.findById(id);
   if (user) {
     user.education.push(education);

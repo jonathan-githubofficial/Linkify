@@ -14,7 +14,7 @@ import firstFeed from '../static/local_feed'
 
 function Home() {
 
-  var email = 'test1@gmail.com';
+  var email = 'khalid@test.com';
   const [user, setUser] = useState([]);
 
   useEffect (() => {
@@ -28,7 +28,33 @@ function Home() {
         })
   }, [])
 
-  var skills = user.skills;
+  const [profile, setProfile] = useState([])
+  const [user_skills, setSkills] = useState([]);
+
+
+  const getUser = () => {
+      axios.get('/api/account/userbymail?', {
+          params: {email}
+      })
+      .then(res => {
+          setProfile(res.data)
+      }).catch(err => {
+          console.log(err)
+      })
+  }
+
+  useEffect (() => {
+      getUser();
+  }, [])
+
+  useEffect(async () => {
+    setSkills(await profile.skills);
+  });
+
+
+  const experiences = user.experience;
+  // var occupation = experiences[experiences.length - 1];
+  var occupation = '';
 
   return (
     
@@ -42,23 +68,30 @@ function Home() {
         <div className='w-full lg:w-2/3'>
           <div class="flex">
             {/* Side Profile Bar */}
-            <div class="flex flex-items items-center hidden lg:block bg-gray-300">
+            <div class="flex flex-items items-center hidden lg:block">
               <div className='w-[15rem]'>
                 <div className="card bg-base-100 shadow-xl p-5">
                   <figure className="px-10 pt-10">
                     <img src={profile_pic} alt="Shoes" className="rounded-xl" />
                   </figure>
                   <div className="card-body items-center text-center">
-                    <h2 className="card-title">Khalid Sadat</h2>
+                    <h2 className="card-title">{profile.name}</h2>
                     <div className='side-user-info'>
-                      <p>Software Engineer</p>
-                      <p>My Company Inc.</p>
+                      <p>{occupation}</p>
+                      {/* <p>My Company Inc.</p> */}
                     </div>
                     <hr />
-                    <div className="side-user-info items-left italic">
-                      <p>Skills:
-                        {skills}
+                    <div className="side-user-info items-left">
+                      <p>
+                        <span className='font-semibold'>
+                          Skills: <br />
+                        </span>
+                      {/* {user_skills && Object.keys(user_skills).map((skills_txt) => (
+                          <span>{user_skills[skills_txt]}</span>
+                      ))} */}
+                      {user_skills && Object.keys(user_skills).map(skill => user_skills[skill]).join(', ')}
                       </p>
+                      {/* {user_skills} */}
                     </div>
                   </div>
                 </div>
@@ -128,120 +161,6 @@ function Home() {
 
                   </div>
                 ))}
-
-                {/* <div className="w-96 lg:w-[40%] p-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 text-black">
-                  <div className="flex items-center justify-left">
-                    <div className="flex items-center">
-                      <div className='avatar'>
-                        <div className="w-10 rounded-full">
-                            <img src={profile_pic} />
-                        </div>
-                      </div>
-                      <div className="flex flex-col pl-5">
-                          <p className="text-2xl">Khalid Sadat</p>
-                          <span className="text-xs">Software Engineer</span>
-                          <span className='text-xs'>3h</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex mt-5">
-                    <p className="text-gray-700 text-base">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-                    </p>
-                  </div>
-
-                  <div className="mt-5">
-                    <div className="grid grid-col-2 mb-2">
-                      <div class="grid grid-cols-2 gap-2">
-                        <div>
-                          <div className='flex items-center mb-'>
-                            <SlLike />
-                            <label className='text-sm pl-2'>2</label>
-                          </div>
-                        </div>
-                        
-                        <div className='text-right text-sm'>
-                          3 Comments
-                        </div>
-                      </div>
-                    </div>
-                    <hr />
-                  </div>
-
-                  <div className="mt-5">
-                    <div class="grid grid-cols-10 gap-3">
-                      <div class="col-span-9">
-                        <input type="text" placeholder="Write Comment..." class="input input-bordered input-sm w-full" />
-                      </div>
-                      <div className="grid place-items-center">
-                        <div>
-                          <button className="btn btn-circle btn-sm text-xl">
-                              <RiSendPlaneFill />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-
-                <div className="w-96 lg:w-[40%] p-5 mt-5 darkbg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 text-black">
-                  <div class="flex items-center justify-left">
-                    <div class="flex items-center">
-                      <div className='avatar'>
-                        <div className="w-10 rounded-full">
-                            <img src={profile_pic} />
-                        </div>
-                      </div>
-                      <div class="flex flex-col pl-5">
-                          <p class="text-2xl">Team SOEN 390</p>
-                          <span class="text-xs">Team Project</span>
-                          <span className='text-xs'>3d</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex mt-5">
-                    <p className="text-gray-700 text-base">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-                    </p>
-                  </div>
-
-                  <div className="mt-5">
-                    <div className="grid grid-col-2 mb-2">
-                      <div class="grid grid-cols-2 gap-2">
-                        <div>
-                          <div className='flex items-center mb-'>
-                            <SlLike />
-                            <label className='text-sm pl-2'>40k</label>
-                          </div>
-                        </div>
-                        
-                        <div className='text-right text-sm'>
-                          3.5k Comments
-                        </div>
-                      </div>
-                    </div>
-                    <hr />
-                  </div>
-
-                  <div className="mt-5">
-                    <div class="grid grid-cols-10 gap-3">
-                      <div class="col-span-9">
-                        <input type="text" placeholder="Write Comment..." class="input input-bordered input-sm w-full" />
-                      </div>
-                      <div className="grid place-items-center">
-                        <div>
-                          <button className="btn btn-circle btn-sm text-xl">
-                              <RiSendPlaneFill />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                </div> */}
 
               </div>
             </div>
