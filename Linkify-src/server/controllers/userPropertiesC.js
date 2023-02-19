@@ -94,10 +94,11 @@ const deleteLanguage = asyncHandler(async (req, res) => {
 
 // add experience
 const editExperience = asyncHandler(async (req, res) => {
-  const { id, experience } = req.query;
+  const { id, experience } = req.body;
   const user = await accountM.findById(id);
   if (user) {
-    user.experience = experience;
+    // user.experience = experience;
+    user.experience.push(experience);
     await user.save();
     res.json({
       message: "Experience added successfully",
@@ -108,6 +109,7 @@ const editExperience = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 });
+
 
 // add education
 const addEducation = asyncHandler(async (req, res) => {

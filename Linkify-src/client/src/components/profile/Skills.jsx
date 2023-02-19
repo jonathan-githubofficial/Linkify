@@ -7,12 +7,10 @@ export default function Skills(props) {
     // var user_skills = props.skills;
     const [user_skills, setSkills] = useState([]);
 
-    useEffect(() => {
-        const skills = async () => {
-            setSkills(await props.skills);
-        }
-        skills();
-    }) 
+    useEffect(async () => {
+        setSkills(await props.skills);
+    });
+    
 
     return (
         <div className='p-5'>

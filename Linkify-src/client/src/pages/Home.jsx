@@ -14,7 +14,7 @@ import firstFeed from '../static/local_feed'
 
 function Home() {
 
-  var email = 'test1@gmail.com';
+  var email = 'khalid@test.com';
   const [user, setUser] = useState([]);
 
   useEffect (() => {
@@ -27,6 +27,10 @@ function Home() {
             console.log(err)
         })
   }, [])
+
+  const experiences = user.experience;
+  // var occupation = experiences[experiences.length - 1];
+  var occupation = 'soft';
 
   var skills = user.skills;
 
@@ -42,7 +46,7 @@ function Home() {
         <div className='w-full lg:w-2/3'>
           <div class="flex">
             {/* Side Profile Bar */}
-            <div class="flex flex-items items-center hidden lg:block bg-gray-300">
+            <div class="flex flex-items items-center hidden lg:block">
               <div className='w-[15rem]'>
                 <div className="card bg-base-100 shadow-xl p-5">
                   <figure className="px-10 pt-10">
@@ -51,14 +55,16 @@ function Home() {
                   <div className="card-body items-center text-center">
                     <h2 className="card-title">Khalid Sadat</h2>
                     <div className='side-user-info'>
-                      <p>Software Engineer</p>
+                      <p>{occupation}</p>
                       <p>My Company Inc.</p>
                     </div>
                     <hr />
                     <div className="side-user-info items-left italic">
-                      <p>Skills:
-                        {skills}
-                      </p>
+                      {/* <p>Skills:
+                      {Object.keys(skills).map((skills_txt) => (
+                          <p>&bull; {skills[skills_txt]}</p>
+                      ))}
+                      </p> */}
                     </div>
                   </div>
                 </div>
