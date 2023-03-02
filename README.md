@@ -62,7 +62,7 @@ FRONTEND DEVELOPMENT :  <br>
 <br>
 BACKEND DEVELOPMENT,DATABASES,AND ENVIRONMENT: <br>
 :radio_button: &nbsp; EXPRESS <br>
-:radio_button: &nbsp; MOONGODB <br>
+:radio_button: &nbsp; MONGODB <br>
 :radio_button: &nbsp; FIREBASE <br>
 :radio_button: &nbsp; NODE.JS <br>
 :radio_button: &nbsp; JAVASCRIPT <br>
