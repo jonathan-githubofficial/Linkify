@@ -13,7 +13,7 @@ Linkify is an employment focused platform for hiring managers and recruiters to 
 
 ## Progress
 - [X] Sprint 1
-- [ ] Sprint 2
+- [X] Sprint 2
 - [ ] Sprint 3
 - [ ] Sprint 4
 - [ ] Sprint 5
@@ -54,15 +54,34 @@ Linkify is an employment focused platform for hiring managers and recruiters to 
 :purple_circle: &nbsp; Suggest users to connect with <br>
 
 ## Technologies
+<br>
+FRONTEND DEVELOPMENT :  <br>
+:radio_button: &nbsp; REACT.JS <br>
+:radio_button: &nbsp; TAILWIND CSS<br>
+:radio_button: &nbsp; FIGMA <br>
+<br>
+BACKEND DEVELOPMENT,DATABASES,AND ENVIRONMENT: <br>
+:radio_button: &nbsp; EXPRESS <br>
+:radio_button: &nbsp; MONGODB <br>
+:radio_button: &nbsp; FIREBASE <br>
+:radio_button: &nbsp; NODE.JS <br>
+:radio_button: &nbsp; JAVASCRIPT <br>
 
-:radio_button: &nbsp; Flutter <br>
-:radio_button: &nbsp; Dart <br>
-:radio_button: &nbsp; Firebase <br>
-:radio_button: &nbsp; Javascript <br>
-:radio_button: &nbsp; Figma <br>
 
 ## Testing 
-:green_circle: &nbsp; TBD <br>
+:green_circle: &nbsp; We use Newman to test our API endpoints. To run the tests, follow these steps:<br>
+ :green_circle: &nbsp; Install Newman:
+```
+npm install -g newman
+```
+<br>
+:green_circle: &nbsp; Run the test collection: <br>
+
+```
+newman run <collection_file>.json
+```
+
+:green_circle: &nbsp; This will execute all the requests in the collection and provide the results in the terminal. <br>
 
 ## App Specifications
 :yellow_circle: &nbsp; Responsive and can accomodate different screen sizes <br>
@@ -72,19 +91,30 @@ Linkify is an employment focused platform for hiring managers and recruiters to 
 
 ## Code Management (for Github organization) 
 
-
-**:red_circle: &nbsp; Naming Convention Used For Branches** <br>
-* **Syntax:** feature-(#issue_number/Issue-Topic) <br>
-* **Example:** feature-(#40/Add-a-README.md-File) <br><br>
    
 **:red_circle: &nbsp; Naming Convention Used For Issues** <br>
 * **Syntax:** [#issue_number: FEATURE/BUG] Issue Topic <br>
-* **Example:** [#40: FEATURE] Add a README.md File <br><br>
+* **Example:** [#40: FEATURE] Add a README.md File <br>
 
 **:red_circle: &nbsp; Naming Convention Used For Pull-Requests** <br>
 * **Syntax:** [Solves #issue_number] Pull-Request Topic <br>
 * **Example:** [Solves #40] Add a README.md File<br>
 
+**:red_circle: &nbsp; Naming Convention Used For Branches** <br>
+* **Syntax:** feature-(#issue_number/Issue-Topic) <br>
+* **Example:** feature-(#40/Add-a-README.md-File) <br>
+
+**:red_circle: &nbsp; Naming Convention Used For features branches** <br>
+* **Syntax:** feature/feature_name <br>
+* **Example:** feature/job_listing<br>
+
+**:red_circle: &nbsp; Naming Convention Used For for tasks branches** <br>
+* **Syntax:**  task/task_name <br>
+* **Example:** task/user_integration <br>
+
+:red_circle: &nbsp; Naming Convention Used For Variables <br>
+* **Syntax:** CamelCase <br>
+* **Example:** userName, userEmail, jobListing, taskName<br>
 
 ## Team #9 Members
 
