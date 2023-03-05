@@ -5,6 +5,7 @@ const cvRouter = require("./routes/cvR");
 const userPropertyRouter = require("./routes/userPropertyR");
 const connectionRoutes = require("./routes/connectionR");
 const feedRoutes = require("./routes/feedsR");
+const jobPostsRouter = require("./routes/jobPostsR");
 const dotenv = require("dotenv");
 const app = express();
 
@@ -28,6 +29,7 @@ app.use("/user/cv", cvRouter);
 app.use("/api/user/property", userPropertyRouter);
 app.use("/user/connection", connectionRoutes);
 app.use("/user/feed", feedRoutes);
+app.use("/user/jobPosts", jobPostsRouter);
 
 app.listen(process.env.PORT || 8080, () =>
   console.log(`App listening on port ${process.env.PORT}!`)

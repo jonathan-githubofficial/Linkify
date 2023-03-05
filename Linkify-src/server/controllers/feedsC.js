@@ -89,7 +89,7 @@ const getAllPosts = asyncHandler(async (req, res, next) => {
     // Advanced filtering
     let queryStr = JSON.stringify(queryObj);
     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
-    let query = Post.find(JSON.parse(queryStr));
+    let query = feedsM.find(JSON.parse(queryStr));
 
     // Sorting
     if (req.query.sort) {
