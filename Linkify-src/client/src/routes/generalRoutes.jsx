@@ -8,6 +8,7 @@ import Network from '../pages/Network';
 import Notifications from '../pages/Notifications';
 import Profile from '../pages/Profile';
 import AuthRoutes from './authRoutes';
+import Messages from '../pages/Messages';
 
 function RegularRoutes() {
     return(
@@ -19,6 +20,7 @@ function RegularRoutes() {
                 <Route path="/Network" element={<Network />} />
                 <Route path="/notifications" element={<Notifications />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/messages" element={<Messages />} />
             </Routes>
         </div>
     );

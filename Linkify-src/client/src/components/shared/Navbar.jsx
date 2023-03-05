@@ -1,15 +1,15 @@
 import React from "react";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import profile_pic from '../../static/images/profile.jpg'
-import { FaSuitcase } from 'react-icons/fa';
+import { FaSuitcase, FaComments } from 'react-icons/fa';
 
 import logo from '../../static/images/logo.svg'
 
 
 function Navbar() {
     return (
-        <div className="navbar bg-base-100 shadow-md pt-2 px-10 flex bg-transparent">            
+        <div className="navbar bg-base-100 shadow-md pt-2 px-10 flex bg-transparent">
             <div className="navbar-start">
                 <div className="dropdown">
                     <Link to="/">
@@ -27,8 +27,13 @@ function Navbar() {
                 </div>
             </div>
             <div className="navbar-end">
+                <Link to="/messages">
+                    <div className="mr-2 btn btn-ghost btn-circle" style={{ fontSize: "22px" }}>
+                        <FaComments />
+                    </div>
+                </Link>
                 <Link to="/jobs">
-                    <div className="mr-2 btn btn-ghost btn-circle" style={{fontSize: "20px"}}>
+                    <div className="mr-2 btn btn-ghost btn-circle" style={{ fontSize: "20px" }}>
                         <FaSuitcase />
                     </div>
                 </Link>
@@ -43,11 +48,11 @@ function Navbar() {
                                 {/* <span className="badge badge-sm indicator-item">6</span> */}
                             </div>
                         </label>
-                        <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">                      
+                        <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">
                         </div>
                     </div>
                 </Link>
-                
+
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
@@ -72,5 +77,5 @@ function Navbar() {
         </div>
     );
 }
-    
+
 export default Navbar;
