@@ -46,3 +46,10 @@ export const signup = async (req, res) => {
     console.log(error);
   }
 };
+
+// To do
+// get user by id
+// get user by email
+// update user
+// update password
+// delete user
