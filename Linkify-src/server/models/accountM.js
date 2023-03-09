@@ -153,6 +153,3 @@ const accountM = mongoose.model("Account", accountSchema);
 
 // Export the Account model
 module.exports = accountM;
-
-  
-  

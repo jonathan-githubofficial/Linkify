@@ -2,10 +2,7 @@ const accountM = require("../models/accountM.js");
 const asyncHandler = require("express-async-handler");
 
 const login = asyncHandler(async (req, res) => {
-  // const email = req.query.email;
-  // const password = req.query.password;
-  const {email, password} = req.query;
-
+  const { email, password } = req.body;
   const user = await accountM.findOne({ email });
   if (user && (await user.matchPassword(password))) {
     res.json({
@@ -13,7 +10,6 @@ const login = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
-      department: user.department,
     });
   } else {
     res.status(401);
@@ -22,19 +18,24 @@ const login = asyncHandler(async (req, res) => {
 });
 
 const registerUser = asyncHandler(async (req, res) => {
-  const user = await accountM.findOne({ email: req.query.email });
+  const user = await accountM.findOne({ email: req.body.email });
   if (user) {
     res.status(400);
     throw new Error("User already exists");
   } else {
-    const { name, email, password } = req.query;
+    const { name, email, password } = req.body;
     const newUser = await accountM.create({
       name,
       email,
       password,
     });
     if (newUser) {
-      res.json(newUser);
+      res.json({
+        _id: newUser._id,
+        name: newUser.name,
+        email: newUser.email,
+        isAdmin: newUser.isAdmin,
+      });
     } else {
       res.status(401);
       throw new Error("Invalid user data");
