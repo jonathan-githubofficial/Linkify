@@ -113,7 +113,7 @@ const editExperience = asyncHandler(async (req, res) => {
 
 // add education
 const addEducation = asyncHandler(async (req, res) => {
-  const { id, education } = req.query;
+  const { id, education } = req.body;
   const user = await accountM.findById(id);
   if (user) {
     user.education.push(education);
