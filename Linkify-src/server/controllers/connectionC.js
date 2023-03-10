@@ -1,9 +1,9 @@
 const asyncHandler = require("express-async-handler");
-const accountM = require("../models/accountM.js");
+const userM = require("../models/userM.js");
 
 const sendConnectionRequest = asyncHandler(async (req, res) => {
   const { senderId, receiverId } = req.body;
-  const user = await accountM.findById(receiverId);
+  const user = await userM.findById(receiverId);
   if (user) {
     user.connectionRequests.push(senderId);
     await user.save();
@@ -16,8 +16,8 @@ const sendConnectionRequest = asyncHandler(async (req, res) => {
 
 const acceptConnectionRequest = asyncHandler(async (req, res) => {
   const { senderId, receiverId } = req.body;
-  const user = await accountM.findById(receiverId);
-  const sender = await accountM.findById(senderId);
+  const user = await userM.findById(receiverId);
+  const sender = await userM.findById(senderId);
   if (user) {
     user.connectionRequests = user.connectionRequests.filter(
       (item) => item.toString() !== senderId
@@ -35,7 +35,7 @@ const acceptConnectionRequest = asyncHandler(async (req, res) => {
 
 const rejectConnectionRequest = asyncHandler(async (req, res) => {
   const { senderId, receiverId } = req.body;
-  const user = await accountM.findById(receiverId);
+  const user = await userM.findById(receiverId);
   if (user) {
     user.connectionRequests = user.connectionRequests.filter(
       (item) => item.toString() !== senderId
@@ -50,8 +50,8 @@ const rejectConnectionRequest = asyncHandler(async (req, res) => {
 
 const removeConnection = asyncHandler(async (req, res) => {
   const { userId, connectionId } = req.body;
-  const user = await accountM.findById(userId);
-  const connection = await accountM.findById(connectionId);
+  const user = await userM.findById(userId);
+  const connection = await userM.findById(connectionId);
   if (user) {
     user.connections = user.connections.filter(
       (item) => item.toString() !== connectionId

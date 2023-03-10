@@ -1,10 +1,10 @@
-const accountM = require("../models/accountM.js");
+const userM = require("../models/userM.js");
 const asyncHandler = require("express-async-handler");
 
 // add cover letter
 const addCoverLetter = asyncHandler(async (req, res) => {
   const { id, coverLetter } = req.body;
-  const user = await accountM.findById(id);
+  const user = await userM.findById(id);
   if (user) {
     user.coverLetter.push(coverLetter);
     await user.save();
@@ -21,7 +21,7 @@ const addCoverLetter = asyncHandler(async (req, res) => {
 // delete cover letter
 const deleteCoverLetter = asyncHandler(async (req, res) => {
   const { id, coverLetter } = req.body;
-  const user = await accountM.findById(id);
+  const user = await userM.findById(id);
   if (user) {
     user.coverLetter = user.coverLetter.filter((item) => item !== coverLetter);
     await user.save();
@@ -38,7 +38,7 @@ const deleteCoverLetter = asyncHandler(async (req, res) => {
 // add resume
 const addResume = asyncHandler(async (req, res) => {
   const { id, resume } = req.body;
-  const user = await accountM.findById(id);
+  const user = await userM.findById(id);
   if (user) {
     user.resume.push(resume);
     await user.save();
@@ -55,7 +55,7 @@ const addResume = asyncHandler(async (req, res) => {
 // delete resume
 const deleteResume = asyncHandler(async (req, res) => {
   const { id, resume } = req.body;
-  const user = await accountM.findById(id);
+  const user = await userM.findById(id);
   if (user) {
     user.resume = user.resume.filter((item) => item !== resume);
     await user.save();

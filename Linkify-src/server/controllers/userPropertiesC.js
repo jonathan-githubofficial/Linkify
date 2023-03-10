@@ -1,5 +1,8 @@
+//Author:  Jonathan Haddad 40111053
+//Date:  2023-02-22
+//Description:  This file contains the functions that handle the user's properties (skills, languages, experience, education, location) in the database
 
-const accountM = require("../models/accountM");
+const userM = require("../models/userM");
 const asyncHandler = require("express-async-handler");
 
 // Function to add a skill to the user's skills list
@@ -7,7 +10,7 @@ const addSkill = asyncHandler(async (req, res) => {
   // Destructure the id and skill from the request body
   const { id, skill } = req.body;
   // Find the user with the given id
-  const user = await accountM.findById(id);
+  const user = await userM.findById(id);
   // If the user is found
   if (user) {
     // Add the skill to the user's skills list
@@ -31,7 +34,7 @@ const deleteSkill = asyncHandler(async (req, res) => {
   // Destructure the id and skill from the request body
   const { id, skill } = req.query;
   // Find the user with the given id
-  const user = await accountM.findById(id);
+  const user = await userM.findById(id);
   // If the user is found
   if (user) {
     // Filter the user's skills list to exclude the given skill
@@ -55,7 +58,7 @@ const addLanguage = asyncHandler(async (req, res) => {
   // Destructure the id and language from the request body
   const { id, language } = req.body;
   // Find the user with the given id
-  const user = await accountM.findById(id);
+  const user = await userM.findById(id);
   // If the user is found
   if (user) {
     // Add the language to the user's languages list
@@ -78,7 +81,7 @@ const addLanguage = asyncHandler(async (req, res) => {
 // delete language
 const deleteLanguage = asyncHandler(async (req, res) => {
   const { id, language } = req.body;
-  const user = await accountM.findById(id);
+  const user = await userM.findById(id);
   if (user) {
     user.languages = user.languages.filter((item) => item !== language);
     await user.save();
@@ -95,7 +98,7 @@ const deleteLanguage = asyncHandler(async (req, res) => {
 // add experience
 const editExperience = asyncHandler(async (req, res) => {
   const { id, experience } = req.body;
-  const user = await accountM.findById(id);
+  const user = await userM.findById(id);
   if (user) {
     // user.experience = experience;
     user.experience.push(experience);
@@ -114,7 +117,7 @@ const editExperience = asyncHandler(async (req, res) => {
 // add education
 const addEducation = asyncHandler(async (req, res) => {
   const { id, education } = req.query;
-  const user = await accountM.findById(id);
+  const user = await userM.findById(id);
   if (user) {
     user.education.push(education);
     await user.save();
@@ -131,7 +134,7 @@ const addEducation = asyncHandler(async (req, res) => {
 // delete education
 const deleteEducation = asyncHandler(async (req, res) => {
   const { id, educationId } = req.body;
-  const user = await accountM.findById(id);
+  const user = await userM.findById(id);
   if (user) {
     user.education = user.education.filter(
       (item) => item._id.toString() !== educationId
@@ -150,7 +153,7 @@ const deleteEducation = asyncHandler(async (req, res) => {
 // add location
 const addLocation = asyncHandler(async (req, res) => {
   const { id, location } = req.body;
-  const user = await accountM.findById(id);
+  const user = await userM.findById(id);
   if (user) {
     user.location = location;
     await user.save();
