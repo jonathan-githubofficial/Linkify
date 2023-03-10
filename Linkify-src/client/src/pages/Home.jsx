@@ -14,7 +14,7 @@ import firstFeed from "../static/local_feed";
 import { useNavigate } from "react-router-dom";
 
 function Home() {
-  var email = "khalid@test.com";
+  var email = "";
   const [user, setUser] = useState([]);
   const navigate = useNavigate();
 
@@ -22,6 +22,9 @@ function Home() {
   React.useEffect(() => {
     if (localStorage.getItem("loggedIn") !== "1") {
       navigate("/login");
+    }
+    else {
+      email = localStorage.getItem("email");
     }
   }, []);
 
@@ -92,12 +95,13 @@ function Home() {
                     <hr />
                     <div className="side-user-info items-left">
                       <p>
-                        <span className="font-semibold">
-                          Skills: <br />
-                        </span>
                         {/* {user_skills && Object.keys(user_skills).map((skills_txt) => (
                           <span>{user_skills[skills_txt]}</span>
                       ))} */}
+                        <p className="font-semibold">
+                          {(user_skills && user_skills.length != 0) ? 'Skills' : ""}
+                        </p>
+
                         {user_skills &&
                           Object.keys(user_skills)
                             .map((skill) => user_skills[skill])

@@ -14,6 +14,7 @@ function Login() {
       .post("/api/account/login", { email, password })
       .then((res) => {
         localStorage.setItem("uid", res.data._id);
+        localStorage.setItem("email", res.data.email);
         localStorage.setItem("loggedIn", 1);
         navigate("/");
       })
