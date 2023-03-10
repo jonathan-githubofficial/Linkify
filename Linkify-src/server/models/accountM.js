@@ -5,16 +5,16 @@ const bcrypt = require("bcrypt");
 const accountSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    required: [true, 'Please enter your name'],
   },
   email: {
     type: String,
-    required: true,
-    unique: true,
+    required: [true, 'Please enter your email'],
+    unique: [true, 'invalid email']
   },
   password: {
     type: String,
-    required: true,
+    required: [true,'Please enter your password'],
   },
   isAdmin: {
     type: Boolean,
