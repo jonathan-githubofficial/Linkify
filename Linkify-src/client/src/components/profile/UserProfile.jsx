@@ -5,6 +5,7 @@ import HeadlineTop from '../profile/HeadlineTop'
 import Experience from '../profile/Experience'
 import Education from '../profile/Education'
 import Skills from '../profile/Skills'
+import Languages from '../profile/Languages'
 
 export default function UserProfile(props) {
     var profile = props.user;
@@ -12,6 +13,7 @@ export default function UserProfile(props) {
     var profile_name = profile.name;
 
     var skills = profile.skills;
+    var languages = profile.languages;
 
     var experiences = profile.experience;
 
@@ -60,6 +62,8 @@ export default function UserProfile(props) {
             <Education />
 
             <Skills id={profile_id} skills={skills} getUser={props.getUser}/>
+
+            <Languages id={profile_id} languages={languages} getUser={props.getUser}/>
         </div>
     )
 }

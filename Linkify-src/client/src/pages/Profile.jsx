@@ -9,18 +9,21 @@ import MyConnections from '../components/profile/MyConnections'
 function Profile() {
     
     const [profile, setProfile] = useState([])
+    const [email, setEmail] = useState([])
     
     var email_s = '';
     
     const navigate = useNavigate();
     // checks if user is logged in, if not, redirects to login page
-    React.useEffect(() => {
+    useEffect(() => {
         if (localStorage.getItem("loggedIn") !== "1") {
             navigate("/login");
         }
         else {
             // setId(localStorage.getItem("uid"));
             email_s = localStorage.getItem("email");
+            // setEmail(localStorage.getItem("email"));
+            // email_s = email;
         }
     }, []);
         
