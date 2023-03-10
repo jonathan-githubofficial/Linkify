@@ -147,6 +147,24 @@ const deleteEducation = asyncHandler(async (req, res) => {
   }
 });
 
+
+// add project
+const addProject = asyncHandler(async (req, res) => {
+  const { id, project } = req.body;
+  const user = await accountM.findById(id);
+  if (user) {
+    user.projects.push(project);
+    await user.save();
+    res.json({
+      message: "Project added successfully",
+      userProjects: user.projects,
+    });
+  } else {
+    res.status(401);
+    throw new Error("User not found");
+  }
+});
+
 // add location
 const addLocation = asyncHandler(async (req, res) => {
   const { id, location } = req.body;
@@ -172,5 +190,6 @@ module.exports = {
   editExperience,
   addEducation,
   deleteEducation,
+  addProject,
   addLocation,
 };

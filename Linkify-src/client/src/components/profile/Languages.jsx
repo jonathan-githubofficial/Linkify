@@ -35,6 +35,7 @@ export default function Languages(props) {
                     ))}
                     {/* {typeof(user_skills)} */}
                 </div>
+                <hr className='mt-5' />
             </div>
         </div>
     )

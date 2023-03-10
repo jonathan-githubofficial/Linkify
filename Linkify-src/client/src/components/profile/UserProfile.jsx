@@ -6,6 +6,7 @@ import Experience from '../profile/Experience'
 import Education from '../profile/Education'
 import Skills from '../profile/Skills'
 import Languages from '../profile/Languages'
+import Projects from '../profile/Projects'
 
 export default function UserProfile(props) {
     var profile = props.user;
@@ -16,6 +17,7 @@ export default function UserProfile(props) {
     var languages = profile.languages;
 
     var experiences = profile.experience;
+    var projects = profile.projects;
 
     // For Header Cover
     const [position, setPosition] = useState('');
@@ -64,6 +66,8 @@ export default function UserProfile(props) {
             <Skills id={profile_id} skills={skills} getUser={props.getUser}/>
 
             <Languages id={profile_id} languages={languages} getUser={props.getUser}/>
+
+            <Projects id={profile_id} projects={projects} getUser={props.getUser} />
         </div>
     )
 }

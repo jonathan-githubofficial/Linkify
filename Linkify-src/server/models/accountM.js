@@ -39,6 +39,10 @@ const accountSchema = new mongoose.Schema({
     required: false,
     // default: 0,
   },
+  projects: {
+    type: Array,
+    required: false,
+  },
   education: [
     {
       school: {
