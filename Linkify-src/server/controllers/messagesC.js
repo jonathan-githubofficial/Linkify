@@ -80,6 +80,19 @@ const getUsersWithConversation = async (req, res) => {
   }
 };
 
+// Get all users who have a conversation with a specific user
+const getUsersMessagingWithUser = async (req, res) => {
+  try {
+    const { user } = req.query;
+    const conversations = await Message.distinct("receiver", { sender: user });
+    const senders = await Message.distinct("sender", { receiver: user });
+    const users = [...new Set([...conversations, ...senders])];
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 
 module.exports = {
   createMessage,
@@ -87,4 +100,5 @@ module.exports = {
   deleteMessages,
   getUsersWithConversation,
   deleteMessageById,
+  getUsersMessagingWithUser,
 };
