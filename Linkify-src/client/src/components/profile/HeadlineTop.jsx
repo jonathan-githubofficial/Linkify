@@ -2,9 +2,11 @@ import React from 'react'
 import { BiPencil } from 'react-icons/bi'
 import google_icon from '../../static/images/companies/google.png'
 
-import EditModal from './modal/EditProfile'
+import EditProfile from './modal/EditProfile'
 
 export default function HeadlineTop(props) {
+    var profile_pic = props.profile_pic;
+    var profile = props.profile;
     var company = props.company;
 
     return (
@@ -42,7 +44,7 @@ export default function HeadlineTop(props) {
                             </div>
                         </div>
                     </div>
-                    <EditModal />
+                    <EditProfile profile={profile} profile_pic={profile_pic} getUser={props.getUser}/>
                     
                 </div>
             </div>

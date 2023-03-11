@@ -17,6 +17,20 @@ const login = asyncHandler(async (req, res) => {
   }
 });
 
+const matchCurrentPassword = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+  const user = await accountM.findOne({ email });
+  if (user && (await user.matchPassword(password))) {
+    res.json({
+      message: 'true'
+    })
+  } else {
+    res.json({
+      message: 'false'
+    })
+  }
+});
+
 const registerUser = asyncHandler(async (req, res) => {
   const user = await accountM.findOne({ email: req.body.email });
   if (user) {
@@ -91,8 +105,22 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 });
 
+const updateProfile = asyncHandler(async (req, res) => {
+  const { id, name, email } = req.body;
+  const user = await accountM.findById(id);
+  if (user) {
+    user.name = name;
+    user.email = email;
+    const updatedUser = await user.save();
+    res.json(updatedUser);
+  } else {
+    res.status(401);
+    throw new Error("User not found");
+  }
+});
+
 const updatePassword = asyncHandler(async (req, res) => {
-  const { id, oldPassword, newPassword } = req.query;
+  const { id, oldPassword, newPassword } = req.body;
   const user = await accountM.findById(id);
   if (user) {
     if (await user.matchPassword(oldPassword)) {
@@ -152,4 +180,6 @@ module.exports = {
   deleteUser,
   updatePassword,
   addProfileImage,
+  updateProfile,
+  matchCurrentPassword,
 };

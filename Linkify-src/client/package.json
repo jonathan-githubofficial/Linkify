@@ -15,7 +15,8 @@
     "react-dom": "^17.0.0",
     "react-helmet": "^6.1.0",
     "react-icons": "^4.7.1",
-    "react-router-dom": "^6.3.0"
+    "react-router-dom": "^6.3.0",
+    "tw-elements": "^1.0.0-beta1"
   },
   "devDependencies": {
     "@tailwindcss/jit": "^0.1.18",

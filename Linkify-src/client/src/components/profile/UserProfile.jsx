@@ -8,6 +8,8 @@ import Skills from '../profile/Skills'
 import Languages from '../profile/Languages'
 import Projects from '../profile/Projects'
 
+import profile_pic from "../../static/images/profile.jpg";
+
 export default function UserProfile(props) {
     var profile = props.user;
     let profile_id = profile._id;
@@ -56,7 +58,7 @@ export default function UserProfile(props) {
             <ProfileCover name={profile_name} position={position} company={company}/>
             <hr/>
             
-            <HeadlineTop company={company}/>
+            <HeadlineTop profile={profile} company={company} profile_pic={profile_pic} getUser={props.getUser}/>
             <hr />
             
             <Experience id={profile_id} experiences={experiences} getUser={props.getUser} />
