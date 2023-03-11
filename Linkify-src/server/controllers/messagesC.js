@@ -37,13 +37,14 @@ const deleteMessages = async (req, res) => {
       $or: [
         { sender: sender, receiver: receiver },
         { sender: receiver, receiver: sender },
-      ],
-    });
+      ],   
+     });
     res.status(200).json({ message: 'All messages deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 // Delete a single message by ID
 const deleteMessageById = async (req, res) => {
@@ -62,7 +63,7 @@ const deleteMessageById = async (req, res) => {
 // Get all users who have a conversation with each other
 const getUsersWithConversation = async (req, res) => {
   try {
-    const conversations = await Message.distinct("sender", "receiver");
+    const conversations = await Message.distinct("sender", { receiver: { $ne: null } });
     let users = [];
     conversations.forEach((conversation) => {
       const [user1, user2] = conversation.split(",");
