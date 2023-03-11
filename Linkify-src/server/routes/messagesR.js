@@ -30,4 +30,13 @@ router.delete('/deletemessages', messagesController.deleteMessages);
  */
 router.delete('/deletemessage/:id', messagesController.deleteMessageById);
 
+
+/**
+ * @desc Get all users who have a conversation with each other
+ * @route GET /api/messages/getalluserswithconversation
+ * @access Public
+ */
+router.get('/getalluserswithconversation', messagesController.getUsersWithConversation);
+
+
 module.exports = router;

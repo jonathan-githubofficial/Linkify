@@ -1,4 +1,5 @@
 const Message = require('../models/messagesM');
+const asyncHandler = require("express-async-handler");
 
 // Create a new message
 const createMessage = async (req, res) => {
@@ -58,9 +59,31 @@ const deleteMessageById = async (req, res) => {
   }
 };
 
+// Get all users who have a conversation with each other
+const getUsersWithConversation = async (req, res) => {
+  try {
+    const conversations = await Message.distinct("sender", "receiver");
+    let users = [];
+    conversations.forEach((conversation) => {
+      const [user1, user2] = conversation.split(",");
+      if (!users.includes(user1)) {
+        users.push(user1);
+      }
+      if (!users.includes(user2)) {
+        users.push(user2);
+      }
+    });
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
 module.exports = {
   createMessage,
   getMessages,
   deleteMessages,
+  getUsersWithConversation,
   deleteMessageById,
 };
