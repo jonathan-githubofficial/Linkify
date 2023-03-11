@@ -113,10 +113,12 @@ const editExperience = asyncHandler(async (req, res) => {
 
 // add education
 const addEducation = asyncHandler(async (req, res) => {
-  const { id, education } = req.query;
+  const { id } = req.query;
+  const { school, degree, fieldOfStudy, from, to } = req.body;
   const user = await accountM.findById(id);
   if (user) {
-    user.education.push(education);
+    const newEducation = { school, degree, fieldOfStudy, from, to };
+    user.education.push(newEducation);
     await user.save();
     res.json({
       message: "Education added successfully",
@@ -127,6 +129,7 @@ const addEducation = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 });
+
 
 // delete education
 const deleteEducation = asyncHandler(async (req, res) => {
