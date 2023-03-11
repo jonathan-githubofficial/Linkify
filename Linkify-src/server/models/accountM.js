@@ -63,10 +63,6 @@ const accountSchema = new mongoose.Schema({
     required: false,
     // default: 0,
   },
-  projects: {
-    type: Array,
-    required: false,
-  },
   education: [educationSchema],
   location: {
     type: String,
@@ -153,8 +149,7 @@ accountSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-// Create the Account model from the schema
+
 const accountM = mongoose.model("Account", accountSchema);
 
-// Export the Account model
 module.exports = accountM;
