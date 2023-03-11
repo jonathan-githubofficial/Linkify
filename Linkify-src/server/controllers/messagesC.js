@@ -28,7 +28,39 @@ const getMessages = async (req, res) => {
   }
 };
 
+// Delete all messages between two users
+const deleteMessages = async (req, res) => {
+  try {
+    const { sender, receiver } = req.query;
+    await Message.deleteMany({
+      $or: [
+        { sender: sender, receiver: receiver },
+        { sender: receiver, receiver: sender },
+      ],
+    });
+    res.status(200).json({ message: 'All messages deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Delete a single message by ID
+const deleteMessageById = async (req, res) => {
+  try {
+    const message = await Message.findById(req.params.id);
+    if (!message) {
+      return res.status(404).json({ message: 'Message not found' });
+    }
+    await message.delete();
+    res.status(200).json({ message: 'Message deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   createMessage,
   getMessages,
+  deleteMessages,
+  deleteMessageById,
 };

@@ -1,5 +1,3 @@
-
-
 const express = require('express');
 const router = express.Router();
 const messagesController = require('../controllers/messagesC');
@@ -17,5 +15,19 @@ router.post('/postmessage', messagesController.createMessage);
  * @access Public
  */
 router.get('/getmessage', messagesController.getMessages);
+
+/**
+ * @desc Delete all messages between two users
+ * @route DELETE /api/messages/deletemessages
+ * @access Public
+ */
+router.delete('/deletemessages', messagesController.deleteMessages);
+
+/**
+ * @desc Delete a single message by ID
+ * @route DELETE /api/messages/deletemessage/:id
+ * @access Public
+ */
+router.delete('/deletemessage/:id', messagesController.deleteMessageById);
 
 module.exports = router;
