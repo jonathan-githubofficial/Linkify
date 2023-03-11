@@ -1,3 +1,5 @@
+//Backend Authors: Jonathan Haddad 40111053, Saad Hanna - 40113826
+
 const express = require("express");
 const { connectDB } = require("./config/connectDB.js");
 const userRouter = require("./routes/accountR");
@@ -6,6 +8,7 @@ const userPropertyRouter = require("./routes/userPropertyR");
 const connectionRoutes = require("./routes/connectionR");
 const feedRoutes = require("./routes/feedsR");
 const jobPostsRouter = require("./routes/jobPostsR");
+const messagesRouter = require("./routes/messagesR");
 const dotenv = require("dotenv");
 const app = express();
 
@@ -30,6 +33,7 @@ app.use("/api/user/property", userPropertyRouter);
 app.use("/user/connection", connectionRoutes);
 app.use("/user/feed", feedRoutes);
 app.use("/user/jobPosts", jobPostsRouter);
+app.use('/api/messages', messagesRouter);
 
 app.listen(process.env.PORT || 8080, () =>
   console.log(`App listening on port ${process.env.PORT}!`)

@@ -1,6 +1,31 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
+// Define the education schema
+const educationSchema = new mongoose.Schema({
+  school: {
+    type: String,
+    required: true,
+  },
+  degree: {
+    type: String,
+    required: true,
+  },
+  fieldOfStudy: {
+    type: String,
+    required: true,
+  },
+  from: {
+    type: Date,
+    required: true,
+  },
+  to: {
+    type: Date,
+    required: true,
+  },
+});
+
+
 // Define the Account schema
 const accountSchema = new mongoose.Schema({
   name: {
@@ -39,30 +64,7 @@ const accountSchema = new mongoose.Schema({
     required: false,
     // default: 0,
   },
-  education: [
-    {
-      school: {
-        type: String,
-        required: true,
-      },
-      degree: {
-        type: String,
-        required: true,
-      },
-      fieldOfStudy: {
-        type: String,
-        required: true,
-      },
-      from: {
-        type: Date,
-        required: true,
-      },
-      to: {
-        type: Date,
-        required: true,
-      },
-    },
-  ],
+  education: [educationSchema],
   location: {
     type: String,
     required: false,
@@ -148,8 +150,7 @@ accountSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-// Create the Account model from the schema
+
 const accountM = mongoose.model("Account", accountSchema);
 
-// Export the Account model
 module.exports = accountM;
