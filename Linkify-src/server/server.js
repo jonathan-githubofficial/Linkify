@@ -1,4 +1,4 @@
-//Backend Authors: Jonathan Haddad 40111053, Saad Hanna - 40113826
+//Backend Authors: Jonathan Haddad 40111053, Saad Hanna  40113826
 
 const express = require("express");
 const { connectDB } = require("./config/connectDB.js");
