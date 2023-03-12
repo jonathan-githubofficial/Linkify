@@ -10,9 +10,14 @@ const feedsSchema = new mongoose.Schema({
     ref: "Account",
     required: true,
   },
+  name: {
+    type: String,
+    required: true,
+  },
   postedOn: {
     type: Date,
     required: true,
+    default: Date.now,
   },
   description: {
     type: String,
@@ -20,7 +25,7 @@ const feedsSchema = new mongoose.Schema({
   },
   likes: {
     type: Array,
-    required: true,
+    required: false,
   },
   comments: [
     {
@@ -37,6 +42,7 @@ const feedsSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
       },
+      default: [],
     },
   ],
   status: {

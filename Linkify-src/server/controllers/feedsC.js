@@ -10,6 +10,7 @@ const postFeed = asyncHandler(async (req, res) => {
   const {
     title,
     poster,
+    name,
     postedOn,
     description,
     likes,
@@ -20,6 +21,7 @@ const postFeed = asyncHandler(async (req, res) => {
   const feed = new feedsM({
     title,
     poster,
+    name,
     postedOn,
     description,
     likes,
@@ -128,7 +130,7 @@ const getAllPosts = asyncHandler(async (req, res, next) => {
 // pass the id of the post you want to get in the url
 
 const getFeedById = asyncHandler(async (req, res) => {
-  const feed = await feedsM.findById(req.params.id);
+  const feed = await feedsM.findById(req.query.id);
   if (feed) {
     res.json(feed);
   } else {
@@ -237,7 +239,7 @@ const addComment = asyncHandler(async (req, res) => {
 // @example /posts/personal/{id}
 
 const getPersonalFeed = asyncHandler(async (req, res) => {
-  const id = req.params.id; // user id
+  const id = req.query.id; // user id
   const feed = [];
   try {
     const user = await accountM.findById(id);
@@ -245,9 +247,7 @@ const getPersonalFeed = asyncHandler(async (req, res) => {
       const posts = await feedsM.find({ poster: user.connections[i] });
       feed.push(...posts);
     }
-    res.status(200).json({
-      feed,
-    });
+    res.status(200).json(feed);
   } catch (err) {
     console.log(err);
   }

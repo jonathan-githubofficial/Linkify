@@ -3,6 +3,7 @@ const accountM = require("../models/accountM.js");
 
 const sendConnectionRequest = asyncHandler(async (req, res) => {
   const { senderId, receiverId } = req.body;
+  console.log(senderId, receiverId);
   const user = await accountM.findById(receiverId);
   if (user) {
     user.connectionRequests.push(senderId);

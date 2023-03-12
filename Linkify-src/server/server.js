@@ -28,12 +28,12 @@ app.use(function (req, res, next) {
 app.use(express.json());
 
 app.use("/api/account", userRouter);
-app.use("/user/cv", cvRouter);
+app.use("/api/user/cv", cvRouter);
 app.use("/api/user/property", userPropertyRouter);
-app.use("/user/connection", connectionRoutes);
-app.use("/user/feed", feedRoutes);
-app.use("/user/jobPosts", jobPostsRouter);
-app.use('/api/messages', messagesRouter);
+app.use("/api/user/connection", connectionRoutes);
+app.use("/api/user/feed", feedRoutes);
+app.use("/api/user/jobPosts", jobPostsRouter);
+app.use("/api/messages", messagesRouter);
 
 app.listen(process.env.PORT || 8080, () =>
   console.log(`App listening on port ${process.env.PORT}!`)
