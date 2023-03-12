@@ -1,3 +1,4 @@
+const Account = require("../models/accountM");
 const Message = require('../models/messagesM');
 const asyncHandler = require("express-async-handler");
 
@@ -5,7 +6,7 @@ const asyncHandler = require("express-async-handler");
 const createMessage = async (req, res) => {
   try {
     const { sender, receiver, message, time, attachments } = req.body;
-    const newMessage = new Message({ sender, receiver, message, time, attachments });
+    const newMessage = new Message({ sender, receiver, message, time });
     const savedMessage = await newMessage.save();
     res.status(201).json(savedMessage);
   } catch (error) {
@@ -87,12 +88,15 @@ const getMessagesForReceiver = async (req, res) => {
     const { receiver } = req.query;
     const messages = await Message.find({ receiver }).sort({ time: 1 });
     const senders = {};
+    const senderIds = messages.map((message) => message.sender);
+    const sendersList = await Account.find({ _id: { $in: senderIds } }, { name: 1 });
+    sendersList.forEach((sender) => (senders[sender._id] = { name: sender.name }));
     messages.forEach((message) => {
       const { sender, message: messageContent } = message;
-      if (senders[sender]) {
-        senders[sender].push(messageContent);
+      if (senders[sender].messages) {
+        senders[sender].messages.push(messageContent);
       } else {
-        senders[sender] = [messageContent];
+        senders[sender].messages = [messageContent];
       }
     });
     res.status(200).json(senders);
@@ -100,7 +104,6 @@ const getMessagesForReceiver = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
 
 
 module.exports = {
