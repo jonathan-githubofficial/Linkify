@@ -18,11 +18,19 @@ const messageSchema = new Schema({
     type: String,
     required: true,
   },
+  
+  // Attachment field, required and of type String
+  attachments: {
+    type: [String],
+    default: []
+  },
+  
   // Time field, required and of type Date
   time: {
     type: Date,
     required: true,
   },
+  
 });
 
 // Create the Message model using the message schema
