@@ -15,4 +15,9 @@ router.post("/addEducation", userPropertyC.addEducation);
 router.delete("/deleteEducation", userPropertyC.deleteEducation);
 router.post("/addLocation", userPropertyC.addLocation);
 
+// @desc Edit an existing education from user profile
+// @route PUT /api/user/property/editEducation
+// @access Public
+// router.put("/editEducation", userPropertyC.editEducation);
+
 module.exports = router;

@@ -40,10 +40,10 @@ router.get('/getuserswithconversation', messagesController.getUsersWithConversat
 
 
 /**
-@desc Get all messages for a receiver
-@route GET /api/messages/receiver
-@routedetails Get /api/messages/receiver?receiver=<receiver-id>
-@access Public
+* @desc Get all messages for a receiver
+* @route GET /api/messages/receiver
+* @routedetails Get /api/messages/receiver?receiver=<receiver-id>
+* @access Public
 */
 router.get('/receiver', messagesController.getMessagesForReceiver);
 
