@@ -29,7 +29,7 @@ const addSkill = asyncHandler(async (req, res) => {
 // Function to delete a skill from the user's skills list
 const deleteSkill = asyncHandler(async (req, res) => {
   // Destructure the id and skill from the request body
-  const { id, skill } = req.query;
+  const { id, skill } = req.body;
   // Find the user with the given id
   const user = await accountM.findById(id);
   // If the user is found
@@ -110,10 +110,34 @@ const editExperience = asyncHandler(async (req, res) => {
   }
 });
 
+// delete experience
+const deleteExperience = asyncHandler(async (req, res) => {
+  // Destructure the id and skill from the request body
+  const { id, experience } = req.body;
+  // Find the user with the given id
+  const user = await accountM.findById(id);
+  // If the user is found
+  if (user) {
+    // Filter the user's skills list to exclude the given skill
+    user.experience = user.experience.filter((item) => item !== experience);
+    // Save the user
+    await user.save();
+    // Respond with a success message and the updated user's skills list
+    res.json({
+      message: "Experience deleted successfully",
+      userExperience: user.experience,
+    });
+  } else {
+    // If the user is not found, respond with a 401 status and an error message
+    res.status(401);
+    throw new Error("User not found");
+  }
+});
+
 
 // add education
 const addEducation = asyncHandler(async (req, res) => {
-  const { id, education } = req.body;
+  const { id, education } = req.query;
   const user = await accountM.findById(id);
   if (user) {
     user.education.push(education);
@@ -165,6 +189,23 @@ const addProject = asyncHandler(async (req, res) => {
   }
 });
 
+// delete project
+const deleteProject = asyncHandler(async (req, res) => {
+  const { id, project } = req.body;
+  const user = await accountM.findById(id);
+  if (user) {
+    user.projects = user.projects.filter((item) => item !== project);
+    await user.save();
+    res.json({
+      message: "Project deleted successfully",
+      userProjects: user.projects,
+    });
+  } else {
+    res.status(401);
+    throw new Error("User not found");
+  }
+});
+
 // add location
 const addLocation = asyncHandler(async (req, res) => {
   const { id, location } = req.body;
@@ -188,8 +229,10 @@ module.exports = {
   addLanguage,
   deleteLanguage,
   editExperience,
+  deleteExperience,
   addEducation,
   deleteEducation,
   addProject,
+  deleteProject,
   addLocation,
 };

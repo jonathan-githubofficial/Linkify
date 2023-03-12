@@ -1,0 +1,942 @@
+{
+	"info": {
+		"_postman_id": "7cc2084b-d979-4709-ace4-2262939a9797",
+		"name": "Sprint 3 Testing Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25835634"
+	},
+	"item": [
+		{
+			"name": "Get user by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Valid user id\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/account/getUser?id=63eabb9c07f2dc10446a1c7c",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account",
+						"getUser"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "63eabb9c07f2dc10446a1c7c"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user by email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Valid user account\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/account/userByMail?email=khalid@test.com&pass=pass12",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account",
+						"userByMail"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "test1@gmail.com",
+							"disabled": true
+						},
+						{
+							"key": "pass",
+							"value": "test",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "khalid@test.com"
+						},
+						{
+							"key": "pass",
+							"value": "pass12"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user by invalid email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Invalid user profile\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/account/getUser?email=khalid@tests.com&pass=pass",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account",
+						"getUser"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "khalid@tests.com"
+						},
+						{
+							"key": "pass",
+							"value": "pass"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Getting all users successfull\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/account/users",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful login\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time less than 3000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(300);",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/account/login?email=khalid@test.com&password=khalid",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account",
+						"login"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "khalid@test.com"
+						},
+						{
+							"key": "password",
+							"value": "khalid"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Match password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Password should match\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/account/matchPassword?email=khalid@test.com&password=khalid",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account",
+						"matchPassword"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "khalid@test.com"
+						},
+						{
+							"key": "password",
+							"value": "khalid"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Invalid login\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/account/login?email=saad@tests.com&password=pass",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account",
+						"login"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "saad@tests.com"
+						},
+						{
+							"key": "password",
+							"value": "pass"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Register successfull\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Registration failed successfully\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/account/register?name=emil&email=emil@test.com&password=pass",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account",
+						"register"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "emil"
+						},
+						{
+							"key": "email",
+							"value": "emil@test.com"
+						},
+						{
+							"key": "password",
+							"value": "pass"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Password update successfull\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							" "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/account/updatePassword?id=63eabb9c07f2dc10446a1c7c&oldPassword=pass1&newPassword=pass12",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account",
+						"updatePassword"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "63eabb9c07f2dc10446a1c7c"
+						},
+						{
+							"key": "oldPassword",
+							"value": "pass1"
+						},
+						{
+							"key": "newPassword",
+							"value": "pass12"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add skill",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Skill addition successfull\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "ewogICAgdXNlcm5hbWU6ICJraGFsaWRAdGVzdC5jb20iLAogICAgcGFzc3dvcmQ6ICJwYXNzMSIKfQ==",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/property/addSkill?id=63f11f1dba0f3e1ccca86432&skill=Lisb",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"property",
+						"addSkill"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "63f11f1dba0f3e1ccca86432"
+						},
+						{
+							"key": "skill",
+							"value": "Lisb"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete skill",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete skill successfull\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "ewogICAgdXNlcm5hbWU6ICJraGFsaWRAdGVzdC5jb20iLAogICAgcGFzc3dvcmQ6ICJwYXNzMSIKfQ==",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/property/deleteSkill/?id=63eabb9c07f2dc10446a1c7c&skill=adriel",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"property",
+						"deleteSkill",
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "63eabb9c07f2dc10446a1c7c"
+						},
+						{
+							"key": "skill",
+							"value": "adriel"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Register successfull\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/account/updateUser?id=63e144d738f480e203faffdc&name=John Doe&email=test1@gmail.com&password=test&isAdmin=false",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account",
+						"updateUser"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "63e144d738f480e203faffdc"
+						},
+						{
+							"key": "name",
+							"value": "John Doe"
+						},
+						{
+							"key": "email",
+							"value": "test1@gmail.com"
+						},
+						{
+							"key": "password",
+							"value": "test"
+						},
+						{
+							"key": "isAdmin",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update profile",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Register successfull\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/account/updateProfile?id=63eabb9c07f2dc10446a1c7c&name=Khalid Sadat Jan&email=khalid@test.com",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account",
+						"updateProfile"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "63eabb9c07f2dc10446a1c7c"
+						},
+						{
+							"key": "name",
+							"value": "Khalid Sadat Jan"
+						},
+						{
+							"key": "email",
+							"value": "khalid@test.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add experience",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Experience added successfull\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/property/addExperience?id=63eabb9c07f2dc10446a1c7c&experience=Software Engineer",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"property",
+						"addExperience"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "63eabb9c07f2dc10446a1c7c"
+						},
+						{
+							"key": "experience",
+							"value": "Software Engineer"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete experience",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Experience deleted successfull\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/property/deleteExperience?id=63eabb9c07f2dc10446a1c7c&experience=Software Engineer",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"property",
+						"deleteExperience"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "63eabb9c07f2dc10446a1c7c"
+						},
+						{
+							"key": "experience",
+							"value": "Software Engineer"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add education",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/api/user/property/addEducation?id=63eabb9c07f2dc10446a1c7c&education[0].degree=BE&education[0].fieldOfStudy=CS&education[0].from=2021-01-01&education[0].to=2024-12-15",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"property",
+						"addEducation"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "63eabb9c07f2dc10446a1c7c"
+						},
+						{
+							"key": "education",
+							"value": "\"education\": [\n{\n    \"school\": \"Concordia University\",\n    \"degree\": \"BE Soft\",\n    \"fieldOfStudy\": \"CS\",\n    \"from\": \"2021-01-01T00:00:00.000Z\",\n    \"to\": \"2024-12-12T00:00:00.000Z\"\n}\n]",
+							"disabled": true
+						},
+						{
+							"key": "education",
+							"value": "Concordia, ad,c,2021-01-01,2023-02-02",
+							"disabled": true
+						},
+						{
+							"key": "education[0].degree",
+							"value": "BE"
+						},
+						{
+							"key": "education[0].fieldOfStudy",
+							"value": "CS"
+						},
+						{
+							"key": "education[0].from",
+							"value": "2021-01-01"
+						},
+						{
+							"key": "education[0].to",
+							"value": "2024-12-15"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add language",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Language added successfull\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/property/addLanguage?id=63eabb9c07f2dc10446a1c7c&language=Frenchd",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"property",
+						"addLanguage"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "63eabb9c07f2dc10446a1c7c"
+						},
+						{
+							"key": "language",
+							"value": "Frenchd"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete language",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Language deleted successfull\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/property/deleteLanguage?id=63eabb9c07f2dc10446a1c7c&language=Frenchd",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"property",
+						"deleteLanguage"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "63eabb9c07f2dc10446a1c7c"
+						},
+						{
+							"key": "language",
+							"value": "Frenchd"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add project",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Project added successfull\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/property/addProject?id=63eabb9c07f2dc10446a1c7c&project=project 2, may - present, some descriptionasdf",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"property",
+						"addProject"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "63eabb9c07f2dc10446a1c7c"
+						},
+						{
+							"key": "project",
+							"value": "project 2, may - present, some descriptionasdf"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete project",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Project deleted successfull\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/property/deleteProject?id=63eabb9c07f2dc10446a1c7c&project=project 2dd, may - present, some descriptionasdf",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"property",
+						"deleteProject"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "63eabb9c07f2dc10446a1c7c"
+						},
+						{
+							"key": "project",
+							"value": "project 2dd, may - present, some descriptionasdf"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

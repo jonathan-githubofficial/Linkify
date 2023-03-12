@@ -26,7 +26,7 @@ export default function HeadlineTop(props) {
                             }
                         </div>
                         <div>
-                            <p className='primaryGray text-[0.8rem] mt-2'>
+                            <p className='primaryGray text-[0.8rem] mt-2' datat-testid='user-location'>
                                 Laval, Quebec, Canada
                             </p>
                         </div>

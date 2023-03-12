@@ -1,6 +1,30 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
+// Define the education schema
+const educationSchema = new mongoose.Schema({
+  school: {
+    type: String,
+    required: true,
+  },
+  degree: {
+    type: String,
+    required: true,
+  },
+  fieldOfStudy: {
+    type: String,
+    required: true,
+  },
+  from: {
+    type: Date,
+    required: true,
+  },
+  to: {
+    type: Date,
+    required: true,
+  },
+});
+
 // Define the Account schema
 const accountSchema = new mongoose.Schema({
   name: {
@@ -43,30 +67,7 @@ const accountSchema = new mongoose.Schema({
     type: Array,
     required: false,
   },
-  education: [
-    {
-      school: {
-        type: String,
-        required: true,
-      },
-      degree: {
-        type: String,
-        required: true,
-      },
-      fieldOfStudy: {
-        type: String,
-        required: true,
-      },
-      from: {
-        type: Date,
-        required: true,
-      },
-      to: {
-        type: Date,
-        required: true,
-      },
-    },
-  ],
+  education: [educationSchema],
   location: {
     type: String,
     required: false,
