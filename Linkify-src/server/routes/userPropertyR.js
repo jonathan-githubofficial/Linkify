@@ -7,9 +7,19 @@ router.post("/addSkill", userPropertyC.addSkill);
 router.delete("/deleteSkill", userPropertyC.deleteSkill);
 router.post("/addLanguage", userPropertyC.addLanguage);
 router.delete("/deleteLanguage", userPropertyC.deleteLanguage);
-router.post("/addProject", userPropertyC.addProject);
+
 router.delete("/deleteProject", userPropertyC.deleteProject);
+
+// @desc Adding a project
+// @route POST /api/user/property/addProject
+// @access Public
+router.post("/addProject", userPropertyC.addProject);
+
+// @desc Add new experience to user profile
+// @route POST /api/user/property/addExperience
+// @access Public
 router.post("/addExperience", userPropertyC.editExperience);
+
 router.delete("/deleteExperience", userPropertyC.deleteExperience);
 router.post("/addEducation", userPropertyC.addEducation);
 router.delete("/deleteEducation", userPropertyC.deleteEducation);

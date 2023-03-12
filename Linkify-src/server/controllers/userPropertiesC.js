@@ -1,4 +1,4 @@
-onst accountM = require("../models/accountM");
+const accountM = require("../models/accountM");
 const asyncHandler = require("express-async-handler");
 
 // Function to add a skill to the user's skills list
