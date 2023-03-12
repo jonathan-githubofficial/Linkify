@@ -1,9 +1,10 @@
+//Author: Daria Koroleva
 import React from 'react'
 import { FaTrashAlt } from 'react-icons/fa'
 
 function ChatItem(props) {
 
-    const { avatar, user, lastmessage, time, selectChat, removeChatItem } = props;
+    const { avatar, user, name,lastmessage, time, selectChat, removeChatItem } = props;
 
     return (
 
@@ -15,7 +16,7 @@ function ChatItem(props) {
                     </div>
                 </div>
                 <div className="flex-grow p-2">
-                    <p className="lg:text-md font-semibold">{user}</p>
+                    <p className="lg:text-md font-semibold">{name}</p>
                     <p className="lg:text-md">{lastmessage}</p>
                 </div>
                 <div className="w-1/8 flex-none">
