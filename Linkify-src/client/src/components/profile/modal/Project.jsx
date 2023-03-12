@@ -1,3 +1,8 @@
+// project modal component
+// Author: Khalid Sadat
+// Date created: March 1, 2023
+// Description: project modal component for adding a new project
+
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Buffer } from "buffer";

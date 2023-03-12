@@ -1,3 +1,8 @@
+// Edit profile modal component
+// Author: Khalid Sadat
+// Date created: March 5, 2023
+// Description: edit profile modal component for editing basic information such as name and password
+
 import React, { useEffect, useState, useTransition } from 'react'
 import axios from 'axios';
 import { BiPencil } from 'react-icons/bi'

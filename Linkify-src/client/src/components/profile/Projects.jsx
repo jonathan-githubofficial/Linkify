@@ -1,3 +1,8 @@
+// Projects component
+// Author: Khalid Sadat
+// Date created: March 3, 2023
+// Description: projects component for showing the projects
+
 import React, { useEffect, useState } from 'react'
 import { BiPencil } from 'react-icons/bi'
 import localExperiences from '../../static/local_experience'

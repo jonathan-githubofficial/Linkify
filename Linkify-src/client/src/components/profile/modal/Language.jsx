@@ -1,3 +1,8 @@
+// language modal component
+// Author: Khalid Sadat
+// Date created: March 3, 2023
+// Description: language modal component for adding a new language
+
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Buffer } from 'buffer';

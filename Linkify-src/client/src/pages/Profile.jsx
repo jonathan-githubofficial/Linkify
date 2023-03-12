@@ -1,3 +1,8 @@
+// profile component
+// Author: Khalid Sadat
+// Date created: March 1, 2023
+// Description: profile component that shows all sub component of profile and also connections
+
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import { Helmet } from 'react-helmet'

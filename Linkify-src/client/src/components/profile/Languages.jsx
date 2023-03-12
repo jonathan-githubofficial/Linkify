@@ -1,3 +1,8 @@
+// Language component
+// Author: Khalid Sadat
+// Date created: March 9, 2023
+// Description: languages component for showing the languages
+
 import React, { useEffect, useState } from 'react'
 import { BiPencil } from 'react-icons/bi'
 import LanguageModal from './modal/Language'

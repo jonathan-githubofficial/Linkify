@@ -1,3 +1,8 @@
+// skills modal component
+// Author: Khalid Sadat
+// Date created: Feb 27, 2023
+// Description: skills modal component for adding a new skill
+
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Buffer } from 'buffer';

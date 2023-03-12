@@ -1,3 +1,8 @@
+// My Connections component
+// Author: Khalid Sadat
+// Date created: March 2, 2023
+// Description: Connections component for showing user's connections
+
 import React from 'react'
 import { RiSendPlaneFill } from 'react-icons/ri'
 import profile_pic from '../../static/images/profile.jpg'

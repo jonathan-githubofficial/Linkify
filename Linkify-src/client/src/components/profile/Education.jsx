@@ -1,3 +1,8 @@
+// Education component
+// Author: Khalid Sadat
+// Date created: March 5, 2023
+// Description: education component for showing user's education
+
 import React, { useEffect, useState } from 'react'
 import { BiPencil } from 'react-icons/bi'
 import localEducation from '../../static/local_education'
@@ -10,25 +15,6 @@ export default function Education(props) {
     useEffect(async () => {
         setEducations(await props.educations);
     });
-
-    console.log(educations)
-
-    // const listItems = educations.map(
-    //     (education) => {
-    //         return (
-    //             <ul type="disc">
-    //                 <li style={{ 
-    //                     fontWeight: 'bold', 
-    //                     color: 'red' }}
-    //                 >
-    //                     {education.school}
-    //                 </li>
-    //                 <li>{education.degree}</li>
-    //             </ul>
-    //         )
-    //     }
-    // )
-
 
     return (
         <div className='p-5'>
@@ -47,7 +33,7 @@ export default function Education(props) {
 
                 </div>
             </div>
-            {/* {localEducation.map(education => (
+            {localEducation.map(education => (
                 <div>
                     <div className="flex justify-left mt-2">
                         <div className="flex items-start">
@@ -71,7 +57,7 @@ export default function Education(props) {
                     </div>
                     <hr className='mt-5' />
                 </div>
-            ))} */}
+            ))}
 
 
             <hr />

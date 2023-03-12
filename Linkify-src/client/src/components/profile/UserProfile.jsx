@@ -1,3 +1,8 @@
+// User profile component
+// Author: Khalid Sadat
+// Date created: March 1, 2023
+// Description: User profile components that is responsible for rendering all sub parts such as experience, education, skills, etc.
+
 import React, { useEffect, useState } from 'react'
 
 import ProfileCover from '../profile/ProfileCover'

@@ -1,3 +1,8 @@
+// experience modal component
+// Author: Khalid Sadat
+// Date created: March 1, 2023
+// Description: experience modal component for adding a new experience
+
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Buffer } from "buffer";

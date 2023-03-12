@@ -1,3 +1,8 @@
+// HeadlineTop component
+// Author: Khalid Sadat
+// Date created: Feb 26, 2023
+// Description: Headline component for showing the key basic info of user
+
 import React from 'react'
 import { BiPencil } from 'react-icons/bi'
 import google_icon from '../../static/images/companies/google.png'

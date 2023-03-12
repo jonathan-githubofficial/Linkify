@@ -1,3 +1,8 @@
+// Experience component
+// Author: Khalid Sadat
+// Date created: Feb 20, 2023
+// Description: experience component for showing user's experiences
+
 import React, { useEffect, useState } from 'react'
 import { BiPencil } from 'react-icons/bi'
 import localExperiences from '../../static/local_experience'
