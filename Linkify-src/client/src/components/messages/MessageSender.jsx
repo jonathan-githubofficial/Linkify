@@ -1,3 +1,4 @@
+//Author: Daria Koroleva
 import React, { useState } from 'react';
 import { FaPaperclip } from 'react-icons/fa';
 

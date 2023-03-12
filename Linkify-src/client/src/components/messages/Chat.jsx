@@ -1,3 +1,4 @@
+//Author: Daria Koroleva
 import React, { useState } from 'react'
 import ChatHeader from './ChatHeader';
 import Message from './Message'
@@ -9,15 +10,17 @@ function Chat(props) {
 
     if (!conversation) {
         return <div></div>;
-    }    
+    }
 
     return (
         <div>
-            <ChatHeader avatar={conversation.avatar} user={conversation.user} title={conversation.title} />
+            <ChatHeader avatar={conversation.avatar} user={conversation.user} name={conversation.name} title={conversation.title} />
             <div className='p-2'>
                 {conversation.messages.map((m) => {
                     return (
-                        <Message message={m} />
+                        <div key={m.id}>
+                            <Message message={m} />
+                        </div>
                     )
                 }
                 )}

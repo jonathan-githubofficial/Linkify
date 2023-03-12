@@ -1,3 +1,4 @@
+//Author: Daria Koroleva
 import React from 'react'
 
 function Message(props) {
@@ -15,7 +16,7 @@ function Message(props) {
                         </div>
                     </div>
                     <div className="chat-header">
-                        {message.user}
+                        {message.name}
                         <time className="text-xs opacity-50">{message.time}</time>
                     </div>
                     <div className="chat-bubble">{message.message}</div>
@@ -28,7 +29,7 @@ function Message(props) {
                         </div>
                     </div>
                     <div className="chat-header">
-                        {message.user}
+                        {message.name}
                         <time className="text-xs opacity-50">{message.time}</time>
                     </div>
                     <div className="chat-bubble">{message.message}</div>

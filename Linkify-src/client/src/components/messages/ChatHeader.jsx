@@ -1,9 +1,9 @@
+//Author: Daria Koroleva
 import React from 'react'
-
 
 function ChatHeader(props) {
 
-    const {avatar, user,title}=props;
+    const {avatar, user,name, title}=props;
 
     return (
         <div className="w-full m-auto p-2 shadow-lg ">
@@ -14,8 +14,8 @@ function ChatHeader(props) {
                     </div>
                 </div>
                 <div className="flex-grow p-2">
-                    <p className="lg:text-md font-semibold">{user}</p>
-                    <p className="lg:text-md">{title}</p>
+                    <p className="lg:text-md font-semibold">{name}</p>
+                    {/* <p className="lg:text-md">{title}</p> */}
                 </div>              
             </div>
         </div>
