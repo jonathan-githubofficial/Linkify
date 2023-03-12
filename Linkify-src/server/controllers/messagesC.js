@@ -4,8 +4,8 @@ const asyncHandler = require("express-async-handler");
 // Create a new message
 const createMessage = async (req, res) => {
   try {
-    const { sender, receiver, message, time } = req.body;
-    const newMessage = new Message({ sender, receiver, message, time });
+    const { sender, receiver, message, time, attachments } = req.body;
+    const newMessage = new Message({ sender, receiver, message, time, attachments });
     const savedMessage = await newMessage.save();
     res.status(201).json(savedMessage);
   } catch (error) {
@@ -80,25 +80,34 @@ const getUsersWithConversation = async (req, res) => {
   }
 };
 
-// Get all users who have a conversation with a specific user
-const getUsersMessagingWithUser = async (req, res) => {
+
+// Get all messages sent to a specific receiver
+const getMessagesForReceiver = async (req, res) => {
   try {
-    const { user } = req.query;
-    const conversations = await Message.distinct("receiver", { sender: user });
-    const senders = await Message.distinct("sender", { receiver: user });
-    const users = [...new Set([...conversations, ...senders])];
-    res.status(200).json(users);
+    const { receiver } = req.query;
+    const messages = await Message.find({ receiver }).sort({ time: 1 });
+    const senders = {};
+    messages.forEach((message) => {
+      const { sender, message: messageContent } = message;
+      if (senders[sender]) {
+        senders[sender].push(messageContent);
+      } else {
+        senders[sender] = [messageContent];
+      }
+    });
+    res.status(200).json(senders);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
 
+
 module.exports = {
   createMessage,
   getMessages,
   deleteMessages,
-  getUsersWithConversation,
   deleteMessageById,
-  getUsersMessagingWithUser,
+  getUsersWithConversation,
+  getMessagesForReceiver,
 };
