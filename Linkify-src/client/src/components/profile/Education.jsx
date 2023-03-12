@@ -16,6 +16,23 @@ export default function Education(props) {
         setEducations(await props.educations);
     });
 
+    // const listItems = educations.map(
+    //     (education) => {
+    //         return (
+    //             <ul type="disc">
+    //                 <li style={{ 
+    //                     fontWeight: 'bold', 
+    //                     color: 'red' }}
+    //                 >
+    //                     {education.school}
+    //                 </li>
+    //                 <li>{education.degree}</li>
+    //             </ul>
+    //         )
+    //     }
+    // )
+
+
     return (
         <div className='p-5'>
             <div className="grid grid-col-2 mb-2 flex">
@@ -33,7 +50,7 @@ export default function Education(props) {
 
                 </div>
             </div>
-            {localEducation.map(education => (
+            {/* {localEducation.map(education => (
                 <div>
                     <div className="flex justify-left mt-2">
                         <div className="flex items-start">
@@ -57,7 +74,7 @@ export default function Education(props) {
                     </div>
                     <hr className='mt-5' />
                 </div>
-            ))}
+            ))} */}
 
 
             <hr />
