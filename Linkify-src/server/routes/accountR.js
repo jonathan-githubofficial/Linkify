@@ -40,10 +40,10 @@ router.get("/email/:email", accountC.getUserByMail);
 
 /**
  * @desc Update user details by ID
- * @route PUT /api/account/:id
+ * @route PUT /api/account/updateUser/:id
  * @access Public
  */
-router.put("/:id", accountC.updateUser);
+router.put("/updateUser/:id", accountC.updateUser);
 
 /**
  * @desc Update user password by ID
