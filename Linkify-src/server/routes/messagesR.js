@@ -40,11 +40,11 @@ router.get('/getuserswithconversation', messagesController.getUsersWithConversat
 
 
 /**
-* @desc Get all users who are messaging with a specific user
-* @route GET /api/messages/usersmessagingwithuser/:userId
-* @access Public
+@desc Get all messages for a receiver
+@route GET /api/messages/receiver
+@routedetails Get /api/messages/receiver?receiver=<receiver-id>
+@access Public
 */
-router.get('/usersmessagingwithuser/:userId', messagesController.getUsersMessagingWithUser);
-
+router.get('/receiver', messagesController.getMessagesForReceiver);
 
 module.exports = router;
