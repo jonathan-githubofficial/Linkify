@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import profile_pic from "../static/images/profile.jpg";
-import { FaPaperPlane } from "react-icons/fa";
-import { MdWarning } from "react-icons/md";
-import { FaCheckCircle } from "react-icons/fa";
-import { FaUsers } from "react-icons/fa";
-import { FaStar } from "react-icons/fa";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
+import MyConnections from "../components/profile/MyConnections";
 
 //add salary (optional)
 //description
@@ -27,11 +23,18 @@ const Jobs = () => {
         }
     }, []);
 
+    const [activeModalId, setActiveModalId] = useState(null)
+
+    const handleOpenModal = (job) => {
+        setActiveModalId(job._id);
+    };
+    const handleCloseModal = () => {
+        setActiveModalId(null);
+    };
+
     const [user, setUser] = useState([]);
     const skills = user && user?.skills;
     const [jobs, setJobs] = useState([]);
-
-    console.log(jobs);
 
 
     const getJobs = async () => {
@@ -46,6 +49,10 @@ const Jobs = () => {
     useEffect (() => {
         getJobs();
     }, [])
+
+    useEffect(() => {
+        document.body.classList.toggle('overflow-hidden', !!activeModalId);
+    }, [activeModalId]);
 
     return (
 
@@ -85,96 +92,124 @@ const Jobs = () => {
                         {/* Jobs */}
                         <div className="w-100 lg:w-2/3">
                             <div className="flex flex-col my-auto items-center">
+
+                                <div className="sm:w-2/3 lg:w-4/5 flex flex-col justify-between gap-3">
+                                    <h2 className="flex justify-center text-2xl font-bold md:text-3xl m-12">Recent Available Jobs</h2>
+                                    <div className="mb-4 flex gap-x-5 md:gap-x-10">
+                                        <form>
+                                            <div className="flex ">
+                                                <label htmlFor="search-dropdown"
+                                                       className="text-sm font-medium text-gray-900 sr-only dark:text-white">Your
+                                                    Email</label>
+                                                <button id="dropdown-button" data-dropdown-toggle="dropdown"
+                                                        className="flex-shrink-0 inline-flex items-center py-1.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-l-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600"
+                                                        type="button">All categories <svg aria-hidden="true"
+                                                                                          className="w-4 h-4 ml-1"
+                                                                                          fill="currentColor"
+                                                                                          viewBox="0 0 20 20"
+                                                                                          xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                          clip-rule="evenodd"></path>
+                                                </svg></button>
+                                                <div className="relative w-full">
+                                                    <input type="search" id="search-dropdown"
+                                                           className="block p-1.5 w-full text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300"
+                                                           placeholder="Search Jobs..."
+                                                           required/>
+                                                        <button type="submit"
+                                                                className="absolute top-0 right-0 p-1.5 text-sm font-medium text-white bg-indigo-400 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                            <svg aria-hidden="true" className="w-5 h-5" fill="none"
+                                                                 stroke="currentColor" viewBox="0 0 24 24"
+                                                                 xmlns="http://www.w3.org/2000/svg">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                      stroke-width="2"
+                                                                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                                            </svg>
+                                                            <span className="sr-only">Search</span>
+                                                        </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                                 
                             {jobs.slice(0).reverse().map((job)=> (
-                                <div  key={job._id} className="sm:w-2/3 lg:w-4/5 items-center text-center mb-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 text-black">
-                                    <div className='avatar'>
-                                        <div className="px-4 py-4 lg:w-60 w-40">
-                                            <img src={profile_pic}  alt={"Profile_pic"}/>
-                                        </div>
-                                    </div>
-                                    <div className="card-body text-center items-center">
-                                        {/* Your loop here */}
-                                        <h2 className="card-title">{job.title}</h2>
-                                        <p>{job.company}</p>
-                                        <p>{job.location}</p>
-                                        <div className="flex flex-col">
-                                            <div className="flex flex-row">
-                                                <div className="flex flex-col card-actions items-center px-2 pt-10">
-                                                    <div className="" style={{fontSize: "20px"}}>
-                                                        <FaPaperPlane />
-                                                    </div>
-                                                    <p className="text-center font-semibold text-sm text-gray-500">
-                                                        Sent
-                                                    </p>
-                                                    <div className={`h-3 w-20 mb-2 ${
-                                                        job.status === "Sent" ? "bg-blue-500" : "bg-gray-500"
-                                                    }`}
-                                                    ></div>
 
-                                                </div>
-                                                <div className="flex flex-col card-actions items-center px-2 pt-10">
-                                                    <div className="" style={{fontSize: "20px"}}>
-                                                        <FaCheckCircle/>
-                                                    </div>
-                                                    <p className="text-center font-semibold text-sm text-gray-500">
-                                                        Confirmation
-                                                    </p>
-                                                    <div className={`h-3 w-20 mb-2 ${
-                                                        job.status === "Confirmation" ? "bg-blue-500" : "bg-gray-500"
-                                                    }`}
-                                                    ></div>
 
+                                        <div key={job._id} className="sm:w-2/3 lg:w-4/5  items-center text-center grid gap-5 my-2 md:grid-cols-2 lg:grid-cols-1 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 text-black max-w-screen-xl">
+                                            <div onClick={() => handleOpenModal(job)}
+                                                className="flex flex-col justify-between gap-3 px-6 py-6 border border-gray-200 lg:flex-row group hover:border-black rounded-xl">
+                                                <div className="flex flex-col items-center flex-1 gap-5 lg:flex-row">
+                                                    <div className=""><img className={"rounded-lg"} src={profile_pic} alt="Logo"/></div>
+                                                    <div className="flex-1 text-center lg:text-start"><h3
+                                                        className="text-lg font-semibold mb-1">{job.title}</h3><h4
+                                                        className="text-green-500">{job.company}</h4></div>
                                                 </div>
-                                                <div className="flex flex-col card-actions items-center px-2 pt-10">
-                                                    <div className="" style={{fontSize: "20px"}}>
-                                                        <MdWarning />
-                                                    </div>
-                                                    <p className="text-center font-semibold text-sm text-gray-500">
-                                                        Action Needed
-                                                    </p>
-                                                    <div className={`h-3 w-20 mb-2 ${
-                                                        job.status === "Action" ? "bg-blue-500" : "bg-gray-500"
-                                                    }`}
-                                                    ></div>
+                                                <div
+                                                    className="flex items-center justify-center flex-1">
+                                                        <span className="text-gray-500">{job.location}</span>
+                                                </div>
+                                                <div
+                                                    className="flex flex-col items-center justify-between gap-3 lg:gap-8 lg:flex-row lg:justify-end ">
+                                                    <p className="text-gray-500">{job.salary}</p><a
+                                                    className="px-6 py-2 text-white font-semibold duration-150 transform border border-white rounded-full hover:bg-blue-800 bg-indigo-400 group-hover:border-transparent"
+                                                    href="/#">Apply</a></div>
                                                 </div>
 
-                                            </div>
-                                            <div className="flex flex-row justify-center pt-4">
-                                                <div className="flex flex-col card-actions items-center px-2">
-                                                    <div className="" style={{fontSize: "20px"}}>
-                                                        <FaUsers />
-                                                    </div>
-                                                    <p className="text-center font-semibold text-sm text-gray-500">
-                                                        Interview
-                                                    </p>
-                                                    <div className={`h-3 w-20 mb-2 ${
-                                                        job.status === "Interview" ? "bg-blue-500" : "bg-gray-500"
-                                                    }`}
-                                                    ></div>
 
-                                                </div>
-                                                <div className="flex flex-col card-actions items-center px-2">
-                                                    <div className="" style={{fontSize: "20px"}}>
-                                                        <FaStar />
+                                    {/* Modal */}
+                                            {activeModalId === job._id && (
+                                        <>
+                                            {/* Modal container */}
+                                            <div className="fixed inset-0 flex items-center justify-center z-10">
+                                                {/* Backdrop */}
+                                                <div className="fixed inset-0 bg-black opacity-50 pointer-events-auto"></div>
+
+                                                {/* Modal content */}
+                                                <div className="flex flex-col lg:h-3/4 lg:w-1/2 sm:w- bg-white max-w-lg lg:rounded-lg relative h-full ">
+                                                    <div className={"flex flex-col h-full pr-6 pl-6 pt-6 justify-between"}>
+                                                            <label onClick={handleCloseModal} className="btn btn-sm btn-circle absolute right-2 top-2">
+                                                                ✕
+                                                            </label>
+                                                        <div>
+                                                            <img
+                                                                src={profile_pic}
+                                                                className="mt-5 flex w-1/3 mr-auto mb-8 ml-auto rounded-full shadow-xl"
+                                                            />
+                                                            <p className="text-lg font-semibold">{job.title}</p>
+                                                            <p className="text-lg text-green-500 font-semibold mb-2">{job.company}</p>
+                                                        </div>
+                                                            <div className="flex flex-col overflow-auto">
+                                                                <p className="text-left mt-8 text-2xl italic font-semibold text-lg">Description:</p>
+                                                                <p className="text-left mt-3 text-base leading-relaxed text-black-200">
+                                                                    {job.description}
+                                                                </p>
+                                                                <p className="text-left mt-8 text-2xl italic font-semibold text-lg">Salary:</p>
+                                                                <p className="text-left mt-3 text-base leading-relaxed text-black-200 mb-2">
+                                                                    {job.salary}
+                                                                </p>
+                                                        </div>
+                                                        <div className="flex items-center justify-center w-full py-5">
+                                                            <a
+                                                                className="m-auto text-center w-40 items-center justify-center pt-4 pb-4 font-medium text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                                            >
+                                                                Apply Now
+                                                            </a>
+                                                        </div>
                                                     </div>
-                                                    <p className="text-center font-semibold text-sm text-gray-500">
-                                                        Offer
-                                                    </p>
-                                                    <div className={`h-3 w-20 mb-2 ${
-                                                        job.status === "Offer" ? "bg-blue-500" : "bg-gray-500"
-                                                    }`}
-                                                    ></div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
+                                        </>
+                                    )}
 
                                 </div>
                             ))}
 
                             </div>
                         </div>
+
+                        <MyConnections />
                     </div>
                 </div>
             </div>
