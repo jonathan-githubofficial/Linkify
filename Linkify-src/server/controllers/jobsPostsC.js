@@ -1,22 +1,18 @@
-c// jobposts controller
+// jobposts controller
 // Author: Jonathan Haddad - Saad Hanna
 // Date created: Mar 1, 2023
 // Description: This file contains the methods for handling the various job post related HTTP requests. These include getting all job posts, getting a job post by id, creating a job post, deleting a job post, updating a job post, getting all job posts by a user, and applying to a job post.
-
-
 
 const jobPostM = require("../models/jobPostM.js");
 const asyncHandler = require("express-async-handler");
 
 // @desc    Get all job posts
-
 const getJobPosts = asyncHandler(async (req, res) => {
   const jobPosts = await jobPostM.find({});
   res.json(jobPosts);
 });
 
 // @desc    Get a job post by id
-
 const getJobPostById = asyncHandler(async (req, res) => {
   const jobPost = await jobPostM.findById(req.params.id);
   if (jobPost) {
