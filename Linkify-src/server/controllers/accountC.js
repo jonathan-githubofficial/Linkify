@@ -2,7 +2,7 @@ const accountM = require("../models/accountM.js");
 const asyncHandler = require("express-async-handler");
 
 const login = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password } = req.query;
   const user = await accountM.findOne({ email });
   if (user && (await user.matchPassword(password))) {
     res.json({

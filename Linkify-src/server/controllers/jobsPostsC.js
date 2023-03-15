@@ -33,11 +33,11 @@ const createJobPost = asyncHandler(async (req, res) => {
     skills,
     postedBy,
     postedOn,
-    applicants,
+    // applicants,
     isExternal,
     externalLink,
     status,
-  } = req.body;
+  } = req.query;
   const jobPost = new jobPostM({
     title,
     company,
@@ -47,7 +47,7 @@ const createJobPost = asyncHandler(async (req, res) => {
     skills,
     postedBy,
     postedOn,
-    applicants,
+    // applicants,
     isExternal,
     externalLink,
     status,
