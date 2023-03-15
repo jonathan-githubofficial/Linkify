@@ -47,4 +47,20 @@ router.post("/addLocation", userPropertyC.addLocation);
 // @access Public
 router.put("/editEducation", userPropertyC.editEducation);
 
+// @desc Delete an existing education from user profile
+// @route DELETE /api/user/property/deleteEducation
+// @access Public
+router.delete("/deleteEducation", userPropertyC.deleteEducation);
+
+// @desc Add a new project to user profile
+// @route POST /api/user/property/addProject
+// @access Public
+router.post("/addProject", userPropertyC.addProject);
+
+// @desc Delete an existing project from user profile
+// @route DELETE /api/user/property/deleteProject
+// @access Public
+router.delete("/deleteProject", userPropertyC.deleteProject);
+
+
 module.exports = router;

@@ -1,3 +1,8 @@
+// account controller
+// Author: Jonathan Haddad - Saad Hanna
+// Date created: Feb 20, 2023
+// Description: This file contains the methods for handling the various account related HTTP requests. These include user registration, authentication, getting all users, getting user details by id or email, updating user details and password, adding a profile image, deleting a user, matching current password, and updating the user profile.
+
 const accountM = require("../models/accountM.js");
 const asyncHandler = require("express-async-handler");
 
@@ -143,6 +148,33 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 });
 
+const matchCurrentPassword = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+  const user = await accountM.findOne({ email });
+  if (user && (await user.matchPassword(password))) {
+    res.json({
+      message: 'true'
+    })
+  } else {
+    res.json({
+      message: 'false'
+    })
+  }
+});
+
+const updateProfile = asyncHandler(async (req, res) => {
+  const { id, name, email } = req.body;
+  const user = await accountM.findById(id);
+  if (user) {
+    user.name = name;
+    user.email = email;
+    const updatedUser = await user.save();
+    res.json(updatedUser);
+  } else {
+    res.status(401);
+    throw new Error("User not found");
+  }
+});
 
 
 module.exports = {
@@ -155,4 +187,6 @@ module.exports = {
   deleteUser,
   updatePassword,
   addProfileImage,
+  updateProfile,
+  matchCurrentPassword,
 };

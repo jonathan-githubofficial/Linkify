@@ -1,3 +1,9 @@
+// connection controller
+// Author: Jonathan Haddad - Saad Hanna
+// Date created: Feb 20, 2023
+// Description: This file contains the methods for handling the various connection related HTTP requests. These include sending connection requests, accepting connection requests, rejecting connection requests, and removing connections.
+
+
 const asyncHandler = require("express-async-handler");
 const accountM = require("../models/accountM.js");
 

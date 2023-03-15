@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 
 import axios from "axios";
@@ -14,16 +14,41 @@ import firstFeed from "../static/local_feed";
 import { useNavigate } from "react-router-dom";
 
 function Home() {
-  var email = "khalid@test.com";
+  var email = "";
   const [user, setUser] = useState([]);
   const navigate = useNavigate();
+
+  // checks if user is logged in, if not, redirects to login page
+  React.useEffect(() => {
+    if (localStorage.getItem("loggedIn") !== "1") {
+      navigate("/login");
+    }
+    else {
+      email = localStorage.getItem("email");
+    }
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("/api/account/userbymail?", {
+        params: { email },
+      })
+      .then((res) => {
+        setUser(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   const [profile, setProfile] = useState([]);
   const [user_skills, setSkills] = useState([]);
-  const [getFeed, setFeed] = useState([]);
 
   const getUser = () => {
     axios
-      .get("/api/account/" + localStorage.getItem("uid"))
+      .get("/api/account/userbymail?", {
+        params: { email },
+      })
       .then((res) => {
         setProfile(res.data);
       })
@@ -32,35 +57,17 @@ function Home() {
       });
   };
 
-  const getFeeds = () => {
-    const id = localStorage.getItem("uid");
-    const feed = [];
-    // get posts for user by his connections
-    axios
-      .get("/api/user/feed/getPersonalFeed", {
-        params: { id: id },
-      })
-      .then((res) => {
-        setFeed(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  useEffect(async () => {
+    setSkills(await profile.skills);
+  });
 
   const experiences = user.experience;
   // var occupation = experiences[experiences.length - 1];
   var occupation = "";
-
-  // checks if user is logged in, if not, redirects to login page
-  React.useEffect(async () => {
-    if (localStorage.getItem("loggedIn") !== "1") {
-      navigate("/login");
-    }
-    getUser();
-    setSkills(await profile.skills);
-    getFeeds();
-  });
 
   return (
     <div>
@@ -88,12 +95,13 @@ function Home() {
                     <hr />
                     <div className="side-user-info items-left">
                       <p>
-                        <span className="font-semibold">
-                          Skills: <br />
-                        </span>
                         {/* {user_skills && Object.keys(user_skills).map((skills_txt) => (
                           <span>{user_skills[skills_txt]}</span>
                       ))} */}
+                        <p className="font-semibold">
+                          {(user_skills && user_skills.length != 0) ? 'Skills' : ""}
+                        </p>
+
                         {user_skills &&
                           Object.keys(user_skills)
                             .map((skill) => user_skills[skill])
@@ -108,7 +116,7 @@ function Home() {
             {/* Feed */}
             <div class="w-100 lg:w-2/3">
               <div class="flex flex-col my-auto items-center bgimg bg-cover">
-                {getFeed.map((feed) => (
+                {firstFeed.map((feed) => (
                   <div className="sm:w-2/3 lg:w-4/5 p-5 mb-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 text-black">
                     <div className="flex items-center justify-left">
                       <div className="flex items-center">
@@ -119,16 +127,14 @@ function Home() {
                         </div>
                         <div className="flex flex-col pl-5">
                           <p className="text-2xl">{feed.name}</p>
-                          <span className="text-xs">Software Engineer</span>
-                          <span className="text-xs">{feed.postedOn}</span>
+                          <span className="text-xs">{feed.occupation}</span>
+                          <span className="text-xs">{feed.date}</span>
                         </div>
                       </div>
                     </div>
 
                     <div className="flex mt-5">
-                      <p className="text-gray-700 text-base">
-                        {feed.description}
-                      </p>
+                      <p className="text-gray-700 text-base">{feed.post}</p>
                     </div>
 
                     <div className="mt-5">
@@ -138,13 +144,13 @@ function Home() {
                             <div className="flex items-center mb-">
                               <SlLike />
                               <label className="text-sm pl-2">
-                                {feed.likes.length}
+                                {feed.likes}
                               </label>
                             </div>
                           </div>
 
                           <div className="text-right text-sm">
-                            {feed.comments.length} Comments
+                            {feed.comments} Comments
                           </div>
                         </div>
                       </div>

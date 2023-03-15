@@ -14,6 +14,7 @@ function Login() {
       .post("/api/account/login", { email, password })
       .then((res) => {
         localStorage.setItem("uid", res.data._id);
+        localStorage.setItem("email", res.data.email);
         localStorage.setItem("loggedIn", 1);
         navigate("/");
       })
@@ -39,7 +40,7 @@ function Login() {
             src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
             alt="Your Company"
           />
-          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900" data-testid="login-title">
             Let's Connect!
           </h2>
         </div>
