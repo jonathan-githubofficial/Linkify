@@ -15,6 +15,7 @@ function Login() {
       .then((res) => {
         localStorage.setItem("uid", res.data._id);
         localStorage.setItem("email", res.data.email);
+        localStorage.setItem("uname", res.data.name);
         localStorage.setItem("loggedIn", 1);
         navigate("/");
       })

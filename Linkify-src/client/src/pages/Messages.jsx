@@ -1,4 +1,7 @@
+//Messages
 //Author: Daria Koroleva
+//Created: March 5,2023
+//Description: Page to display messages
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet'
 import Chat from '../components/messages/Chat';
@@ -10,12 +13,12 @@ import axios from 'axios';
 function Messages() {
 
   const currentUser = localStorage.getItem("uid");
+  const userName = localStorage.getItem("uname");
+
   const [conversations, setConversations] = useState([]);
   const [userSelected, setUserSelected] = useState('');
   const [showChatFeed, setShowChatFeed] = useState(true);
   const [respondents, setRespondents] = useState([]);
-  const [userName, setUserName] = useState('');
-
 
   useEffect(() => {
     axios
@@ -32,25 +35,9 @@ function Messages() {
       });
   }, []); 
 
-
-  useEffect(() => {
-    axios
-      .get("/api/account/getUserDetailsById", {
-        params: { id: currentUser },
-      })
-      .then((res) => {                        
-        setUserName(res.data.name);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []); 
-
-
   useEffect( () => {   
 
-   console.log(respondents);
-
+   
     let promises = respondents.map((respondent) => {
       return getMessages(currentUser, respondent);
     });
@@ -65,7 +52,7 @@ function Messages() {
       setUserSelected(respondents[0].user);
     });
 
-  }, [respondents,userName]);
+  }, [respondents]);
 
 
 
@@ -107,8 +94,7 @@ function Messages() {
         const conversation = conversations.find((c) => c.user === receiver);
         conversation.messages = [...conversation.messages, newMessage];
         const newConversations = [conversation, ...conversations.filter((c) => c.user !== receiver)];
-        setConversations(newConversations);
-        console.log(res);
+        setConversations(newConversations);        
       })
       .catch((err) => console.log("Error", err));
   };

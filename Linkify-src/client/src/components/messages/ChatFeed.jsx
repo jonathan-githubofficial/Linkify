@@ -1,7 +1,10 @@
+//Messages
 //Author: Daria Koroleva
+//Created: March 5,2023
+//Description: Show user conversations with others and last message
+
 import React from 'react'
 import ChatItem from './ChatItem'
-
 
 function ChatFeed(props) {
 

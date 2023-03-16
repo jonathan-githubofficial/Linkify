@@ -1,4 +1,7 @@
+//Messages
 //Author: Daria Koroleva
+//Created: March 5,2023
+//Description: Component to render a message
 import React from 'react'
 
 function Message(props) {
