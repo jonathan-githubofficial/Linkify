@@ -59,7 +59,10 @@ function Messages() {
 
 
       setConversations(conversations);
-      setUserSelected(respondents[0].user);
+      if(respondents.length>0){
+        setUserSelected(respondents[0].user);
+      }
+      
     });
 
   }, [respondents]);
