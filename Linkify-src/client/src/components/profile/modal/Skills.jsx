@@ -1,3 +1,8 @@
+// skills modal component
+// Author: Khalid Sadat
+// Date created: Feb 27, 2023
+// Description: skills modal component for adding a new skill
+
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Buffer } from 'buffer';
@@ -5,8 +10,8 @@ import { Buffer } from 'buffer';
 import { BiPencil } from 'react-icons/bi'
 
 export default function Skills(props) {
-    // let profile_id = props.id;
-    let id = "63eabb9c07f2dc10446a1c7c";
+    let id = props.id;
+    // let id = "63eabb9c07f2dc10446a1c7c";
     var skills = props.skills;
     
     const [skill, setSkill] = useState('');

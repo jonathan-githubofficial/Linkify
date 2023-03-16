@@ -1,4 +1,10 @@
+// profile component
+// Author: Khalid Sadat
+// Date created: March 1, 2023
+// Description: profile component that shows all sub component of profile and also connections
+
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from "react-router-dom";
 import { Helmet } from 'react-helmet'
 import axios from 'axios'
 
@@ -6,15 +12,30 @@ import UserProfile from '../components/profile/UserProfile'
 import MyConnections from '../components/profile/MyConnections'
 
 function Profile() {
-    // var id = '63e144d738f480e203faffdc';
-    // var email = 'test1@gmail.com';
-    var email = 'khalid@test.com';
-
-    const [profile, setProfile] = useState([])
     
-    const getUser = () => {
+    const [profile, setProfile] = useState([])
+    const [email, setEmail] = useState([])
+    
+    var email_s = '';
+    
+    const navigate = useNavigate();
+    // checks if user is logged in, if not, redirects to login page
+    useEffect(() => {
+        if (localStorage.getItem("loggedIn") !== "1") {
+            navigate("/login");
+        }
+        else {
+            // setId(localStorage.getItem("uid"));
+            email_s = localStorage.getItem("email");
+            // setEmail(localStorage.getItem("email"));
+            // email_s = email;
+        }
+    }, []);
+        
+
+    const getUser = async () => {
         axios.get('/api/account/userbymail?', {
-            params: {email}
+            params: {email: email_s}
         })
         .then(res => {
             setProfile(res.data)

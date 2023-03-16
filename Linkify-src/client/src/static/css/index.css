@@ -44,3 +44,15 @@ img.eduLogo {
 .editProfileModal {
     height: 20rem !important;
 }
+
+.jobs-location {
+    font-size: 14px;
+    color: gray;
+    font-style: italic;
+    float: right;
+    padding-top: 0.1rem;
+}
+
+.jobs-salary {
+    font-size: 14px;
+}

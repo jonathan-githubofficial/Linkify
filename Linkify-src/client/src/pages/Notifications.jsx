@@ -1,8 +1,18 @@
-import React, { useState } from 'react';
-import { Helmet } from 'react-helmet'
-import Notification from '../components/Notification'
+import React, { useState , useEffect} from 'react';
+import { Helmet } from 'react-helmet';
+import Notification from '../components/Notification';
+import { useNavigate } from "react-router-dom";
 
 function Notifications() {
+
+  const navigate = useNavigate();
+
+  // checks if user is logged in, if not, redirects to login page
+  useEffect(() => {
+    if (localStorage.getItem("loggedIn") !== "1") {
+      navigate("/login");
+    }  
+  }, []);
 
   const [notifications, setNotifications] = useState([
     { id: 1, age:"16m", user: "Monkey", type: "posted", description: "I am a happy Developer. I have five years of experience. I use HTML, JS, and CSS. I am also learning React.", avatar: "/images/avatar1.jpg" },

@@ -35,18 +35,35 @@ const jobPostSchema = new Schema({
     type: Date, // Date when the job was posted
     required: true,
   },
-  applicants: {
-    type: Array, // List of applicants for the job
-    required: true,
-  },
+  applicants: [
+    {
+      userId: {
+        type: mongoose.Types.ObjectId, // User who applied for the job
+        ref: "Account",
+        required: true,
+      },
+      resume: {
+        type: String, // Resume of the user who applied for the job
+        required: true,
+      },
+    },
+  ],
   status: {
     type: String, // Status of the job post (open, closed, etc.)
     required: true,
   },
+  isExternal: {
+    type: Boolean, // Is the job post external or internal
+    required: true,
+  },
+  externalLink: {
+    type: String, // Link to the external job post
+    required: false,
+  },
 });
 
 // Create a Mongoose model for the job post
-const JopPost = mongoose.model("JobPost", jobPostSchema);
+const JobPost = mongoose.model("JobPost", jobPostSchema);
 
 // Export the JobPost model
-module.exports = JopPost;
+module.exports = JobPost;

@@ -1,11 +1,13 @@
+// account controller
+// Author: Jonathan Haddad - Saad Hanna
+// Date created: Feb 20, 2023
+// Description: This file contains the methods for handling the various account related HTTP requests. These include user registration, authentication, getting all users, getting user details by id or email, updating user details and password, adding a profile image, deleting a user, matching current password, and updating the user profile.
+
 const accountM = require("../models/accountM.js");
 const asyncHandler = require("express-async-handler");
 
 const login = asyncHandler(async (req, res) => {
-  // const email = req.query.email;
-  // const password = req.query.password;
-  const {email, password} = req.query;
-
+  const { email, password } = req.body;
   const user = await accountM.findOne({ email });
   if (user && (await user.matchPassword(password))) {
     res.json({
@@ -13,7 +15,6 @@ const login = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
-      department: user.department,
     });
   } else {
     res.status(401);
@@ -22,19 +23,24 @@ const login = asyncHandler(async (req, res) => {
 });
 
 const registerUser = asyncHandler(async (req, res) => {
-  const user = await accountM.findOne({ email: req.query.email });
+  const user = await accountM.findOne({ email: req.body.email });
   if (user) {
     res.status(400);
     throw new Error("User already exists");
   } else {
-    const { name, email, password } = req.query;
+    const { name, email, password } = req.body;
     const newUser = await accountM.create({
       name,
       email,
       password,
     });
     if (newUser) {
-      res.json(newUser);
+      res.json({
+        _id: newUser._id,
+        name: newUser.name,
+        email: newUser.email,
+        isAdmin: newUser.isAdmin,
+      });
     } else {
       res.status(401);
       throw new Error("Invalid user data");
@@ -53,8 +59,9 @@ const getAllUsers = asyncHandler(async (req, res) => {
 });
 
 const getUserDetailsById = asyncHandler(async (req, res) => {
-  const { id } = req.query;
-  const user = await accountM.findById(id);
+  const { id } = req.params;
+  const selectFields = req.query.select; // retrieve the select parameter from query string
+  const user = await accountM.findById(id).select(selectFields);
   if (user) {
     res.json(user);
   } else {
@@ -91,7 +98,7 @@ const updateUser = asyncHandler(async (req, res) => {
 });
 
 const updatePassword = asyncHandler(async (req, res) => {
-  const { id, oldPassword, newPassword } = req.query;
+  const { id, oldPassword, newPassword } = req.body;
   const user = await accountM.findById(id);
   if (user) {
     if (await user.matchPassword(oldPassword)) {
@@ -141,6 +148,35 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 });
 
+const matchCurrentPassword = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+  const user = await accountM.findOne({ email });
+  if (user && (await user.matchPassword(password))) {
+    res.json({
+      message: 'true'
+    })
+  } else {
+    res.json({
+      message: 'false'
+    })
+  }
+});
+
+const updateProfile = asyncHandler(async (req, res) => {
+  const { id, name, email } = req.body;
+  const user = await accountM.findById(id);
+  if (user) {
+    user.name = name;
+    user.email = email;
+    const updatedUser = await user.save();
+    res.json(updatedUser);
+  } else {
+    res.status(401);
+    throw new Error("User not found");
+  }
+});
+
+
 module.exports = {
   login,
   registerUser,
@@ -151,4 +187,6 @@ module.exports = {
   deleteUser,
   updatePassword,
   addProfileImage,
+  updateProfile,
+  matchCurrentPassword,
 };

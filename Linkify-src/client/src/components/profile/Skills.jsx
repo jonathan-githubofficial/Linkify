@@ -1,3 +1,8 @@
+// Skills component
+// Author: Khalid Sadat
+// Date created: March 3, 2023
+// Description: Skills component for showing the skills
+
 import React, { useEffect, useState } from 'react'
 import { BiPencil } from 'react-icons/bi'
 import SkillsModal from './modal/Skills'
@@ -35,6 +40,7 @@ export default function Skills(props) {
                     ))}
                     {/* {typeof(user_skills)} */}
                 </div>
+                <hr className='mt-5' />
             </div>
         </div>
     )
