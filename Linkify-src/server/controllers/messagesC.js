@@ -1,3 +1,11 @@
+// messages controller
+// Author: Jonathan Haddad
+// Date created: Mar 5, 2023
+// Description: This file contains the methods for handling the various message related HTTP requests. These include creating a new message, getting all messages between two users, deleting all messages between two users, deleting a single message by ID, getting all users who have a conversation with each other, and getting all messages sent to a specific receiver.
+
+
+
+
 const Account = require("../models/accountM");
 const Message = require('../models/messagesM');
 const asyncHandler = require("express-async-handler");

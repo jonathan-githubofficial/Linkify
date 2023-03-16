@@ -1,3 +1,8 @@
+// Profile cover component
+// Author: Khalid Sadat
+// Date created: March 3, 2023
+// Description: Project cover component for showing the the profile cover
+
 import React, { useEffect, useState } from 'react'
 import profile_cover from '../../static/images/profile-cover.png'
 

@@ -1,3 +1,8 @@
+// User profile component
+// Author: Khalid Sadat
+// Date created: March 1, 2023
+// Description: User profile components that is responsible for rendering all sub parts such as experience, education, skills, etc.
+
 import React, { useEffect, useState } from 'react'
 
 import ProfileCover from '../profile/ProfileCover'
@@ -5,6 +10,10 @@ import HeadlineTop from '../profile/HeadlineTop'
 import Experience from '../profile/Experience'
 import Education from '../profile/Education'
 import Skills from '../profile/Skills'
+import Languages from '../profile/Languages'
+import Projects from '../profile/Projects'
+
+import profile_pic from "../../static/images/profile.jpg";
 
 export default function UserProfile(props) {
     var profile = props.user;
@@ -12,8 +21,11 @@ export default function UserProfile(props) {
     var profile_name = profile.name;
 
     var skills = profile.skills;
+    var languages = profile.languages;
 
     var experiences = profile.experience;
+    var educations = profile.education;
+    var projects = profile.projects;
 
     // For Header Cover
     const [position, setPosition] = useState('');
@@ -52,14 +64,18 @@ export default function UserProfile(props) {
             <ProfileCover name={profile_name} position={position} company={company}/>
             <hr/>
             
-            <HeadlineTop company={company}/>
+            <HeadlineTop profile={profile} company={company} profile_pic={profile_pic} getUser={props.getUser}/>
             <hr />
             
             <Experience id={profile_id} experiences={experiences} getUser={props.getUser} />
 
-            <Education />
+            <Education id={profile_id} educations={educations} getUser={props.getUser} />
 
             <Skills id={profile_id} skills={skills} getUser={props.getUser}/>
+
+            <Languages id={profile_id} languages={languages} getUser={props.getUser}/>
+
+            <Projects id={profile_id} projects={projects} getUser={props.getUser} />
         </div>
     )
 }

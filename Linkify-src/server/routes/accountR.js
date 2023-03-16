@@ -26,44 +26,59 @@ router.get("/users", accountC.getAllUsers);
 
 /**
  * @desc Get user details by ID
- * @route GET /api/account/:id
+ * @route GET /api/account/getUser
  * @access Public
  */
-router.get("/:id", accountC.getUserDetailsById);
+router.get("/getUser", accountC.getUserDetailsById);
 
 /**
  * @desc Get user details by email
- * @route GET /api/account/email/:email
+ * @route GET /api/account/userByMail
  * @access Public
  */
-router.get("/email/:email", accountC.getUserByMail);
+router.get("/userByMail", accountC.getUserByMail);
 
 /**
  * @desc Update user details by ID
- * @route PUT /api/account/updateUser/:id
+ * @route PUT /api/account/updateUser
  * @access Public
  */
-router.put("/updateUser/:id", accountC.updateUser);
+router.put("/updateUser", accountC.updateUser);
 
 /**
  * @desc Update user password by ID
- * @route PUT /api/account/password/:id
+ * @route PUT /api/account/updatePassword
  * @access Public
  */
-router.put("/password/:id", accountC.updatePassword);
+router.put("/updatePassword", accountC.updatePassword);
 
 /**
  * @desc Add profile image for user
- * @route POST /api/account/profile-image/:id
+ * @route POST /api/account/addProfileImage
  * @access Public
  */
-router.post("/profile-image/:id", accountC.addProfileImage);
+router.post("/addProfileImage", accountC.addProfileImage);
 
 /**
  * @desc Delete user by ID
- * @route DELETE /api/account/:id
+ * @route DELETE /api/account/deleteUser
  * @access Public
  */
-router.delete("/:id", accountC.deleteUser);
+router.delete("/deleteUser", accountC.deleteUser);
+
+/**
+@desc Update user profile information
+@route PUT /api/account/updateProfile
+@access Public
+*/
+router.put("/updateProfile", accountC.updateProfile);
+
+/**
+@desc Match the entered password with the current user's password
+@route POST /api/account/matchPassword
+@access Public
+*/
+router.post("/matchPassword", accountC.matchCurrentPassword);
+
 
 module.exports = router;

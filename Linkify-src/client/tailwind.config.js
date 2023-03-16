@@ -2,6 +2,10 @@ module.exports = {
   mode: "jit",
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   darkMode: false, // or 'media' or 'class'
+  content: [
+    "./src/**/*.{html,js}",
+    "./node_modules/tw-elements/dist/js/**/*.js"
+  ],
   theme: {
     extend: {},
     container: {
@@ -27,5 +31,8 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [require("daisyui")],
+  plugins: [
+    require("daisyui"),
+    require("tw-elements/dist/plugin")
+  ],
 }

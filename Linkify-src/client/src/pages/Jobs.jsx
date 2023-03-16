@@ -217,41 +217,10 @@ const Jobs = () => {
                                 </div>
                             ))}
                         </div>
-                            <MyConnections />
+                        <MyConnections />
                     </div>
                 </div>
             </div>
-            {/* <div className='flex flex-col items-center mt-5'>
-                <div className='lg:w-2/3'>
-                    <div className="flex"> */}
-                        {/* Side Profile Bar */}
-                        {/* <div className="flex flex-items items-center hidden lg:block">
-                            <div className='w-[15rem]'>
-                                <div className="card bg-base-100 shadow-xl">
-                                    <figure className="px-10 pt-10">
-                                        <img src={profile_pic} alt="Shoes" className="rounded-xl" />
-                                    </figure>
-                                    <div className="card-body items-center text-center">
-                                        <h2 className="card-title">Khalid Sadat</h2>
-                                        <div className='side-user-info'>
-                                            <p>Software Engineer</p>
-                                            <p>My Company Inc.</p>
-                                        </div>
-                                        <hr />
-                                        <div className="side-user-info items-left italic">
-                                            <p>Skills:
-                                                {skills}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> */}
-                        
-                        {/* Jobs */}
-                    {/* </div>
-                </div>
-            </div> */}
         </div>
     )
 }

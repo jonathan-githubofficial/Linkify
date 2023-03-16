@@ -1,19 +1,19 @@
-// Skills component
+// Language component
 // Author: Khalid Sadat
-// Date created: March 3, 2023
-// Description: Skills component for showing the skills
+// Date created: March 9, 2023
+// Description: languages component for showing the languages
 
 import React, { useEffect, useState } from 'react'
 import { BiPencil } from 'react-icons/bi'
-import SkillsModal from './modal/Skills'
+import LanguageModal from './modal/Language'
 
-export default function Skills(props) {
+export default function Languages(props) {
     let id = props.id;
     // var user_skills = props.skills;
-    const [user_skills, setSkills] = useState([]);
+    const [user_languages, setLanguages] = useState([]);
 
     useEffect(async () => {
-        setSkills(await props.skills);
+        setLanguages(await props.languages);
     });
     
 
@@ -22,21 +22,21 @@ export default function Skills(props) {
             <div className="grid grid-col-2 mb-2 flex">
                 <div class="grid grid-cols-2 gap-2 items-start">
                     <div>
-                        <h1 className='text-xl font-semibold mb-5'>Skills</h1>
+                        <h1 className='text-xl font-semibold mb-5'>Languages</h1>
                     </div>
                     <div className="flex">
                         <div style={{marginLeft: "auto"}}>
-                            <label htmlFor="skills-modal" className="">
+                            <label htmlFor="language-modal" className="">
                                 <BiPencil className='cursor-pointer text-xl'/>
                             </label>
                         </div>
                     </div>
                 </div>
-                <SkillsModal id={id} skills={user_skills} getUser={props.getUser}/>
+                <LanguageModal id={id} languages={user_languages} getUser={props.getUser}/>
                 <div>
-                    {(user_skills && user_skills.length == 0) ? 'You did not add your skills yet.' : ''}
-                    {user_skills && Object.keys(user_skills).map((skills_txt) => (
-                        <p>&bull; {user_skills[skills_txt]}</p>
+                    {(user_languages && user_languages.length == 0) ? 'You did not add any languages yet.' : ''}
+                    {user_languages && Object.keys(user_languages).map((language_txt) => (
+                        <p>&bull; {user_languages[language_txt]}</p>
                     ))}
                     {/* {typeof(user_skills)} */}
                 </div>

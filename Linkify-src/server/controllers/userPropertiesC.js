@@ -1,3 +1,10 @@
+// User Properties controller
+// Author: Jonathan Haddad - Saad Hanna
+// Date created: Feb 19, 2023
+// Description: This file contains the methods for handling the various user related HTTP requests. These include adding/deleting skills, adding/deleting languages, adding/editing/deleting education, adding/deleting/editing projects, adding/updating location, and managing experience.
+
+
+
 const accountM = require("../models/accountM");
 const asyncHandler = require("express-async-handler");
 
@@ -87,6 +94,23 @@ const editExperience = asyncHandler(async (req, res) => {
   }
 });
 
+// delete experience
+const deleteExperience = asyncHandler(async (req, res) => {
+  const { id, experience } = req.body;
+  const user = await accountM.findById(id);
+  if (user) {
+    user.experience = user.experience.filter((item) => item !== experience);
+    await user.save();
+    res.json({
+      message: "Experience deleted successfully",
+      userExperience: user.experience,
+    });
+  } else {
+    res.status(401);
+    throw new Error("User not found");
+  }
+});
+
 // add education
 const addEducation = asyncHandler(async (req, res) => {
   const { id } = req.query;
@@ -156,6 +180,8 @@ const editEducation = asyncHandler(async (req, res) => {
   }
 });
 
+
+
 // add location
 const addLocation = asyncHandler(async (req, res) => {
   const { id, location } = req.body;
@@ -173,6 +199,39 @@ const addLocation = asyncHandler(async (req, res) => {
   }
 });
 
+// add project
+const addProject = asyncHandler(async (req, res) => {
+  const { id, project } = req.body;
+  const user = await accountM.findById(id);
+  if (user) {
+    user.projects.push(project);
+    await user.save();
+    res.json({
+      message: "Project added successfully",
+      userProjects: user.projects,
+    });
+  } else {
+    res.status(401);
+    throw new Error("User not found");
+  }
+});
+
+// delete project
+const deleteProject = asyncHandler(async (req, res) => {
+  const { id, project } = req.body;
+  const user = await accountM.findById(id);
+  if (user) {
+    user.projects = user.projects.filter((item) => item !== project);
+    await user.save();
+    res.json({
+      message: "Project deleted successfully",
+      userProjects: user.projects,
+    });
+  } else {
+    res.status(401);
+    throw new Error("User not found");
+  }
+});
 
 module.exports = {
   addSkill,
@@ -180,8 +239,11 @@ module.exports = {
   addLanguage,
   deleteLanguage,
   editExperience,
+  deleteExperience,
   addEducation,
   editEducation,
   deleteEducation,
+  addProject,
+  deleteProject,
   addLocation,
 };
