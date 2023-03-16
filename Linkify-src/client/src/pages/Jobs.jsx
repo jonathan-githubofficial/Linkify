@@ -81,7 +81,7 @@ const Jobs = () => {
                                     <div className="side-user-info items-left">
                                     <p>
                                         <span className="font-semibold">
-                                        Skills: <br />
+                                        {/* Skills: <br /> */}
                                         </span>
                                         {/* {user_skills && Object.keys(user_skills).map((skills_txt) => (
                                         <span>{user_skills[skills_txt]}</span>
