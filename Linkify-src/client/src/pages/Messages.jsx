@@ -8,36 +8,46 @@ import Chat from '../components/messages/Chat';
 import ChatFeed from '../components/messages/ChatFeed';
 import { FaArrowLeft } from 'react-icons/fa';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 
 function Messages() {
+  
+  const navigate = useNavigate();
+
+  // checks if user is logged in, if not, redirects to login page
+  useEffect(() => {
+    if (localStorage.getItem("loggedIn") !== "1") {
+      navigate("/login");
+    }  
+  }, []);
+
 
   const currentUser = localStorage.getItem("uid");
   const userName = localStorage.getItem("uname");
-
   const [conversations, setConversations] = useState([]);
   const [userSelected, setUserSelected] = useState('');
   const [showChatFeed, setShowChatFeed] = useState(true);
   const [respondents, setRespondents] = useState([]);
+
 
   useEffect(() => {
     axios
       .get("/api/messages/receiver", {
         params: { receiver: currentUser },
       })
-      .then((res) => {        
-        const result = Object.entries(res.data).map(([user, { name }]) => ({ user, name }));
-        console.log(result);
+      .then((res) => {
+        const result = Object.entries(res.data).map(([user, { name }]) => ({ user, name }));        
         setRespondents(result);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []); 
+  }, []);
 
-  useEffect( () => {   
+  useEffect(() => {
 
-   
+
     let promises = respondents.map((respondent) => {
       return getMessages(currentUser, respondent);
     });
@@ -94,7 +104,7 @@ function Messages() {
         const conversation = conversations.find((c) => c.user === receiver);
         conversation.messages = [...conversation.messages, newMessage];
         const newConversations = [conversation, ...conversations.filter((c) => c.user !== receiver)];
-        setConversations(newConversations);        
+        setConversations(newConversations);
       })
       .catch((err) => console.log("Error", err));
   };
@@ -113,7 +123,7 @@ function Messages() {
           avatar: `/images/${m.sender}.jpg`,
           time: formatTime(m.time),
           datetime: m.time,
-          user: m.sender,  
+          user: m.sender,
           name: (m.sender === currentUser) ? userName : respondent.name,
           message: m.message,
           position: (m.sender === currentUser) ? "end" : "start"
