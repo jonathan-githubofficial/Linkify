@@ -36,11 +36,11 @@ function Login() {
       <div className="w-full max-w-md space-y-8">
         <div>
           <img
-            className="mx-auto h-12 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+            className="mx-auto h-48 w-auto"
+            src="/src/static/images/loginimg.png"
             alt="Your Company"
           />
-          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900" data-testid="login-title">
+          <h2 className="text-center text-4xl font-bold tracking-tight text-gray-900" data-testid="login-title">
             Let's Connect!
           </h2>
         </div>

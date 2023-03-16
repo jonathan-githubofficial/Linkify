@@ -1,10 +1,8 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-
-import profile_pic from "../../static/images/profile.jpg";
 import { FaSuitcase, FaComments } from "react-icons/fa";
-
 import logo from "../../static/images/logo.svg";
+import profile_pic from "../../static/images/profile.jpg";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -13,6 +11,8 @@ function Navbar() {
     localStorage.removeItem("loggedIn");
     navigate("/login");
   };
+
+  const isLoggedIn = localStorage.getItem("loggedIn");
 
   return (
     <div className="navbar bg-base-100 shadow-md pt-2 px-10 flex bg-transparent">
@@ -23,34 +23,36 @@ function Navbar() {
           </Link>
         </div>
       </div>
-      <div className="navbar-center hidden lg:block">
-        <div className="form-control w-[47rem]">
-          <input
-            type="text"
-            placeholder="Search Linkify..."
-            className="input input-bordered"
-          />
-        </div>
-      </div>
-      <div className="navbar-end">
-        <Link to="/messages">
-          <div
-            className="mr-2 btn btn-ghost btn-circle"
-            style={{ fontSize: "22px" }}
-          >
-            <FaComments />
+      {isLoggedIn ? (
+        <>
+          <div className="navbar-center hidden lg:block">
+            <div className="form-control w-[47rem]">
+              <input
+                type="text"
+                placeholder="Search Linkify..."
+                className="input input-bordered"
+              />
+            </div>
           </div>
-        </Link>
-        <Link to="/jobs">
-          <div
-            className="mr-2 btn btn-ghost btn-circle"
-            style={{ fontSize: "20px" }}
-          >
-            <FaSuitcase />
-          </div>
-        </Link>
+          <div className="navbar-end">
+            <Link to="/messages">
+              <div
+                className="mr-2 btn btn-ghost btn-circle"
+                style={{ fontSize: "22px" }}
+              >
+                <FaComments />
+              </div>
+            </Link>
+            <Link to="/jobs">
+              <div
+                className="mr-2 btn btn-ghost btn-circle"
+                style={{ fontSize: "20px" }}
+              >
+                <FaSuitcase />
+              </div>
+            </Link>
 
-        <Link to="/notifications">
+            <Link to="/notifications">
           <div className="dropdown dropdown-end mr-5">
             <label tabIndex={0} className="btn btn-ghost btn-circle">
               <div className="indicator">
@@ -77,33 +79,39 @@ function Navbar() {
             ></div>
           </div>
         </Link>
-
-        <div className="dropdown dropdown-end">
-          <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-            <div className="w-10 rounded-full">
-              <img src={profile_pic} />
-            </div>
-          </label>
-          <ul
-            tabIndex={0}
-            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
-          >
-            <Link to="/profile">
+        <div className="navbar-end">
+          <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+              <div className="w-10 rounded-full">
+                <img src={profile_pic} />
+              </div>
+            </label>
+            <ul
+              tabIndex={0}
+              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <Link to="/profile">
+                <li>
+                  <a className="justify-between">Profile</a>
+                </li>
+              </Link>
               <li>
-                <a className="justify-between">Profile</a>
+                <a>Settings</a>
               </li>
-            </Link>
-            <li>
-              <a>Settings</a>
-            </li>
-            <p onClick={logout}>
-              <li>
-                <a>Logout</a>
-              </li>
-            </p>
-          </ul>
+              <p onClick={logout}>
+                <li>
+                  <a>Logout</a>
+                </li>
+              </p>
+            </ul>
+          </div>
         </div>
-      </div>
+          </div>
+        </>
+      ) : null }
+      
+        
+     
     </div>
   );
 }
