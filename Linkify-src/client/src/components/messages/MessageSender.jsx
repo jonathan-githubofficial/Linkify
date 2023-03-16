@@ -1,4 +1,7 @@
+//Messages
 //Author: Daria Koroleva
+//Created: March 5,2023
+//Description: Component to render Send a message
 import React, { useState } from 'react';
 import { FaPaperclip } from 'react-icons/fa';
 
