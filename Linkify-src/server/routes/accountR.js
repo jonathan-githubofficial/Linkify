@@ -1,5 +1,5 @@
 const express = require("express");
-const accountC = require("../controllers/accountC.js");
+const accountController = require("../controllers/accountC.js");
 
 const router = express.Router();
 
@@ -8,77 +8,79 @@ const router = express.Router();
  * @route POST /api/account/register
  * @access Public
  */
-router.post("/register", accountC.registerUser);
+router.post("/register", accountController.registerUser);
 
 /**
  * @desc Authenticate user
  * @route POST /api/account/login
  * @access Public
  */
-router.post("/login", accountC.login);
+router.post("/login", accountController.login);
 
 /**
  * @desc Get all users
  * @route GET /api/account/users
  * @access Public
  */
-router.get("/users", accountC.getAllUsers);
+router.get("/users", accountController.getAllUsers);
 
 /**
  * @desc Get user details by ID
  * @route GET /api/account/getUser
  * @access Public
  */
-router.get("/getUser", accountC.getUserDetailsById);
+router.get("/getUser", accountController.getUserDetailsById);
 
 /**
  * @desc Get user details by email
  * @route GET /api/account/userByMail
  * @access Public
  */
-router.get("/userByMail", accountC.getUserByMail);
+router.get("/userByMail", accountController.getUserByMail);
 
 /**
  * @desc Update user details by ID
  * @route PUT /api/account/updateUser
  * @access Public
  */
-router.put("/updateUser", accountC.updateUser);
+router.put("/updateUser", accountController.updateUser);
 
 /**
  * @desc Update user password by ID
  * @route PUT /api/account/updatePassword
  * @access Public
  */
-router.put("/updatePassword", accountC.updatePassword);
+router.put("/updatePassword", accountController.updatePassword);
 
 /**
  * @desc Add profile image for user
  * @route POST /api/account/addProfileImage
  * @access Public
  */
-router.post("/addProfileImage", accountC.addProfileImage);
+router.post("/addProfileImage", accountController.addProfileImage);
 
 /**
  * @desc Delete user by ID
  * @route DELETE /api/account/deleteUser
  * @access Public
  */
-router.delete("/deleteUser", accountC.deleteUser);
+router.delete("/deleteUser", accountController.deleteUser);
 
 /**
 @desc Update user profile information
 @route PUT /api/account/updateProfile
 @access Public
 */
-router.put("/updateProfile", accountC.updateProfile);
+router.put("/updateProfile", accountController.updateProfile);
 
 /**
 @desc Match the entered password with the current user's password
 @route POST /api/account/matchPassword
 @access Public
 */
-router.post("/matchPassword", accountC.matchCurrentPassword);
+router.post("/matchPassword", accountController.matchCurrentPassword);
+
+
 
 
 module.exports = router;

@@ -1,5 +1,5 @@
 const express = require("express");
-const connectionC = require("../controllers/connectionC.js");
+const connectionController = require("../controllers/connectionC.js");
 
 const router = express.Router();
 
@@ -8,27 +8,27 @@ const router = express.Router();
  * @route POST /user/connection/sendConnectionRequest
  * @access Private
  */
-router.post("/sendConnectionRequest", connectionC.sendConnectionRequest);
+router.post("/sendConnectionRequest", connectionController.sendConnectionRequest);
 
 /**
  * @desc Accept a connection request from another user
  * @route POST /user/connection/acceptConnectionRequest
  * @access Private
  */
-router.post("/acceptConnectionRequest", connectionC.acceptConnectionRequest);
+router.post("/acceptConnectionRequest", connectionController.acceptConnectionRequest);
 
 /**
  * @desc Reject a connection request from another user
  * @route POST /user/connection/rejectConnectionRequest
  * @access Private
  */
-router.post("/rejectConnectionRequest", connectionC.rejectConnectionRequest);
+router.post("/rejectConnectionRequest", connectionController.rejectConnectionRequest);
 
 /**
  * @desc Remove a connection to another user
  * @route POST /user/connection/removeConnection
  * @access Private
  */
-router.post("/removeConnection", connectionC.removeConnection);
+router.post("/removeConnection", connectionController.removeConnection);
 
 module.exports = router;
