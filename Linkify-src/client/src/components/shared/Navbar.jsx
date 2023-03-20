@@ -15,6 +15,7 @@ function Navbar(props) {
   };
 
   var profile = props.profile;
+  
 
   const isLoggedIn = localStorage.getItem("loggedIn");
 
