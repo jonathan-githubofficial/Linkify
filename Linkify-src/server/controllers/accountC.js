@@ -23,30 +23,44 @@ const login = asyncHandler(async (req, res) => {
 });
 
 const registerUser = asyncHandler(async (req, res) => {
-  const user = await accountM.findOne({ email: req.body.email });
-  if (user) {
+  const { name, email, password } = req.body;
+
+  // Convert the email to lowercase before checking for duplicates
+  const existingUser = await accountM.findOne({ email: email.toLowerCase() });
+
+  if (existingUser) {
     res.status(400);
     throw new Error("User already exists");
   } else {
-    const { name, email, password } = req.body;
+    // Password validation
+    const passwordValidation = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordValidation.test(password)) {
+      res.status(400);
+      throw new Error("Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one symbol.");
+    }
+
+    // Store the email in lowercase when creating a new user
     const newUser = await accountM.create({
       name,
-      email,
+      email: email.toLowerCase(),
       password,
     });
+
     if (newUser) {
-      res.json({
+      res.status(201).json({
         _id: newUser._id,
         name: newUser.name,
         email: newUser.email,
         isAdmin: newUser.isAdmin,
       });
     } else {
-      res.status(401);
+      res.status(400);
       throw new Error("Invalid user data");
     }
   }
 });
+
+
 
 const getAllUsers = asyncHandler(async (req, res) => {
   const users = await accountM.find({});
@@ -57,6 +71,8 @@ const getAllUsers = asyncHandler(async (req, res) => {
     throw new Error("Users not found");
   }
 });
+
+
 
 const getUserDetailsById = asyncHandler(async (req, res) => {
   const { id } = req.params;
@@ -70,6 +86,8 @@ const getUserDetailsById = asyncHandler(async (req, res) => {
   }
 });
 
+
+
 const getUserByMail = asyncHandler(async (req, res) => {
   const { email } = req.query;
   const user = await accountM.findOne({ email });
@@ -80,6 +98,8 @@ const getUserByMail = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 });
+
+
 
 const updateUser = asyncHandler(async (req, res) => {
   const { id, name, email, password, isAdmin } = req.query;
@@ -96,6 +116,8 @@ const updateUser = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 });
+
+
 
 const updatePassword = asyncHandler(async (req, res) => {
   const { id, oldPassword, newPassword } = req.body;
@@ -118,6 +140,8 @@ const updatePassword = asyncHandler(async (req, res) => {
   }
 });
 
+
+
 const addProfileImage = asyncHandler(async (req, res) => {
   const { id } = req.query;
   const user = await accountM.findById(id);
@@ -134,6 +158,8 @@ const addProfileImage = asyncHandler(async (req, res) => {
   }
 });
 
+
+
 const deleteUser = asyncHandler(async (req, res) => {
   const { id } = req.query;
   const user = await accountM.findById(id);
@@ -147,6 +173,8 @@ const deleteUser = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 });
+
+
 
 const matchCurrentPassword = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -162,6 +190,8 @@ const matchCurrentPassword = asyncHandler(async (req, res) => {
   }
 });
 
+
+
 const updateProfile = asyncHandler(async (req, res) => {
   const { id, name, email } = req.body;
   const user = await accountM.findById(id);
@@ -175,6 +205,7 @@ const updateProfile = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 });
+
 
 
 module.exports = {
