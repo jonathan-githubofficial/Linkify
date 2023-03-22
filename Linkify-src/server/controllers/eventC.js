@@ -1,7 +1,9 @@
 // events controller
 // Author: Jonathan Haddad
 // Date created: Mar 16, 2023
-// Description: This file contains the methods for handling the various event related HTTP requests. These include getting all events, creating a new event, getting a specific event by ID, updating an event, and deleting an event.
+
+/* Description: This file contains the methods for handling the various event related HTTP requests.
+ These include getting all events, creating a new event, getting a specific event by ID, updating an event, and deleting an event.*/
 
 const Event = require('../models/eventM');
 const asyncHandler = require('express-async-handler');

@@ -1,9 +1,15 @@
 // feed controller
 // Author: Jonathan Haddad - Saad Hanna
 // Date created: Mar 2, 2023
-// Description: This file contains the methods for handling the various feed related HTTP requests. These include posting a new feed, getting all feeds based on filters and pagination, getting a single feed by id, deleting a feed, updating a feed, adding a like to a feed, adding a comment to a feed, and getting a personal feed for a user. The controller uses the feedsM and accountM models to interact with the database. The getAllPosts method performs advanced filtering using the $gte, $gt, $lte, and $lt operators to match posts that meet the specific criteria. It then adds sorting based on the sort query parameter, and pagination based on the page and limit query parameters. Overall, this controller allows users to perform various actions on feeds, including creating, updating, and deleting feeds, and interacting with feeds through likes and comments.
 
-
+/*Description: This file contains the methods for handling the various feed related HTTP requests.
+ These include posting a new feed, getting all feeds based on filters and pagination, getting a single feed by id, 
+ deleting a feed, updating a feed, adding a like to a feed, adding a comment to a feed, and getting a personal feed for a user.
+ The controller uses the feedsM and accountM models to interact with the database.
+ The getAllPosts method performs advanced filtering using the $gte, $gt, $lte, and $lt
+ operators to match posts that meet the specific criteria. It then adds sorting based on the sort query parameter,
+ and pagination based on the page and limit query parameters. Overall, this controller allows users to perform various actions on feeds,
+ including creating, updating, and deleting feeds, and interacting with feeds through likes and comments.*/
 
 const feedsM = require("../models/feedsM.js");
 const asyncHandler = require("express-async-handler");

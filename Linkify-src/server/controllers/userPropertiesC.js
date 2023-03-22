@@ -1,9 +1,11 @@
 // User Properties controller
 // Author: Jonathan Haddad - Saad Hanna
 // Date created: Feb 19, 2023
-// Description: This file contains the methods for handling the various user related HTTP requests. These include adding/deleting skills, adding/deleting languages, adding/editing/deleting education, adding/deleting/editing projects, adding/updating location, and managing experience.
 
-
+/*Description: This file contains the methods for handling the various user related HTTP requests.
+ These include adding/deleting skills, adding/deleting languages,
+ adding/editing/deleting education, adding/deleting/editing projects,
+ adding/updating location, and managing experience.*/
 
 const accountM = require("../models/accountM");
 const asyncHandler = require("express-async-handler");

@@ -1,10 +1,11 @@
 // messages controller
 // Author: Jonathan Haddad
 // Date created: Mar 5, 2023
-// Description: This file contains the methods for handling the various message related HTTP requests. These include creating a new message, getting all messages between two users, deleting all messages between two users, deleting a single message by ID, getting all users who have a conversation with each other, and getting all messages sent to a specific receiver.
 
-
-
+/* Description: This file contains the methods for handling the various message related HTTP requests.
+ These include creating a new message, getting all messages between two users, 
+ deleting all messages between two users, deleting a single message by ID, 
+ getting all users who have a conversation with each other, and getting all messages sent to a specific receiver.*/
 
 const Account = require("../models/accountM");
 const Message = require('../models/messagesM');
@@ -113,6 +114,26 @@ const getMessagesForReceiver = async (req, res) => {
   }
 };
 
+// Report a message
+const reportDM = async (req, res) => {
+  try {
+    const { messageId } = req.params;
+    const { reportType } = req.body;
+
+    const message = await Message.findById(messageId);
+
+    if (!message) {
+      return res.status(404).json({ message: 'Message not found' });
+    }
+
+    message.reportType = reportType;
+    const updatedMessage = await message.save();
+
+    res.status(200).json(updatedMessage);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 module.exports = {
   createMessage,
@@ -121,4 +142,5 @@ module.exports = {
   deleteMessageById,
   getUsersWithConversation,
   getMessagesForReceiver,
+  reportDM,
 };
