@@ -1,7 +1,10 @@
 // group controller
 // Author: Jonathan Haddad
 // Date created: Mar 16, 2023
-// Description: This file contains the methods for handling the various group related HTTP requests. These include getting all groups, creating a new group, getting a specific group by ID, updating a group, and deleting a group.
+
+/* Description: This file contains the methods for handling the various group related HTTP requests. 
+These include getting all groups, creating a new group, 
+getting a specific group by ID, updating a group, and deleting a group.*/
 
 const Group = require('../models/groupM');
 const asyncHandler = require('express-async-handler');

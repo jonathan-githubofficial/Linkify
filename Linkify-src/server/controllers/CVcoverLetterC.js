@@ -1,8 +1,9 @@
 // CV cover letter controller
 // Author: Jonathan Haddad - Saad Hanna
 // Date created: Feb 22, 2023
-// Description: This file contains the methods for handling the various HTTP requests related to CV cover letters. These include adding and deleting cover letters and resumes.
 
+/* Description: This file contains the methods for handling the various HTTP requests
+ related to CV cover letters. These include adding and deleting cover letters and resumes.*/
 
 
 const accountM = require("../models/accountM.js");
