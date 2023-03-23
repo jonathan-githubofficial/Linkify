@@ -19,7 +19,7 @@ const getAllGroups = asyncHandler(async (req, res) => {
 // Create a new group
 const createGroup = asyncHandler(async (req, res) => {
   try {
-    const { name, description, members, status } = req.body;
+    const { name, description, members, status } = req.query;
     const newGroup = await Group.create({ name, description, members, status });
     res.status(201).json(newGroup);
   } catch (err) {
