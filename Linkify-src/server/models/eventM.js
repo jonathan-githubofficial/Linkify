@@ -4,7 +4,7 @@ const eventSchema = new mongoose.Schema({
   groupId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Group',
-    required: true,
+    required: false,
   },
   name: {
     type: String,

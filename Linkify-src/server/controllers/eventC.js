@@ -65,8 +65,8 @@ const deleteEvent = asyncHandler(async (req, res) => {
 // Add member to event
 const joinEvent = asyncHandler(async (req, res) => {
   try {
-    const { memberId } = req.body;
-    const event = await Event.findById(req.params.id);
+    const { eventId, memberId } = req.body;
+    const event = await Event.findById(eventId);
 
     if (!event) {
       return res.status(404).json({ message: 'Event not found' });
