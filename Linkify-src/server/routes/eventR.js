@@ -28,4 +28,17 @@ router.put('/updateEvent', eventController.updateEvent);
 // @access Private
 router.delete('/deleteEvent', eventController.deleteEvent);
 
+
+// @desc adds members to an event 
+// @route PUT /api/events/join
+// @access Private
+router.put('/join', eventController.joinEvent);
+
+
+// @desc remove a member from an event 
+// @route POST /api/events/unjoin
+// @access Private
+router.post('/unjoin', eventController.unjoinEvent);
+
+
 module.exports = router;
