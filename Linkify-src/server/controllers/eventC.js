@@ -19,8 +19,8 @@ const getAllEvents = asyncHandler(async (req, res) => {
 // Create a new event
 const createEvent = asyncHandler(async (req, res) => {
   try {
-    const { name, description, date, location, attendees } = req.body;
-    const newEvent = await Event.create({ name, description, date, location, attendees });
+    const { name, description, date, location } = req.query;
+    const newEvent = await Event.create({ name, description, date, location });
     res.status(201).json(newEvent);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -29,11 +29,13 @@ const createEvent = asyncHandler(async (req, res) => {
 
 // Get a specific event by id
 const getEventById = asyncHandler(async (req, res) => {
-  try {
-    const event = await Event.findById(req.params.id);
-    res.status(200).json(event);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+  const { id } = req.query;
+  const event = await Event.findById(id);
+  if (event) {
+    res.json(event);
+  } else {
+    res.status(401);
+    throw new Error("Event not found");
   }
 });
 

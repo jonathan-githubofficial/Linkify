@@ -75,9 +75,8 @@ const getAllUsers = asyncHandler(async (req, res) => {
 
 
 const getUserDetailsById = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-  const selectFields = req.query.select; // retrieve the select parameter from query string
-  const user = await accountM.findById(id).select(selectFields);
+  const { id } = req.query;
+  const user = await accountM.findById(id);
   if (user) {
     res.json(user);
   } else {
