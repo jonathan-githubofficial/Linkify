@@ -5,9 +5,19 @@
 /* Description: This file contains the methods for handling the various connection related HTTP requests.
  These include sending connection requests, accepting connection requests, rejecting connection requests, and removing connections.*/
 
-
 const asyncHandler = require("express-async-handler");
 const accountM = require("../models/accountM.js");
+
+const getConnectionRequests = asyncHandler(async (req, res) => {
+  const { userId } = req.query;
+  const user = await accountM.findById(userId).populate("connectionRequests");
+  if (user) {
+    res.json(user.connectionRequests);
+  } else {
+    res.status(401);
+    throw new Error("User not found");
+  }
+});
 
 const sendConnectionRequest = asyncHandler(async (req, res) => {
   const { senderId, receiverId } = req.body;
@@ -25,6 +35,7 @@ const sendConnectionRequest = asyncHandler(async (req, res) => {
 
 const acceptConnectionRequest = asyncHandler(async (req, res) => {
   const { senderId, receiverId } = req.body;
+  console.log(senderId, receiverId);
   const user = await accountM.findById(receiverId);
   const sender = await accountM.findById(senderId);
   if (user) {
@@ -82,4 +93,5 @@ module.exports = {
   acceptConnectionRequest,
   rejectConnectionRequest,
   removeConnection,
+  getConnectionRequests,
 };
