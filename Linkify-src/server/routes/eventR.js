@@ -28,4 +28,22 @@ router.put('/updateEvent', eventController.updateEvent);
 // @access Private
 router.delete('/deleteEvent', eventController.deleteEvent);
 
+// @route PUT /api/events/join
+// @access Private
+router.put('/join', eventController.joinEvent);
+
+
+// @desc remove a member from an event 
+// @route POST /api/events/unjoin
+// @access Private
+router.post('/unjoin', eventController.unjoinEvent);
+
+// @desc checks if a member is registered in the event
+// @route GET /api/events/checkMember
+// @access Private
+router.get('/checkMember', eventController.checkEventJoinMember);
+
+router.get('/countMembers', eventController.countMembers);
+
+
 module.exports = router;
