@@ -1,7 +1,10 @@
 // account controller
 // Author: Jonathan Haddad - Saad Hanna
 // Date created: Feb 20, 2023
-// Description: This file contains the methods for handling the various account related HTTP requests. These include user registration, authentication, getting all users, getting user details by id or email, updating user details and password, adding a profile image, deleting a user, matching current password, and updating the user profile.
+
+/* Description: This file contains the methods for handling the various account related HTTP requests.
+ These include user registration, authentication, getting all users, getting user details by id or email,
+  updating user details and password, adding a profile image, deleting a user, matching current password, and updating the user profile.*/
 
 const accountM = require("../models/accountM.js");
 const asyncHandler = require("express-async-handler");

@@ -47,4 +47,12 @@ router.get('/getuserswithconversation', messagesController.getUsersWithConversat
 */
 router.get('/receiver', messagesController.getMessagesForReceiver);
 
+
+/**
+ * @desc Report a message
+ * @route PUT /api/messages/report/:messageId
+ * @access Public
+ */
+router.put('/report/:messageId', messagesController.reportDM);
+
 module.exports = router;

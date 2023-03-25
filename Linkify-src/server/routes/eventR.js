@@ -28,6 +28,7 @@ router.put('/updateEvent', eventController.updateEvent);
 // @access Private
 router.delete('/deleteEvent', eventController.deleteEvent);
 
+
 // @route PUT /api/events/join
 // @access Private
 router.put('/join', eventController.joinEvent);
@@ -38,11 +39,16 @@ router.put('/join', eventController.joinEvent);
 // @access Private
 router.post('/unjoin', eventController.unjoinEvent);
 
+
 // @desc checks if a member is registered in the event
 // @route GET /api/events/checkMember
 // @access Private
 router.get('/checkMember', eventController.checkEventJoinMember);
 
+
+// @desc count member registered in the event
+// @route GET /api/events/countMembers
+// @access Private
 router.get('/countMembers', eventController.countMembers);
 
 

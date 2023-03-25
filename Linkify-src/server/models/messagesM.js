@@ -25,6 +25,12 @@ const messageSchema = new Schema({
     default: []
   },
   
+  // Report type field, required and of type String
+  reportType: {
+    type: String,
+    default: null,
+  },
+
   // Time field, required and of type Date
   time: {
     type: Date,
