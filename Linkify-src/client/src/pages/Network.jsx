@@ -1,51 +1,41 @@
 import React, { useEffect, useState } from "react";
-
-import { PaperClipIcon } from "@heroicons/react/20/solid";
-import { BiPencil } from "react-icons/bi";
-import { RiSendPlaneFill } from "react-icons/ri";
-
 import { Helmet } from "react-helmet";
 import axios from "axios";
-
-import EditProfile from "./profile_views/EditProfile";
 import profile_pic from "../static/images/profile.jpg";
-import profile_cover from "../static/images/profile-cover.png";
-
-import google_icon from "../static/images/companies/google.png";
-import localExperiences from "../static/local_experience";
-import localEducation from "../static/local_education";
-
 function Network() {
-  // var id = '63e144d738f480e203faffdc';
-  // var email = 'test1@gmail.com';
-  var email = "khalid@test.com";
+  const [networkData, setNetworkData] = useState([]);
+  const getRequests = async () => {
+    const res = await axios.get("/api/user/connection/getConnectionRequests?", {
+      params: { userId: localStorage.getItem("uid") },
+    });
+    setNetworkData(res.data);
+  };
 
-  const networkData = [
-    {
-      name: "Terri Becker",
-      company: "Microsoft",
-      location: "New York City, NY",
-      title: "Software Engineer",
-    },
-    {
-      name: "Terri Becker",
-      company: "Microsoft",
-      location: "New York City, NY",
-      title: "Software Engineer",
-    },
-    {
-      name: "Terri Becker",
-      company: "Microsoft",
-      location: "New York City, NY",
-      title: "Software Engineer",
-    },
-    {
-      name: "Terri Becker",
-      company: "Microsoft",
-      location: "New York City, NY",
-      title: "Software Engineer",
-    },
-  ];
+  const rejectRequest = async (senderId) => {
+    const receiverId = localStorage.getItem("uid");
+    const res = await axios.post(
+      "/api/user/connection/rejectConnectionRequest",
+      {
+        senderId,
+        receiverId,
+      }
+    );
+    getRequests();
+    console.log("Reject: ", res);
+  };
+
+  const acceptRequest = async (senderId) => {
+    const receiverId = localStorage.getItem("uid");
+    const res = await axios.post(
+      "/api/user/connection/acceptConnectionRequest",
+      {
+        senderId,
+        receiverId,
+      }
+    );
+    getRequests();
+    console.log("Accept: ", res);
+  };
 
   const suggestionData = [
     {
@@ -74,6 +64,10 @@ function Network() {
     },
   ];
 
+  useEffect(() => {
+    getRequests();
+  });
+
   return (
     <div className="flex justify-center items-center mt-5">
       <Helmet>
@@ -86,7 +80,7 @@ function Network() {
         <div class="w-full lg:w-2/3 bg-white relative lg:rounded-t-xl">
           {/* Top */}
           {networkData.map((network, index) => (
-            <div className="border p-5">
+            <div className="border p-5" key={index}>
               <div className="flex flex-row justify-between">
                 <div className="flex flex-row items-center">
                   <figure className="px-5">
@@ -106,10 +100,16 @@ function Network() {
                   </div>
                 </div>
                 <div className="flex flex-col justify-center text-sm p-5">
-                  <button className="btn-sm font-bold font-light">
+                  <button
+                    className="btn-sm font-bold font-light"
+                    onClick={() => rejectRequest(network._id)}
+                  >
                     IGNORE
                   </button>
-                  <button className="w-20 primaryBtn btn btn-sm bg-sky-400 font-light">
+                  <button
+                    className="w-20 primaryBtn btn btn-sm bg-sky-400 font-light"
+                    onClick={() => acceptRequest(network._id)}
+                  >
                     Accept
                   </button>
                 </div>
