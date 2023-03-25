@@ -10,7 +10,7 @@ import axios from 'axios'
 import profile_pic from "../static/images/profile.jpg";
 
 import Sidebar from '../components/shared/Sidebar';
-import JobsView from '../components/jobs/JobsView';
+import ListSection from '../components/shared/ListSection';
 import CardSkeleton from '../components/shared/CardSkeleton';
 
 function Events() {
@@ -64,10 +64,25 @@ function Events() {
                             
                             {isLoading && <CardSkeleton cards={4}/>} 
 
+                            {(events.length == 0) && 
+                            <>
+                                <div className="flex flex-col justify-between gap-3">
+                                    {/* <h2 className="flex justify-center text-2xl font-bold md:text-3xl m-12">List of available groups</h2> */}
+                                    <div className='flex justify-center text-center'>
+                                        <span className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                                            <p className="font-normal text-gray-700 dark:text-gray-400">
+                                                No event available yet to register. Please come back later.
+                                            </p>
+                                        </span>
+                                    </div>
+                                </div>
+                            </>
+                            }
+
                             {events.slice(0).reverse().map((event)=> (
                                 <div className=" items-center grid gap-5 my-2 md:grid-cols-2 lg:grid-cols-1 rounded-xl shadow dark:bg-gray-800 dark:border-gray-700 text-black max-w-screen-xl">
                                     <div className="flex flex-col justify-between gap-3 px-6 py-6 border border-gray-200 lg:flex-row group hover:border-black rounded-xl">
-                                        <JobsView event={event} profile_pic={profile_pic} type='events' />
+                                        <ListSection event={event} profile_pic={profile_pic} type='events' />
                                     </div>
                                 </div>
                             ))}

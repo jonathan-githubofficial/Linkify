@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-function JobsView(props) {
+function ListSection(props) {
     // Common attributes
     const [id, setId] = useState('');
     const [title, setTitle] = useState('');
@@ -104,4 +104,4 @@ function JobsView(props) {
     );
 }
 
-export default JobsView;
+export default ListSection;

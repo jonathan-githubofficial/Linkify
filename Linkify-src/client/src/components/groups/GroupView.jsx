@@ -25,29 +25,30 @@ export default function GroupView() {
 
     // Checking if current user already a member of this group
     const currentGroupInfo = {groupId: groupId, memberId: loggedInUserId};
-    // useEffect(() => {
-    //     axios.get('/api/events/checkMember?', {
-    //         params: {groupId: groupId, memberId: loggedInUserId}
-    //     })
-    //     .then(res => {
-    //         if(res.data.message == 'true') {
-    //             // user is registered
-    //             setIsJoined(true);
-    //         }
-    //     }).catch(err => {
-    //         console.log(err)
-    //     })
+    useEffect(() => {
+        axios.get('/api/groups/checkMember?', {
+            params: {groupId: groupId, memberId: loggedInUserId}
+        })
+        .then(res => {
+            if(res.data.message == 'true') {
+                // user is registered
+                setIsJoined(true);
+                console.log("joined? " + res.data.message);
+            }
+        }).catch(err => {
+            console.log(err)
+        })
 
-    //     axios.get('/api/events/countMembers?', {
-    //         params: {groupId: groupId}
-    //     })
-    //     .then(res => {
-    //         setMembersCount(res.data);
-    //     }).catch(err => {
-    //         console.log(err)
-    //     })
+        // axios.get('/api/events/countMembers?', {
+        //     params: {groupId: groupId}
+        // })
+        // .then(res => {
+        //     setMembersCount(res.data);
+        // }).catch(err => {
+        //     console.log(err)
+        // })
 
-    // }, []);
+    }, []);
 
 
     // Getting the current even information by its id
@@ -61,6 +62,18 @@ export default function GroupView() {
             console.log(err)
         })
     }, []);
+
+    // Getting the info of the group creator
+    useEffect(() => {
+        axios.get('/api/account/getUser?', {
+            params: {id: group.creator}
+        })
+        .then(res => {
+            setProfile(res.data);
+        }).catch(err => {
+            console.log(err)
+        })
+    }, [group.creator]);
 
     // Joining an event
     const joinGroup = async (e) => {
@@ -76,9 +89,9 @@ export default function GroupView() {
         
         // const joinEventInfo = {eventId: eventId, memberId: loggedInUserId};
 
-        await axios.put('/api/events/join', currentGroupInfo, headers)
+        await axios.put('/api/groups/join', currentGroupInfo, headers)
         .then((res) => {
-            console.log("Event joined", res);
+            console.log("Group joined", res);
             // setIsNewJoined(true);
             setIsJoined(true);
         })
@@ -99,20 +112,22 @@ export default function GroupView() {
         
         // const joinEventInfo = {eventId: eventId, memberId: loggedInUserId};
 
-        await axios.post('/api/events/unjoin', currentGroupInfo, headers)
+        await axios.post('/api/groups/leave', currentGroupInfo, headers)
         .then((res) => {
-            console.log("Leaving event", res);
+            console.log("Group left", res);
             // setIsNewJoined(true);
             setIsJoined(false);
         })
         .catch(err => console.log('Error', err))
     }
+
+    console.log("joined? " + isJoined);
     
     return (
         <div>
             <Helmet>
                 <meta charSet='utf-8' />
-                <title>Event</title>
+                <title>Groups</title>
             </Helmet>
             <div class="flex flex-col items-center mt-5">
                 <div class="flex-auto w-full md:w-3/4 lg:w-4/5 lg:p-5">
@@ -127,7 +142,7 @@ export default function GroupView() {
                                         <div className='leading-loose'>
                                             {isJoined && 
                                                 <span id="badge-dismiss-yellow" class="inline-flex items-center mb-4 px-2 py-1 mr-2 text-sm font-medium text-yellow-800 bg-yellow-100 rounded dark:bg-yellow-900 dark:text-yellow-300">
-                                                    You are already registered for this event.
+                                                    You are already a member of this group.
                                                 </span>
                                             }      
 
@@ -151,7 +166,7 @@ export default function GroupView() {
                                     <>
                                     <form>
                                         <button onClick={leaveGroup} type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
-                                            Cancel Registration
+                                            Leave Group
                                         </button>
                                     </form>
                                     </>
@@ -159,7 +174,7 @@ export default function GroupView() {
                                     <>
                                     <form>
                                         <button onClick={joinGroup} class={`py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700`}>
-                                            Register
+                                            Join
                                         </button>
                                     </form>
                                     </>

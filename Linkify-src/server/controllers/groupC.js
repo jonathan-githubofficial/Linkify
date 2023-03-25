@@ -22,8 +22,8 @@ const getAllGroups = asyncHandler(async (req, res) => {
 // Create a new group
 const createGroup = asyncHandler(async (req, res) => {
   try {
-    const { name, description, members, status } = req.query;
-    const newGroup = await Group.create({ name, description, members, status });
+    const { name, description, members, status, creator} = req.query;
+    const newGroup = await Group.create({ name, description, members, status, creator });
     res.status(201).json(newGroup);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -64,10 +64,78 @@ const deleteGroup = asyncHandler(async (req, res) => {
   }
 });
 
+// Add member to group
+const joinGroup = asyncHandler(async (req, res) => {
+  try {
+    const { groupId, memberId } = req.body;
+    const group = await Group.findById(groupId);
+
+    if (!group) {
+      return res.status(404).json({ message: 'Group not found' });
+    }
+
+    if (group.members.includes(memberId)) {
+      return res.status(400).json({ message: 'Member already added to the group' });
+    }
+
+    group.members.push(memberId);
+    const updatedGroup = await group.save();
+    res.status(200).json(updatedGroup);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+
+// remove member from a group
+const leaveGroup = asyncHandler(async (req, res) => {
+  try {
+    const { groupId, memberId } = req.body;
+    const group = await Group.findById(groupId);
+
+    if (!group) {
+      return res.status(404).json({ message: 'Group not found' });
+    }
+
+    if (!group.members.includes(memberId)) {
+      return res.status(400).json({ message: 'Member not found in the group' });
+    }
+
+    group.members = group.members.filter(member => member.toString() !== memberId);
+    const updatedGroup = await group.save();
+
+    res.status(200).json(updatedGroup);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+
+// Check if member is already registered 
+const checkMember = asyncHandler(async (req, res) => {
+  try {
+    const { groupId, memberId } = req.query;
+    const group = await Group.findById(groupId);
+
+    if (group.members.includes(memberId)) {
+      res.status(200).json({ message: 'true' });
+    }
+    else {
+      res.status(200).json({ message: 'false' });
+    }
+  }
+  catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 module.exports = {
   getAllGroups,
   createGroup,
   getGroupById,
   updateGroup,
   deleteGroup,
+  joinGroup,
+  leaveGroup,
+  checkMember,
 };

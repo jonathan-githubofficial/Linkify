@@ -28,4 +28,19 @@ router.patch('/updateGroup', groupController.updateGroup);
 // @access Public
 router.delete('/deleteGroup', groupController.deleteGroup);
 
+// @route PUT /api/groups/join
+// @access Private
+router.put('/join', groupController.joinGroup);
+
+
+// @desc remove a member from an event 
+// @route POST /api/groups/leave
+// @access Private
+router.post('/leave', groupController.leaveGroup);
+
+// @desc checks if a member is registered in the group
+// @route GET /api/groups/checkMember
+// @access Private
+router.get('/checkMember', groupController.checkMember);
+
 module.exports = router;
