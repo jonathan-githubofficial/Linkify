@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const eventSchema = new mongoose.Schema({
+
   groupId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Group',
@@ -14,10 +15,23 @@ const eventSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  creator: {
+    type: String,
+    required: true,
+  },
+  date: {
+    type: Date,
+    required: true,
+  },
+  location: {
+    type: String,
+    required: true,
+  },
   members: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
+      required: false,
     },
   ],
   status: {

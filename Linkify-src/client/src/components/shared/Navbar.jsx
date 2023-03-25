@@ -15,6 +15,7 @@ function Navbar(props) {
   };
 
   var profile = props.profile;
+  
 
   const isLoggedIn = localStorage.getItem("loggedIn");
 
@@ -105,7 +106,7 @@ function Navbar(props) {
               </button>
 
               {/* Dropdown menu */}
-              <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
+              <div className="z-50 hidden w-56 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
                 <div className="px-4 py-3">
                   <span className="block text-sm text-gray-900 dark:text-white">{profile.name}</span>
                   <span className="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">{profile.email}</span>
@@ -118,6 +119,21 @@ function Navbar(props) {
                       </a>
                     </Link>
                   </li>
+                  <li>
+                    <Link to="/events">
+                      <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                        Events
+                      </a>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/events">
+                      <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                        Groups
+                      </a>
+                    </Link>
+                  </li>
+                  <hr />
                   <li>
                     <a href="#" onClick={logout} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Logout</a>
                   </li>

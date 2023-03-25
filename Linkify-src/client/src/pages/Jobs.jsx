@@ -3,7 +3,11 @@ import { Helmet } from 'react-helmet'
 import profile_pic from "../static/images/profile.jpg";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
+
+import Sidebar from '../components/shared/Sidebar';
+import JobsView from '../components/jobs/JobsView';
 import MyConnections from "../components/profile/MyConnections";
+import CardSkeleton from '../components/shared/CardSkeleton';
 
 //add salary (optional)
 //description
@@ -23,6 +27,9 @@ const Jobs = () => {
         }
     }, []);
 
+    // Loading
+    const [isLoading, setIsLoading] = useState(true);
+
     const [activeModalId, setActiveModalId] = useState(null)
 
     const handleOpenModal = (job) => {
@@ -41,6 +48,7 @@ const Jobs = () => {
         axios.get("../api/user/jobPosts/getJobPosts")
             .then(res => {
                 setJobs(res.data)
+                setIsLoading(false);
             }).catch(err => {
             console.log(err)
         })
@@ -65,35 +73,9 @@ const Jobs = () => {
             <div class="flex flex-col items-center mt-5">
                 <div class="flex-auto w-full md:w-3/4 lg:w-10/12 lg:p-5">
                     <div className="flex lg:gap-8">
-                        <div class="flex flex-items items-center hidden lg:block">
-                            <div className="w-[15rem]">
-                                <div className="card bg-base-100 shadow-xl p-5">
-                                <figure className="px-10 pt-10">
-                                    <img src={profile_pic} alt="Shoes" className="rounded-xl" />
-                                </figure>
-                                <div className="card-body items-center text-center">
-                                    <h2 className="card-title">Khalid</h2>
-                                    <div className="side-user-info">
-                                    <p>software eng</p>
-                                    {/* <p>My Company Inc.</p> */}
-                                    </div>
-                                    <hr />
-                                    <div className="side-user-info items-left">
-                                    <p>
-                                        <span className="font-semibold">
-                                        {/* Skills: <br /> */}
-                                        </span>
-                                        {/* {user_skills && Object.keys(user_skills).map((skills_txt) => (
-                                        <span>{user_skills[skills_txt]}</span>
-                                    ))} */}
-                                        
-                                    </p>
-                                    {/* {user_skills} */}
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
+                        
+                        {/* Params: name, skills */}
+                        <Sidebar name='Khalid Sadat' />
 
                         <div className="w-full w-full lg:w-3/4 bg-white relative lg:rounded-t-xl">
                         
@@ -102,20 +84,21 @@ const Jobs = () => {
                                 <div className="mb-4 flex gap-x-5 md:gap-x-10 justify-center">
                                     <form>
                                         <div className="flex">
-                                            <label htmlFor="search-dropdown"
-                                                    className="text-sm font-medium text-gray-900 sr-only dark:text-white">Your
-                                                Email</label>
-                                            <button id="dropdown-button" data-dropdown-toggle="dropdown"
-                                                    className="flex-shrink-0 inline-flex items-center py-1.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-l-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600"
-                                                    type="button">All categories <svg aria-hidden="true"
-                                                                                        className="w-4 h-4 ml-1"
-                                                                                        fill="currentColor"
-                                                                                        viewBox="0 0 20 20"
-                                                                                        xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd"
+                                            <label htmlFor="search-dropdown" className="text-sm font-medium text-gray-900 sr-only dark:text-white">Your
+                                                Email
+                                            </label>
+                                            <button id="dropdown-button" data-dropdown-toggle="dropdown" className="flex-shrink-0 inline-flex items-center py-1.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-l-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button">
+                                                All categories 
+                                                <svg aria-hidden="true"
+                                                                    className="w-4 h-4 ml-1"
+                                                                    fill="currentColor"
+                                                                    viewBox="0 0 20 20"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
                                                         d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                                                         clip-rule="evenodd"></path>
-                                            </svg></button>
+                                                </svg>
+                                            </button>
                                             <div className="relative w-full">
                                                 <input type="search" id="search-dropdown"
                                                         className="block p-1.5 w-full text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300"
@@ -138,39 +121,17 @@ const Jobs = () => {
                                 </div>
                             </div>
 
+                            {isLoading && <CardSkeleton cards={4}/>} 
+
                             {jobs.slice(0).reverse().map((job)=> (
                                 <div key={job._id} className=" items-center grid gap-5 my-2 md:grid-cols-2 lg:grid-cols-1 rounded-xl shadow dark:bg-gray-800 dark:border-gray-700 text-black max-w-screen-xl">
                                     <div onClick={() => handleOpenModal(job)} className="flex flex-col justify-between gap-3 px-6 py-6 border border-gray-200 lg:flex-row group hover:border-black rounded-xl">
-                                        <div className="flex flex-col items-start flex-1 gap-5 lg:flex-row">
-                                            <div className="w-20">
-                                                <img className={"rounded-lg"} src={profile_pic} alt="Logo"/>
-                                            </div>
-
-                                            <div className="flex-1 items-initial lg:text-start">
-                                                <h3 className="text-lg font-semibold mb-1">{job.title}</h3>
-                                                <div>
-                                                    <span className="text-green-500">{job.company}</span>
-                                                    <span className='pl-2 pr-2'>•</span>
-                                                    <span className='jobs-salary'>{job.salary}</span>
-                                                    
-                                                    <span className='jobs-location'>{job.location}</span>
-                                                    <div className='jobs-description pt-5'>
-                                                        {job.description.substring(0, 50)} ...
-                                                    </div>
-                                                </div>
-                                                <div className='pt-5 text-right'>
-                                                    <a className="px-6 py-2 text-white font-semibold duration-150 transform border border-white rounded-full hover:bg-blue-800 bg-indigo-400 group-hover:border-transparent" href="/#">
-                                                        Apply
-                                                    </a>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
+                                        <JobsView job={job} profile_pic={profile_pic} type='jobs' />
                                     </div>
 
 
                                     {/* Modal */}
-                                            {activeModalId === job._id && (
+                                    {activeModalId === job._id && (
                                         <>
                                             {/* Modal container */}
                                             <div className="fixed inset-0 flex items-center justify-center z-10">
@@ -217,6 +178,7 @@ const Jobs = () => {
                                 </div>
                             ))}
                         </div>
+                        
                         <MyConnections />
                     </div>
                 </div>
