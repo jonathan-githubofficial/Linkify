@@ -8,7 +8,7 @@ import MessageOptions from './MessageOptions';
 
 function Message(props) {
 
-    const { message } = props;
+    const { message , removeMessage} = props;
 
     return (
         <div>
@@ -26,7 +26,7 @@ function Message(props) {
                     <div className="flex items-center group">
                         <div className="chat-bubble">{message.message}</div>                        
                         <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                            <MessageOptions />
+                            <MessageOptions id={message.id} removeMessage={removeMessage} />
                         </div>
                     </div>
                 </div>
@@ -43,7 +43,7 @@ function Message(props) {
                     </div>
                     <div className="flex items-center group">
                         <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                            <MessageOptions />
+                            <MessageOptions  id={message.id} removeMessage={removeMessage}/>
                         </div>
                         <div className="chat-bubble">{message.message}</div>
                     </div>

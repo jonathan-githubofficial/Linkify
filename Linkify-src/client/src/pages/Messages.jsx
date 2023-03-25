@@ -189,6 +189,19 @@ function Messages() {
     deleteMessage(currentUser, user);
   }
 
+  function removeMessage(messageId) {   
+
+    const updatedConversations = conversations.map((conversation) => {
+      if (conversation.user === userSelected) {
+        const filteredMessages = conversation.messages.filter((message) => message.id !== messageId);
+        return { ...conversation, messages: filteredMessages };
+      }
+      return conversation;
+    });
+
+    setConversations(updatedConversations);
+  }
+
   return (
     <div>
       <Helmet>
@@ -212,7 +225,7 @@ function Messages() {
           </div>
 
           <div className={`${showChatFeed ? 'hidden' : ''}  sm:block col-span-1 border`}>
-            <Chat conversation={getSelectedConversation()} addMessage={addMessage} />
+            <Chat conversation={getSelectedConversation()} addMessage={addMessage} removeMessage={removeMessage}/>
           </div>
         </div>
       </div>
