@@ -4,11 +4,20 @@ import axios from "axios";
 import profile_pic from "../static/images/profile.jpg";
 function Network() {
   const [networkData, setNetworkData] = useState([]);
+  const [connectionsData, setConnectionsData] = useState([]);
+
   const getRequests = async () => {
     const res = await axios.get("/api/user/connection/getConnectionRequests?", {
       params: { userId: localStorage.getItem("uid") },
     });
     setNetworkData(res.data);
+  };
+
+  const getAllConnections = async () => {
+    const res = await axios.get("/api/user/connection/getAllConnections?", {
+      params: { userId: localStorage.getItem("uid") },
+    });
+    setConnectionsData(res.data);
   };
 
   const rejectRequest = async (senderId) => {
@@ -20,7 +29,6 @@ function Network() {
         receiverId,
       }
     );
-    getRequests();
     console.log("Reject: ", res);
   };
 
@@ -33,38 +41,20 @@ function Network() {
         receiverId,
       }
     );
-    getRequests();
     console.log("Accept: ", res);
   };
 
-  const suggestionData = [
-    {
-      name: "Terri Becker",
-      company: "Microsoft",
-      location: "New York City, NY",
-      title: "Software Engineer",
-    },
-    {
-      name: "Terri Becker",
-      company: "Microsoft",
-      location: "New York City, NY",
-      title: "Software Engineer",
-    },
-    {
-      name: "Terri Becker",
-      company: "Microsoft",
-      location: "New York City, NY",
-      title: "Software Engineer",
-    },
-    {
-      name: "Terri Becker",
-      company: "Microsoft",
-      location: "New York City, NY",
-      title: "Software Engineer",
-    },
-  ];
+  const removeConnections = async (connectionId) => {
+    const userId = localStorage.getItem("uid");
+    const res = await axios.post("/api/user/connection/removeConnection", {
+      connectionId,
+      userId,
+    });
+    console.log("Removed connection: ", res);
+  };
 
   useEffect(() => {
+    getAllConnections();
     getRequests();
   });
 
@@ -119,8 +109,8 @@ function Network() {
 
           {/* Experience */}
           <div className="mt-10 p-5">
-            <h1 className="text-xl font-semibold mb-5">People you may know</h1>
-            {suggestionData.map((suggestion) => (
+            <h1 className="text-xl font-semibold mb-5">Your Connections</h1>
+            {connectionsData.map((connections) => (
               <div>
                 <div className="border p-5">
                   <div className="flex flex-col justify-between">
@@ -134,17 +124,20 @@ function Network() {
                       </figure>
                       <div className="flex flex-col items-center px-4">
                         <label className="text-md pl-2 font-semibold">
-                          {suggestion.name}
+                          {connections.name}
                         </label>
                         <p className="text-center text-bold primaryGray text-[0.8rem] mt-2">
-                          {suggestion.title} at {suggestion.company} at{" "}
-                          {suggestion.location}
+                          {connections.title} at {connections.company} at{" "}
+                          {connections.location}
                         </p>
                       </div>
                     </div>
                     <div className="text-center justify-center text-sm p-5">
-                      <button className="w-20 primaryBtn btn btn-sm bg-sky-400 font-light">
-                        Follow
+                      <button
+                        className="w-20 primaryBtn btn btn-sm bg-sky-400 font-light"
+                        onClick={() => removeConnections(connections._id)}
+                      >
+                        Remove
                       </button>
                     </div>
                   </div>

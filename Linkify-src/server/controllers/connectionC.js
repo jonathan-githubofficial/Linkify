@@ -8,6 +8,17 @@
 const asyncHandler = require("express-async-handler");
 const accountM = require("../models/accountM.js");
 
+const getAllConnections = asyncHandler(async (req, res) => {
+  const { userId } = req.query;
+  const user = await accountM.findById(userId).populate("connections");
+  if (user) {
+    res.json(user.connections);
+  } else {
+    res.status(401);
+    throw new Error("User not found");
+  }
+});
+
 const getConnectionRequests = asyncHandler(async (req, res) => {
   const { userId } = req.query;
   const user = await accountM.findById(userId).populate("connectionRequests");
@@ -94,4 +105,5 @@ module.exports = {
   rejectConnectionRequest,
   removeConnection,
   getConnectionRequests,
+  getAllConnections,
 };
