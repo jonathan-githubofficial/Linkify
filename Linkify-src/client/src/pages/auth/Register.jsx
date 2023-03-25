@@ -111,7 +111,7 @@ function Register() {
                 }}
               />
               <label
-                htmlFor="remember-me"
+                htmlFor="isRecruiter"
                 className="ml-2 block text-sm text-gray-900"
               >
                 Recruiter

@@ -21,8 +21,8 @@ const getAllEvents = asyncHandler(async (req, res) => {
 // Create a new event
 const createEvent = asyncHandler(async (req, res) => {
   try {
-    const { name, description, date, location, attendees } = req.body;
-    const newEvent = await Event.create({ name, description, date, location, attendees });
+    const { name, description, date, location } = req.query;
+    const newEvent = await Event.create({ name, description, date, location });
     res.status(201).json(newEvent);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -31,11 +31,13 @@ const createEvent = asyncHandler(async (req, res) => {
 
 // Get a specific event by id
 const getEventById = asyncHandler(async (req, res) => {
-  try {
-    const event = await Event.findById(req.params.id);
-    res.status(200).json(event);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+  const { id } = req.query;
+  const event = await Event.findById(id);
+  if (event) {
+    res.json(event);
+  } else {
+    res.status(401);
+    throw new Error("Event not found");
   }
 });
 
@@ -109,6 +111,47 @@ const unjoinEvent = asyncHandler(async (req, res) => {
 });
 
 
+// Check if member is already registered 
+const checkEventJoinMember = asyncHandler(async (req, res) => {
+  try {
+    const { eventId, memberId } = req.query;
+    const event = await Event.findById(eventId);
+
+    if (event.members.includes(memberId)) {
+      res.status(200).json({ message: 'true' });
+    }
+    else {
+      res.status(200).json({ message: 'false' });
+    }
+  }
+  catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+
+// Counting the number of members in this event
+const countMembers = asyncHandler(async (req, res) => {
+  try {
+    const { eventId } = req.query;
+    const event = await Event.findById(eventId);
+
+    if(event) {
+      var cc = event.members;
+      return res.status(200).json({ members: cc });
+    }
+    else {
+      return res.status(400).json({ members: '0' });
+    }
+  }
+  catch (err) {
+    res.status(500).json({ message: err.message });
+  } 
+})
+
+
+
+
 module.exports = {
   getAllEvents,
   createEvent,
@@ -117,4 +160,6 @@ module.exports = {
   deleteEvent,
   joinEvent,
   unjoinEvent,
+  checkEventJoinMember,
+  countMembers,
 };

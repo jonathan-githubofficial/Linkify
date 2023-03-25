@@ -9,6 +9,8 @@ import Notifications from "../pages/Notifications";
 import Profile from "../pages/Profile";
 import AuthRoutes from "./authRoutes";
 import Messages from "../pages/Messages";
+import Events from "../pages/Events";
+import EventView from "../components/events/EventView";
 
 function RegularRoutes() {
 
@@ -40,6 +42,8 @@ function RegularRoutes() {
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/messages" element={<Messages />} />
+        <Route path="/events" element={<Events />} />
+        <Route path="/event/:eventId" element={<EventView />} />
       </Routes>
     </div>
   );
