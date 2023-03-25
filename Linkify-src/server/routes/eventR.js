@@ -51,5 +51,10 @@ router.get('/checkMember', eventController.checkEventJoinMember);
 // @access Private
 router.get('/countMembers', eventController.countMembers);
 
+// @desc Gets all events where the user is registered for
+// @route GET /api/events/myEvents
+// @access Private
+router.get('/myEvents', eventController.getMyEvents);
+
 
 module.exports = router;

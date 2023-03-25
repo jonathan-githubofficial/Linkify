@@ -12,6 +12,7 @@ import profile_pic from "../static/images/profile.jpg";
 import Sidebar from '../components/shared/Sidebar';
 import ListSection from '../components/shared/ListSection';
 import CardSkeleton from '../components/shared/CardSkeleton';
+import MyEvents from '../components/events/MyEvents';
 
 function Events() {
     
@@ -79,7 +80,7 @@ function Events() {
                             </>
                             }
 
-                            {events.slice(0).reverse().map((event)=> (
+                            {events.slice(0).reverse().map((event) => (
                                 <div className=" items-center grid gap-5 my-2 md:grid-cols-2 lg:grid-cols-1 rounded-xl shadow dark:bg-gray-800 dark:border-gray-700 text-black max-w-screen-xl">
                                     <div className="flex flex-col justify-between gap-3 px-6 py-6 border border-gray-200 lg:flex-row group hover:border-black rounded-xl">
                                         <ListSection event={event} profile_pic={profile_pic} type='events' />
@@ -88,6 +89,8 @@ function Events() {
                             ))}
 
                         </div>
+
+                        <MyEvents />
 
                     </div>
                 </div>

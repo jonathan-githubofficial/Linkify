@@ -149,7 +149,20 @@ const countMembers = asyncHandler(async (req, res) => {
   } 
 })
 
-
+// All all events where the user is registered for
+const getMyEvents = asyncHandler(async (req, res) => {
+  try {
+    const { memberId } = req.query;
+    // const group = await Group.findById(groupId);  
+  
+    const event = await Event.find().where('members').in(memberId).exec();
+  
+    res.status(200).json(event);
+  }
+  catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 
 
 module.exports = {
@@ -162,4 +175,5 @@ module.exports = {
   unjoinEvent,
   checkEventJoinMember,
   countMembers,
+  getMyEvents,
 };

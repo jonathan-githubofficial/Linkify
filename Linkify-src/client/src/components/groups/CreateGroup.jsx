@@ -8,7 +8,7 @@ import { Helmet } from 'react-helmet'
 import profile_pic from '../../static/images/profile.jpg';
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios'
-import MyGroupsComponent from "./MyGroupsComponent";
+import MyGroupsComponent from "../shared/MyGroupsComponent";
 
 import { RiSendPlaneFill } from 'react-icons/ri';
 import { IoCreateOutline } from 'react-icons/io5';

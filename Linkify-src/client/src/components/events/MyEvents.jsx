@@ -12,20 +12,20 @@ import MyGroupsComponent from "../shared/MyGroupsComponent";
 import { RiSendPlaneFill } from 'react-icons/ri';
 import { IoCreateOutline } from 'react-icons/io5';
 
-export default function MyGroups() {
+export default function MyEvents() {
 
     const loggedInUserId = localStorage.getItem("uid");
 
     // Loading
     const [isLoading, setIsLoading] = useState(true);
-    const [groups, setGroups] = useState([]);
+    const [events, setEvents] = useState([]);
 
-    const getMyCreatedGroups = async () => {
-        axios.get('/api/groups/myCreatedGroups?', {
+    const getMyRegisteredEvents = async () => {
+        axios.get('/api/events/myEvents?', {
             params: {memberId: loggedInUserId}
         })
         .then(res => {
-            setGroups(res.data)
+            setEvents(res.data)
             setIsLoading(false);
 
         }).catch(err => {
@@ -34,7 +34,7 @@ export default function MyGroups() {
     }
 
     useEffect (() => {
-        getMyCreatedGroups();
+        getMyRegisteredEvents();
     }, [])
 
   return (
@@ -43,7 +43,7 @@ export default function MyGroups() {
             <div class="flex items-center">
                 <div class="w-4/5">
                     <p className='text-lg font-semibold'>
-                        My Groups <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Owner</span>
+                        My Events <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Registered</span>
                     </p>
                 </div>
                 <div class="w-1/5 flex justify-end text-lg cursor-pointer" data-tooltip-target="tooltip-create-group" data-tooltip-placement="right">
@@ -58,15 +58,15 @@ export default function MyGroups() {
             </div>
         </div>
 
-        {groups.length == 0 && 
+        {events.length == 0 && 
         <>
             <div className="text-sm">
-                You are not managing any group yet.
+                You are not registered to any events yet.
             </div>
         </>
         }
-        {groups.slice(0).reverse().map((group)=> (
-            <MyGroupsComponent group={group} type='groups'/>
+        {events.slice(0).reverse().map((event)=> (
+            <MyGroupsComponent event={event} type='events'/>
         ))}
 
     </div>

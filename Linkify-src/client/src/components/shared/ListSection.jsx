@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import moment from 'moment';
 
 function ListSection(props) {
     // Common attributes
@@ -59,7 +60,14 @@ function ListSection(props) {
     }
     else if(props.type == 'events') {
         type_host = location;
-        type_price_date = event_date.split("T")[0];
+        var eventDate = new Date(event_date);
+        var eventDateFormatted = moment(eventDate).utc().format('dddd, MMMM Do YYYY');
+
+        var eventDateMoment = moment(eventDate);
+        var currentDateMoment = moment(new Date());
+        var eventDaysDifference = currentDateMoment.diff(eventDateMoment, "days");
+
+        type_price_date = eventDateFormatted;
         type_redirect_url = '/event/' + id;
         type_submit_button = 'View More';
     }
@@ -80,12 +88,21 @@ function ListSection(props) {
 
     return (
         <div className="flex flex-col items-start flex-1 gap-5 lg:flex-row">
-            <div className="w-20">
-                <img className={"rounded-lg"} src={props.profile_pic} alt="Logo"/>
-            </div>
+            
 
             <div className="flex-1 items-initial lg:text-start">
-                <h3 className="text-lg font-semibold mb-1">{title}</h3>
+                <div class="flex items-center">
+                    <div class="w-2/3">
+                        <h3 className="text-lg font-semibold mb-1">{title}</h3>
+                    </div>
+                    <div class="w-1/3 flex justify-end">
+                        {eventDaysDifference > 0 && 
+                            <div className="badge badge-error gap-2 mb-4">
+                                Event Expired
+                            </div>
+                        }
+                    </div>
+                </div>
                 <div>
                     {props.type != 'groups' &&
                     <>
