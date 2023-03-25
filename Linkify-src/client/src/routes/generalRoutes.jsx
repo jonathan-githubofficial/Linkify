@@ -11,6 +11,8 @@ import AuthRoutes from "./authRoutes";
 import Messages from "../pages/Messages";
 import Events from "../pages/Events";
 import EventView from "../components/events/EventView";
+import Groups from "../pages/Groups";
+import GroupView from "../components/groups/GroupView";
 
 function RegularRoutes() {
 
@@ -44,6 +46,9 @@ function RegularRoutes() {
         <Route path="/messages" element={<Messages />} />
         <Route path="/events" element={<Events />} />
         <Route path="/event/:eventId" element={<EventView />} />
+        <Route path="/groups" element={<Groups />} />
+        <Route path="/group/:groupId" element={<GroupView />} />
+
       </Routes>
     </div>
   );

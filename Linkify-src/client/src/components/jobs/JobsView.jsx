@@ -42,6 +42,14 @@ function JobsView(props) {
             setEventDate(event.date);
         })
     }
+    else if(props.type == 'groups') {
+        useEffect (() => {
+            var group = props.group;
+            setId(group._id);
+            setTitle(group.name);
+            setDescription(group.description);
+        })
+    }
 
     if(props.type == 'jobs') {
         type_host = job_company;
@@ -55,6 +63,10 @@ function JobsView(props) {
         type_redirect_url = '/event/' + id;
         type_submit_button = 'View More';
     }
+    else if(props.type == 'groups') {
+        type_redirect_url = '/group/' + id;
+        type_submit_button = 'View More';
+    }
 
     return (
         <div className="flex flex-col items-start flex-1 gap-5 lg:flex-row">
@@ -65,9 +77,13 @@ function JobsView(props) {
             <div className="flex-1 items-initial lg:text-start">
                 <h3 className="text-lg font-semibold mb-1">{title}</h3>
                 <div>
-                    <span className="text-green-500">{type_host}</span>
-                    <span className='pl-2 pr-2'>•</span>
-                    <span className='jobs-salary'>{type_price_date}</span>
+                    {props.type != 'groups' &&
+                    <>
+                        <span className="text-green-500">{type_host}</span>
+                        <span className='pl-2 pr-2'>•</span>
+                        <span className='jobs-salary'>{type_price_date}</span>
+                    </>
+                    }
                     
                     <span className={"jobs-location " + ((props.type == 'events') ? 'hidden' : '')}>{location}</span>
 

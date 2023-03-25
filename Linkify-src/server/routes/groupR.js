@@ -16,16 +16,16 @@ router.post('/createGroup', groupController.createGroup);
 // @desc Get a specific group by id
 // @route GET /api/groups/getGroupById/:id
 // @access Public
-router.get('/getGroupById/:id', groupController.getGroupById);
+router.get('/getGroupById', groupController.getGroupById);
 
 // @desc Update a group
 // @route PATCH /api/groups/updateGroup/:id
 // @access Public
-router.patch('/updateGroup/:id', groupController.updateGroup);
+router.patch('/updateGroup', groupController.updateGroup);
 
 // @desc Delete a group
 // @route DELETE /api/groups/deleteGroup/:id
 // @access Public
-router.delete('/deleteGroup/:id', groupController.deleteGroup);
+router.delete('/deleteGroup', groupController.deleteGroup);
 
 module.exports = router;

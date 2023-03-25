@@ -21,8 +21,8 @@ const getAllEvents = asyncHandler(async (req, res) => {
 // Create a new event
 const createEvent = asyncHandler(async (req, res) => {
   try {
-    const { name, description, date, location } = req.query;
-    const newEvent = await Event.create({ name, description, date, location });
+    const { name, description, date, location, creator } = req.query;
+    const newEvent = await Event.create({ name, description, date, location, creator});
     res.status(201).json(newEvent);
   } catch (err) {
     res.status(500).json({ message: err.message });

@@ -33,7 +33,8 @@ const createGroup = asyncHandler(async (req, res) => {
 // Get a specific group by id
 const getGroupById = asyncHandler(async (req, res) => {
   try {
-    const group = await Group.findById(req.params.id);
+    const { id } = req.query;
+    const group = await Group.findById(id);
     res.status(200).json(group);
   } catch (err) {
     res.status(500).json({ message: err.message });
