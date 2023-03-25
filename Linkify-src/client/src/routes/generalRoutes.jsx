@@ -1,5 +1,5 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Navbar from "../components/shared/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
@@ -11,9 +11,28 @@ import AuthRoutes from "./authRoutes";
 import Messages from "../pages/Messages";
 
 function RegularRoutes() {
+
+  const [profile, setProfile] = useState([])
+
+  var email_s = '';
+  email_s = localStorage.getItem("email");
+  const getUser = async () => {
+      axios.get('/api/account/userbymail?', {
+          params: {email: email_s}
+      })
+      .then(res => {
+          setProfile(res.data)
+      }).catch(err => {
+          console.log(err)
+      })
+  }
+  useEffect (() => {
+      getUser();
+  }, [])
+    
   return (
     <div>
-      <Navbar />
+      <Navbar profile={profile} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/jobs" element={<Jobs />} />
