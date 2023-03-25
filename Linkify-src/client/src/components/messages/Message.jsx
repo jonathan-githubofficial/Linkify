@@ -3,11 +3,12 @@
 //Created: March 5,2023
 //Description: Component to render a message
 import React from 'react'
+import MessageOptions from './MessageOptions';
+
 
 function Message(props) {
 
     const { message } = props;
-
 
     return (
         <div>
@@ -22,7 +23,12 @@ function Message(props) {
                         {message.name}
                         <time className="text-xs opacity-50">{message.time}</time>
                     </div>
-                    <div className="chat-bubble">{message.message}</div>
+                    <div className="flex items-center group">
+                        <div className="chat-bubble">{message.message}</div>                        
+                        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                            <MessageOptions />
+                        </div>
+                    </div>
                 </div>
                 :
                 <div className="chat chat-end">
@@ -35,7 +41,12 @@ function Message(props) {
                         {message.name}
                         <time className="text-xs opacity-50">{message.time}</time>
                     </div>
-                    <div className="chat-bubble">{message.message}</div>
+                    <div className="flex items-center group">
+                        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                            <MessageOptions />
+                        </div>
+                        <div className="chat-bubble">{message.message}</div>
+                    </div>
                 </div>
             }
 
