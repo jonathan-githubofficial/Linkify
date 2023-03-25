@@ -12,14 +12,14 @@ import { useNavigate } from "react-router-dom";
 
 
 function Messages() {
-  
+
   const navigate = useNavigate();
 
   // checks if user is logged in, if not, redirects to login page
   useEffect(() => {
     if (localStorage.getItem("loggedIn") !== "1") {
       navigate("/login");
-    }  
+    }
   }, []);
 
 
@@ -37,7 +37,7 @@ function Messages() {
         params: { receiver: currentUser },
       })
       .then((res) => {
-        const result = Object.entries(res.data).map(([user, { name }]) => ({ user, name }));        
+        const result = Object.entries(res.data).map(([user, { name }]) => ({ user, name }));
         setRespondents(result);
       })
       .catch((err) => {
@@ -59,10 +59,10 @@ function Messages() {
 
 
       setConversations(conversations);
-      if(respondents.length>0){
+      if (respondents.length > 0) {
         setUserSelected(respondents[0].user);
       }
-      
+
     });
 
   }, [respondents]);
@@ -88,6 +88,25 @@ function Messages() {
       });
   }
 
+
+  const deleteMessage = async (sender, receiver) => {
+    await axios
+      .delete("/api/messages/deletemessages", {
+        params:{ sender, receiver }
+      })
+      .then(() => {
+
+        const newConversations = conversations.filter((conversation) => conversation.user !== receiver);
+        setConversations(newConversations);
+
+        if (userSelected == receiver && newConversations.length > 0) {
+          setUserSelected(newConversations[0].user);
+        }
+
+      })
+      .catch((err) => console.log("Error", err));
+  };
+
   const postMessage = async (sender, receiver, message, time) => {
     await axios
       .post("/api/messages/postmessage", { sender, receiver, message, time })
@@ -111,6 +130,7 @@ function Messages() {
       })
       .catch((err) => console.log("Error", err));
   };
+
 
   function mapMessagesToUI(messagesData, respondent) {
 
@@ -156,15 +176,6 @@ function Messages() {
     setShowChatFeed(!showChatFeed);
   }
 
-  function removeChatItem(user) {
-    const newConversations = conversations.filter((c) => c.user !== user);
-    setConversations(newConversations);
-
-    if (userSelected == user && newConversations.length > 0) {
-      setUserSelected(newConversations[0].user);
-    }
-  }
-
   function getSelectedConversation() {
     return conversations.find(conversation => conversation.user === userSelected);
   }
@@ -174,6 +185,9 @@ function Messages() {
     postMessage(currentUser, receiver, messageText, nowTime.toISOString());
   }
 
+  function removeChatItem(user) {
+    deleteMessage(currentUser, user);
+  }
 
   return (
     <div>
