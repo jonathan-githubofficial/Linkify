@@ -9,7 +9,7 @@ import MessageSender from './MessageSender';
 
 function Chat(props) {
 
-    const { conversation, addMessage , removeMessage} = props;
+    const { conversation, addMessage , removeMessage, reportMessage} = props;
 
     if (!conversation) {
         return <div></div>;
@@ -22,7 +22,7 @@ function Chat(props) {
                 {conversation.messages.map((m) => {
                     return (
                         <div key={m.id}>
-                            <Message message={m}  removeMessage={removeMessage}/>
+                            <Message message={m}  removeMessage={removeMessage} reportMessage={reportMessage}/>
                         </div>
                     )
                 }

@@ -31,6 +31,10 @@ function Messages() {
   const [respondents, setRespondents] = useState([]);
 
 
+  const [isReportMenuVisible, setIsReportMenuVisible] = useState(false);
+  const [reportedMessageId, setReportedMessageId] = useState(null);
+
+
   useEffect(() => {
     axios
       .get("/api/messages/receiver", {
@@ -210,6 +214,26 @@ function Messages() {
     deleteMessageById(messageId);
   }
 
+    
+  function reportMessage(messageId) {
+    setReportedMessageId(messageId);
+    setIsReportMenuVisible(true);
+  }  
+
+  function reportMessage2() {    
+    alert(`message reported ${reportedMessageId}`);
+    setIsReportMenuVisible(false);
+    setReportedMessageId(null);
+  }  
+
+
+
+  function closeReportMenu () {
+    setIsReportMenuVisible(false);
+    setReportedMessageId(null);
+  }
+
+
   return (
     <div>
       <Helmet>
@@ -233,10 +257,37 @@ function Messages() {
           </div>
 
           <div className={`${showChatFeed ? 'hidden' : ''}  sm:block col-span-1 border`}>
-            <Chat conversation={getSelectedConversation()} addMessage={addMessage} removeMessage={removeMessage} />
+            <Chat conversation={getSelectedConversation()} addMessage={addMessage} removeMessage={removeMessage} reportMessage={reportMessage} />
           </div>
         </div>
       </div>
+      {isReportMenuVisible && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div
+            className="absolute inset-0 bg-black opacity-60"
+            onClick={closeReportMenu}
+          ></div>
+          <div className="relative p-6 bg-white rounded-lg shadow-xl">
+            <h3 className="font-bold text-lg">Why are you reporting this message?</h3>
+            <div className="form-control">
+              <label className="label cursor-pointer">
+                <span className="label-text">It is spam or a scam</span>
+                <input type="radio" name="radio-10" className="radio" checked />
+              </label>
+            </div>
+            <div className="form-control">
+              <label className="label cursor-pointer">
+                <span className="label-text">It is Harassment</span>
+                <input type="radio" name="radio-10" className="radio" checked />
+              </label>
+            </div>
+            <div className="flex mt-2 space-x-2">
+              <button onClick={closeReportMenu} className="btn btn-sm">Cancel</button>
+              <button onClick={reportMessage2} className="btn btn-sm">Report</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
