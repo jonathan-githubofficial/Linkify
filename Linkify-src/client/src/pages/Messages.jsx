@@ -92,7 +92,7 @@ function Messages() {
   const deleteMessage = async (sender, receiver) => {
     await axios
       .delete("/api/messages/deletemessages", {
-        params:{ sender, receiver }
+        params: { sender, receiver }
       })
       .then(() => {
 
@@ -127,6 +127,23 @@ function Messages() {
         conversation.messages = [...conversation.messages, newMessage];
         const newConversations = [conversation, ...conversations.filter((c) => c.user !== receiver)];
         setConversations(newConversations);
+      })
+      .catch((err) => console.log("Error", err));
+  };
+
+  const deleteMessageById = async (messageId) => {
+    await axios
+      .delete(`/api/messages/deletemessage/${messageId}`)
+      .then(() => {
+        const updatedConversations = conversations.map((conversation) => {
+          if (conversation.user === userSelected) {
+            const filteredMessages = conversation.messages.filter((message) => message.id !== messageId);
+            return { ...conversation, messages: filteredMessages };
+          }
+          return conversation;
+        });
+
+        setConversations(updatedConversations);
       })
       .catch((err) => console.log("Error", err));
   };
@@ -189,17 +206,8 @@ function Messages() {
     deleteMessage(currentUser, user);
   }
 
-  function removeMessage(messageId) {   
-
-    const updatedConversations = conversations.map((conversation) => {
-      if (conversation.user === userSelected) {
-        const filteredMessages = conversation.messages.filter((message) => message.id !== messageId);
-        return { ...conversation, messages: filteredMessages };
-      }
-      return conversation;
-    });
-
-    setConversations(updatedConversations);
+  function removeMessage(messageId) {
+    deleteMessageById(messageId);
   }
 
   return (
@@ -225,7 +233,7 @@ function Messages() {
           </div>
 
           <div className={`${showChatFeed ? 'hidden' : ''}  sm:block col-span-1 border`}>
-            <Chat conversation={getSelectedConversation()} addMessage={addMessage} removeMessage={removeMessage}/>
+            <Chat conversation={getSelectedConversation()} addMessage={addMessage} removeMessage={removeMessage} />
           </div>
         </div>
       </div>
