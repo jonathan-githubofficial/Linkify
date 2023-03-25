@@ -68,6 +68,16 @@ function ListSection(props) {
         type_submit_button = 'View More';
     }
 
+    // Trimming description properly
+    var maxLength = 50 // maximum number of characters to extract
+
+    //trim the string to the maximum length
+    var trimmedDescription = description.substring(0, maxLength);
+
+    //re-trim if we are in the middle of a word
+    trimmedDescription = trimmedDescription.substring(0, Math.min(trimmedDescription.length, trimmedDescription.lastIndexOf(" ")))
+
+
     return (
         <div className="flex flex-col items-start flex-1 gap-5 lg:flex-row">
             <div className="w-20">
@@ -88,7 +98,7 @@ function ListSection(props) {
                     <span className={"jobs-location " + ((props.type == 'events') ? 'hidden' : '')}>{location}</span>
 
                     <div className='jobs-description pt-5'>
-                        {description.substring(0, 50)} ...
+                        {trimmedDescription} ...
                     </div>
                 </div>
                 <div className='pt-5 text-right'>

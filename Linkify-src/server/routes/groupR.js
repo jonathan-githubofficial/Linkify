@@ -43,4 +43,9 @@ router.post('/leave', groupController.leaveGroup);
 // @access Private
 router.get('/checkMember', groupController.checkMember);
 
+// @desc Gets all groups of a member that they are the creator
+// @route GET /api/groups/checkMember
+// @access Private
+router.get('/myCreatedGroups', groupController.getMyGroups);
+
 module.exports = router;

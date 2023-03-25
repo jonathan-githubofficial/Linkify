@@ -150,7 +150,7 @@ export default function GroupView() {
                                                 {eventDate.toLocaleDateString()}
                                             </div> */}
                                             <div>
-                                                Group by &nbsp;
+                                                Group by&nbsp;
                                                 <span className='font-extrabold' style={{color: '#266DD3'}}>
                                                     {profile.name}
                                                 </span>

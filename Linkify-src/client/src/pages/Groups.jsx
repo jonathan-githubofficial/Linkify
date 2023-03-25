@@ -13,6 +13,8 @@ import Sidebar from '../components/shared/Sidebar';
 import ListSection from '../components/shared/ListSection';
 import CardSkeleton from '../components/shared/CardSkeleton';
 
+import MyGroups from '../components/groups/MyGroups';
+
 function Groups() {
     
     // Loading
@@ -88,6 +90,8 @@ function Groups() {
                             ))}
 
                         </div>
+
+                        <MyGroups />
 
                     </div>
                 </div>
