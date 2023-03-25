@@ -108,6 +108,45 @@ const unjoinEvent = asyncHandler(async (req, res) => {
   }
 });
 
+// Check if member is already registered 
+const checkEventJoinMember = asyncHandler(async (req, res) => {
+  try {
+    const { eventId, memberId } = req.query;
+    const event = await Event.findById(eventId);
+
+    if (event.members.includes(memberId)) {
+      res.status(200).json({ message: 'true' });
+    }
+    else {
+      res.status(200).json({ message: 'false' });
+    }
+  }
+  catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+
+// Counting the number of members in this event
+const countMembers = asyncHandler(async (req, res) => {
+  try {
+    const { eventId } = req.query;
+    const event = await Event.findById(eventId);
+
+    if(event) {
+      var cc = event.members;
+      return res.status(200).json({ members: cc });
+    }
+    else {
+      return res.status(400).json({ members: '0' });
+    }
+  }
+  catch (err) {
+    res.status(500).json({ message: err.message });
+  } 
+})
+
+
 
 module.exports = {
   getAllEvents,
@@ -117,4 +156,6 @@ module.exports = {
   deleteEvent,
   joinEvent,
   unjoinEvent,
+  checkEventJoinMember,
+  countMembers,
 };
