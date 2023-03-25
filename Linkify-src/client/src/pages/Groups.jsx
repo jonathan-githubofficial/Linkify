@@ -88,7 +88,6 @@ function Groups() {
                                     </div>
                                 </div>
                             ))}
-
                         </div>
 
                         <MyGroups />

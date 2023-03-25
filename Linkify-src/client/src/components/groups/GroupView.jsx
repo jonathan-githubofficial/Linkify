@@ -187,7 +187,6 @@ export default function GroupView() {
                                 {group.description}
                             </div>
                         </div>
-                        {/* Similar groups */}
 
                     </div>
                 </div>
