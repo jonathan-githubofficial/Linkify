@@ -52,7 +52,6 @@ function Messages() {
 
   useEffect(() => {
 
-
     let promises = respondents.map((respondent) => {
       return getMessages(currentUser, respondent);
     });
@@ -161,6 +160,7 @@ function Messages() {
       user: `${respondent.user}`,
       name: `${respondent.name}`,
       title: "Software Engineer",
+
       messages: messagesData.map((m) => {
 
         let message = {
@@ -171,6 +171,7 @@ function Messages() {
           user: m.sender,
           name: (m.sender === currentUser) ? userName : respondent.name,
           message: m.message,
+          reportType:m.reportType,
           position: (m.sender === currentUser) ? "end" : "start"
         };
         return message;
@@ -221,8 +222,23 @@ function Messages() {
     setIsReportMenuVisible(true);
   }  
 
-  function reportMessage(type) {    
-    alert(`message reported ${reportedMessageId}  ${type} `);
+  function reportMessage(type) {        
+
+    const updatedConversations = conversations.map((conversation) => {
+      if (conversation.user === userSelected) {
+        const updatedMessages = conversation.messages.map((message) =>{
+          if(message.id ===reportedMessageId ){
+            return {...message, reportType:type};
+          }
+          return message;
+        })
+        return {...conversation, messages: updatedMessages};
+      }
+      return conversation;
+    });
+    
+    setConversations(updatedConversations);
+
     setIsReportMenuVisible(false);
     setReportedMessageId(null);
   }  
