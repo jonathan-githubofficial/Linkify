@@ -153,6 +153,35 @@ function Messages() {
   };
 
 
+  const reportMessageById = async (messageId, reportType) => {
+    await axios
+      .put(`/api/messages/report/${messageId}`, { reportType})
+      .then(() => {
+
+        //Update UI State
+        const updatedConversations = conversations.map((conversation) => {
+          if (conversation.user === userSelected) {
+            const updatedMessages = conversation.messages.map((message) =>{
+              if(message.id ===messageId ){
+                return {...message, reportType:reportType};
+              }
+              return message;
+            })
+            return {...conversation, messages: updatedMessages};
+          }
+          return conversation;
+        });
+        
+        setConversations(updatedConversations);
+    
+        setIsReportMenuVisible(false);
+        setReportedMessageId(null);
+      })
+      .catch((err) => console.log("Error", err));
+  };
+
+
+
   function mapMessagesToUI(messagesData, respondent) {
 
     const messagesUI = {
@@ -222,25 +251,8 @@ function Messages() {
     setIsReportMenuVisible(true);
   }  
 
-  function reportMessage(type) {        
-
-    const updatedConversations = conversations.map((conversation) => {
-      if (conversation.user === userSelected) {
-        const updatedMessages = conversation.messages.map((message) =>{
-          if(message.id ===reportedMessageId ){
-            return {...message, reportType:type};
-          }
-          return message;
-        })
-        return {...conversation, messages: updatedMessages};
-      }
-      return conversation;
-    });
-    
-    setConversations(updatedConversations);
-
-    setIsReportMenuVisible(false);
-    setReportedMessageId(null);
+  function reportMessage(type) {
+    reportMessageById(reportedMessageId, type);
   }  
 
   function closeReportMenu () {
