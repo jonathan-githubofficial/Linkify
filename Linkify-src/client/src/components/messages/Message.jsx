@@ -8,7 +8,7 @@ import MessageOptions from './MessageOptions';
 
 function Message(props) {
 
-    const { message, removeMessage, reportMessage } = props;
+    const { message, removeMessage, selectReport } = props;
 
     return (
         <div>
@@ -29,7 +29,7 @@ function Message(props) {
                             <MessageOptions
                                 id={message.id}
                                 canReport={true}
-                                reportMessage={reportMessage}
+                                selectReport={selectReport}
                                 removeMessage={removeMessage} />
                         </div>
                     </div>
