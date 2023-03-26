@@ -12,7 +12,7 @@ import profile_pic from "../static/images/profile.jpg";
 import Sidebar from '../components/shared/Sidebar';
 import ListSection from '../components/shared/ListSection';
 import CardSkeleton from '../components/shared/CardSkeleton';
-import MyEvents from '../components/events/MyEvents';
+import MyEvents from '../components/events/MyEventsSidebar';
 
 function Events() {
     

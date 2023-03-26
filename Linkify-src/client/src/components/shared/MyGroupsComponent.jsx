@@ -61,39 +61,39 @@ export default function MyGroupsComponent(props) {
   return (
     <>
     <div className="flex justify-left mt-2 mb-2">
-            <div className="flex items-start">
-                <div className="flex flex-col">
-                    <p className="lg:text-md font-semibold">{title}</p>
-                    <span className="text-sm mt-2">
-                        {trimmedString} ...
-                    </span>
-                    {(props.type == 'events') && 
-                    <>
-                    <div class="flex items-center mt-2">
-                        <div class="w-1/6">
-                            <GrLocation />
-                        </div>
-                        <div class="w-5/6 text-sm" style={{color: '#1E429F'}}>
-                            {location}
-                        </div>
+        <div className="flex items-start">
+            <div className="flex flex-col">
+                <p className="lg:text-md font-semibold">{title}</p>
+                <span className="text-sm mt-2">
+                    {trimmedString} ...
+                </span>
+                {(props.type == 'events') && 
+                <>
+                <div class="flex items-center mt-2">
+                    <div class="w-1/6">
+                        <GrLocation />
                     </div>
-                    <div class="flex items-center mt-2">
-                        <div class="w-1/6">
-                            <BsCalendarDate />
-                        </div>
-                        <div class="w-5/6 text-sm" style={{color: '#4B5563'}}>
-                            {eventDateFormatted}
-                        </div>
+                    <div class="w-5/6 text-sm" style={{color: '#1E429F'}}>
+                        {location}
                     </div>
-                    </>
-                    }
-                    <Link to={type_redirect} className='whiteBtn btn btn-sm bg-sky-400 font-light mt-3'>
-                        View
-                    </Link>
                 </div>
+                <div class="flex items-center mt-2">
+                    <div class="w-1/6">
+                        <BsCalendarDate />
+                    </div>
+                    <div class="w-5/6 text-sm" style={{color: '#4B5563'}}>
+                        {eventDateFormatted}
+                    </div>
+                </div>
+                </>
+                }
+                <Link to={type_redirect} className='whiteBtn btn btn-sm bg-sky-400 font-light mt-3'>
+                    View
+                </Link>
             </div>
         </div>
-        <hr className="mt-5 mb-5"/>
+    </div>
+    <hr className="mt-5 mb-5"/>
     </>
   )
 }

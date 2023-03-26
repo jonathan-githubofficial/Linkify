@@ -12,7 +12,7 @@ import MyGroupsComponent from "../shared/MyGroupsComponent";
 
 import { RiSendPlaneFill } from 'react-icons/ri';
 import { IoCreateOutline } from 'react-icons/io5';
-import MyGroups from "./MyGroups";
+import MyGroups from "./MyGroupsSidebar";
 import Sidebar from "../shared/Sidebar";
 
 export default function CreateGroup() {

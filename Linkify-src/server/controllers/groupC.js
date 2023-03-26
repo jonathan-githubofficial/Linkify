@@ -129,6 +129,21 @@ const checkMember = asyncHandler(async (req, res) => {
   }
 });
 
+// All all groups of a specific user, where they are a member
+const getMyJoinedGroups = asyncHandler(async (req, res) => {
+  try {
+    const { memberId } = req.query;
+    // const group = await Group.findById(groupId);  
+  
+    const group = await Group.find().where('members').in(memberId).exec();
+  
+    res.status(200).json(group);
+  }
+  catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 // All all groups of a specific user, where they are the creator
 const getMyGroups = asyncHandler(async (req, res) => {
   try {
@@ -154,4 +169,5 @@ module.exports = {
   leaveGroup,
   checkMember,
   getMyGroups,
+  getMyJoinedGroups,
 };

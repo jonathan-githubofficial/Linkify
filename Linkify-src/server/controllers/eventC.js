@@ -21,7 +21,7 @@ const getAllEvents = asyncHandler(async (req, res) => {
 // Create a new event
 const createEvent = asyncHandler(async (req, res) => {
   try {
-    const { name, description, date, location, creator } = req.query;
+    const { name, description, date, location, creator } = req.body;
     const newEvent = await Event.create({ name, description, date, location, creator});
     res.status(201).json(newEvent);
   } catch (err) {
@@ -164,6 +164,21 @@ const getMyEvents = asyncHandler(async (req, res) => {
   }
 });
 
+// All all events where the user is registered for
+const getMyCreatedEvents = asyncHandler(async (req, res) => {
+  try {
+    const { memberId } = req.query;
+    // const group = await Group.findById(groupId);  
+  
+    const event = await Event.find().where('creator').in(memberId).exec();
+  
+    res.status(200).json(event);
+  }
+  catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 
 module.exports = {
   getAllEvents,
@@ -176,4 +191,5 @@ module.exports = {
   checkEventJoinMember,
   countMembers,
   getMyEvents,
+  getMyCreatedEvents,
 };

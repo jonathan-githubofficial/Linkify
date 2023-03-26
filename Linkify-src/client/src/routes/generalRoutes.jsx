@@ -19,8 +19,10 @@ import { Link, useNavigate } from "react-router-dom";
 import CreateGroup from "../components/groups/CreateGroup";
 import MobileSidebar from "../components/mobile/MobileSidebar";
 import MobileBottomBar from "../components/mobile/MobileBottomBar";
-import MyEventsMobile from "../components/events/MyEventsMobile";
-import CreateEvent from "../components/events/CreateEvent";
+import CreateEvent from "../components/events/CreatedEvents";
+import RegisteredEvents from "../components/events/RegisteredEvents";
+import JoinedGroups from "../components/groups/JoinedGroups";
+import CreatedGroups from "../components/groups/CreatedGroups";
 
 function RegularRoutes() {
   var isLoggedIn = localStorage.getItem("loggedIn");
@@ -57,11 +59,14 @@ function RegularRoutes() {
         <Route path="/messages" element={<Messages />} />
         <Route path="/events" element={<Events />} />
         <Route path="/event/:eventId" element={<EventView />} />
-        <Route path="/events/myevents" element={<MyEventsMobile />} />
         <Route path="/events/create" element={<CreateEvent />} />
+        <Route path="/events/my_events" element={<CreateEvent />} />
+        <Route path="/events/registered_events" element={<RegisteredEvents />} />
         <Route path="/groups" element={<Groups />} />
         <Route path="/group/:groupId" element={<GroupView />} />
         <Route path="/groups/create" element={<CreateGroup />} />
+        <Route path="/groups/my_groups" element={<CreatedGroups />} />
+        <Route path="/groups/joined_groups" element={<JoinedGroups />} />
       </Routes>
 
       {/* Mobile menus at the bottom */}

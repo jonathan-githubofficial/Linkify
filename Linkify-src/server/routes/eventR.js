@@ -56,5 +56,10 @@ router.get('/countMembers', eventController.countMembers);
 // @access Private
 router.get('/myEvents', eventController.getMyEvents);
 
+// @desc Gets all events where the user is the creator
+// @route GET /api/events/myEvents
+// @access Private
+router.get('/createdEvents', eventController.getMyCreatedEvents);
+
 
 module.exports = router;

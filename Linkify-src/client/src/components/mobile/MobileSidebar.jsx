@@ -48,20 +48,62 @@ export default function MobileSidebar() {
             </Link>
           </li>
           <li>
-            <Link to="/events/myevents">
-              <span className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+            <button type="button" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdow-events-sidebar" data-collapse-toggle="dropdow-events-sidebar">
                 <RiCalendarEventFill />
-                <span className="flex-1 ml-3 whitespace-nowrap">My Events</span>
-              </span>
-            </Link>
+                <span class="flex-1 ml-3 text-left whitespace-nowrap">Events</span>
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+            </button>
+            <ul id="dropdow-events-sidebar" class="hidden py-2 space-y-2">
+                  <li>
+                    <Link to="/events/">
+                      <span class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">All Event</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/events/create">
+                      <span class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Create Event</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/events/my_events">
+                      <span class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Created Events</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/events/registered_events">
+                      <span class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Registered Events</span>
+                    </Link>
+                  </li>
+            </ul>
           </li>
           <li>
-            <Link to="/groups">
-              <span className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+            <button type="button" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdow-groups-sidebar" data-collapse-toggle="dropdow-groups-sidebar">
                 <GrGroup />
-                <span className="flex-1 ml-3 whitespace-nowrap">My Groups</span>
-              </span>
-            </Link>
+                <span class="flex-1 ml-3 text-left whitespace-nowrap">Groups</span>
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+            </button>
+            <ul id="dropdow-groups-sidebar" class="hidden py-2 space-y-2">
+                  <li>
+                    <Link to="/groups/">
+                      <span class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">All Groups</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/groups/create">
+                      <span class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Create Group</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/groups/my_groups">
+                      <span class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Created Groups</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/groups/joined_groups">
+                      <span class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Joined Groups</span>
+                    </Link>
+                  </li>
+            </ul>
           </li>
           <hr />
           <li>

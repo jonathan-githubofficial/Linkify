@@ -13,7 +13,7 @@ import Sidebar from '../components/shared/Sidebar';
 import ListSection from '../components/shared/ListSection';
 import CardSkeleton from '../components/shared/CardSkeleton';
 
-import MyGroups from '../components/groups/MyGroups';
+import MyGroupsSidebar from '../components/groups/MyGroupsSidebar';
 
 function Groups() {
     
@@ -90,7 +90,7 @@ function Groups() {
                             ))}
                         </div>
 
-                        <MyGroups />
+                        <MyGroupsSidebar />
 
                     </div>
                 </div>

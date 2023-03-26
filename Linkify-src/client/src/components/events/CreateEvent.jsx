@@ -14,8 +14,6 @@ import profile_pic from '../../static/images/profile.jpg';
 import { RiSendPlaneFill } from 'react-icons/ri';
 import { IoCreateOutline } from 'react-icons/io5';
 
-import MyGroupsComponent from "../shared/MyGroupsComponent";
-import MyGroups from "../groups/MyGroups";
 import Sidebar from "../shared/Sidebar";
 
 export default function CreateEvent() {
@@ -127,7 +125,7 @@ export default function CreateEvent() {
                             </div>
                         }
                         
-                        <div className="m-12">
+                        <div className="m-12 mb-20">
                             <form autoComplete="off">
                                 <div className="relative mb-6">
                                     <label htmlFor="event-date" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date</label>
@@ -193,14 +191,6 @@ export default function CreateEvent() {
                                     Create
                                 </button>
                             </form>
-                            {/* <div className="relative w-72">
-                                <form >
-
-                                    
-                                    
-                                </form>
-                                
-                            </div> */}
 
                         </div>
 
