@@ -8,6 +8,7 @@ import logo from "../../static/images/logo.svg";
 
 function Navbar(props) {
   const navigate = useNavigate();
+  
   const logout = () => {
     localStorage.removeItem("uid");
     localStorage.removeItem("loggedIn");
@@ -100,7 +101,7 @@ function Navbar(props) {
                 </Link>
               </div>
 
-              <button type="button" className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+              <button type="button" className="hidden lg:block md:block sm:block flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                 <span className="sr-only">Profile</span>
                 <img className="w-8 h-8 rounded-full" src={profile_pic} alt="user photo" />
               </button>

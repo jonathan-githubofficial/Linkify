@@ -88,8 +88,6 @@ function ListSection(props) {
 
     return (
         <div className="flex flex-col items-start flex-1 gap-5 lg:flex-row">
-            
-
             <div className="flex-1 items-initial lg:text-start">
                 <div class="flex items-center">
                     <div class="w-2/3">

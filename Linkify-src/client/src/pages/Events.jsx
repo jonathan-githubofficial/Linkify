@@ -58,7 +58,7 @@ function Events() {
                         {/* Params: name, skills */}
                         <Sidebar name='Khalid Sadat' />
 
-                        <div className="w-full w-full lg:w-3/4 bg-white relative lg:rounded-t-xl">
+                        <div className="w-full w-full lg:w-3/4 bg-white relative lg:rounded-t-xl mb-20">
                             <div className="flex flex-col justify-between gap-3">
                                 <h2 className="flex justify-center text-2xl font-bold md:text-3xl m-12">List of available events</h2>
                             </div>

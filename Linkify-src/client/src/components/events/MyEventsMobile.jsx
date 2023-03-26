@@ -12,7 +12,7 @@ import MyGroupsComponent from "../shared/MyGroupsComponent";
 import { RiSendPlaneFill } from 'react-icons/ri';
 import { IoCreateOutline } from 'react-icons/io5';
 
-export default function MyEvents() {
+export default function MyEventsMobile() {
 
     const loggedInUserId = localStorage.getItem("uid");
 
@@ -38,7 +38,7 @@ export default function MyEvents() {
     }, [])
 
   return (
-    <div class="w-1/3 hidden lg:block bg-white p-5 rounded-t-xl">
+    <div class="w-full bg-white p-5 rounded-t-xl">
         <div className='mb-5'>
             <div class="flex items-center">
                 <div class="w-4/5">
@@ -47,7 +47,7 @@ export default function MyEvents() {
                     </p>
                 </div>
                 <div class="w-1/5 flex justify-end text-lg cursor-pointer" data-tooltip-target="tooltip-create-group" data-tooltip-placement="right">
-                    <Link to="/events/create">
+                    <Link to="/groups/create">
                         <IoCreateOutline />
                     </Link>
                 </div>
