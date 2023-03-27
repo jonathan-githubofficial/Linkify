@@ -52,8 +52,6 @@ export default function EventView() {
 
     }, []);
 
-    console.log("count" + membersCount);
-
 
     // Getting the current even information by its id
     useEffect(() => {
@@ -150,11 +148,6 @@ export default function EventView() {
                         <div class="w-full lg:w-3/4 bg-white relative lg:rounded-t-xl">
                             <ProfileCover name={event.name} position={event.location} type='events'/>
                             <hr/>
-                        
-                            {/* <div className='p-5'>
-                                {event.description}
-                            </div> */}
-                            <hr />
                             
                             <div class="flex items-center">
                                 <div class="w-2/3 mr-2">
@@ -196,10 +189,6 @@ export default function EventView() {
                                     </div>
                                 </div>
                                 <div class="w-1/3 text-right mr-3">
-                                    {/* {eventDaysDifference > 0 ? "" 
-                                    
-                                    : ""} */}
-
                                     {(isJoined) ?
                                     <>
                                     <form>

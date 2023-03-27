@@ -8,6 +8,7 @@ import logo from "../../static/images/logo.svg";
 
 function Navbar(props) {
   const navigate = useNavigate();
+  
   const logout = () => {
     localStorage.removeItem("uid");
     localStorage.removeItem("loggedIn");
@@ -100,7 +101,7 @@ function Navbar(props) {
                 </Link>
               </div>
 
-              <button type="button" className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+              <button type="button" className="hidden lg:block md:block sm:block flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                 <span className="sr-only">Profile</span>
                 <img className="w-8 h-8 rounded-full" src={profile_pic} alt="user photo" />
               </button>
@@ -108,69 +109,80 @@ function Navbar(props) {
               {/* Dropdown menu */}
               <div className="z-50 hidden w-56 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
                 <div className="px-4 py-3">
-                  <span className="block text-sm text-gray-900 dark:text-white">{profile.name}</span>
+                  <span className="block text-md font-bold text-gray-900 dark:text-white">{profile.name}</span>
                   <span className="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">{profile.email}</span>
                 </div>
                 <ul className="py-2" aria-labelledby="user-menu-button">
                   <li>
                     <Link to="/profile">
-                      <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                      <a className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                         Profile
                       </a>
                     </Link>
                   </li>
                   <li>
-                    <Link to="/events">
-                      <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-                        Events
-                      </a>
-                    </Link>
+                    <button type="button" class="flex items-center w-full px-4 py-2 text-md text-gray-700 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-navbar-events" data-collapse-toggle="dropdown-navbar-events">
+                      <span class="flex-1 text-left whitespace-nowrap">Events</span>
+                      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    </button>
+                    <ul id="dropdown-navbar-events" class="hidden py-2 space-y-2">
+                      <li>
+                        <Link to="/events">
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">All Events</span>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/events/create">
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Create Event</span>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/events/my_events">
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Created Event</span>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/events/registered_events">
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Registered Event</span>
+                        </Link>
+                      </li>
+                    </ul>
                   </li>
                   <li>
-                    <Link to="/events">
-                      <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-                        Groups
-                      </a>
-                    </Link>
+                    <button type="button" class="flex items-center w-full px-4 py-2 text-md text-gray-700 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-navbar-groups" data-collapse-toggle="dropdown-navbar-groups">
+                      <span class="flex-1 text-left whitespace-nowrap">Groups</span>
+                      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    </button>
+                    <ul id="dropdown-navbar-groups" class="hidden py-2 space-y-2">
+                      <li>
+                        <Link to="/groups">
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">All Groups</span>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/groups/create">
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Create Group</span>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/groups/my_groups">
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Created Groups</span>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/groups/joined_groups">
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Joined Groups</span>
+                        </Link>
+                      </li>
+                    </ul>
                   </li>
-                  <hr />
+                  
+                  <hr className="my-4"/>
                   <li>
-                    <a href="#" onClick={logout} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Logout</a>
+                    <a href="#" onClick={logout} className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Logout</a>
                   </li>
                 </ul>
               </div>
-
-              <button data-collapse-toggle="mobile-menu-2" type="button" className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu-2" aria-expanded="false">
-                <span className="sr-only">Open main menu</span>
-                <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" /></svg>
-              </button>
-            </div>
-
-            {/* Mobile Menu  */}
-            <div className="items-center lg:hidden md:hidden sm:hidden justify-between hidden w-full md:flex md:w-auto md:order-1" id="mobile-menu-2">
-              <ul className="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                <li>
-                  <a href="#" className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
-                    <Link to="/jobs">
-                      Jobs
-                    </Link>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
-                    <Link to="/jobs">
-                      Messages
-                    </Link>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
-                    <Link to="/jobs">
-                      Notifications
-                    </Link>
-                  </a>
-                </li>
-              </ul>
             </div>
           </>
         ) : null}

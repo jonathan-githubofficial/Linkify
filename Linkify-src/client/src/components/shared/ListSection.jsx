@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import moment from 'moment';
 
-function JobsView(props) {
+function ListSection(props) {
     // Common attributes
     const [id, setId] = useState('');
     const [title, setTitle] = useState('');
@@ -42,6 +43,14 @@ function JobsView(props) {
             setEventDate(event.date);
         })
     }
+    else if(props.type == 'groups') {
+        useEffect (() => {
+            var group = props.group;
+            setId(group._id);
+            setTitle(group.name);
+            setDescription(group.description);
+        })
+    }
 
     if(props.type == 'jobs') {
         type_host = job_company;
@@ -51,28 +60,60 @@ function JobsView(props) {
     }
     else if(props.type == 'events') {
         type_host = location;
-        type_price_date = event_date.split("T")[0];
+        var eventDate = new Date(event_date);
+        var eventDateFormatted = moment(eventDate).utc().format('dddd, MMMM Do YYYY');
+
+        var eventDateMoment = moment(eventDate);
+        var currentDateMoment = moment(new Date());
+        var eventDaysDifference = currentDateMoment.diff(eventDateMoment, "days");
+
+        type_price_date = eventDateFormatted;
         type_redirect_url = '/event/' + id;
         type_submit_button = 'View More';
     }
+    else if(props.type == 'groups') {
+        type_redirect_url = '/group/' + id;
+        type_submit_button = 'View More';
+    }
+
+    // Trimming description properly
+    var maxLength = 50 // maximum number of characters to extract
+
+    //trim the string to the maximum length
+    var trimmedDescription = description.substring(0, maxLength);
+
+    //re-trim if we are in the middle of a word
+    trimmedDescription = trimmedDescription.substring(0, Math.min(trimmedDescription.length, trimmedDescription.lastIndexOf(" ")))
+
 
     return (
         <div className="flex flex-col items-start flex-1 gap-5 lg:flex-row">
-            <div className="w-20">
-                <img className={"rounded-lg"} src={props.profile_pic} alt="Logo"/>
-            </div>
-
             <div className="flex-1 items-initial lg:text-start">
-                <h3 className="text-lg font-semibold mb-1">{title}</h3>
+                <div class="flex items-center">
+                    <div class="w-2/3">
+                        <h3 className="text-lg font-semibold mb-1">{title}</h3>
+                    </div>
+                    <div class="w-1/3 flex justify-end">
+                        {eventDaysDifference > 0 && 
+                            <div className="badge badge-error gap-2 mb-4">
+                                Event Expired
+                            </div>
+                        }
+                    </div>
+                </div>
                 <div>
-                    <span className="text-green-500">{type_host}</span>
-                    <span className='pl-2 pr-2'>•</span>
-                    <span className='jobs-salary'>{type_price_date}</span>
+                    {props.type != 'groups' &&
+                    <>
+                        <span className="text-green-500">{type_host}</span>
+                        <span className='pl-2 pr-2'>•</span>
+                        <span className='jobs-salary'>{type_price_date}</span>
+                    </>
+                    }
                     
                     <span className={"jobs-location " + ((props.type == 'events') ? 'hidden' : '')}>{location}</span>
 
                     <div className='jobs-description pt-5'>
-                        {description.substring(0, 50)} ...
+                        {trimmedDescription} ...
                     </div>
                 </div>
                 <div className='pt-5 text-right'>
@@ -88,4 +129,4 @@ function JobsView(props) {
     );
 }
 
-export default JobsView;
+export default ListSection;
