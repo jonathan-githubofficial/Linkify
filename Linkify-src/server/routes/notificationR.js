@@ -15,7 +15,7 @@ router.post("/createNotification", notificationController.createNotification);
  * @route GET /api/notifications/user/:userId
  * @access Public
  */
-router.get("/user/:userId", notificationController.updateNotification);
+router.get("/user/:userId", notificationController.getUserNotifications);
 
 /**
   * @desc Update a notification (e.g., mark as read)
