@@ -19,12 +19,14 @@ const messageSchema = new Schema({
     required: true,
   },
   
-  // Attachment field, required and of type String
-  attachments: {
-    type: [String],
-    default: []
-  },
-  
+  // Attachment field
+  attachments: [
+    {
+      fileName: String,
+      filePath: String,
+    },
+  ],
+
   // Report type field, required and of type String
   reportType: {
     type: String,
