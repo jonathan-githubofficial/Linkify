@@ -9,6 +9,7 @@ import ChatFeed from '../components/messages/ChatFeed';
 import { FaArrowLeft } from 'react-icons/fa';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import ReportMenu from '../components/messages/ReportMenu';
 
 
 function Messages() {
@@ -30,6 +31,10 @@ function Messages() {
   const [showChatFeed, setShowChatFeed] = useState(true);
   const [respondents, setRespondents] = useState([]);
 
+  
+  const [isReportMenuVisible, setIsReportMenuVisible] = useState(false);
+  const [reportedMessageId, setReportedMessageId] = useState(null);
+
 
   useEffect(() => {
     axios
@@ -46,7 +51,6 @@ function Messages() {
   }, []);
 
   useEffect(() => {
-
 
     let promises = respondents.map((respondent) => {
       return getMessages(currentUser, respondent);
@@ -149,6 +153,35 @@ function Messages() {
   };
 
 
+  const reportMessageById = async (messageId, reportType) => {
+    await axios
+      .put(`/api/messages/report/${messageId}`, { reportType})
+      .then(() => {
+
+        //Update UI State
+        const updatedConversations = conversations.map((conversation) => {
+          if (conversation.user === userSelected) {
+            const updatedMessages = conversation.messages.map((message) =>{
+              if(message.id ===messageId ){
+                return {...message, reportType:reportType};
+              }
+              return message;
+            })
+            return {...conversation, messages: updatedMessages};
+          }
+          return conversation;
+        });
+        
+        setConversations(updatedConversations);
+    
+        setIsReportMenuVisible(false);
+        setReportedMessageId(null);
+      })
+      .catch((err) => console.log("Error", err));
+  };
+
+
+
   function mapMessagesToUI(messagesData, respondent) {
 
     const messagesUI = {
@@ -156,6 +189,7 @@ function Messages() {
       user: `${respondent.user}`,
       name: `${respondent.name}`,
       title: "Software Engineer",
+
       messages: messagesData.map((m) => {
 
         let message = {
@@ -166,6 +200,7 @@ function Messages() {
           user: m.sender,
           name: (m.sender === currentUser) ? userName : respondent.name,
           message: m.message,
+          reportType:m.reportType,
           position: (m.sender === currentUser) ? "end" : "start"
         };
         return message;
@@ -210,6 +245,21 @@ function Messages() {
     deleteMessageById(messageId);
   }
 
+    
+  function selectReport(messageId) {
+    setReportedMessageId(messageId);
+    setIsReportMenuVisible(true);
+  }  
+
+  function reportMessage(type) {
+    reportMessageById(reportedMessageId, type);
+  }  
+
+  function closeReportMenu () {
+    setIsReportMenuVisible(false);
+    setReportedMessageId(null);
+ }
+  
   return (
     <div>
       <Helmet>
@@ -233,10 +283,11 @@ function Messages() {
           </div>
 
           <div className={`${showChatFeed ? 'hidden' : ''}  sm:block col-span-1 border`}>
-            <Chat conversation={getSelectedConversation()} addMessage={addMessage} removeMessage={removeMessage} />
+            <Chat conversation={getSelectedConversation()} addMessage={addMessage} removeMessage={removeMessage} selectReport={selectReport} />
           </div>
         </div>
       </div>
+      {isReportMenuVisible &&  <ReportMenu reportMessage = {reportMessage} closeReportMenu={closeReportMenu}/>}
     </div>
   )
 }

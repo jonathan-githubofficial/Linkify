@@ -21,8 +21,8 @@ const getAllEvents = asyncHandler(async (req, res) => {
 // Create a new event
 const createEvent = asyncHandler(async (req, res) => {
   try {
-    const { name, description, date, location } = req.query;
-    const newEvent = await Event.create({ name, description, date, location });
+    const { name, description, date, location, creator } = req.body;
+    const newEvent = await Event.create({ name, description, date, location, creator});
     res.status(201).json(newEvent);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -149,7 +149,35 @@ const countMembers = asyncHandler(async (req, res) => {
   } 
 })
 
+// All all events where the user is registered for
+const getMyEvents = asyncHandler(async (req, res) => {
+  try {
+    const { memberId } = req.query;
+    // const group = await Group.findById(groupId);  
+  
+    const event = await Event.find().where('members').in(memberId).exec();
+  
+    res.status(200).json(event);
+  }
+  catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 
+// All all events where the user is registered for
+const getMyCreatedEvents = asyncHandler(async (req, res) => {
+  try {
+    const { memberId } = req.query;
+    // const group = await Group.findById(groupId);  
+  
+    const event = await Event.find().where('creator').in(memberId).exec();
+  
+    res.status(200).json(event);
+  }
+  catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 
 
 module.exports = {
@@ -162,4 +190,6 @@ module.exports = {
   unjoinEvent,
   checkEventJoinMember,
   countMembers,
+  getMyEvents,
+  getMyCreatedEvents,
 };

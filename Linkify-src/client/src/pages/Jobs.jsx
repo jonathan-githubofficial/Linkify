@@ -5,7 +5,7 @@ import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 
 import Sidebar from '../components/shared/Sidebar';
-import JobsView from '../components/jobs/JobsView';
+import ListSection from '../components/shared/ListSection';
 import MyConnections from "../components/profile/MyConnections";
 import CardSkeleton from '../components/shared/CardSkeleton';
 
@@ -126,7 +126,7 @@ const Jobs = () => {
                             {jobs.slice(0).reverse().map((job)=> (
                                 <div key={job._id} className=" items-center grid gap-5 my-2 md:grid-cols-2 lg:grid-cols-1 rounded-xl shadow dark:bg-gray-800 dark:border-gray-700 text-black max-w-screen-xl">
                                     <div onClick={() => handleOpenModal(job)} className="flex flex-col justify-between gap-3 px-6 py-6 border border-gray-200 lg:flex-row group hover:border-black rounded-xl">
-                                        <JobsView job={job} profile_pic={profile_pic} type='jobs' />
+                                        <ListSection job={job} profile_pic={profile_pic} type='jobs' />
                                     </div>
 
 

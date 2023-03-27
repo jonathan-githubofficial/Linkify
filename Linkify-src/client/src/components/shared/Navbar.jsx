@@ -8,6 +8,7 @@ import logo from "../../static/images/logo.svg";
 
 function Navbar(props) {
   const navigate = useNavigate();
+  
   const logout = () => {
     localStorage.removeItem("uid");
     localStorage.removeItem("loggedIn");
@@ -126,6 +127,7 @@ function Navbar(props) {
                 </Link>
               </div>
 
+
               <button
                 type="button"
                 className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
@@ -134,6 +136,7 @@ function Navbar(props) {
                 data-dropdown-toggle="user-dropdown"
                 data-dropdown-placement="bottom"
               >
+
                 <span className="sr-only">Profile</span>
                 <img
                   className="w-8 h-8 rounded-full"
@@ -148,25 +151,30 @@ function Navbar(props) {
                 id="user-dropdown"
               >
                 <div className="px-4 py-3">
+
                   <span className="block text-sm text-gray-900 dark:text-white">
                     {profile.name}
                   </span>
                   <span className="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">
                     {profile.email}
                   </span>
+
                 </div>
                 <ul className="py-2" aria-labelledby="user-menu-button">
                   <li>
                     <Link to="/profile">
+
                       <a
                         href="#"
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                       >
+
                         Profile
                       </a>
                     </Link>
                   </li>
                   <li>
+
                     <Link to="/events">
                       <a
                         href="#"
@@ -185,30 +193,67 @@ function Navbar(props) {
                         Groups
                       </a>
                     </Link>
+
+                    <button type="button" class="flex items-center w-full px-4 py-2 text-md text-gray-700 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-navbar-events" data-collapse-toggle="dropdown-navbar-events">
+                      <span class="flex-1 text-left whitespace-nowrap">Events</span>
+                      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    </button>
+                    <ul id="dropdown-navbar-events" class="hidden py-2 space-y-2">
+                      <li>
+                        <Link to="/events">
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">All Events</span>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/events/create">
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Create Event</span>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/events/my_events">
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Created Event</span>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/events/registered_events">
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Registered Event</span>
+                        </Link>
+                      </li>
+                    </ul>
                   </li>
-                  <hr />
                   <li>
-                    <Link to="/events">
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                      >
-                        Events
-                      </a>
-                    </Link>
+                    <button type="button" class="flex items-center w-full px-4 py-2 text-md text-gray-700 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-navbar-groups" data-collapse-toggle="dropdown-navbar-groups">
+                      <span class="flex-1 text-left whitespace-nowrap">Groups</span>
+                      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    </button>
+                    <ul id="dropdown-navbar-groups" class="hidden py-2 space-y-2">
+                      <li>
+                        <Link to="/groups">
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">All Groups</span>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/groups/create">
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Create Group</span>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/groups/my_groups">
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Created Groups</span>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/groups/joined_groups">
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Joined Groups</span>
+                        </Link>
+                      </li>
+                    </ul>
+
                   </li>
+                  
+                  <hr className="my-4"/>
                   <li>
-                    <Link to="/events">
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                      >
-                        Groups
-                      </a>
-                    </Link>
-                  </li>
-                  <hr />
-                  <li>
+
                     <a
                       href="#"
                       onClick={logout}
@@ -275,6 +320,7 @@ function Navbar(props) {
                   </a>
                 </li>
               </ul>
+
             </div>
           </>
         ) : null}
