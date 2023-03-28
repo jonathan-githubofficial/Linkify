@@ -26,9 +26,9 @@ router.put("/updateNotification", notificationController.updateNotification);
 
 /**
  * @desc Delete a notification
- * @route DELETE /api/notifications/deleteNotification
+ * @route DELETE /api/notifications/deleteNotification/:id
  * @access Public
  */
-router.delete("/deleteNotification", notificationController.deleteNotification);
+router.delete("/deleteNotification/:id", notificationController.deleteNotification);
 
 module.exports = router;
