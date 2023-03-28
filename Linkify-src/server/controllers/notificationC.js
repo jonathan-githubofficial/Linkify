@@ -24,7 +24,12 @@ const createNotification = async (req, res) => {
 const getUserNotifications = async (req, res) => {
   try {
     const { userId } = req.params;
-    const notifications = await Notification.find({ userId }).sort({ time: -1 });
+    const notifications = await Notification.find({ userId })
+      .populate({
+        path: "userPosterId",
+        select: "name", // Only select the name field of the user
+      })
+      .sort({ time: -1 });
     res.status(200).json(notifications);
   } catch (error) {
     res.status(500).json({ message: error.message });
