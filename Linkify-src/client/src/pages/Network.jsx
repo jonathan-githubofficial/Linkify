@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import axios from "axios";
 import profile_pic from "../static/images/profile.jpg";
+
 function Network() {
   const [networkData, setNetworkData] = useState([]);
   const [connectionsData, setConnectionsData] = useState([]);

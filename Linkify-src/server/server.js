@@ -44,6 +44,8 @@ app.use("/api/events", eventRouter);
 app.use("/api/companies", companiesRouter);
 app.use("/api/notifications", notificationRouter);
 
+app.use("/server/attachments", express.static("server/attachments"));
+
 app.listen(process.env.PORT || 8080, () =>
   console.log(`App listening on port ${process.env.PORT}!`)
 );
