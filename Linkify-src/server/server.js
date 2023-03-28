@@ -12,6 +12,7 @@ const messagesRouter = require("./routes/messagesR");
 const groupRouter = require("./routes/groupR");
 const eventRouter = require("./routes/eventR");
 const companiesRouter = require("./routes/companyR.js");
+const notificationRouter = require("./routes/notificationR.js");
 
 const dotenv = require("dotenv");
 const app = express();
@@ -41,6 +42,7 @@ app.use("/api/messages", messagesRouter);
 app.use("/api/groups", groupRouter);
 app.use("/api/events", eventRouter);
 app.use("/api/companies", companiesRouter);
+app.use("/api/notifications", notificationRouter);
 
 app.listen(process.env.PORT || 8080, () =>
   console.log(`App listening on port ${process.env.PORT}!`)
