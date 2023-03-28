@@ -1,7 +1,7 @@
 // notificationRoutes.js
 const express = require("express");
 const router = express.Router();
-const notificationController = require("../controllers/notificationController");
+const notificationController = require("../controllers/notificationC")
 
 /**
  * @desc Create a new notification
@@ -15,7 +15,7 @@ router.post("/createNotification", notificationController.createNotification);
  * @route GET /api/notifications/user/:userId
  * @access Public
  */
-router.get("/user/:userId", notificationController.updateNotification);
+router.get("/user/:userId", notificationController.getUserNotifications);
 
 /**
   * @desc Update a notification (e.g., mark as read)

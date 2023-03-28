@@ -6,6 +6,7 @@
 import React from 'react'
 import { RiSendPlaneFill } from 'react-icons/ri'
 import profile_pic from '../../static/images/profile.jpg'
+import { Link, useNavigate } from "react-router-dom";
 
 export default function SimilarEvents() {
 
@@ -21,9 +22,11 @@ export default function SimilarEvents() {
                 <div className="flex flex-col">
                     <p className="lg:text-md font-semibold">Concordia Hackathon Session</p>
                     <span className="text-sm">Concordia University</span>
-                    <button className="whiteBtn btn btn-sm bg-sky-400 font-light mt-3">
-                        View
-                    </button>
+                        <a className="whiteBtn btn btn-sm bg-sky-400 font-light mt-3">
+                        <Link to="/event/6418f51713ccd095231b24cb">
+                            View
+                        </Link>
+                        </a>
                 </div>
             </div>
         </div>

@@ -49,4 +49,11 @@ router.get(
   connectionController.getConnectionRequests
 );
 
+/**
+ * @desc Get all connections for a user
+ * @route GET /user/connection/getAllConnections
+ * @access Private
+ */
+router.get("/getAllConnections", connectionController.getAllConnections);
+
 module.exports = router;

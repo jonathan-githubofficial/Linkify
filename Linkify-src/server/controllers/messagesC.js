@@ -12,16 +12,27 @@ const Message = require("../models/messagesM");
 const asyncHandler = require("express-async-handler");
 
 // Create a new message
-const createMessage = async (req, res) => {
+const postMessage = async (req, res) => {
   try {
-    const { sender, receiver, message, time, attachments } = req.body;
+    const { sender, receiver, message, time } = req.body;
     const newMessage = new Message({ sender, receiver, message, time });
+
+    // Add the file to the attachments field
+    if (req.file) {
+      newMessage.attachments.push({
+        fileName: req.file.originalname,
+        filePath: req.file.path,
+      });
+    }
+
     const savedMessage = await newMessage.save();
     res.status(201).json(savedMessage);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
+
 
 // Get all messages between two users
 const getMessages = async (req, res) => {
@@ -152,7 +163,7 @@ const reportDM = async (req, res) => {
 };
 
 module.exports = {
-  createMessage,
+  postMessage,
   getMessages,
   deleteMessages,
   deleteMessageById,
