@@ -7,7 +7,7 @@
 These include creating a new notification, getting all notifications for a user, getting a single notification by ID,
 updating a notification (e.g., marking it as read), and deleting a notification. */
 
-const Notification = require("../models/notificationModel");
+const Notification = require("../models/notificationM");
 
 // Create a new notification
 const createNotification = async (req, res) => {
