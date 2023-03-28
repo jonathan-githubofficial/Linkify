@@ -28,6 +28,7 @@ router.patch('/updateGroup', groupController.updateGroup);
 // @access Public
 router.delete('/deleteGroup', groupController.deleteGroup);
 
+// @desc join a group 
 // @route PUT /api/groups/join
 // @access Private
 router.put('/join', groupController.joinGroup);
