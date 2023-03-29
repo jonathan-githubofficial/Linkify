@@ -11,9 +11,22 @@ import AuthRoutes from "./authRoutes";
 import Messages from "../pages/Messages";
 import Events from "../pages/Events";
 import EventView from "../components/events/EventView";
+import Groups from "../pages/Groups";
+import GroupView from "../components/groups/GroupView";
+
+import { FaSuitcase, FaComments } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import CreateGroup from "../components/groups/CreateGroup";
+import MobileSidebar from "../components/mobile/MobileSidebar";
+import MobileBottomBar from "../components/mobile/MobileBottomBar";
+import CreateEvent from "../components/events/CreatedEvents";
+import RegisteredEvents from "../components/events/RegisteredEvents";
+import JoinedGroups from "../components/groups/JoinedGroups";
+import CreatedGroups from "../components/groups/CreatedGroups";
 
 function RegularRoutes() {
   const [profile, setProfile] = useState([]);
+  var isLoggedIn = localStorage.getItem("loggedIn");
 
   var email_s = "";
   email_s = localStorage.getItem("email");
@@ -24,13 +37,12 @@ function RegularRoutes() {
       })
       .then((res) => {
         setProfile(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
       });
   };
   useEffect(() => {
     getUser();
+
+    isLoggedIn = localStorage.getItem("loggedIn");
   }, []);
 
   return (
@@ -45,7 +57,26 @@ function RegularRoutes() {
         <Route path="/messages" element={<Messages />} />
         <Route path="/events" element={<Events />} />
         <Route path="/event/:eventId" element={<EventView />} />
+        <Route path="/events/create" element={<CreateEvent />} />
+        <Route path="/events/my_events" element={<CreateEvent />} />
+        <Route
+          path="/events/registered_events"
+          element={<RegisteredEvents />}
+        />
+        <Route path="/groups" element={<Groups />} />
+        <Route path="/group/:groupId" element={<GroupView />} />
+        <Route path="/groups/create" element={<CreateGroup />} />
+        <Route path="/groups/my_groups" element={<CreatedGroups />} />
+        <Route path="/groups/joined_groups" element={<JoinedGroups />} />
       </Routes>
+
+      {/* Mobile menus at the bottom */}
+      {isLoggedIn && (
+        <>
+          <MobileBottomBar />
+          <MobileSidebar />
+        </>
+      )}
     </div>
   );
 }

@@ -10,6 +10,7 @@ import axios from "axios";
 
 import UserProfile from "../components/profile/UserProfile";
 import MyConnections from "../components/profile/MyConnections";
+import SimilarEvents from "../components/events/SimilarEvents";
 
 function Profile() {
   const [profile, setProfile] = useState([]);

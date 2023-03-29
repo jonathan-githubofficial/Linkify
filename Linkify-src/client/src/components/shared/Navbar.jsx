@@ -8,6 +8,7 @@ import logo from "../../static/images/logo.svg";
 
 function Navbar(props) {
   const navigate = useNavigate();
+
   const logout = () => {
     localStorage.removeItem("uid");
     localStorage.removeItem("loggedIn");
@@ -186,29 +187,122 @@ function Navbar(props) {
                         Groups
                       </a>
                     </Link>
-                  </li>
-                  <hr />
-                  <li>
-                    <Link to="/events">
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                      >
+
+                    <button
+                      type="button"
+                      class="flex items-center w-full px-4 py-2 text-md text-gray-700 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                      aria-controls="dropdown-navbar-events"
+                      data-collapse-toggle="dropdown-navbar-events"
+                    >
+                      <span class="flex-1 text-left whitespace-nowrap">
                         Events
-                      </a>
-                    </Link>
+                      </span>
+                      <svg
+                        class="w-6 h-6"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
+                    </button>
+                    <ul
+                      id="dropdown-navbar-events"
+                      class="hidden py-2 space-y-2"
+                    >
+                      <li>
+                        <Link to="/events">
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            All Events
+                          </span>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/events/create">
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            Create Event
+                          </span>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/events/my_events">
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            Created Event
+                          </span>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/events/registered_events">
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            Registered Event
+                          </span>
+                        </Link>
+                      </li>
+                    </ul>
                   </li>
                   <li>
-                    <Link to="/events">
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                      >
+                    <button
+                      type="button"
+                      class="flex items-center w-full px-4 py-2 text-md text-gray-700 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                      aria-controls="dropdown-navbar-groups"
+                      data-collapse-toggle="dropdown-navbar-groups"
+                    >
+                      <span class="flex-1 text-left whitespace-nowrap">
                         Groups
-                      </a>
-                    </Link>
+                      </span>
+                      <svg
+                        class="w-6 h-6"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
+                    </button>
+                    <ul
+                      id="dropdown-navbar-groups"
+                      class="hidden py-2 space-y-2"
+                    >
+                      <li>
+                        <Link to="/groups">
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            All Groups
+                          </span>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/groups/create">
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            Create Group
+                          </span>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/groups/my_groups">
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            Created Groups
+                          </span>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/groups/joined_groups">
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            Joined Groups
+                          </span>
+                        </Link>
+                      </li>
+                    </ul>
                   </li>
-                  <hr />
+
+                  <hr className="my-4" />
                   <li>
                     <a
                       href="#"
