@@ -13,25 +13,26 @@ import Events from "../pages/Events";
 import EventView from "../components/events/EventView";
 
 function RegularRoutes() {
+  const [profile, setProfile] = useState([]);
 
-  const [profile, setProfile] = useState([])
-
-  var email_s = '';
+  var email_s = "";
   email_s = localStorage.getItem("email");
   const getUser = async () => {
-      axios.get('/api/account/userbymail?', {
-          params: {email: email_s}
+    axios
+      .get("/api/account/userbymail?", {
+        params: { email: email_s },
       })
-      .then(res => {
-          setProfile(res.data)
-      }).catch(err => {
-          console.log(err)
+      .then((res) => {
+        setProfile(res.data);
       })
-  }
-  useEffect (() => {
-      getUser();
-  }, [])
-    
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    getUser();
+  }, []);
+
   return (
     <div>
       <Navbar profile={profile} />
@@ -40,7 +41,7 @@ function RegularRoutes() {
         <Route path="/jobs" element={<Jobs />} />
         <Route path="/Network" element={<Network />} />
         <Route path="/notifications" element={<Notifications />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/:id" element={<Profile />} />
         <Route path="/messages" element={<Messages />} />
         <Route path="/events" element={<Events />} />
         <Route path="/event/:eventId" element={<EventView />} />

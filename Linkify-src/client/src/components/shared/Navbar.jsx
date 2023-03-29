@@ -17,6 +17,7 @@ function Navbar(props) {
   var profile = props.profile;
 
   const isLoggedIn = localStorage.getItem("loggedIn");
+  const uid = localStorage.getItem("uid");
 
   return (
     <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
@@ -157,7 +158,7 @@ function Navbar(props) {
                 </div>
                 <ul className="py-2" aria-labelledby="user-menu-button">
                   <li>
-                    <Link to="/profile">
+                    <Link to={`/profile/${uid}`}>
                       <a
                         href="#"
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
