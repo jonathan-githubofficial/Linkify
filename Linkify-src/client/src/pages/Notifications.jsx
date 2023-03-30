@@ -22,7 +22,6 @@ function Notifications() {
 
   const currentUser = localStorage.getItem("uid");
 
-
   useEffect(() => {
     axios.get(`/api/notifications/user/${currentUser}`)
     .then((res) => {
@@ -35,6 +34,8 @@ function Notifications() {
     });
 
   }, []);
+
+
 
 
   function mapNotificationsToUI(notificationsData) {
@@ -82,9 +83,20 @@ function Notifications() {
       return `${Math.round(difference/week)} w`;
     }   
     
-  }
+  }  
 
-  const removeNotification = (i) => setNotifications(notifications.filter(x => x.id != i));
+  const deleteNotificationById = async (notificationId) => {
+    await axios
+      .delete(`/api/notifications/deleteNotification/${notificationId}`)
+      .then(() => {
+        setNotifications(notifications.filter(notification => notification.id != notificationId));
+      })
+      .catch((err) => console.log("Error", err));
+  };
+
+  function removeNotification(notificationId){
+    deleteNotificationById(notificationId);
+  }
 
   return (
     <div>
