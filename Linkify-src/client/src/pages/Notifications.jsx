@@ -24,14 +24,14 @@ function Notifications() {
 
   useEffect(() => {
     axios.get(`/api/notifications/user/${currentUser}`)
-    .then((res) => {
-      // handle the response data        
-      setNotifications(mapNotificationsToUI(res.data));
-    })
-    .catch((err) => {
-      // handle any errors
-      console.log(err);        
-    });
+      .then((res) => {
+        // handle the response data        
+        setNotifications(mapNotificationsToUI(res.data));
+      })
+      .catch((err) => {
+        // handle any errors
+        console.log(err);
+      });
 
   }, []);
 
@@ -59,31 +59,31 @@ function Notifications() {
     const current = new Date();
     const datetime = new Date(time);
 
-    const difference = current-datetime;
+    const difference = current - datetime;
 
     const sec = 1000;
-    const min = 60*sec;
-    const hour = 60*min;
-    const day = 24*hour;
-    const week = 7*day;
-    
-    if(difference < min) {
-      return  `${Math.round(difference/sec)}s`;
+    const min = 60 * sec;
+    const hour = 60 * min;
+    const day = 24 * hour;
+    const week = 7 * day;
+
+    if (difference < min) {
+      return `${Math.round(difference / sec)}s`;
     }
-    else if( difference < hour ){
-      return `${Math.round(difference/min)}m`;
+    else if (difference < hour) {
+      return `${Math.round(difference / min)}m`;
     }
-    else if(difference < day ){
-      return `${Math.round(difference/hour)}h`;
+    else if (difference < day) {
+      return `${Math.round(difference / hour)}h`;
     }
-    else if( difference < week ){
-      return `${Math.round(difference/day)}d`;
-    }    
+    else if (difference < week) {
+      return `${Math.round(difference / day)}d`;
+    }
     else {
-      return `${Math.round(difference/week)} w`;
-    }   
-    
-  }  
+      return `${Math.round(difference / week)}w`;
+    }
+
+  }
 
   const deleteNotificationById = async (notificationId) => {
     await axios
@@ -94,7 +94,7 @@ function Notifications() {
       .catch((err) => console.log("Error", err));
   };
 
-  function removeNotification(notificationId){
+  function removeNotification(notificationId) {
     deleteNotificationById(notificationId);
   }
 
@@ -105,15 +105,19 @@ function Notifications() {
         <title>Notifications</title>
       </Helmet>
       <div className="flex flex-col h-screen my-auto items-center bgimg bg-cover w-full">
-        <ul>
-          {notifications.map((notification) => {
-            return (
-              <li className='flex flex-col items-center' key={notification.id} >
-                <Notification notification={notification} removeNotification={removeNotification}></Notification>
-              </li>
-            )
-          })}
-        </ul>
+        <div className="w-full sm:w-1/2">
+          <ul className="min-w-full">
+            {notifications.map((notification) => {
+              return (
+                <li className='flex items-center justify-center' key={notification.id} >
+                  <Notification notification={notification} removeNotification={removeNotification}></Notification>
+                </li>
+              )
+            })}
+          </ul>
+
+        </div>
+
       </div>
 
 

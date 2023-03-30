@@ -5,19 +5,19 @@ function Notification(props) {
   const { notification, removeNotification } = props;
 
   return (
-    <div className="w-full sm:w-1/2  flex gap-5 shadow-lg p-2 min-w-0">
+    <div className="w-full sm:w-3/4  flex gap-5 shadow-lg p-2">
       <div class="avatar">
         <div class="w-14 h-14 rounded-full">
           <img src={notification.avatar} />
         </div>
       </div>
-      <div className='w-3/4'>
+      <div className='flex-grow'>
         <p className='text-left'>
           <b>{notification.user} {notification.type}</b>  {notification.description}
         </p>
       </div>
       <div className='flex flex-col items-center w-1/8'>
-        <div className="px-6  text-sm text-gray-500">
+        <div className="px-6 text-sm text-gray-500">
           {notification.age}
         </div>
         <button className="btn-sm btn-square btn-outline" onClick={()=> removeNotification(notification.id)}>
