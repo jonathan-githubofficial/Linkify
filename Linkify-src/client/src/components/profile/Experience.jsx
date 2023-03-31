@@ -19,8 +19,6 @@ export default function Experience(props) {
     useEffect(async () => {
         setExperiences(await props.experiences);
     });
-
-    console.log(experiences);
         
     return (
         <div className='p-5'>

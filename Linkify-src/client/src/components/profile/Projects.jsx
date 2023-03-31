@@ -19,8 +19,6 @@ export default function Projects(props) {
     useEffect(async () => {
         setProjects(await props.projects);
     });
-
-    console.log(projects);
         
     return (
         <div className='p-5'>

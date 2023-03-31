@@ -10,8 +10,8 @@ import { Buffer } from "buffer";
 import { BiPencil } from "react-icons/bi";
 
 export default function Experience(props) {
-  // let profile_id = props.id;
-  let id = "63eabb9c07f2dc10446a1c7c";
+  let id = props.id;
+  // let id = "63eabb9c07f2dc10446a1c7c";
   var experiences = props.experiences;
 
   const [experience, setExperience] = useState("");

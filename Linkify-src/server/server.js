@@ -47,3 +47,5 @@ app.use("/api/notifications", notificationRouter);
 app.listen(process.env.PORT || 8080, () =>
   console.log(`App listening on port ${process.env.PORT}!`)
 );
+
+module.exports = app
