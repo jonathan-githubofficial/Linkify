@@ -18,10 +18,12 @@ const connectDB = async () => {
 const close = async () => {
   if (mongoose.connection.readyState !== 0) {
     // await mongoose.connection.dropDatabase();
-    await mongoose.connection.close();
+    // await mongoose.connection.close();
+    await mongoose.disconnect();
   }
   if (mongoServer) {
-    await mongoServer.stop();
+    // await mongoServer.stop();
+    await mongoServer.disconnect();
   }
 };
 
