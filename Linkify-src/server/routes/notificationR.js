@@ -1,7 +1,7 @@
 // notificationRoutes.js
 const express = require("express");
 const router = express.Router();
-const notificationController = require("../controllers/notificationController");
+const notificationController = require("../controllers/notificationC")
 
 /**
  * @desc Create a new notification
@@ -26,9 +26,9 @@ router.put("/updateNotification", notificationController.updateNotification);
 
 /**
  * @desc Delete a notification
- * @route DELETE /api/notifications/deleteNotification
+ * @route DELETE /api/notifications/deleteNotification/:id
  * @access Public
  */
-router.delete("/deleteNotification", notificationController.deleteNotification);
+router.delete("/deleteNotification/:id", notificationController.deleteNotification);
 
 module.exports = router;

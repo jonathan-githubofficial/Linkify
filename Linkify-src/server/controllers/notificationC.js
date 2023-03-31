@@ -7,7 +7,7 @@
 These include creating a new notification, getting all notifications for a user, getting a single notification by ID,
 updating a notification (e.g., marking it as read), and deleting a notification. */
 
-const Notification = require("../models/notificationModel");
+const Notification = require("../models/notificationM");
 
 // Create a new notification
 const createNotification = async (req, res) => {
@@ -24,7 +24,12 @@ const createNotification = async (req, res) => {
 const getUserNotifications = async (req, res) => {
   try {
     const { userId } = req.params;
-    const notifications = await Notification.find({ userId }).sort({ time: -1 });
+    const notifications = await Notification.find({ userId })
+      .populate({
+        path: "userPosterId",
+        select: "name", // Only select the name field of the user
+      })
+      .sort({ time: -1 });
     res.status(200).json(notifications);
   } catch (error) {
     res.status(500).json({ message: error.message });
