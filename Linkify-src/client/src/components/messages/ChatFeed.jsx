@@ -10,6 +10,36 @@ function ChatFeed(props) {
 
     const { conversations, selectChat, removeChatItem } = props;
 
+    function getAge(time) {
+        const current = new Date();
+        const datetime = new Date(time);
+    
+        const difference = current - datetime;
+    
+        const sec = 1000;
+        const min = 60 * sec;
+        const hour = 60 * min;
+        const day = 24 * hour;
+        const week = 7 * day;
+    
+        if (difference < min) {
+          return `${Math.round(difference / sec)}s`;
+        }
+        else if (difference < hour) {
+          return `${Math.round(difference / min)}m`;
+        }
+        else if (difference < day) {
+          return `${Math.round(difference / hour)}h`;
+        }
+        else if (difference < week) {
+          return `${Math.round(difference / day)}d`;
+        }
+        else {
+          return `${Math.round(difference / week)}w`;
+        }
+    
+      }
+
     if (conversations.length === 0) {
         return null;
     }
@@ -25,7 +55,7 @@ function ChatFeed(props) {
                                 user={conversation.user}
                                 name={conversation.name}
                                 lastmessage={conversation.messages[conversation.messages.length - 1].message}
-                                time={conversation.messages[conversation.messages.length - 1].time}
+                                time={getAge(conversation.messages[conversation.messages.length - 1].datetime)}
                                 selectChat={selectChat}
                                 removeChatItem={removeChatItem} />
                         </div>

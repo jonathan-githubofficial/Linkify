@@ -251,11 +251,20 @@ function Messages() {
   }
 
   function formatTime(time) {
-    const timed = new Date(time);
-    const hours = timed.getHours();
-    const minutes = timed.getMinutes();
-    const formatted = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-    return formatted;
+
+    const date = new Date(time);
+
+    const monthNames = [
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    ];
+  
+    const month = monthNames[date.getMonth()];
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+  
+    return `${month} ${day}, ${hours}:${minutes}`;
   }
 
 
