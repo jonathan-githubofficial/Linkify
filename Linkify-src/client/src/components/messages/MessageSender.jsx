@@ -69,7 +69,7 @@ function MessageSender(props) {
                             type="file"
                             ref={fileInputRef}
                             onChange={handleFileUpload}
-                            className="absolute top-0 left-0  opacity-0 cursor-pointer"
+                            className="absolute top-0 left-0  w-full h-full opacity-0 cursor-pointer"
                         />
                         <FaPaperclip />
                     </label>
