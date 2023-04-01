@@ -18,7 +18,7 @@ const addSkill = asyncHandler(async (req, res) => {
   if (user) {
     user.skills.push(skill);
     await user.save();
-    res.json({
+    res.status(200).json({
       message: "Skill added successfully",
       userSkillList: user.skills,
     });
@@ -30,12 +30,12 @@ const addSkill = asyncHandler(async (req, res) => {
 
 // delete Skill
 const deleteSkill = asyncHandler(async (req, res) => {
-  const { id, skill } = req.query;
+  const { id, skill } = req.body;
   const user = await accountM.findById(id);
   if (user) {
     user.skills = user.skills.filter((item) => item !== skill);
     await user.save();
-    res.json({
+    res.status(200).json({
       message: "Skill deleted successfully",
       userSkillList: user.skills,
     });
@@ -52,7 +52,7 @@ const addLanguage = asyncHandler(async (req, res) => {
   if (user) {
     user.languages.push(language);
     await user.save();
-    res.json({
+    res.status(200).json({
       message: "Language added successfully",
       userLanguageList: user.languages,
     });
@@ -86,7 +86,7 @@ const editExperience = asyncHandler(async (req, res) => {
   if (user) {
     user.experience.push(experience);
     await user.save();
-    res.json({
+    res.status(200).json({
       message: "Experience added successfully",
       userExperience: user.experience,
     });
@@ -208,7 +208,7 @@ const addProject = asyncHandler(async (req, res) => {
   if (user) {
     user.projects.push(project);
     await user.save();
-    res.json({
+    res.status(200).json({
       message: "Project added successfully",
       userProjects: user.projects,
     });

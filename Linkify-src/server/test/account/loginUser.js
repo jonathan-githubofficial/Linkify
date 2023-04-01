@@ -2,7 +2,7 @@ process.env.NODE_ENV = 'test';
 
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
-const Event = require('../../models/eventM');
+const Account = require('../../models/accountM');
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
@@ -26,21 +26,30 @@ after(async () => {
   await mongoServer.stop();
 });
 
-describe('POST /events/createEvent', () => {
-  it('should create a new event', async () => {
-    const newEvent = new Event({
-      name: 'Test event 3',
-      description: 'This is a test event',
-      location: 'Test Location',
-      date: '2023-03-3',
-      creator: 'Test Creator'
+describe('POST /account/login', () => {
+  it('Ok, invalid password.', async () => {
+    const newUser = new Account({
+      email: 'email@email.com',
+      password: 'Test',
     });
 
     const res = await chai.request(app)
-      .post('/api/events/createEvent')
-      .send(newEvent);
+      .post('/api/account/login')
+      .send(newUser);
+
+    expect(res.status).to.equal(401);
+  });
+
+  it('Ok, valid password.', async () => {
+    const newUser = new Account({
+      email: 'email@email.com',
+      password: 'TestUser123?',
+    });
+
+    const res = await chai.request(app)
+      .post('/api/account/login')
+      .send(newUser);
 
     expect(res.status).to.equal(201);
-    expect(res.body.name).to.equal(newEvent.name);
   });
 });

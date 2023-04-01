@@ -6,7 +6,7 @@ const expect = chai.expect;
 const request = require('supertest');
 
 const app = require('../../server.js');
-const conn = require('../../config/connectDB.js');
+const conn = require('../../config/mockConnectDB.js');
 
 before((done) => {
     conn.connectDB()
@@ -22,9 +22,9 @@ after((done) => {
         .catch((err) => done(err));
 });
 
-describe('GET /events/getAllEvents', () => {
+describe('GET /groups/getAllGroups', () => {
     it('OK, getting events', async () => {
-        const res = await request(app).get('/api/events/getAllEvents');
+        const res = await request(app).get('/api/groups/getAllGroups');
         expect(res).to.have.status(200);
         const body = res.body;
     });

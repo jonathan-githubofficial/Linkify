@@ -21,8 +21,8 @@ const getAllCompanies = asyncHandler(async (req, res) => {
 // Create a new company
 const createCompany = asyncHandler(async (req, res) => {
   try {
-    const { name, description, address, employees } = req.body;
-    const newCompany = await Company.create({ name, description, address, employees });
+    const { name, description, address } = req.body;
+    const newCompany = await Company.create({ name, description, address });
     res.status(201).json(newCompany);
   } catch (err) {
     res.status(500).json({ message: err.message });

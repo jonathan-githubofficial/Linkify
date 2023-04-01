@@ -5,7 +5,7 @@ const companySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  location: {
+  address: {
     type: String,
     required: true,
   },
@@ -13,18 +13,6 @@ const companySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  authorizedUsers: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-    },
-  ],
-  recruiters: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-    },
-  ],
   status: {
     type: Boolean,
     required: true,

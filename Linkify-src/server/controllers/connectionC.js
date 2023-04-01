@@ -37,7 +37,7 @@ const sendConnectionRequest = asyncHandler(async (req, res) => {
   if (user) {
     user.connectionRequests.push(senderId);
     await user.save();
-    res.json("Connection request sent successfully");
+    res.status(200).json("Connection request sent successfully");
   } else {
     res.status(401);
     throw new Error("Recepient not found");

@@ -2,7 +2,7 @@ process.env.NODE_ENV = 'test';
 
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
-const Event = require('../../models/eventM');
+const Group = require('../../models/groupM');
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
@@ -26,21 +26,20 @@ after(async () => {
   await mongoServer.stop();
 });
 
-describe('POST /events/createEvent', () => {
-  it('should create a new event', async () => {
-    const newEvent = new Event({
-      name: 'Test event 3',
-      description: 'This is a test event',
-      location: 'Test Location',
-      date: '2023-03-3',
+describe('POST /groups/createGroup', () => {
+  it('should create a new group', async () => {
+    const newGroup = new Group({
+      name: 'Test group',
+      description: 'This is a test group',
+      status: true,
       creator: 'Test Creator'
     });
 
     const res = await chai.request(app)
-      .post('/api/events/createEvent')
-      .send(newEvent);
+      .post('/api/groups/createGroup')
+      .send(newGroup);
 
     expect(res.status).to.equal(201);
-    expect(res.body.name).to.equal(newEvent.name);
+    expect(res.body.name).to.equal(newGroup.name);
   });
 });

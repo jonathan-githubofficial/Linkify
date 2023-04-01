@@ -20,30 +20,35 @@ const accountM = require("../models/accountM.js");
 // @return  created post
 
 const postFeed = asyncHandler(async (req, res) => {
-  const {
-    title,
-    poster,
-    name,
-    postedOn,
-    description,
-    likes,
-    comments,
-    status,
-    tags,
-  } = req.body;
-  const feed = new feedsM({
-    title,
-    poster,
-    name,
-    postedOn,
-    description,
-    likes,
-    comments,
-    status,
-    tags,
-  });
-  const createdFeed = await feed.save();
-  res.status(201).json(createdFeed);
+  try {
+    const {
+      title,
+      poster,
+      name,
+      postedOn,
+      description,
+      likes,
+      comments,
+      status,
+      tags,
+    } = req.body;
+    const feed = await feedsM.create({
+      title,
+      poster,
+      name,
+      postedOn,
+      description,
+      likes,
+      comments,
+      status,
+      tags,
+    });
+    
+    res.status(201).json(createdFeed);
+  }
+  catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 // get all posts function working:

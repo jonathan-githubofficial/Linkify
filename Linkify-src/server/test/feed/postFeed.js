@@ -2,7 +2,7 @@ process.env.NODE_ENV = 'test';
 
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
-const Event = require('../../models/eventM');
+const Feed = require('../../models/feedsM');
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
@@ -26,21 +26,26 @@ after(async () => {
   await mongoServer.stop();
 });
 
-describe('POST /events/createEvent', () => {
-  it('should create a new event', async () => {
-    const newEvent = new Event({
-      name: 'Test event 3',
-      description: 'This is a test event',
-      location: 'Test Location',
-      date: '2023-03-3',
-      creator: 'Test Creator'
+describe('POST /user/feed/postFeed', () => {
+  it('Ok, should create a new feed', async () => {
+    const userId = '642718e8c49656986273119f';
+    const user = {
+      _id: userId,
+    };
+    const newFeed = new Feed ({
+      title: 'Test title',
+      poster: user._id,
+      name: 'Test post',
+      postedOn: '2023-04-01',
+      description: 'Something really good.',
+      status: 'active',
+      tags: null,
     });
 
     const res = await chai.request(app)
-      .post('/api/events/createEvent')
-      .send(newEvent);
+      .post('/api/user/feed/postFeed')
+      .send(newFeed);
 
     expect(res.status).to.equal(201);
-    expect(res.body.name).to.equal(newEvent.name);
   });
 });
