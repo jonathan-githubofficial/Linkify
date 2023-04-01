@@ -40,7 +40,9 @@ describe('POST /user/property/addSkill', () => {
 
     expect(res.status).to.equal(200);
   });
+});
 
+describe('DELETE /user/property/deleteSkill ', () => {
   it('Ok, skill deleted sucessfully', async () => {
     const userId = '642718e8c49656986273119f';
     const newSkill = {
@@ -55,3 +57,4 @@ describe('POST /user/property/addSkill', () => {
     expect(res.status).to.equal(200);
   });
 });
+
