@@ -3,56 +3,90 @@
 // Date created: Feb 26, 2023
 // Description: Headline component for showing the key basic info of user
 
-import React from 'react'
-import { BiPencil } from 'react-icons/bi'
-import google_icon from '../../static/images/companies/google.png'
+import axios from "axios";
+import React from "react";
+import { BiPencil } from "react-icons/bi";
+import { useParams } from "react-router-dom";
+import google_icon from "../../static/images/companies/google.png";
 
-import EditProfile from './modal/EditProfile'
+import EditProfile from "./modal/EditProfile";
 
 export default function HeadlineTop(props) {
-    var profile_pic = props.profile_pic;
-    var profile = props.profile;
-    var company = props.company;
+  const params = useParams();
+  var profile_pic = props.profile_pic;
+  var profile = props.profile;
+  var company = props.company;
+  const [connectStatus, setConnectStatus] = React.useState(false);
 
-    return (
-        <div className='p-5'>
-            <div className="grid grid-col-2 mb-2 flex">
-                <div class="grid grid-cols-2 gap-2 items-start">
-                    <div>
-                        <div className='flex items-center'>
-                             
-                                {/* <img src={google_icon} className='w-6' alt="" />
+  const sendRequest = async () => {
+    const res = await axios.post("/api/user/connection/sendConnectionRequest", {
+      senderId: localStorage.getItem("uid"),
+      receiverId: params.id,
+    });
+    if (res) {
+      setConnectStatus(true);
+    }
+    console.log("Accept: ", res);
+  };
+
+  return (
+    <div className="p-5">
+      <div className="grid grid-col-2 mb-2 flex">
+        <div class="grid grid-cols-2 gap-2 items-start">
+          <div>
+            <div className="flex items-center">
+              {/* <img src={google_icon} className='w-6' alt="" />
                                 <label className='text-md pl-2 font-semibold'>{company}</label> */}
-                            {
-                                (company != '' ? <img src={google_icon} className='w-6' alt="" /> : '')
-                            }
-                            {
-                                (company != '' ? <label className='text-md pl-2 font-semibold'>{company}</label>: '')
-                            }
-                        </div>
-                        <div>
-                            <p className='primaryGray text-[0.8rem] mt-2' datat-testid='user-location'>
-                                Laval, Quebec, Canada
-                            </p>
-                        </div>
-                        <div className='mt-5'>
-                            <button className="primaryBtn btn btn-sm bg-sky-400 font-light">Connect</button>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <div className="flex">
-                            <div style={{marginLeft: "auto"}}>
-                                <label htmlFor="edit-profile-modal" className="">
-                                    <BiPencil className='cursor-pointer text-xl'/>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <EditProfile profile={profile} profile_pic={profile_pic} getUser={props.getUser}/>
-                    
-                </div>
+              {company != "" ? (
+                <img src={google_icon} className="w-6" alt="" />
+              ) : (
+                ""
+              )}
+              {company != "" ? (
+                <label className="text-md pl-2 font-semibold">{company}</label>
+              ) : (
+                ""
+              )}
             </div>
+            <div>
+              <p
+                className="primaryGray text-[0.8rem] mt-2"
+                datat-testid="user-location"
+              >
+                Laval, Quebec, Canada
+              </p>
+            </div>
+            <div className="mt-5">
+              {!props.isOwner && (
+                <button
+                  onClick={() => sendRequest()}
+                  disabled={connectStatus}
+                  className="primaryBtn btn btn-sm bg-sky-400 font-light"
+                >
+                  {connectStatus ? "Sent" : "Connect"}
+                </button>
+              )}
+            </div>
+          </div>
+
+          <div>
+            <div className="flex">
+              {props.isOwner && (
+                <div style={{ marginLeft: "auto" }}>
+                  <label htmlFor="edit-profile-modal" className="">
+                    <BiPencil className="cursor-pointer text-xl" />
+                  </label>
+                </div>
+              )}
+            </div>
+          </div>
+          <EditProfile
+            profile={profile}
+            profile_pic={profile_pic}
+            getUser={props.getUser}
+          />
         </div>
-    )
+      </div>
+    </div>
+  );
 }
