@@ -9,7 +9,7 @@ import MessageOptions from './MessageOptions';
 
 function Message(props) {
 
-    const { message, removeMessage, selectReport} = props;
+    const { message, removeMessage, selectReport } = props;
     const [isReportedMessageVisible, setIsReportedMessageVisible] = useState(false);
 
     function showReportedMessage() {
@@ -48,27 +48,27 @@ function Message(props) {
                 else if (message.position === "start" && message.reportType !== null && isReportedMessageVisible) {
                     return (
                         <div className="alert shadow-lg">
-                        <div className="chat chat-start">
-                            <div className="chat-image avatar">
-                                <div className="w-10 rounded-full">
-                                    <img src={message.avatar} />
+                            <div className="chat chat-start">
+                                <div className="chat-image avatar">
+                                    <div className="w-10 rounded-full">
+                                        <img src={message.avatar} />
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="chat-header">
-                                {message.name}
-                                <time className="text-xs opacity-50">{message.time}</time>
-                            </div>
-                            <div className="flex items-center w-full">
-                                <div className="chat-bubble flex-grow">
-                                    {message.message}
-                                    <Attachment attachments={message.attachments}/>
+                                <div className="chat-header">
+                                    {`${message.name} `}
+                                    <time className="text-xs opacity-50">{message.time}</time>
                                 </div>
-                                <div className="flex-none ml-2">
-                                    <button onClick={hideReportedMessage} className="btn btn-sm">Hide</button>
+                                <div className="flex items-center w-full">
+                                    <div className="chat-bubble flex-grow">
+                                        {message.message}
+                                        <Attachment attachments={message.attachments} />
+                                    </div>
+                                    <div className="flex-none ml-2">
+                                        <button onClick={hideReportedMessage} className="btn btn-sm">Hide</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
                     )
                 }
@@ -81,13 +81,13 @@ function Message(props) {
                                 </div>
                             </div>
                             <div className="chat-header">
-                                {message.name}
+                                {`${message.name} `}
                                 <time className="text-xs opacity-50">{message.time}</time>
                             </div>
                             <div className="flex items-center group">
                                 <div className="chat-bubble">
-                                    {message.message}  
-                                    <Attachment attachments={message.attachments}/>
+                                    {message.message}
+                                    <Attachment attachments={message.attachments} />
                                 </div>
 
                                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
@@ -97,9 +97,9 @@ function Message(props) {
                                         selectReport={selectReport}
                                         removeMessage={removeMessage} />
                                 </div>
-                            </div>                            
+                            </div>
                         </div>
-                         
+
                     )
                 }
                 else {
@@ -111,7 +111,7 @@ function Message(props) {
                                 </div>
                             </div>
                             <div className="chat-header">
-                                {message.name}
+                                {`${message.name} `}
                                 <time className="text-xs opacity-50">{message.time}</time>
                             </div>
                             <div className="flex items-center group">
@@ -120,7 +120,7 @@ function Message(props) {
                                 </div>
                                 <div className="chat-bubble">
                                     {message.message}
-                                    <Attachment attachments={message.attachments}/>  
+                                    <Attachment attachments={message.attachments} />
                                 </div>
                             </div>
                         </div>

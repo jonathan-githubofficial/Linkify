@@ -16,7 +16,7 @@ function MessageSender(props) {
 
 
     const handleFileUpload = (event) => {
-        const file = event.target.files[0];        
+        const file = event.target.files[0];
         setSelectedFile(file);
     };
 
@@ -27,7 +27,7 @@ function MessageSender(props) {
 
     function handleSend() {
         addMessage(messageText, receiver, selectedFile);
-        setMessageText('');        
+        setMessageText('');
         clearFile();
     }
 
@@ -65,13 +65,15 @@ function MessageSender(props) {
             <div className='flex w-full justify-between'>
                 <div>
                     <label className="mr-2 btn btn-ghost btn-circle" style={{ fontSize: "25px" }}>
-                        <input
-                            type="file"
-                            ref={fileInputRef}
-                            onChange={handleFileUpload}
-                            className="absolute top-0 left-0  opacity-0 cursor-pointer"
-                        />
-                        <FaPaperclip />
+                        <div className="relative">
+                            <input
+                                type="file"
+                                ref={fileInputRef}
+                                onChange={handleFileUpload}
+                                className="absolute top-0 left-0  w-full h-full opacity-0 cursor-pointer"
+                            />
+                            <FaPaperclip />
+                        </div>
                     </label>
                 </div>
 
