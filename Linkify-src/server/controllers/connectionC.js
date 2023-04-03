@@ -32,12 +32,18 @@ const getConnectionRequests = asyncHandler(async (req, res) => {
 
 const sendConnectionRequest = asyncHandler(async (req, res) => {
   const { senderId, receiverId } = req.body;
-  console.log(senderId, receiverId);
   const user = await accountM.findById(receiverId);
   if (user) {
-    user.connectionRequests.push(senderId);
-    await user.save();
-    res.json("Connection request sent successfully");
+    if (
+      user.connectionRequests.includes(senderId) ||
+      user.connections.includes(senderId)
+    ) {
+      res.json("Request already sent, can't send again");
+    } else {
+      user.connectionRequests.push(senderId);
+      await user.save();
+      res.json("Connection request sent successfully");
+    }
   } else {
     res.status(401);
     throw new Error("Recepient not found");
@@ -46,7 +52,6 @@ const sendConnectionRequest = asyncHandler(async (req, res) => {
 
 const acceptConnectionRequest = asyncHandler(async (req, res) => {
   const { senderId, receiverId } = req.body;
-  console.log(senderId, receiverId);
   const user = await accountM.findById(receiverId);
   const sender = await accountM.findById(senderId);
   if (user) {
