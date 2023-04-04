@@ -2,14 +2,14 @@
 //Author: Daria Koroleva
 //Created: March 5,2023
 //Description: Show messages send/receive between two users
-import React, { useState } from 'react'
+import React from 'react'
 import ChatHeader from './ChatHeader';
 import Message from './Message'
 import MessageSender from './MessageSender';
 
 function Chat(props) {
 
-    const { conversation, addMessage, removeMessage, selectReport } = props;
+    const { conversation, addMessage, removeMessage, selectReport, openPasswordDecrypt } = props;
 
     if (!conversation) {
         return <div></div>;
@@ -26,6 +26,7 @@ function Chat(props) {
                                 message={m}
                                 removeMessage={removeMessage}
                                 selectReport={selectReport}
+                                openPasswordDecrypt={openPasswordDecrypt}     
                             />
                         </div>
                     )
