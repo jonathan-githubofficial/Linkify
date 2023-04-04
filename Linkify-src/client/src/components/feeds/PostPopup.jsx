@@ -43,7 +43,15 @@ const PostPopup = ({ post, closePopup, postComment, currentUserId }) => {
             <div className="mt-5">
               <p className="text-gray-700 text-base">{post.description}</p>
               <p className="text-gray-600 text-xs mt-2">
-                Posted on {post.postedOn}
+                <span className='font-bold'>
+                  {new Date(post.postedOn).toLocaleString("default", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </span>
               </p>
             </div>
             <hr className="my-5" />

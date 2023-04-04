@@ -166,7 +166,7 @@ function Home() {
               <div className="flex justify-center">
                 <CreatePost onPostCreated={handleNewPost} />
               </div>
-              <div className="w-full flex flex-col my-auto items-center bgimg bg-cover">
+              <div className="w-full flex flex-col my-auto items-center bgimg bg-cover mb-12">
                 {/* Add the FeedPosts component */}
                 <FeedPosts
                   getFeed={getFeed}

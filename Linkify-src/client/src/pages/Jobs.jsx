@@ -77,7 +77,7 @@ const Jobs = () => {
                         {/* Params: name, skills */}
                         <Sidebar name='Khalid Sadat' />
 
-                        <div className="w-full w-full lg:w-3/4 bg-white relative lg:rounded-t-xl">
+                        <div className="w-full w-full lg:w-3/4 bg-white relative lg:rounded-t-xl mb-[5rem]">
                         
                             <div className="flex flex-col justify-between gap-3">
                                 <h2 className="flex justify-center text-2xl font-bold md:text-3xl m-12">Recent Available Jobs</h2>
@@ -162,10 +162,8 @@ const Jobs = () => {
                                                                     {job.salary}
                                                                 </p>
                                                         </div>
-                                                        <div className="flex items-center justify-center w-full py-5">
-                                                            <a
-                                                                className="m-auto text-center w-40 items-center justify-center pt-4 pb-4 font-medium text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                                            >
+                                                        <div className="flex items-center justify-center w-full py-5 pb-[5rem]">
+                                                            <a className="m-auto text-center w-40 items-center justify-center pt-4 pb-4 font-medium text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" >
                                                                 Apply Now
                                                             </a>
                                                         </div>

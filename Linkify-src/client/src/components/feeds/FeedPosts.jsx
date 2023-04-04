@@ -34,6 +34,8 @@ function FeedPosts({
   const isLikedByCurrentUser = (likes) => {
     return likes.some((like) => like === currentUserId);
   };
+
+
   return (
     <>
       {getFeed.map((feed) => (
@@ -51,13 +53,27 @@ function FeedPosts({
               <div className="flex flex-col pl-5">
                 <p className="text-2xl">{feed.name}</p>
                 <span className="text-xs">Software Engineer</span>
-                <span className="text-xs">{feed.postedOn.split("T")[0]}</span>
+                <span className="text-xs">
+                  {new Date(feed.postedOn).toLocaleString("default", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </span>
               </div>
             </div>
           </div>
 
           <div className="flex mt-5">
             <p className="text-gray-700 text-base">{feed.description}</p>
+          </div>
+          <div className="mt-2 text-sm text-gray-500">
+            {}
+            {JSON.parse(feed.tags).map((item) => (
+              <span>#{item} </span>
+            ))}
           </div>
 
           {/* Add the following img tag to display the image */}
