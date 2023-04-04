@@ -2,6 +2,7 @@
 //Author: Daria Koroleva
 //Created: March 5,2023
 //Description: Component to render Send a message
+
 import React, { useState, useRef } from 'react';
 import { FaPaperclip, FaFileAlt } from 'react-icons/fa';
 import { RxCross2 } from 'react-icons/rx';

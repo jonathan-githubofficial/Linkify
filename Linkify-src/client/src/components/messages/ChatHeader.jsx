@@ -2,6 +2,7 @@
 //Author: Daria Koroleva
 //Created: March 5,2023
 //Description: Show chat header for receiver user
+
 import React from 'react'
 
 function ChatHeader(props) {

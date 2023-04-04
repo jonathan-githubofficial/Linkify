@@ -15,84 +15,37 @@ const feedsM = require("../models/feedsM.js");
 const asyncHandler = require("express-async-handler");
 const accountM = require("../models/accountM.js");
 
-// add post function working:
-// @body    title, poster, postedOn, description, likes, comments, status, tags
-// @return  created post
-
 const postFeed = asyncHandler(async (req, res) => {
-  const {
-    title,
-    poster,
-    name,
-    postedOn,
-    description,
-    likes,
-    comments,
-    status,
-    tags,
-  } = req.body;
+  const { description, tags, userId } = req.body;
+  // Get the user's information
+  const user = await accountM.findById(userId);
+
+  if (!user) {
+    res.status(404).json({ message: "User not found" });
+    return;
+  }
+
+  const poster = user._id;
+  const name = user.name;
+  const postedOn = new Date();
+  const image = req.file ? req.file.path : "";
+
   const feed = new feedsM({
-    title,
     poster,
     name,
-    postedOn,
     description,
-    likes,
-    comments,
-    status,
+    image,
     tags,
+    postedOn,
+    likes: [],
+    comments: [],
+    status: "public",
   });
+
   const createdFeed = await feed.save();
   res.status(201).json(createdFeed);
 });
 
-// get all posts function working:
-
-// First, the function parses the query object from the request query parameters and removes any excluded fields. Then, it performs advanced filtering using the $gte, $gt, $lte, and $lt operators to match posts that meet the specific criteria.
-
-// The function then adds sorting to the query based on the sort query parameter, which can specify one or more fields to sort by, and the direction of the sort. If no sort parameter is provided, the function defaults to sorting the posts by their creation date in descending order.
-
-// Finally, the function adds pagination to the query based on the page and limit query parameters. The page parameter determines which page of results to retrieve, while the limit parameter specifies how many posts to retrieve per page. The function then skips over the appropriate number of posts and limits the results to the specified number.
-
-// Once the query is fully constructed, the function executes it and returns a JSON response with the matching posts, along with metadata such as the number of results and any other relevant data.
-
-// Overall, this function allows users to retrieve specific subsets of posts based on their filtering criteria, sort them according to different fields and directions, and paginate the results to improve performance and user experience.
-
-// example of how to use the function:
-
-// axios
-//   .get(`${BASE_URL}/posts`, {
-//     params: {
-//       // Filter posts by likes greater than or equal to 10
-//       likes_gte: 10,
-
-//       // Sort posts by creation date in descending order and then by likes in ascending order
-//       sort: "-createdAt likes",
-
-//       // Retrieve posts from page 2, with 10 posts per page
-//       page: 2,
-//       limit: 10,
-//     },
-//   })
-//   .then((response) => {
-//     // Handle successful response
-//     console.log(response.data);
-//   })
-//   .catch((error) => {
-//     // Handle error
-//     console.error(error);
-//   });
-
-// gte: greater than or equal to
-// gt: greater than
-// lte: less than or equal to
-// lt: less than
-
-// @return  all posts
-// @desc    Get all posts
-// @params  page, sort, limit, fields
-// @example /posts?page=2&sort=-createdAt likes&limit=10
-// @example /posts?page=2&sort=-createdAt likes&limit=10&fields=title,description
 
 const getAllPosts = asyncHandler(async (req, res, next) => {
   try {
@@ -152,10 +105,6 @@ const getFeedById = asyncHandler(async (req, res) => {
   }
 });
 
-// pass the id of the post you want to delete in the url
-// @return  deleted post
-// @desc    Delete a post
-// @example /posts/{id}
 const deleteFeed = asyncHandler(async (req, res) => {
   const feed = await feedsM.findById(req.params.id);
   if (feed) {
@@ -167,10 +116,6 @@ const deleteFeed = asyncHandler(async (req, res) => {
   }
 });
 
-// @body    title, poster, postedOn, description, likes, comments, status, tags
-// @return  updated post
-// @desc    Update a post
-// @example /posts/{id}
 
 const updateFeed = asyncHandler(async (req, res) => {
   const {
@@ -184,11 +129,14 @@ const updateFeed = asyncHandler(async (req, res) => {
     tags,
   } = req.body;
   const feed = await feedsM.findById(req.params.id);
+  const image = req.file ? req.file.path : feed.image;
+
   if (feed) {
     feed.title = title;
     feed.poster = poster;
     feed.postedOn = postedOn;
     feed.description = description;
+    feed.image = image;
     feed.likes = likes;
     feed.comments = comments;
     feed.status = status;
@@ -201,41 +149,65 @@ const updateFeed = asyncHandler(async (req, res) => {
   }
 });
 
-// id: post id, like: user id
-// if you want to just pass the number of likes you can pass 1,2,3 in the like option
-// if you want to pass the user id you can pass the user id in the like option and then count the lentgh of the array to get the total number of likes
-// then you can get tthe user based on the id from front-end and then get the name of the user and display it in the frontend if you like
-
-// @body    id, like
-// @return  updated post
-// @desc    Add a like to a post
-// @example /posts/like
 
 const addLike = asyncHandler(async (req, res) => {
-  const { id, like } = req.body;
-  const feed = await feedsM.findById(id);
+  const postId = req.body.id;
+  const like = req.body.like;
+
+  const feed = await feedsM.findById(postId);
+
   if (feed) {
-    feed.likes.push(like);
-    const updatedFeed = await feed.save();
-    res.json(updatedFeed);
+    if (!feed.likes.includes(like)) {
+      feed.likes.push(like);
+      const updatedFeed = await feed.save();
+      res.json(updatedFeed);
+    } else {
+      res.status(400);
+      throw new Error("User has already liked this post");
+    }
   } else {
     res.status(404);
     throw new Error("Feed not found");
   }
 });
 
-// comments is ant array fo objects with two properties: userId ( who commented) and comment (the comment content)
-// you can pass the user id and the comment content from the front end and then get the user name from the user id and display it in the frontend
-// you need to pass the post id and the comment object ( userId and comment string ) in the body of the request
 
-// @body    id, comment
-// @return  updated post
-// @desc    Add a comment to a post
-// @example /posts/comment
+const removeLike = asyncHandler(async (req, res) => {
+  const postId = req.body.id;
+  const like = req.body.like;
+
+  const feed = await feedsM.findById(postId);
+
+  if (feed) {
+    if (feed.likes.includes(like)) {
+      feed.likes = feed.likes.filter((l) => l !== like);
+      const updatedFeed = await feed.save();
+      res.json(updatedFeed);
+    } else {
+      res.status(400);
+      throw new Error("User has not liked this post");
+    }
+  } else {
+    res.status(404);
+    throw new Error("Feed not found");
+  }
+});
+
 
 const addComment = asyncHandler(async (req, res) => {
-  const { id, comment } = req.body;
-  const feed = await feedsM.findById(id);
+  const postId = req.body.id;
+  const commentData = req.body.comment;
+
+  const user = await accountM.findById(commentData.userId);
+
+  if (!user) {
+    res.status(404).json({ message: "User not found" });
+    return;
+  }
+  const commenterName = user.name;
+  const timestamp = new Date();
+  const comment = { ...commentData, commenterName, timestamp };
+  const feed = await feedsM.findById(postId);
   if (feed) {
     feed.comments.push(comment);
     const updatedFeed = await feed.save();
@@ -246,20 +218,51 @@ const addComment = asyncHandler(async (req, res) => {
   }
 });
 
-// @body    id
-// @return  list of posts from the connections of the user
-// @desc    Get the personal feed of a user
-// @example /posts/personal/{id}
+
+const removeComment = asyncHandler(async (req, res) => {
+  const postId = req.body.postId;
+  const commentId = req.body.commentId;
+
+  const feed = await feedsM.findById(postId);
+
+  if (feed) {
+    const commentIndex = feed.comments.findIndex((comment) => comment._id.toString() === commentId);
+
+    if (commentIndex >= 0) {
+      feed.comments.splice(commentIndex, 1);
+      const updatedFeed = await feed.save();
+      res.json(updatedFeed);
+    } else {
+      res.status(400);
+      throw new Error("Comment not found");
+    }
+  } else {
+    res.status(404);
+    throw new Error("Feed not found");
+  }
+});
+
 
 const getPersonalFeed = asyncHandler(async (req, res) => {
   const id = req.query.id; // user id
   const feed = [];
   try {
     const user = await accountM.findById(id);
+
+    // Fetch user's own posts
+    const userPosts = await feedsM.find({ poster: id });
+
     for (let i = 0; i < user.connections.length; i++) {
       const posts = await feedsM.find({ poster: user.connections[i] });
       feed.push(...posts);
     }
+
+    // Add user's own posts to the feed
+    feed.push(...userPosts);
+
+    // Sort feed by postedOn in descending order (newest first)
+    feed.sort((a, b) => new Date(b.postedOn) - new Date(a.postedOn));
+
     res.status(200).json(feed);
   } catch (err) {
     console.log(err);
@@ -273,6 +276,8 @@ module.exports = {
   deleteFeed,
   updateFeed,
   addLike,
+  removeLike,
   addComment,
   getPersonalFeed,
+  removeComment,
 };

@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const feedsController = require("../controllers/feedsC");
+const upload = require("../middleware/multerFeeds");
 
 // @desc Create a new feed post
 // @route POST /api/user/feed/postFeed
 // @access Private
-router.post("/postFeed", feedsController.postFeed);
+router.post("/postFeed", upload.single("file") ,feedsController.postFeed);
 
 // @desc Get all feed posts
 // @route GET /api/user/feed/getFeeds
@@ -25,7 +26,7 @@ router.post("/addComment", feedsController.addComment);
 // @desc Update a feed post
 // @route POST /api/user/feed/updatePost
 // @access Private
-router.post("/updatePost", feedsController.updateFeed);
+router.post("/updatePost", upload.single("file"), feedsController.updateFeed);
 
 // @desc Delete a feed post
 // @route DELETE /api/user/feed/deletePost
@@ -41,5 +42,15 @@ router.get("/getFeedById", feedsController.getFeedById);
 // @route GET /api/user/feed/getPersonalFeed
 // @access Private
 router.get("/getPersonalFeed", feedsController.getPersonalFeed);
+
+// @desc Remove like from feed post
+// @route Post /api/user/feed/removeLike
+// @access Private
+router.post("/removeLike", feedsController.removeLike);
+
+// @desc Remove comment from feed post
+// @route Post /api/user/feed/removeComment
+// @access Private
+router.post("/removeComment", feedsController.removeComment);
 
 module.exports = router;
