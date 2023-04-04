@@ -60,10 +60,7 @@ function RegularRoutes() {
         <Route path="/event/:eventId" element={<EventView />} />
         <Route path="/events/create" element={<CreateEvent />} />
         <Route path="/events/my_events" element={<CreatedEvents />} />
-        <Route
-          path="/events/registered_events"
-          element={<RegisteredEvents />}
-        />
+        <Route path="/events/registered_events" element={<RegisteredEvents />} />
         <Route path="/groups" element={<Groups />} />
         <Route path="/group/:groupId" element={<GroupView />} />
         <Route path="/groups/create" element={<CreateGroup />} />
@@ -75,7 +72,7 @@ function RegularRoutes() {
       {isLoggedIn && (
         <>
           <MobileBottomBar />
-          <MobileSidebar />
+          <MobileSidebar profile={profile}/>
         </>
       )}
     </div>
