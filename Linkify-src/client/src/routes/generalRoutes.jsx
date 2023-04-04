@@ -7,15 +7,12 @@ import Jobs from "../pages/Jobs";
 import Network from "../pages/Network";
 import Notifications from "../pages/Notifications";
 import Profile from "../pages/Profile";
-import AuthRoutes from "./authRoutes";
 import Messages from "../pages/Messages";
 import Events from "../pages/Events";
 import EventView from "../components/events/EventView";
 import Groups from "../pages/Groups";
 import GroupView from "../components/groups/GroupView";
-
-import { FaSuitcase, FaComments } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import AuthRoutes from "./authRoutes";
 import CreateGroup from "../components/groups/CreateGroup";
 import MobileSidebar from "../components/mobile/MobileSidebar";
 import MobileBottomBar from "../components/mobile/MobileBottomBar";
@@ -66,6 +63,7 @@ function RegularRoutes() {
         <Route path="/groups/create" element={<CreateGroup />} />
         <Route path="/groups/my_groups" element={<CreatedGroups />} />
         <Route path="/groups/joined_groups" element={<JoinedGroups />} />
+        <Route path="/test" element={<div>Hello from Test</div>} />
       </Routes>
 
       {/* Mobile menus at the bottom */}

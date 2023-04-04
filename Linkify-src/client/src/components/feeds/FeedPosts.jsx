@@ -9,19 +9,83 @@ import { MdOutlineInsertComment } from "react-icons/md";
 import profile_pic from "../../static/images/profile.jpg";
 import CommentBox from "./CommentBox";
 import PostPopup from "./PostPopup";
+import axios from "axios";
 
-function FeedPosts({
-  currentUserId,
-  getFeed,
-  addLike,
-  removeLike,
-  postComment,
-}) {
+function FeedPosts({ currentUserId, getFeed, getFeeds }) {
+
+  const [comment, setComment] = useState("");
   const [showPostPopup, setShowPostPopup] = useState(null);
   const openPostPopup = (postId) => {
     setShowPostPopup(postId);
   };
+  const postComment = async (postId, comment) => {
+    try {
+      const response = await axios.post("/api/user/feed/addComment", {
+        id: postId,
+        comment: {
+          userId: localStorage.getItem("uid"),
+          comment: comment,
+          timestamp: new Date().toISOString(), // Add timestamp here
+        },
+      });
 
+      if (response.status === 200) {
+        console.log("Comment added successfully");
+        setComment("");
+        getFeeds(); // Refresh the feeds to show the new comment
+      }
+    } catch (error) {
+      console.error("Error adding comment:", error.message);
+    }
+  };
+
+  const addLike = async (postId) => {
+    try {
+      const response = await axios.post("/api/user/feed/addLike", {
+        id: postId,
+        like: localStorage.getItem("uid"),
+      });
+
+      if (response.status === 200) {
+        console.log("Like added successfully");
+        getFeeds(); // Refresh the feeds to show the updated likes
+      }
+    } catch (error) {
+      console.error("Error adding like:", error.message);
+    }
+  };
+
+  const removeLike = async (postId) => {
+    try {
+      const response = await axios.post("/api/user/feed/removeLike", {
+        id: postId,
+        like: localStorage.getItem("uid"),
+      });
+
+      if (response.status === 200) {
+        console.log("Like removed successfully");
+        getFeeds(); // Refresh the feeds to show the updated likes
+      }
+    } catch (error) {
+      console.error("Error removing like:", error.message);
+    }
+  };
+
+  const removeComment = async (postId, commentId) => {
+    try {
+      const response = await axios.post("/api/user/feed/removeComment", {
+        postId,
+        commentId,
+      });
+
+      if (response.status === 200) {
+        console.log("Comment removed successfully");
+        getFeeds(); // Refresh the feeds to show the updated comments
+      }
+    } catch (error) {
+      console.error("Error removing comment:", error.message);
+    }
+  };
   const toggleLike = (postId, liked) => {
     if (liked) {
       removeLike(postId);
@@ -34,7 +98,6 @@ function FeedPosts({
   const isLikedByCurrentUser = (likes) => {
     return likes.some((like) => like === currentUserId);
   };
-
 
   return (
     <>
@@ -88,13 +151,12 @@ function FeedPosts({
             </div>
           )}
 
-
           {/* start of like logic*/}
           <div className="mt-5">
             <div className="grid grid-col-2 mb-2">
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                <button
+                  <button
                     className={`flex items-center mb- ${
                       isLikedByCurrentUser(feed.likes)
                         ? "text-purple-500"
@@ -113,7 +175,6 @@ function FeedPosts({
                   </button>
                 </div>
                 {/* end of like logic*/}
-
 
                 <div className="text-right text-sm">
                   {feed.comments.length} Comments
@@ -147,6 +208,14 @@ function FeedPosts({
                       minute: "2-digit",
                     })}
                   </div>
+                  {comment.userId === currentUserId && (
+                    <button
+                      className="text-red-500 text-xs"
+                      onClick={() => removeComment(feed._id, comment._id)}
+                    >
+                      Remove
+                    </button>
+                  )}
                 </div>
               ))}
 

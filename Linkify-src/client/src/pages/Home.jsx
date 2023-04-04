@@ -4,11 +4,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 import "../static/css/index.css";
-import profile_pic from "../static/images/profile.jpg";
-
-import { RiSendPlaneFill } from "react-icons/ri";
-import { SlLike } from "react-icons/sl";
-
 import Sidebar from "../components/shared/Sidebar";
 import CreatePost from "../components/feeds/CreatePost";
 import FeedPosts from "../components/feeds/FeedPosts";
@@ -18,7 +13,7 @@ function Home() {
   const [user, setUser] = useState([]);
   const navigate = useNavigate();
   const [getFeed, setFeed] = useState([]);
-  const [comment, setComment] = useState("");
+
   const handleNewPost = (newPost) => {
     setFeed([newPost, ...getFeed]);
   };
@@ -86,64 +81,6 @@ function Home() {
     setSkills(await profile.skills);
   });
 
-  const experiences = user.experience;
-  var occupation = "";
-
-  const postComment = async (postId, comment) => {
-    try {
-      const response = await axios.post("/api/user/feed/addComment", {
-        id: postId,
-        comment: {
-          userId: localStorage.getItem("uid"),
-          comment: comment,
-          timestamp: new Date().toISOString(), // Add timestamp here
-        },
-      });
-  
-      if (response.status === 200) {
-        console.log("Comment added successfully");
-        setComment("");
-        getFeeds(); // Refresh the feeds to show the new comment
-      }
-    } catch (error) {
-      console.error("Error adding comment:", error.message);
-    }
-  };
-  
-  
-
-  const addLike = async (postId) => {
-    try {
-      const response = await axios.post("/api/user/feed/addLike", {
-        id: postId,
-        like: localStorage.getItem("uid"),
-      });
-
-      if (response.status === 200) {
-        console.log("Like added successfully");
-        getFeeds(); // Refresh the feeds to show the updated likes
-      }
-    } catch (error) {
-      console.error("Error adding like:", error.message);
-    }
-  };
-
-  const removeLike = async (postId) => {
-    try {
-      const response = await axios.post("/api/user/feed/removeLike", {
-        id: postId,
-        like: localStorage.getItem("uid"),
-      });
-  
-      if (response.status === 200) {
-        console.log("Like removed successfully");
-        getFeeds(); // Refresh the feeds to show the updated likes
-      }
-    } catch (error) {
-      console.error("Error removing like:", error.message);
-    }
-  };
-
   return (
     <div>
       <Helmet>
@@ -170,10 +107,8 @@ function Home() {
                 {/* Add the FeedPosts component */}
                 <FeedPosts
                   getFeed={getFeed}
-                  addLike={addLike}
-                  removeLike={removeLike}
-                  postComment={postComment}
                   currentUserId={localStorage.getItem("uid")}
+                  getFeeds={getFeeds}
                 />
               </div>
             </div>
