@@ -34,6 +34,8 @@ const jobPostSchema = new Schema({
   postedOn: {
     type: Date, // Date when the job was posted
     required: true,
+    default: Date.now,
+
   },
   applicants: [
     {
@@ -44,6 +46,10 @@ const jobPostSchema = new Schema({
       },
       resume: {
         type: String, // Resume of the user who applied for the job
+        required: true,
+      },
+      coverLetter: {
+        type: String, // Cover letter of the user who applied for the job
         required: true,
       },
     },

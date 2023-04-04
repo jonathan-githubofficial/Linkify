@@ -4,11 +4,16 @@ import profile_pic from "../static/images/profile.jpg";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import MyConnections from "../components/profile/MyConnections";
+import RecruiterDashboard from "../components/jobs/RecruiterDashboard";
+
+
 
 
 const Jobs = () => {
     const navigate = useNavigate();
     const email = localStorage.getItem('email') || '';
+
+    const [applicants, setApplicants] = useState([]);
 
     // States related to user and job data
     const [user, setUser] = useState([]);
@@ -32,6 +37,21 @@ const Jobs = () => {
     const [jobLocation, setJobLocation] = useState('');
     const [jobSalary, setJobSalary] = useState('');
     const [jobDescription, setJobDescription] = useState('');
+    const [postedBy, setPostedBy] = useState('');
+    const [isExternal, setIsExternal] = useState(false);
+    const [status, setStatus] = useState('Posted');
+    const [skills, setSkills] = useState('');
+
+    const [recruiterId, setRecruiterId] = useState('');
+
+    const [selectedJob, setSelectedJob] = useState(null);
+
+    const [showAppliedJobs, setShowAppliedJobs] = useState(false);
+
+
+    const [editApplicationModal, setEditApplicationModal] = useState(false);
+
+
 
     // Redirect to login if not logged in
     useEffect(() => {
@@ -44,9 +64,20 @@ const Jobs = () => {
     useEffect(() => {
         if (email) {
             axios
-                .get('/api/account/userbymail', { params: { email } })
-                .then(res => setUser(res.data))
+                .get('../api/account/userbymail', { params: { email } })
+                .then(res => {
+                    setUser(res.data)
+
+                    if (res.data.isRecruiter) { // Check if the user is a recruiter
+                        setRecruiterId(res.data._id);
+                    }
+
+                })
+
+
+
                 .catch(err => console.log(err));
+
         }
     }, [email]);
 
@@ -63,31 +94,84 @@ const Jobs = () => {
         document.body.classList.toggle('overflow-hidden', !!activeModalId);
     }, [activeModalId]);
 
-    // Job application functions
-    const handleCoverLetterChange = (e) => {
-        setCoverLetter(e.target.value);
+    const [editJobTitle, setEditJobTitle] = useState("");
+    const [editJobCompany, setEditJobCompany] = useState("");
+    const [editJobLocation, setEditJobLocation] = useState("");
+    const [editJobSalary, setEditJobSalary] = useState("");
+    const [editJobDescription, setEditJobDescription] = useState("");
+    const [editSkills, setEditSkills] = useState("");
+    const [editIsExternal, setEditIsExternal] = useState(false);
+    const [editStatus, setEditStatus] = useState("");
+
+
+    const handleEditButtonClick = (job) => {
+        if (job) {
+            setEditJobTitle(job.title);
+            setEditJobCompany(job.company);
+            setEditJobLocation(job.location);
+            setEditJobSalary(job.salary);
+            setEditJobDescription(job.description);
+            setEditSkills(job.skills.join(', '));
+            setEditIsExternal(job.isExternal);
+        }
+        setSelectedJob(job);
     };
 
-    const handleApplyJob = async () => {
-        if (!cvFile || !coverLetter) {
-            alert('Please upload your CV and enter a cover letter before applying');
-            return;
+
+    const handleEditApplication = async (jobId, userId) => {
+
+
+        const base64CvFile = await toBase64(cvFile);
+        const base64CoverFile = await toBase64(coverLetter);
+
+        // Call API to update user's resume and cover letter for the jobId
+        const response = await fetch(`/api/user/jobPosts/updateApplication/${jobId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                // Add authorization header if required
+            },
+            body: JSON.stringify({ userId, resume: base64CvFile, coverLetter: base64CoverFile }),
+        });
+
+        if (response.ok) {
+            window.location.reload();
+        } else {
+            // Handle error
         }
+    };
 
-        const formData = new FormData();
-        formData.append('cv', cvFile);
-        formData.append('coverLetter', coverLetter);
-        formData.append('jobId', activeJobApplicationId);
 
-        try {
-            await axios.post('/api/job-application/submit', formData, {
-                headers: { 'Content-Type': 'multipart/form-data' },
-            });
-            alert('Job application submitted successfully');
-            handleCloseJobApplicationModal();
-        } catch (error) {
-            console.error('Error submitting job application:', error);
-            alert('Failed to submit job application');
+    const toBase64 = (file) =>
+        new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = (error) => reject(error);
+        });
+
+    const handleApplyJob = async (jobId) => {
+        console.log(jobId)
+        if (!cvFile || !coverLetter) {
+            alert("Please upload your CV and enter a cover letter before applying");
+        } else {
+            try {
+                const base64CvFile = await toBase64(cvFile);
+                const base64CoverFile = await toBase64(coverLetter);
+
+
+                await axios.post("../api/user/jobPosts/applyForJob", {
+                    userId: user._id,
+                    jobId: jobId,
+                    resume: base64CvFile,
+                    coverLetter: base64CoverFile,
+                });
+
+                // Close the modal and clear the data after submitting
+                window.location.reload();
+            } catch (error) {
+                console.error("Error applying for job:", error);
+            }
         }
     };
 
@@ -116,6 +200,63 @@ const Jobs = () => {
         setState(e.target.value);
     };
 
+    const recruiterJobs = jobs.filter(job => job.postedBy.includes(recruiterId));
+
+
+    const handleUpdateJob = async (
+        title,
+        company,
+        location,
+        salary,
+        description,
+        skills,
+        isExternal,
+        postedBy,
+        postedOn,
+        status
+    ) => {
+        const updatedJob = {
+            title,
+            company,
+            location,
+            salary,
+            description,
+            skills: skills.split(",").map((skill) => skill.trim()),
+            isExternal,
+            postedBy,
+            postedOn,
+            status,
+        };
+
+        try {
+            const response = await axios.put(
+                `/api/user/jobPosts/updateJobPost/${selectedJob._id}`, // Use the job ID in the URL
+                updatedJob, // Send the updatedJob object without the 'id' field
+                {
+                    headers: { "Content-Type": "application/json" },
+                }
+            );
+
+            if (response.status === 200) {
+                // Handle successful update
+                setSelectedJob(null);
+                setJobs((prevJobPosts) =>
+                    prevJobPosts.map((jobPost) =>
+                        jobPost._id === response.data._id ? response.data : jobPost
+                    )
+                );
+                // Refresh the job listings by calling the function that fetches the data
+                // (e.g., fetchRecruiterJobs())
+            } else {
+                // Handle error
+                console.error("Error updating the job post.");
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+
     const handleAddJobListing = async (e) => {
         e.preventDefault();
         try {
@@ -125,17 +266,92 @@ const Jobs = () => {
                 location: jobLocation,
                 salary: jobSalary,
                 description: jobDescription,
+                skills: skills,
+                postedBy: recruiterId,
+                status: status,
+                isExternal: isExternal
             };
-            const response = await axios.post('/api/user/jobPosts/createJobPost', newJob);
+            const response = await axios.post('../api/user/jobPosts/createJobPost', newJob);
             setJobListings([...jobListings, response.data]);
             setJobTitle('');
             setJobCompany('');
             setJobLocation('');
             setJobSalary('');
-            setJobDescription('');
+            setJobDescription('')
+            setPostedBy('')
+            setSkills('');
+            setStatus('');
+            window.location.reload();
+
         } catch (error) {
             console.error('Error adding job listing:', error);
         }
+    };
+
+
+    const handleDeleteJob = async (jobId) => {
+        const isConfirmed = window.confirm(`Are you sure you want to delete this job posting?`);
+
+        if (isConfirmed) {
+            try {
+                const response = await fetch(`/api/user/jobPosts/deleteJobPost?id=${jobId}`, {
+                    method: "DELETE",
+                });
+
+                if (response.ok) {
+
+                    window.location.reload();
+                } else {
+                    console.error("Failed to delete job:", response.statusText);
+                }
+            } catch (error) {
+                console.error("Failed to delete job:", error);
+            }
+        }
+    };
+
+
+
+    const handleRejectApplicant = async (event, jobId, applicantUserId) => {
+        event.stopPropagation();
+        let isConfirmed;
+        if (user.isRecruiter) {
+            isConfirmed = window.confirm(`Are you sure you want to reject this applicant?`);
+        } else {
+            isConfirmed = window.confirm(`Are you sure you want to withdraw your application?`);
+        }
+
+        if (isConfirmed) {
+            try {
+                const response = await fetch(`/api/user/jobPosts/rejectApplicant/${jobId}`, {
+                    method: "PUT",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({jobId, applicantUserId}),
+                });
+
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    console.error("Failed to reject applicant:", response.statusText);
+                }
+            } catch (error) {
+                console.error("Error has occurred: Failed to reject applicant:", error);
+            }
+        }
+    };
+
+
+
+    const [showEditApplicationModal, setShowEditApplicationModal] = useState(false);
+
+    const handleOpenEditApplicationModal = (event) => {
+        event.stopPropagation();
+        setShowEditApplicationModal(true);
+        setActiveModalId(null);
+    };
+
+    const handleCloseEditApplicationModal = () => {
+        setShowEditApplicationModal(false);
     };
 
 
@@ -181,93 +397,65 @@ const Jobs = () => {
                         </div>
                         {/* if user is a recruiter*/}
                         {user.isRecruiter === true ? (
-                            <div className="w-100">
-                                <Helmet>
-                                    <meta charSet='utf-8' />
-                                    <title>Recruiter Dashboard</title>
-                                </Helmet>
+                                <RecruiterDashboard
+                                    handleRejectApplicant={handleRejectApplicant}
+                                    handleDeleteJob={handleDeleteJob}
+                                    applicants={applicants}
+                                    setSelectedJob={setSelectedJob}
+                                    setEditJobTitle={setEditJobTitle}
+                                    setEditJobCompany={setEditJobCompany}
+                                    setEditJobLocation={setEditJobLocation}
+                                    setEditJobSalary={setEditJobSalary}
+                                    setEditJobDescription={setEditJobDescription}
+                                    setEditSkills={setEditSkills}
+                                    setEditStatus={setEditStatus}
+                                    setEditIsExternal={setEditIsExternal}
+                                    editJobTitle={editJobTitle}
+                                    editJobCompany={editJobCompany}
+                                    editJobLocation={editJobLocation}
+                                    editJobSalary={editJobSalary}
+                                    editJobDescription={editJobDescription}
+                                    editSkills={editSkills}
+                                    editStatus={editStatus}
+                                    editIsExternal={editIsExternal}
+                                    handleEditButtonClick={handleEditButtonClick}
+                                    selectedJob={selectedJob}
+                                    handleUpdateJob={handleUpdateJob}
+                                    handleAddJobListing={handleAddJobListing}
+                                    handleInputChange={handleInputChange}
+                                    jobTitle={jobTitle}
+                                    jobCompany={jobCompany}
+                                    jobLocation={jobLocation}
+                                    jobSalary={jobSalary}
+                                    jobDescription={jobDescription}
+                                    postedBy={postedBy}
+                                    skills={skills}
+                                    status={status}
+                                    isExternal={isExternal}
+                                    setJobTitle={setJobTitle}
+                                    setJobCompany={setJobCompany}
+                                    setJobLocation={setJobLocation}
+                                    setJobSalary={setJobSalary}
+                                    setJobDescription={setJobDescription}
+                                    recruiterJobs={recruiterJobs}
+                                    setJobListings={setJobListings}
+                                    setPostedBy={setPostedBy}
+                                    setSkills={setSkills}
+                                    setStatus={setStatus}
+                                    setIsExternal={setIsExternal}
+                                />
 
-                                <div className="w-full w-full lg:w-3/4 bg-white relative lg:rounded-t-xl">
-                                    <div className="flex flex-col justify-between gap-3">
-                                        <h2 className="text-2xl font-bold md:text-3xl m-12 text-center">Recruiter Dashboard</h2>
-                                        {/* Add the recruiter side content here */}
-                                        <h3 className="text-xl font-semibold mb-3">Add a New Job Listing</h3>
-                                        <form onSubmit={handleAddJobListing} className="space-y-4">
-                                            <input
-                                                type="text"
-                                                placeholder="Job Title"
-                                                value={jobTitle}
-                                                onChange={(e) => handleInputChange(e, setJobTitle)}
-                                                required
-                                                className="w-full p-2 border border-gray-300 rounded"
-                                            />
-                                            <input
-                                                type="text"
-                                                placeholder="Company"
-                                                value={jobCompany}
-                                                onChange={(e) => handleInputChange(e, setJobCompany)}
-                                                required
-                                                className="w-full p-2 border border-gray-300 rounded"
-                                            />
-                                            <input
-                                                type="text"
-                                                placeholder="Location"
-                                                value={jobLocation}
-                                                onChange={(e) => handleInputChange(e, setJobLocation)}
-                                                required
-                                                className="w-full p-2 border border-gray-300 rounded"
-                                            />
-                                            <input
-                                                type="text"
-                                                placeholder={"Salary"}
-                                                value={jobSalary}
-                                                onChange={(e) => handleInputChange(e, setJobSalary)}
-                                                required
-                                                className="w-full p-2 border border-gray-300 rounded"
-                                            />
-                                            <textarea
-                                                placeholder="Job Description"
-                                                value={jobDescription}
-                                                onChange={(e) => handleInputChange(e, setJobDescription)}
-                                                required
-                                                className="w-full p-2 border border-gray-300 rounded"
-                                                rows="4"
-                                            ></textarea>
-                                            <button
-                                                type="submit"
-                                                className="w-full p-2 bg-indigo-600 text-white font-semibold rounded"
-                                            >
-                                                Add Job Post
-                                            </button>
-                                        </form>
-
-                                        <h3 className="text-xl font-semibold mt-8 mb-3">Your Job Listings</h3>
-                                        <div>
-                                            {jobListings.map((job) => (
-                                                <div key={job._id} className="p-4 mb-4 border border-gray-300 rounded">
-                                                    <h4 className="text-lg font-semibold">{job.title}</h4>
-                                                    <p className="text-green-500">{job.company}</p>
-                                                    <p>{job.location}</p>
-                                                    <p>{job.salary}</p>
-                                                    <p>{job.description}</p>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                    </div>
 
                         ) :
                             //IF USER IS NOT RECRUITER:
                             <div className="w-full w-full lg:w-3/4 bg-white relative lg:rounded-t-xl">
 
                             <div className="flex flex-col justify-between gap-3">
-                                <h2 className="flex justify-center text-2xl font-bold md:text-3xl m-12">Recent Available Jobs</h2>
+
+                                <h2 className="flex justify-center text-2xl font-bold md:text-3xl m-12">{showAppliedJobs ? 'Applied Jobs' : 'Recent Available Jobs'}</h2>
                                 <div className="mb-4 flex gap-x-5 md:gap-x-10 justify-center">
                                     <form>
-                                        <div className="flex">
+                                        <div className="flex flex-col items-center justify-center">
                                             <div className="relative w-full">
                                                 <input type="text"
                                                        placeholder="Search jobs..."
@@ -287,20 +475,38 @@ const Jobs = () => {
                                                     <span className="sr-only">Search</span>
                                                 </button>
                                             </div>
+                                            <button  type="button" onClick={() => setShowAppliedJobs(!showAppliedJobs)} className="mt-3 w-2/3 cursor-pointer p-2 text-white font-semibold duration-150 transform border border-white rounded-lg hover:bg-blue-800 bg-indigo-400 group-hover:border-transparent">
+                                                {showAppliedJobs ? 'Available Jobs' : 'Applied Jobs'}
+                                            </button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
 
-                            {jobs
-                                .slice(0)
-                                .reverse()
-                                .filter((job) =>
-                                    `${job.title} ${job.company} ${job.location}`
-                                        .toLowerCase()
-                                        .includes(searchTerm.toLowerCase())
-                                )
-                                .map((job) => (
+                                {jobs
+                                    .slice(0)
+                                    .reverse()
+                                    .reduce((acc, job) => {
+                                        // Filter by search term
+                                        const searchTermFilter = `${job.title} ${job.company} ${job.location}`
+                                            .toLowerCase()
+                                            .includes(searchTerm.toLowerCase());
+
+                                        // Check if the user has applied for the job
+                                        const userApplied = job.applicants.some(
+                                            (applicant) => applicant.userId === user._id
+                                        );
+
+                                        // Filter by applied jobs or not applied jobs based on showAppliedJobs state
+                                        const shouldDisplayJob = showAppliedJobs ? searchTermFilter && userApplied : searchTermFilter && !userApplied;
+
+                                        if (shouldDisplayJob) {
+                                            acc.push({ job, userApplied });
+                                        }
+
+                                        return acc;
+                                    }, [])
+                                    .map(({ job, userApplied }) => (
                                     <div key={job._id} className=" items-center grid gap-5 my-2 md:grid-cols-2 lg:grid-cols-1 rounded-xl shadow dark:bg-gray-800 dark:border-gray-700 text-black max-w-screen-xl">
                                         <div onClick={() => handleOpenModal(job)} className="flex flex-col justify-between gap-3 px-6 py-6 border border-gray-200 lg:flex-row group hover:border-black rounded-xl">
                                             <div className="flex flex-col items-start flex-1 gap-5 lg:flex-row">
@@ -320,11 +526,22 @@ const Jobs = () => {
                                                             {job.description.substring(0, 50)} ...
                                                         </div>
                                                     </div>
+                                                    <>
+                                                    {!userApplied ? (
                                                     <div className='pt-5 text-right'>
                                                         <a onClick={(event) => handleOpenJobApplicationModal(event,job._id)} className="cursor-pointer px-6 py-2 text-white font-semibold duration-150 transform border border-white rounded-full hover:bg-blue-800 bg-indigo-400 group-hover:border-transparent">
                                                             Apply
                                                         </a>
-                                                    </div>
+                                                    </div>):(
+
+                                                        <div className='pt-5 text-right'>
+                                                            <button  onClick={(event) => handleRejectApplicant(event,job._id,user._id)} className="mr-4 text-red-600 underline">Delete</button>
+                                                            <a onClick={(event) => handleOpenEditApplicationModal(event)} className="cursor-pointer px-6 py-2 text-white font-semibold duration-150 transform border border-white rounded-full hover:bg-blue-800 bg-indigo-400 group-hover:border-transparent">
+                                                                Edit Application
+                                                            </a>
+                                                        </div>
+                                                    )}
+                                                    </>
 
                                                 </div>
                                             </div>
@@ -363,13 +580,20 @@ const Jobs = () => {
                                                                     {job.salary}
                                                                 </p>
                                                             </div>
+                                                            <>
+                                                            {!userApplied ? (
                                                             <div className="flex items-center justify-center w-full py-5">
                                                                 <a
                                                                     onClick={(event) => handleOpenJobApplicationModal(event,job._id)} className="cursor-pointer m-auto text-center w-40 items-center justify-center pt-4 pb-4 font-medium text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                                                 >
                                                                     Apply Now
                                                                 </a>
-                                                            </div>
+                                                            </div>) : (<div className='flex items-center justify-center w-full py-5'>
+                                                                <a onClick={(event) => handleOpenEditApplicationModal(event)} className="cursor-pointer px-6 py-2 text-white font-semibold duration-150 transform border border-white rounded-full hover:bg-blue-800 bg-indigo-400 group-hover:border-transparent">
+                                                                    Edit Application
+                                                                </a>
+                                                            </div>)}
+                                                                </>
                                                          </div>
                                                     </div>
                                                 </div>
@@ -377,7 +601,7 @@ const Jobs = () => {
                                         )}
 
                                         {/* Job Application Modal */}
-                                        {activeJobApplicationId && (
+                                        {activeJobApplicationId === job._id && (
                                             <>
                                                 {/* Modal container */}
                                                 <div className="fixed inset-0 flex items-center justify-center z-10">
@@ -387,14 +611,14 @@ const Jobs = () => {
                                                     {/* Modal content */}
                                                     <div className="bg-white w-full sm:max-w-md lg:max-w-lg p-6 my-8 mx-auto rounded-lg shadow-md z-10">
                                                         <div className="flex justify-between items-center">
-                                                            <h2 className="text-2xl font-bold">Apply for Job</h2>
+                                                            <h2 className="text-2xl font-bold">Update</h2>
                                                             <button onClick={handleCloseJobApplicationModal} className="btn btn-sm btn-circle">
                                                                 ✕
                                                             </button>
                                                         </div>
                                                         <form className="mt-4" onSubmit={(e) => e.preventDefault()}>
-                                                            <label htmlFor="cv" className="ml-2 block text-sm font-medium text-gray-700">
-                                                                Upload CV:
+                                                            <label htmlFor="cv" className="block text-sm font-medium text-gray-700">
+                                                                CV:
                                                             </label>
                                                             <input
                                                                 type="file"
@@ -407,21 +631,73 @@ const Jobs = () => {
                                                             <label htmlFor="coverLetter" className="block mt-4 text-sm font-medium text-gray-700">
                                                                 Cover Letter:
                                                             </label>
-                                                            <textarea
-                                                                id="coverLetter"
-                                                                name="coverLetter"
-                                                                rows="4"
+                                                            <input
+                                                                type="file"
+                                                                id="CoverLetter"
+                                                                name="CoverLetter"
                                                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                                                                value={coverLetter}
-                                                                onChange={handleCoverLetterChange}
+                                                                onChange={(e) => setCoverLetter(e.target.files[0])}
                                                                 required
-                                                            ></textarea>
+                                                            />
                                                             <button
                                                                 type="submit"
                                                                 className="mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                                                onClick={handleApplyJob}
+                                                                onClick={() => handleApplyJob(job._id)}
                                                             >
                                                                 Submit Application  </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        )}
+
+                                        {/* Edit Job application Modal */}
+                                        {showEditApplicationModal && (
+                                            <>
+                                                {/* Modal container */}
+                                                <div className="fixed inset-0 flex items-center justify-center z-10">
+                                                    {/* Backdrop */}
+                                                    <div className="fixed inset-0 bg-black opacity-50 pointer-events-auto"></div>
+
+                                                    {/* Modal content */}
+                                                    <div className="bg-white w-full sm:max-w-md lg:max-w-lg p-6 my-8 mx-auto rounded-lg shadow-md z-10">
+                                                        <div className="flex justify-between items-center">
+                                                            <h2 className="text-2xl font-bold">Apply for Job</h2>
+                                                            <button onClick={handleCloseEditApplicationModal} className="btn btn-sm btn-circle">
+                                                                ✕
+                                                            </button>
+                                                        </div>
+                                                        <form className="mt-4" onSubmit={(e) => e.preventDefault()}>
+                                                            <label htmlFor="cv" className="block text-sm font-medium text-gray-700">
+                                                                CV:
+                                                            </label>
+                                                            <input
+                                                                type="file"
+                                                                id="cv"
+
+                                                                name="cv"
+
+                                                                className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                                                onChange={(e) => setCvFile(e.target.files[0])}
+                                                                required
+                                                            />
+                                                            <label htmlFor="coverLetter" className="block mt-4 text-sm font-medium text-gray-700">
+                                                                Cover Letter:
+                                                            </label>
+                                                            <input
+                                                                type="file"
+                                                                id="CoverLetter"
+                                                                name="CoverLetter"
+                                                                className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                                                onChange={(e) => setCoverLetter(e.target.files[0])}
+                                                                required
+                                                            />
+                                                            <button
+                                                                type="submit"
+                                                                className="mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                                                onClick={() => handleEditApplication(job._id,user._id)}
+                                                            >
+                                                                Update Application  </button>
                                                         </form>
                                                     </div>
                                                 </div>

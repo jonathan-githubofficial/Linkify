@@ -62,7 +62,7 @@ const createJobPost = asyncHandler(async (req, res) => {
 // @desc    Delete a job post
 // @return  deleted job post
 const deleteJobPost = asyncHandler(async (req, res) => {
-  const jobPost = await jobPostM.findById(req.params.id);
+  const jobPost = await jobPostM.findById(req.query.id);
   if (jobPost) {
     await jobPost.remove();
     res.json({ message: "Job post removed" });
@@ -126,14 +126,17 @@ const getJobPostsByUser = asyncHandler(async (req, res) => {
   }
 });
 
+
 // @desc apply to a job post
 // @param id: job post id
 // @body applicant: user id of the applicant and link to the resume
 // @return updated job post
 const applyToJobPost = asyncHandler(async (req, res) => {
-  const jobPost = await jobPostM.findById(req.params.id);
+  const { userId, jobId, resume, coverLetter } = req.body;
+  const jobPost = await jobPostM.findById(jobId);
+
   if (jobPost) {
-    jobPost.applicants.push(req.body.applicant);
+    jobPost.applicants.push({ userId, resume, coverLetter });
     const updatedJobPost = await jobPost.save();
     res.json(updatedJobPost);
   } else {
@@ -142,7 +145,89 @@ const applyToJobPost = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc Get all applicants for a job post
+// @param jobId: Job post id
+// @return Applicants array
+const getApplicantsByJob = asyncHandler(async (req, res) => {
+  const jobPost = await jobPostM.findById(req.params.jobId);
+  if (jobPost) {
+    res.json(jobPost.applicants);
+  } else {
+    res.status(404);
+    throw new Error("Job post not found");
+  }
+});
+
+
+// @desc Update an applicant's resume and cover letter
+// @route PUT /api/user/jobPosts/updateApplication/:jobId
+// @access Private
+const updateApplicantInfo = asyncHandler(async (req, res) => {
+  const jobId = req.params.jobId;
+  const { userId, resume, coverLetter } = req.body;
+
+  const jobPost = await jobPostM.findById(jobId);
+
+  if (!jobPost) {
+    res.status(404);
+    throw new Error("Job post not found");
+  }
+
+  console.log("Job post applicants: ", jobPost.applicants);
+  console.log("Request userId:", userId);
+
+  // Find the specific user's application
+  const applicantIndex = jobPost.applicants.findIndex(
+      (applicant) => applicant.userId.toHexString() === userId.toString()
+  );
+
+  if (applicantIndex === -1) {
+    res.status(404);
+    throw new Error("User's application not found");
+  }
+
+  // Update the specific user's application
+  jobPost.applicants[applicantIndex].resume = resume;
+  jobPost.applicants[applicantIndex].coverLetter = coverLetter;
+
+  const updatedJobPost = await jobPost.save();
+
+  res.status(200).json(updatedJobPost);
+});
+
+
+// @desc    Reject an applicant
+// @return  updated applicant data
+const rejectApplicant = asyncHandler(async (req, res) => {
+  const jobId = req.params.jobId;
+  const {applicantUserId } = req.body;
+
+  const jobPost = await jobPostM.findById(jobId);
+
+
+  if (jobPost) {
+
+    const updatedApplicants = jobPost.applicants.filter(
+        (applicant) => applicant._id.toString() === applicantUserId.toString()
+    );
+
+    if (updatedApplicants.length !== jobPost.applicants.length) {
+      jobPost.applicants = updatedApplicants;
+      await jobPost.save();
+      res.json({ message: "Applicant rejected", applicants: jobPost.applicants });
+    } else {
+      res.status(404);
+      throw new Error("Applicant not found");
+    }
+  } else {
+    res.status(404);
+    throw new Error("Job post not found");
+  }
+});
+
 module.exports = {
+  rejectApplicant,
+  getApplicantsByJob,
   getJobPosts,
   getJobPostById,
   createJobPost,
@@ -150,4 +235,5 @@ module.exports = {
   updateJobPost,
   getJobPostsByUser,
   applyToJobPost,
+  updateApplicantInfo,
 };

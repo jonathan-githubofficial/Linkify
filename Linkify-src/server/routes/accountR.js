@@ -29,7 +29,7 @@ router.get("/users", accountC.getAllUsers);
  * @route GET /api/account/getUser
  * @access Public
  */
-router.get("/getUser", accountC.getUserDetailsById);
+router.get("/getUser/:id", accountC.getUserDetailsById);
 
 /**
  * @desc Get user details by email
