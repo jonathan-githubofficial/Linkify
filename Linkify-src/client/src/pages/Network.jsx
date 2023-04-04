@@ -4,7 +4,6 @@ import axios from "axios";
 import profile_pic from "../static/images/profile.jpg";
 import { useNavigate } from "react-router-dom";
 
-
 function Network() {
   const [networkData, setNetworkData] = useState([]);
   const [connectionsData, setConnectionsData] = useState([]);
@@ -32,6 +31,7 @@ function Network() {
         receiverId,
       }
     );
+    getRequests();
     console.log("Reject: ", res);
   };
 
@@ -44,6 +44,8 @@ function Network() {
         receiverId,
       }
     );
+    getAllConnections();
+    getRequests();
     console.log("Accept: ", res);
   };
 
@@ -53,13 +55,14 @@ function Network() {
       connectionId,
       userId,
     });
+    getAllConnections();
     console.log("Removed connection: ", res);
   };
 
   useEffect(() => {
     getAllConnections();
     getRequests();
-  });
+  }, []);
 
   return (
     <div className="flex justify-center items-center mt-5">

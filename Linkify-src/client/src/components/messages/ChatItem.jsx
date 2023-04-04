@@ -2,6 +2,7 @@
 //Author: Daria Koroleva
 //Created: March 5,2023
 //Description: Show a description of a specific user receiver
+
 import React from 'react'
 import { FaTrashAlt } from 'react-icons/fa'
 

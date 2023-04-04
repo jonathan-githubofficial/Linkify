@@ -6,7 +6,7 @@ function Notification(props) {
   const { notification, removeNotification } = props;
 
   return (
-    <div className="w-full sm:w-3/4  flex gap-5 shadow-lg p-2">
+    <div className="w-full sm:w-3/4 flex gap-5 shadow-lg p-2">
       <div class="avatar">
         <div class="w-14 h-14 rounded-full">
           <img src={notification.avatar} />

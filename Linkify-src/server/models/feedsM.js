@@ -1,10 +1,6 @@
 const mongoose = require("mongoose");
 
 const feedsSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-  },
   poster: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Account",
@@ -22,6 +18,10 @@ const feedsSchema = new mongoose.Schema({
   description: {
     type: String,
     required: true,
+  },
+  image: { 
+    type: String,
+    required: false,
   },
   likes: {
     type: Array,
@@ -42,6 +42,8 @@ const feedsSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
       },
+    },
+    {
       default: [],
     },
   ],

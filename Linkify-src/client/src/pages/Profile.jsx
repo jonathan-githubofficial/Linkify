@@ -50,7 +50,7 @@ function Profile() {
         <meta charSet="utf-8" />
         <title>User Profile</title>
       </Helmet>
-      <div class="flex flex-col items-center mt-5">
+      <div class="flex flex-col items-center mt-5 mb-12">
         <div class="flex-auto w-full md:w-3/4 lg:w-4/5 lg:p-5">
           <div className="flex lg:gap-8">
             <UserProfile

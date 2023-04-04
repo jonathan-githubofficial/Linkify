@@ -104,7 +104,7 @@ function Notifications() {
         <meta charSet='utf-8' />
         <title>Notifications</title>
       </Helmet>
-      <div className="flex flex-col h-screen my-auto items-center bgimg bg-cover w-full">
+      <div className="flex flex-col h-screen my-auto items-center bgimg bg-cover w-full mb-[6rem]">
         <div className="w-full sm:w-1/2">
           <ul className="min-w-full">
             {notifications.map((notification) => {

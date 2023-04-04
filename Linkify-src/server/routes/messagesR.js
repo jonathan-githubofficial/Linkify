@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const messagesController = require('../controllers/messagesC');
-const upload = require("../middleware/multerMiddleware");
+const upload = require("../middleware/multerMessages");
 
 
 /**
