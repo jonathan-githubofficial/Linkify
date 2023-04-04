@@ -2,6 +2,7 @@
 //Author: Daria Koroleva
 //Created: March 5,2023
 //Description: Show messages send/receive between two users
+
 import React, { useState } from 'react'
 import ChatHeader from './ChatHeader';
 import Message from './Message'

@@ -2,6 +2,7 @@
 //Author: Daria Koroleva
 //Created: March 5,2023
 //Description: Component to render a message
+
 import React, { useState } from 'react'
 import MessageOptions from './MessageOptions';
 

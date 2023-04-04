@@ -2,6 +2,7 @@
 //Author: Daria Koroleva
 //Created: March 5,2023
 //Description: Page to display messages
+
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet'
 import Chat from '../components/messages/Chat';
