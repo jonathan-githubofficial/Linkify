@@ -32,7 +32,7 @@ function Messages() {
   const [showChatFeed, setShowChatFeed] = useState(true);
   const [respondents, setRespondents] = useState([]);
 
-  
+
   const [isReportMenuVisible, setIsReportMenuVisible] = useState(false);
   const [reportedMessageId, setReportedMessageId] = useState(null);
 
@@ -125,7 +125,8 @@ function Messages() {
           user: res.data.sender,
           name: userName,
           message: res.data.message,
-          position: "end"
+          position: "end",
+          attachments: res.data.attachments
         };
 
         const conversation = conversations.find((c) => c.user === receiver);
@@ -135,6 +136,44 @@ function Messages() {
       })
       .catch((err) => console.log("Error", err));
   };
+
+
+  const postMessageWithAttachement = async (sender, receiver, message, time, file) => {
+
+    const formData = new FormData();
+
+    formData.append("sender", sender);
+    formData.append("receiver", receiver);
+    formData.append("message", message);
+    formData.append("time", time);
+    formData.append("file", file);
+
+    await axios
+      .post("/api/messages/postmessage", formData)
+      .then((res) => {
+
+        let newMessage = {
+          id: res.data._id,
+          avatar: `/images/${res.data.sender}.jpg`,
+          time: formatTime(res.data.time),
+          datetime: res.data.time,
+          user: res.data.sender,
+          name: userName,
+          message: res.data.message,
+          position: "end",
+          attachments: res.data.attachments
+        };
+
+        const conversation = conversations.find((c) => c.user === receiver);
+        conversation.messages = [...conversation.messages, newMessage];
+        const newConversations = [conversation, ...conversations.filter((c) => c.user !== receiver)];
+        setConversations(newConversations);
+      })
+      .catch((err) => console.log("Error", err));
+  };
+
+
+
 
   const deleteMessageById = async (messageId) => {
     await axios
@@ -156,25 +195,25 @@ function Messages() {
 
   const reportMessageById = async (messageId, reportType) => {
     await axios
-      .put(`/api/messages/report/${messageId}`, { reportType})
+      .put(`/api/messages/report/${messageId}`, { reportType })
       .then(() => {
 
         //Update UI State
         const updatedConversations = conversations.map((conversation) => {
           if (conversation.user === userSelected) {
-            const updatedMessages = conversation.messages.map((message) =>{
-              if(message.id ===messageId ){
-                return {...message, reportType:reportType};
+            const updatedMessages = conversation.messages.map((message) => {
+              if (message.id === messageId) {
+                return { ...message, reportType: reportType };
               }
               return message;
             })
-            return {...conversation, messages: updatedMessages};
+            return { ...conversation, messages: updatedMessages };
           }
           return conversation;
         });
-        
+
         setConversations(updatedConversations);
-    
+
         setIsReportMenuVisible(false);
         setReportedMessageId(null);
       })
@@ -201,8 +240,9 @@ function Messages() {
           user: m.sender,
           name: (m.sender === currentUser) ? userName : respondent.name,
           message: m.message,
-          reportType:m.reportType,
-          position: (m.sender === currentUser) ? "end" : "start"
+          reportType: m.reportType,
+          position: (m.sender === currentUser) ? "end" : "start",
+          attachments: m.attachments
         };
         return message;
       }
@@ -212,11 +252,20 @@ function Messages() {
   }
 
   function formatTime(time) {
-    const timed = new Date(time);
-    const hours = timed.getHours();
-    const minutes = timed.getMinutes();
-    const formatted = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-    return formatted;
+
+    const date = new Date(time);
+
+    const monthNames = [
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    ];
+  
+    const month = monthNames[date.getMonth()];
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+  
+    return `${month} ${day}, ${hours}:${minutes}`;
   }
 
 
@@ -233,9 +282,15 @@ function Messages() {
     return conversations.find(conversation => conversation.user === userSelected);
   }
 
-  function addMessage(messageText, receiver) {
+  function addMessage(messageText, receiver, file) {
     const nowTime = new Date();
-    postMessage(currentUser, receiver, messageText, nowTime.toISOString());
+    if (file) {
+      console.log("addMessage" + file);
+      postMessageWithAttachement(currentUser, receiver, messageText, nowTime.toISOString(), file);
+    }
+    else {
+      postMessage(currentUser, receiver, messageText, nowTime.toISOString());
+    }
   }
 
   function removeChatItem(user) {
@@ -246,21 +301,44 @@ function Messages() {
     deleteMessageById(messageId);
   }
 
-    
+
   function selectReport(messageId) {
     setReportedMessageId(messageId);
     setIsReportMenuVisible(true);
-  }  
+  }
 
   function reportMessage(type) {
     reportMessageById(reportedMessageId, type);
-  }  
+  }
 
-  function closeReportMenu () {
+  function closeReportMenu() {
     setIsReportMenuVisible(false);
     setReportedMessageId(null);
- }
-  
+  }
+
+  async function downloadFile(fileUrl, fileName) {
+    try {
+      const response = await axios.get(fileUrl, {
+        responseType: 'blob',
+      });
+
+      // Create a blob URL for the file
+      const fileBlobUrl = URL.createObjectURL(response.data);
+
+      // Create an anchor element and trigger a download
+      const link = document.createElement('a');
+      link.href = fileBlobUrl;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+
+      // Clean up the DOM after download
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error downloading file:', error);
+    }
+  }
+
   return (
     <div>
       <Helmet>
@@ -280,15 +358,23 @@ function Messages() {
           </div>
 
           <div className={`${!showChatFeed ? 'hidden' : ''} sm:block  col-span-1 border`}>
-            <ChatFeed conversations={conversations} selectChat={selectChat} removeChatItem={removeChatItem} />
+            <ChatFeed
+              conversations={conversations}
+              selectChat={selectChat}
+              removeChatItem={removeChatItem} />
           </div>
 
           <div className={`${showChatFeed ? 'hidden' : ''}  sm:block col-span-1 border`}>
-            <Chat conversation={getSelectedConversation()} addMessage={addMessage} removeMessage={removeMessage} selectReport={selectReport} />
+            <Chat
+              conversation={getSelectedConversation()}
+              addMessage={addMessage}
+              removeMessage={removeMessage}
+              selectReport={selectReport}              
+            />
           </div>
         </div>
       </div>
-      {isReportMenuVisible &&  <ReportMenu reportMessage = {reportMessage} closeReportMenu={closeReportMenu}/>}
+      {isReportMenuVisible && <ReportMenu reportMessage={reportMessage} closeReportMenu={closeReportMenu} />}
     </div>
   )
 }
