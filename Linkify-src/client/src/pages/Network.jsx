@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import axios from "axios";
 import profile_pic from "../static/images/profile.jpg";
+import StartDM from "../components/messages/StartDM"
 import { useNavigate } from "react-router-dom";
+
 
 function Network() {
   const [networkData, setNetworkData] = useState([]);
@@ -145,6 +147,9 @@ function Network() {
                       >
                         Remove
                       </button>
+                      <div className="p-2">
+                        <StartDM userId={connections._id} userName={connections.name}/>  
+                      </div>                      
                     </div>
                   </div>
                 </div>
