@@ -10,7 +10,7 @@ import MessageOptions from './MessageOptions';
 
 function Message(props) {
 
-    const { message, removeMessage, selectReport } = props;
+    const { message, removeMessage, selectReport, openPasswordDecrypt} = props;
     const [isReportedMessageVisible, setIsReportedMessageVisible] = useState(false);
 
     function showReportedMessage() {
@@ -62,7 +62,7 @@ function Message(props) {
                                 <div className="flex items-center w-full">
                                     <div className="chat-bubble flex-grow">
                                         {message.message}
-                                        <Attachment attachments={message.attachments} />
+                                        <Attachment attachments={message.attachments} openPasswordDecrypt={openPasswordDecrypt}  />
                                     </div>
                                     <div className="flex-none ml-2">
                                         <button onClick={hideReportedMessage} className="btn btn-sm">Hide</button>
@@ -88,7 +88,7 @@ function Message(props) {
                             <div className="flex items-center group">
                                 <div className="chat-bubble">
                                     {message.message}
-                                    <Attachment attachments={message.attachments} />
+                                    <Attachment attachments={message.attachments} openPasswordDecrypt={openPasswordDecrypt} />
                                 </div>
 
                                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
@@ -121,7 +121,7 @@ function Message(props) {
                                 </div>
                                 <div className="chat-bubble">
                                     {message.message}
-                                    <Attachment attachments={message.attachments} />
+                                    <Attachment attachments={message.attachments} openPasswordDecrypt={openPasswordDecrypt}  />
                                 </div>
                             </div>
                         </div>

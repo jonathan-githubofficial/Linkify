@@ -11,6 +11,8 @@ import { FaArrowLeft } from 'react-icons/fa';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import ReportMenu from '../components/messages/ReportMenu';
+import { encryptFileWithPassword } from "../components/messages/Encryption.js";
+import DecryptFile from '../components/messages/DecryptFile';
 
 
 function Messages() {
@@ -35,6 +37,12 @@ function Messages() {
 
   const [isReportMenuVisible, setIsReportMenuVisible] = useState(false);
   const [reportedMessageId, setReportedMessageId] = useState(null);
+
+  const [isDecryptFileVisible, setIsDecryptFileVisible] = useState(false);
+
+  const [encryptedFileName, setEncryptedFileName] = useState('');
+  const [encryptedFileUrl, setEncryptedFileUrl] = useState('');
+  
 
 
   useEffect(() => {
@@ -137,16 +145,16 @@ function Messages() {
       .catch((err) => console.log("Error", err));
   };
 
-
-  const postMessageWithAttachement = async (sender, receiver, message, time, file) => {
+  const postMessageWithAttachement = async (sender, receiver, message, time, file, password) => {
 
     const formData = new FormData();
+    const { encryptedFile } = await encryptFileWithPassword(file, password);
 
     formData.append("sender", sender);
     formData.append("receiver", receiver);
     formData.append("message", message);
     formData.append("time", time);
-    formData.append("file", file);
+    formData.append("file", encryptedFile, file.name);
 
     await axios
       .post("/api/messages/postmessage", formData)
@@ -259,12 +267,12 @@ function Messages() {
       'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
       'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
     ];
-  
+
     const month = monthNames[date.getMonth()];
     const day = String(date.getDate()).padStart(2, '0');
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');
-  
+
     return `${month} ${day}, ${hours}:${minutes}`;
   }
 
@@ -282,11 +290,14 @@ function Messages() {
     return conversations.find(conversation => conversation.user === userSelected);
   }
 
-  function addMessage(messageText, receiver, file) {
+  function addMessage(messageText, receiver, file, password) {
     const nowTime = new Date();
     if (file) {
-      console.log("addMessage" + file);
-      postMessageWithAttachement(currentUser, receiver, messageText, nowTime.toISOString(), file);
+      //To enable send a file without message text
+      if (messageText.length === 0) {
+        messageText = ' ';
+      }
+      postMessageWithAttachement(currentUser, receiver, messageText, nowTime.toISOString(), file, password);
     }
     else {
       postMessage(currentUser, receiver, messageText, nowTime.toISOString());
@@ -301,7 +312,6 @@ function Messages() {
     deleteMessageById(messageId);
   }
 
-
   function selectReport(messageId) {
     setReportedMessageId(messageId);
     setIsReportMenuVisible(true);
@@ -309,6 +319,16 @@ function Messages() {
 
   function reportMessage(type) {
     reportMessageById(reportedMessageId, type);
+  }
+
+  function openPasswordDecrypt(fileUrl, fileName) {
+    setIsDecryptFileVisible(true);
+    setEncryptedFileName(fileName);
+    setEncryptedFileUrl(fileUrl);
+  }
+
+  function closePasswordDecrypt() {
+    setIsDecryptFileVisible(false);
   }
 
   function closeReportMenu() {
@@ -369,12 +389,14 @@ function Messages() {
               conversation={getSelectedConversation()}
               addMessage={addMessage}
               removeMessage={removeMessage}
-              selectReport={selectReport}              
+              selectReport={selectReport}
+              openPasswordDecrypt={openPasswordDecrypt}
             />
           </div>
         </div>
       </div>
       {isReportMenuVisible && <ReportMenu reportMessage={reportMessage} closeReportMenu={closeReportMenu} />}
+      {isDecryptFileVisible && <DecryptFile closePasswordDecrypt={closePasswordDecrypt} encryptedFileName={encryptedFileName} encryptedFileUrl={encryptedFileUrl} />}
     </div>
   )
 }
