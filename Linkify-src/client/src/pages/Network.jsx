@@ -4,6 +4,7 @@ import axios from "axios";
 import profile_pic from "../static/images/profile.jpg";
 import StartDM from "../components/messages/StartDM"
 import { useNavigate } from "react-router-dom";
+import PositionName from "../components/shared/PositionName";
 
 
 function Network() {
@@ -21,6 +22,7 @@ function Network() {
     const res = await axios.get("/api/user/connection/getAllConnections?", {
       params: { userId: localStorage.getItem("uid") },
     });
+    console.log(res.data);
     setConnectionsData(res.data);
   };
 
@@ -115,7 +117,7 @@ function Network() {
             </div>
           ))}
 
-          {/* Experience */}
+          {/* Connection */}
           <div className="mt-10 p-5">
             <h1 className="text-xl font-semibold mb-5">Your Connections</h1>
             {connectionsData.map((connections) => (
@@ -135,7 +137,8 @@ function Network() {
                           {connections.name}
                         </label>
                         <p className="text-center text-bold primaryGray text-[0.8rem] mt-2">
-                          {connections.title} at {connections.company} at{" "}
+                          {/* {connections.email} at {connections.company} at{" "} */}
+                          <PositionName profile={connections}/>
                           {connections.location}
                         </p>
                       </div>
