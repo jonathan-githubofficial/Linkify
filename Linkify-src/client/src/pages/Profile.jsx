@@ -40,8 +40,18 @@ function Profile() {
       });
   };
 
+  const [connectionsData, setConnectionsData] = useState([]);
+
+  const getAllConnections = async () => {
+      const res = await axios.get("/api/user/connection/getAllConnections?", {
+        params: { userId: localStorage.getItem("uid") },
+      });
+      setConnectionsData(res.data);
+  };
+
   useEffect(() => {
-    getUser();
+      getUser();
+      getAllConnections();
   }, []);
 
   return (
@@ -58,7 +68,7 @@ function Profile() {
               getUser={getUser}
               isOwner={isOwnProfile}
             />
-            {isOwnProfile && <MyConnections />}
+            {isOwnProfile && <MyConnections connections={connectionsData}/>}
           </div>
         </div>
       </div>
