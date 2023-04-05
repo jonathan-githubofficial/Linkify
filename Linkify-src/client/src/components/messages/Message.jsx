@@ -4,13 +4,13 @@
 //Description: Component to render a message
 
 import React, { useState } from 'react'
-import Attachment from './Attachment';
-import MessageOptions from './MessageOptions';
-
+import Attachment from './Attachment'
+import MessageOptions from './MessageOptions'
+import { Link } from "react-router-dom"
 
 function Message(props) {
 
-    const { message, removeMessage, selectReport, openPasswordDecrypt} = props;
+    const { message, removeMessage, selectReport, openPasswordDecrypt } = props;
     const [isReportedMessageVisible, setIsReportedMessageVisible] = useState(false);
 
     function showReportedMessage() {
@@ -62,7 +62,7 @@ function Message(props) {
                                 <div className="flex items-center w-full">
                                     <div className="chat-bubble flex-grow">
                                         {message.message}
-                                        <Attachment attachments={message.attachments} openPasswordDecrypt={openPasswordDecrypt}  />
+                                        <Attachment attachments={message.attachments} openPasswordDecrypt={openPasswordDecrypt} />
                                     </div>
                                     <div className="flex-none ml-2">
                                         <button onClick={hideReportedMessage} className="btn btn-sm">Hide</button>
@@ -78,7 +78,9 @@ function Message(props) {
                         <div className="chat chat-start">
                             <div className="chat-image avatar">
                                 <div className="w-10 rounded-full">
-                                    <img src={message.avatar} />
+                                    <Link to={`/profile/${message.user}`}>
+                                        <img src={message.avatar} />
+                                    </Link>
                                 </div>
                             </div>
                             <div className="chat-header">
@@ -108,7 +110,9 @@ function Message(props) {
                         <div className="chat chat-end">
                             <div className="chat-image avatar">
                                 <div className="w-10 rounded-full">
-                                    <img src={message.avatar} />
+                                    <Link to={`/profile/${message.user}`}>
+                                        <img src={message.avatar} />
+                                    </Link>
                                 </div>
                             </div>
                             <div className="chat-header">
@@ -121,7 +125,7 @@ function Message(props) {
                                 </div>
                                 <div className="chat-bubble">
                                     {message.message}
-                                    <Attachment attachments={message.attachments} openPasswordDecrypt={openPasswordDecrypt}  />
+                                    <Attachment attachments={message.attachments} openPasswordDecrypt={openPasswordDecrypt} />
                                 </div>
                             </div>
                         </div>
