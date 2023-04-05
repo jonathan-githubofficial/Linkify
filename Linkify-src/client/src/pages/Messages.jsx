@@ -2,8 +2,8 @@
 //Author: Daria Koroleva
 //Created: March 5,2023
 //Description: Page to display messages
-
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet'
 import Chat from '../components/messages/Chat';
 import ChatFeed from '../components/messages/ChatFeed';
@@ -26,6 +26,8 @@ function Messages() {
     }
   }, []);
 
+  //start dm
+  const { userIdStartDM, userNameStartDM } = useParams();
 
   const currentUser = localStorage.getItem("uid");
   const userName = localStorage.getItem("uname");
@@ -42,7 +44,7 @@ function Messages() {
 
   const [encryptedFileName, setEncryptedFileName] = useState('');
   const [encryptedFileUrl, setEncryptedFileUrl] = useState('');
-  
+
 
 
   useEffect(() => {
@@ -71,10 +73,18 @@ function Messages() {
         b.messages[b.messages.length - 1].datetime.localeCompare(a.messages[a.messages.length - 1].datetime))
 
 
-      setConversations(conversations);
-      if (respondents.length > 0) {
-        setUserSelected(respondents[0].user);
+      if (conversations.some(conversation => conversation.user === userIdStartDM)) {
+        setUserSelected(userIdStartDM);
       }
+      else if (userIdStartDM) {
+        conversations = [getNewConversation(userIdStartDM, userNameStartDM), ...conversations];
+        setUserSelected(userIdStartDM);
+      }
+      else if (respondents.length > 0) {
+        setUserSelected(conversations[0].user);
+      }
+
+      setConversations(conversations);
 
     });
 
@@ -229,6 +239,19 @@ function Messages() {
   };
 
 
+  function getNewConversation(userId, userName) {
+
+    const conversation = {
+      avatar: `/images/${userId}.jpg`,
+      user: `${userId}`,
+      name: `${userName}`,
+      title: "Software Engineer",
+      messages: []
+    };
+    return conversation;
+  }
+
+
 
   function mapMessagesToUI(messagesData, respondent) {
 
@@ -365,7 +388,6 @@ function Messages() {
         <meta charSet='utf-8' />
         <title>Messages</title>
       </Helmet>
-
 
       <div className={`${(conversations.length > 0) ? 'hidden' : ''} mt-40`}>
         <h1 className="font-bold text-center">You have no messages</h1>
