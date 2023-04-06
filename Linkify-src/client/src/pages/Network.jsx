@@ -128,6 +128,12 @@ function Network() {
                 <div className="flow-root">
                   <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
                     
+                    {connectionsData && connectionsData.length == 0 && 
+                      <div className="text-center">
+                        You do not have any people in your network.
+                      </div>
+                    }
+
                     {connectionsData.map((connections) => (
                       <div>
                         <li className="p-3 sm:py-4">
@@ -155,13 +161,19 @@ function Network() {
                                   <div class="tooltip-arrow" data-popper-arrow></div>
                               </div>
 
-                              <div data-tooltip-target="tooltip-network-remove" className="mr-2 btn btn-ghost btn-circle" >
+                              <button onClick={() => removeConnections(connections._id)} data-tooltip-target="tooltip-network-remove" className="mr-2 btn btn-ghost btn-circle" >
                                 <HiUserRemove className="text-xl" />
-                              </div>
-                              <div id="tooltip-network-remove" role="tooltip" onClick={() => removeConnections(connections._id)} class="absolute text-sm z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                              </button>
+                              <div id="tooltip-network-remove" role="tooltip" class="absolute text-sm z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
                                   Remove
                                   <div class="tooltip-arrow" data-popper-arrow></div>
                               </div>
+                              {/* <button
+                                className="w-20 primaryBtn btn btn-sm bg-sky-400 font-light"
+                                onClick={() => removeConnections(connections._id)}
+                              >
+                                Remove
+                              </button> */}
                             </div>
                           </div>
                         </li>
