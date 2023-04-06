@@ -80,6 +80,13 @@ router.put("/updateProfile", accountController.updateProfile);
 */
 router.post("/matchPassword", accountController.matchCurrentPassword);
 
+/**
+ * @desc Search users by name or email
+ * @route GET /api/account/search
+ * @access Public
+ */
+router.get("/search", accountController.searchUsers);
+
 
 
 
