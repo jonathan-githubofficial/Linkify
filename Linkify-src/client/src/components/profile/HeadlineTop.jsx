@@ -4,7 +4,7 @@
 // Description: Headline component for showing the key basic info of user
 
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import { BiPencil } from "react-icons/bi";
 import { useParams } from "react-router-dom";
 import google_icon from "../../static/images/companies/google.png";
@@ -17,6 +17,7 @@ export default function HeadlineTop(props) {
   var profile = props.profile;
   var company = props.company;
   const [connectStatus, setConnectStatus] = React.useState(false);
+  const [connectMessage, setConnectMessage] = React.useState("Connect");
 
   const sendRequest = async () => {
     const res = await axios.post("/api/user/connection/sendConnectionRequest", {
@@ -25,9 +26,35 @@ export default function HeadlineTop(props) {
     });
     if (res) {
       setConnectStatus(true);
+      setConnectMessage("Sent");
     }
     console.log("Accept: ", res);
   };
+
+  const checkConnectionStatus = async () => {
+    const userId = localStorage.getItem("uid");
+    const profileId = params.id;
+    const res1 = await axios.get("/api/user/connection/getAllConnections?", {
+      params: { userId },
+    });
+    const res2 = await axios.get(
+      "/api/user/connection/getConnectionRequests?",
+      {
+        params: { userId: profileId },
+      }
+    );
+    if (res1.data.filter((item) => item._id === profileId).length > 0) {
+      setConnectStatus(true);
+      setConnectMessage("Connected");
+    } else if (res2.data.filter((item) => item._id === userId).length > 0) {
+      setConnectStatus(true);
+      setConnectMessage("Sent");
+    }
+  };
+
+  useEffect(() => {
+    checkConnectionStatus();
+  }, []);
 
   return (
     <div className="p-5">
@@ -62,8 +89,13 @@ export default function HeadlineTop(props) {
                   onClick={() => sendRequest()}
                   disabled={connectStatus}
                   className="primaryBtn btn btn-sm bg-sky-400 font-light"
+                  style={
+                    connectStatus
+                      ? { cursor: "not-allowed", color: "white" }
+                      : {}
+                  }
                 >
-                  {connectStatus ? "Sent" : "Connect"}
+                  {connectMessage}
                 </button>
               )}
             </div>
