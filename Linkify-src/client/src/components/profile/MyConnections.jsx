@@ -34,7 +34,9 @@ export default function MyConnections(props) {
                         <div className="flex flex-col pl-5">
                             <p className="lg:text-md font-semibold">{connections.name}</p>
                             <span className="text-sm">Software Engineer</span>
-                            <StartDM userId={connections._id} userName={connections.name} />
+                            <div className="mt-2">
+                                <StartDM userId={connections._id} userName={connections.name}/>
+                            </div>
                         </div>
                     </div>
                 </div>

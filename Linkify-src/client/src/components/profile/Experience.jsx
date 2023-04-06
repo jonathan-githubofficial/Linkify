@@ -19,8 +19,6 @@ export default function Experience(props) {
     setExperiences(await props.experiences);
   });
 
-  console.log(experiences);
-
   return (
     <div className="p-5">
       <div className="grid grid-col-2 mb-2 flex">

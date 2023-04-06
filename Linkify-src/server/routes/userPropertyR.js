@@ -27,6 +27,12 @@ router.delete("/deleteLanguage", userPropertyController.deleteLanguage);
 // @access Public
 router.post("/addExperience", userPropertyController.editExperience);
 
+/**
+ * @desc Get all educations of a user
+ * @route GET /api/user/property/getMyEducations
+ */
+router.get("/getMyEducations", userPropertyController.getMyAllEducation);
+
 // @desc Add new education to user profile
 // @route POST /api/user/property/addEducation
 // @access Public

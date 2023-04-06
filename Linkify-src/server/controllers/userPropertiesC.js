@@ -113,10 +113,21 @@ const deleteExperience = asyncHandler(async (req, res) => {
   }
 });
 
+const getMyAllEducation = asyncHandler(async (req, res) => {
+  const { id } = req.query;
+  const user = await accountM.findById(id).populate("education");
+  if (user) {
+    res.json(user.education);
+  } else {
+    res.status(401);
+    throw new Error("User not found");
+  }
+});
+
 // add education
 const addEducation = asyncHandler(async (req, res) => {
   const { id } = req.query;
-  const { school, degree, fieldOfStudy, from, to } = req.body;
+  const { school, degree, fieldOfStudy, from, to } = req.query;
   const user = await accountM.findById(id);
   if (user) {
     const newEducation = { school, degree, fieldOfStudy, from, to };
@@ -242,6 +253,7 @@ module.exports = {
   deleteLanguage,
   editExperience,
   deleteExperience,
+  getMyAllEducation,
   addEducation,
   editEducation,
   deleteEducation,

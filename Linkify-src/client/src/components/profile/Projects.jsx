@@ -19,8 +19,6 @@ export default function Projects(props) {
     setProjects(await props.projects);
   });
 
-  console.log(projects);
-
   return (
     <div className="p-5">
       <div className="grid grid-col-2 mb-2 flex">

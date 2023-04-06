@@ -5,15 +5,32 @@
 
 import React, { useEffect, useState } from "react";
 import { BiPencil } from "react-icons/bi";
-import localEducation from "../../static/local_education";
+import EducationModal from "./modal/Education";
+import default_education from "../../static/images/education/default_education.png";
 
 export default function Education(props) {
   let id = props.id;
-  const [educations, setEducations] = useState([]);
+  var educations = props.educations;
+  // const [educations, setEducations] = useState([]);
 
-  useEffect(async () => {
-    setEducations(await props.educations);
-  });
+  // const getMyEducations = async () => {
+  //   const res = await axios.get("/api/user/property/getMyEducations?", {
+  //     params: { id: localStorage.getItem("uid") },
+  //   });
+  //   setEducations(res.data);
+  // };
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const res = await axios.get("/api/user/property/getMyEducations?", {
+  //       params: { id: localStorage.getItem("uid") },
+  //     });
+  //     console.log("e" + res);
+  //     setEducations(res.data);
+  //   };
+  //   fetchData();
+  // }, []);
+
 
   // const listItems = educations.map(
   //     (education) => {
@@ -49,31 +66,50 @@ export default function Education(props) {
           </div>
         </div>
       </div>
-      {/* {localEducation.map(education => (
-                <div>
-                    <div className="flex justify-left mt-2">
-                        <div className="flex items-start">
-                            <div className='avatar'>
-                                <div className="w-12">
-                                    <img src={education.school_logo} className='eduLogo' />
-                                </div>
-                            </div>
-                            <div className="flex flex-col pl-5">
-                                <p className="text-lg lg:text-xl">{education.school_name}</p>
-                                <span className="text-sm">{education.degree}</span>
-                                <span className='text-xs mt-1'>{education.startDate} - {education.endDate}</span>
 
-                                <div className='mt-2'>
-                                    <p className='text-s'>
-                                        - {education.description}
-                                    </p>
-                                </div>
-                            </div>
+      <EducationModal
+        id={id}
+        educations={educations}
+        getUser={props.getUser}
+      />
+
+      <div>
+        {educations.map(education => (
+          <div>
+            <div className="flex justify-left mt-2">
+                <div className="flex items-start">
+                    <div className='avatar'>
+                        <div className="w-12">
+                            <img src={default_education} className='eduLogo' />
                         </div>
                     </div>
-                    <hr className='mt-5' />
+                    <div className="flex flex-col pl-5">
+                        <p className="text-lg lg:text-xl">{education.school}</p>
+                        <span className="text-sm">
+                          
+                          {education.degree} • {education.fieldOfStudy}
+                        
+                        </span>
+                        <span className='text-xs mt-1'>
+                          {new Date(education.from).toLocaleString("default", {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric",
+                          })}
+                          &nbsp;-&nbsp;
+                          {new Date(education.to).toLocaleString("default", {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric",
+                          })}
+                        </span>
+                    </div>
                 </div>
-            ))} */}
+            </div>
+            <hr className='mt-5' />
+          </div>
+        ))}
+      </div>
 
       <hr />
     </div>
