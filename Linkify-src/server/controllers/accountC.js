@@ -208,6 +208,22 @@ const updateProfile = asyncHandler(async (req, res) => {
   }
 });
 
+const searchUsers = async (req, res) => {
+  try {
+    const searchQuery = req.query.q;
+    const users = await accountM.find({
+      $or: [
+        { name: { $regex: searchQuery, $options: 'i' } },
+        { email: { $regex: searchQuery, $options: 'i' } },
+      ],
+    });
+    res.status(200).json(users);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+
 
 
 module.exports = {
@@ -222,4 +238,5 @@ module.exports = {
   addProfileImage,
   updateProfile,
   matchCurrentPassword,
+  searchUsers,
 };
