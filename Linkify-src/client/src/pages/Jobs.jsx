@@ -708,7 +708,7 @@ const Jobs = () => {
                                 ))}
 
                         </div>}
-                        <MyConnections />
+                        {/* <MyConnections /> */}
                     </div>
                 </div>
             </div>

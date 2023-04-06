@@ -2,6 +2,7 @@
 //Author: Daria Koroleva
 //Created: March 5,2023
 //Description: Show a description of a specific user receiver
+
 import React from 'react'
 import { FaTrashAlt } from 'react-icons/fa'
 
@@ -24,7 +25,7 @@ function ChatItem(props) {
                 </div>
                 <div className="w-1/8 flex-none">
                     <p className="text-xs opacity-50">{time}</p>
-                    <div className='p-2' onClick={(e)=>{
+                    <div className='p-2 cursor-pointer' onClick={(e)=>{
                         e.stopPropagation();
                         removeChatItem(user);
                     }}>

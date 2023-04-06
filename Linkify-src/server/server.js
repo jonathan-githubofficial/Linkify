@@ -9,6 +9,11 @@ const connectionRoutes = require("./routes/connectionR");
 const feedRoutes = require("./routes/feedsR");
 const jobPostsRouter = require("./routes/jobPostsR");
 const messagesRouter = require("./routes/messagesR");
+const groupRouter = require("./routes/groupR");
+const eventRouter = require("./routes/eventR");
+const companiesRouter = require("./routes/companyR.js");
+const notificationRouter = require("./routes/notificationR.js");
+
 const dotenv = require("dotenv");
 const app = express();
 
@@ -37,6 +42,13 @@ app.use("/api/user/connection", connectionRoutes);
 app.use("/api/user/feed", feedRoutes);
 app.use("/api/user/jobPosts", jobPostsRouter);
 app.use("/api/messages", messagesRouter);
+app.use("/api/groups", groupRouter);
+app.use("/api/events", eventRouter);
+app.use("/api/companies", companiesRouter);
+app.use("/api/notifications", notificationRouter);
+
+app.use("/server/attachments/messages", express.static("server/attachments/messages"));
+app.use("/server/attachments/feeds", express.static("server/attachments/feeds"));
 
 app.listen(process.env.PORT || 8080, () =>
   console.log(`App listening on port ${process.env.PORT}!`)

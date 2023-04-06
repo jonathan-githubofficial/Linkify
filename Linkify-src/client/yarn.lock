@@ -1272,7 +1272,7 @@
     "@nodelib/fs.scandir" "2.1.5"
     "fastq" "^1.6.0"
 
-"@popperjs/core@^2.6.0":
+"@popperjs/core@^2.6.0", "@popperjs/core@^2.9.3":
   "integrity" "sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw=="
   "resolved" "https://registry.npmjs.org/@popperjs/core/-/core-2.11.6.tgz"
   "version" "2.11.6"
@@ -2085,6 +2085,11 @@
     "postcss-js" "^4.0.0"
     "tailwindcss" "^3"
 
+"date-fns@^2.29.3":
+  "integrity" "sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA=="
+  "resolved" "https://registry.npmjs.org/date-fns/-/date-fns-2.29.3.tgz"
+  "version" "2.29.3"
+
 "debug@^4.1.0", "debug@^4.1.1":
   "integrity" "sha512-mOp8wKcvj7XxC78zLgw/ZA+6TSgkoE2C/ienthhRD298T7UNwAg9diBpLRxC0mOezLl4B0xV7M0cCO6P/O0Xhw=="
   "resolved" "https://registry.npmjs.org/debug/-/debug-4.3.2.tgz"
@@ -2363,6 +2368,21 @@
   dependencies:
     "locate-path" "^5.0.0"
     "path-exists" "^4.0.0"
+
+"flowbite-datepicker@^1.2.2":
+  "integrity" "sha512-qOKDVtwkiOa0RrhD3sRtT45H8efAtyLiswuFIAV0UBhWSRYonzL0g1gAZwHiRRKtSmbET/8RQpQXlSEmAgadkg=="
+  "resolved" "https://registry.npmjs.org/flowbite-datepicker/-/flowbite-datepicker-1.2.2.tgz"
+  "version" "1.2.2"
+  dependencies:
+    "flowbite" "^1.4.5"
+
+"flowbite@^1.4.5", "flowbite@^1.6.4":
+  "integrity" "sha512-//kSaigwERCcE3udumadB3+xfOXeN/ZQzcub2qVCHuB7uscB4XIm3yP9R8zL0XsEOnYG2lnroq/dydQZbzvESw=="
+  "resolved" "https://registry.npmjs.org/flowbite/-/flowbite-1.6.4.tgz"
+  "version" "1.6.4"
+  dependencies:
+    "@popperjs/core" "^2.9.3"
+    "mini-svg-data-uri" "^1.4.3"
 
 "follow-redirects@^1.15.0":
   "integrity" "sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA=="
@@ -3412,6 +3432,11 @@
   "resolved" "https://registry.npmjs.org/min-indent/-/min-indent-1.0.1.tgz"
   "version" "1.0.1"
 
+"mini-svg-data-uri@^1.4.3":
+  "integrity" "sha512-r9deDe9p5FJUPZAk3A59wGH7Ii9YrjjWw0jmw/liSbHl2CHiyXj6FcDXDu2K3TjVAXqiJdaw3xxwlZZr9E6nHg=="
+  "resolved" "https://registry.npmjs.org/mini-svg-data-uri/-/mini-svg-data-uri-1.4.4.tgz"
+  "version" "1.4.4"
+
 "minimatch@^3.0.4":
   "integrity" "sha512-yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA=="
   "resolved" "https://registry.npmjs.org/minimatch/-/minimatch-3.0.4.tgz"
@@ -3429,7 +3454,7 @@
   "resolved" "https://registry.npmjs.org/modern-normalize/-/modern-normalize-1.1.0.tgz"
   "version" "1.1.0"
 
-"moment@^2.10.2":
+"moment@^2.10.2", "moment@^2.29.4":
   "integrity" "sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w=="
   "resolved" "https://registry.npmjs.org/moment/-/moment-2.29.4.tgz"
   "version" "2.29.4"
@@ -3842,6 +3867,11 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-18.2.0.tgz"
   "version" "18.2.0"
 
+"react-loading-skeleton@^3.2.0":
+  "integrity" "sha512-kN12x4Ud69jbksr2EdhYywAFeW4bPdvFQ9p3ID1OM/QeFjgwFSmSUY2a6P6uOb5ACzWp3ozY8C+7+04KR6+PHA=="
+  "resolved" "https://registry.npmjs.org/react-loading-skeleton/-/react-loading-skeleton-3.2.0.tgz"
+  "version" "3.2.0"
+
 "react-refresh@^0.10.0":
   "integrity" "sha512-PgidR3wST3dDYKr6b4pJoqQFpPGNKDSCDx4cZoshjXipw3LzO7mG1My2pwEzz2JVkF+inx3xRpDeQLFQGH/hsQ=="
   "resolved" "https://registry.npmjs.org/react-refresh/-/react-refresh-0.10.0.tgz"
@@ -3867,7 +3897,7 @@
   "resolved" "https://registry.npmjs.org/react-side-effect/-/react-side-effect-2.1.2.tgz"
   "version" "2.1.2"
 
-"react@*", "react@^16 || ^17 || ^18", "react@^16.3.0 || ^17.0.0 || ^18.0.0", "react@^17.0.0", "react@<18.0.0", "react@>= 16", "react@>=16.3.0", "react@>=16.8", "react@17.0.2":
+"react@*", "react@^16 || ^17 || ^18", "react@^16.3.0 || ^17.0.0 || ^18.0.0", "react@^17.0.0", "react@<18.0.0", "react@>= 16", "react@>=16.3.0", "react@>=16.8", "react@>=16.8.0", "react@17.0.2":
   "integrity" "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
   "version" "17.0.2"

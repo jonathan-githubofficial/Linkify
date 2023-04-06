@@ -56,3 +56,21 @@ img.eduLogo {
 .jobs-salary {
     font-size: 14px;
 }
+
+/* Card skeleton */
+.card-skeleton {
+    padding: 1.5rem;
+    display: flex;
+    width: 100%;
+}
+.card-skeleton .left-column {
+    margin-right: 0rem;
+}
+.card-skeleton .right-column {
+    flex: 1;
+}
+.card-skeleton .rect-img {
+    border-radius: 0.5rem;
+    width: 5rem;
+    height: 5rem;
+}

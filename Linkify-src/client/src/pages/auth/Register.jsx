@@ -8,10 +8,11 @@ function Register() {
   const [password, setPass] = useState({});
   const [email, setEmail] = useState({});
   const [name, setName] = useState({});
+  const [isRecruiter, setRecruiter] = useState(false);
 
   const register = async () => {
     await axios
-      .post("/api/account/register", { email, password, name })
+      .post("/api/account/register", { email, password, name, isRecruiter })
       .then((res) => {
         console.log("logged in", res);
       })
@@ -32,7 +33,7 @@ function Register() {
       </Helmet>
       <div className="w-full max-w-md space-y-8">
         <div>
-        <img
+          <img
             className="mx-auto h-48 w-auto"
             src="/src/static/images/loginimg.png"
             alt="Your Company"
@@ -99,6 +100,23 @@ function Register() {
           </div>
 
           <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <input
+                id="isRecruiter"
+                name="isRecruiter"
+                type="checkbox"
+                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                onChange={() => {
+                  setRecruiter(!isRecruiter);
+                }}
+              />
+              <label
+                htmlFor="isRecruiter"
+                className="ml-2 block text-sm text-gray-900"
+              >
+                Recruiter
+              </label>
+            </div>
             <div className="flex items-center">
               <input
                 id="remember-me"

@@ -1,13 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const messagesController = require('../controllers/messagesC');
+const upload = require("../middleware/multerMessages");
+
 
 /**
- * @desc Create a new message
+ * @desc Post a new message
  * @route POST /api/messages/postmessage
  * @access Public
  */
-router.post('/postmessage', messagesController.createMessage);
+router.post('/postmessage', upload.single("file"), messagesController.postMessage);
+
 
 /**
  * @desc Get all messages between two users
@@ -46,5 +49,14 @@ router.get('/getuserswithconversation', messagesController.getUsersWithConversat
 * @access Public
 */
 router.get('/receiver', messagesController.getMessagesForReceiver);
+
+
+/**
+ * @desc Report a message
+ * @route PUT /api/messages/report/:messageId
+ * @access Public
+ */
+router.put('/report/:messageId', messagesController.reportDM);
+
 
 module.exports = router;

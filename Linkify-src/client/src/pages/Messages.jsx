@@ -3,25 +3,31 @@
 //Created: March 5,2023
 //Description: Page to display messages
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet'
 import Chat from '../components/messages/Chat';
 import ChatFeed from '../components/messages/ChatFeed';
 import { FaArrowLeft } from 'react-icons/fa';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import ReportMenu from '../components/messages/ReportMenu';
+import { encryptFileWithPassword } from "../components/messages/Encryption.js";
+import DecryptFile from '../components/messages/DecryptFile';
 
 
 function Messages() {
-  
+
   const navigate = useNavigate();
 
   // checks if user is logged in, if not, redirects to login page
   useEffect(() => {
     if (localStorage.getItem("loggedIn") !== "1") {
       navigate("/login");
-    }  
+    }
   }, []);
 
+  //start dm
+  const { userIdStartDM, userNameStartDM } = useParams();
 
   const currentUser = localStorage.getItem("uid");
   const userName = localStorage.getItem("uname");
@@ -31,13 +37,23 @@ function Messages() {
   const [respondents, setRespondents] = useState([]);
 
 
+  const [isReportMenuVisible, setIsReportMenuVisible] = useState(false);
+  const [reportedMessageId, setReportedMessageId] = useState(null);
+
+  const [isDecryptFileVisible, setIsDecryptFileVisible] = useState(false);
+
+  const [encryptedFileName, setEncryptedFileName] = useState('');
+  const [encryptedFileUrl, setEncryptedFileUrl] = useState('');
+
+
+
   useEffect(() => {
     axios
       .get("/api/messages/receiver", {
         params: { receiver: currentUser },
       })
       .then((res) => {
-        const result = Object.entries(res.data).map(([user, { name }]) => ({ user, name }));        
+        const result = Object.entries(res.data).map(([user, { name }]) => ({ user, name }));
         setRespondents(result);
       })
       .catch((err) => {
@@ -46,7 +62,6 @@ function Messages() {
   }, []);
 
   useEffect(() => {
-
 
     let promises = respondents.map((respondent) => {
       return getMessages(currentUser, respondent);
@@ -58,11 +73,19 @@ function Messages() {
         b.messages[b.messages.length - 1].datetime.localeCompare(a.messages[a.messages.length - 1].datetime))
 
 
-      setConversations(conversations);
-      if(respondents.length>0){
-        setUserSelected(respondents[0].user);
+      if (conversations.some(conversation => conversation.user === userIdStartDM)) {
+        setUserSelected(userIdStartDM);
       }
-      
+      else if (userIdStartDM) {
+        conversations = [getNewConversation(userIdStartDM, userNameStartDM), ...conversations];
+        setUserSelected(userIdStartDM);
+      }
+      else if (respondents.length > 0) {
+        setUserSelected(conversations[0].user);
+      }
+
+      setConversations(conversations);
+
     });
 
   }, [respondents]);
@@ -88,6 +111,25 @@ function Messages() {
       });
   }
 
+
+  const deleteMessage = async (sender, receiver) => {
+    await axios
+      .delete("/api/messages/deletemessages", {
+        params: { sender, receiver }
+      })
+      .then(() => {
+
+        const newConversations = conversations.filter((conversation) => conversation.user !== receiver);
+        setConversations(newConversations);
+
+        if (userSelected == receiver && newConversations.length > 0) {
+          setUserSelected(newConversations[0].user);
+        }
+
+      })
+      .catch((err) => console.log("Error", err));
+  };
+
   const postMessage = async (sender, receiver, message, time) => {
     await axios
       .post("/api/messages/postmessage", { sender, receiver, message, time })
@@ -101,7 +143,8 @@ function Messages() {
           user: res.data.sender,
           name: userName,
           message: res.data.message,
-          position: "end"
+          position: "end",
+          attachments: res.data.attachments
         };
 
         const conversation = conversations.find((c) => c.user === receiver);
@@ -112,6 +155,104 @@ function Messages() {
       .catch((err) => console.log("Error", err));
   };
 
+  const postMessageWithAttachement = async (sender, receiver, message, time, file, password) => {
+
+    const formData = new FormData();
+    const { encryptedFile } = await encryptFileWithPassword(file, password);
+
+    formData.append("sender", sender);
+    formData.append("receiver", receiver);
+    formData.append("message", message);
+    formData.append("time", time);
+    formData.append("file", encryptedFile, file.name);
+
+    await axios
+      .post("/api/messages/postmessage", formData)
+      .then((res) => {
+
+        let newMessage = {
+          id: res.data._id,
+          avatar: `/images/${res.data.sender}.jpg`,
+          time: formatTime(res.data.time),
+          datetime: res.data.time,
+          user: res.data.sender,
+          name: userName,
+          message: res.data.message,
+          position: "end",
+          attachments: res.data.attachments
+        };
+
+        const conversation = conversations.find((c) => c.user === receiver);
+        conversation.messages = [...conversation.messages, newMessage];
+        const newConversations = [conversation, ...conversations.filter((c) => c.user !== receiver)];
+        setConversations(newConversations);
+      })
+      .catch((err) => console.log("Error", err));
+  };
+
+
+
+
+  const deleteMessageById = async (messageId) => {
+    await axios
+      .delete(`/api/messages/deletemessage/${messageId}`)
+      .then(() => {
+        const updatedConversations = conversations.map((conversation) => {
+          if (conversation.user === userSelected) {
+            const filteredMessages = conversation.messages.filter((message) => message.id !== messageId);
+            return { ...conversation, messages: filteredMessages };
+          }
+          return conversation;
+        });
+
+        setConversations(updatedConversations);
+      })
+      .catch((err) => console.log("Error", err));
+  };
+
+
+  const reportMessageById = async (messageId, reportType) => {
+    await axios
+      .put(`/api/messages/report/${messageId}`, { reportType })
+      .then(() => {
+
+        //Update UI State
+        const updatedConversations = conversations.map((conversation) => {
+          if (conversation.user === userSelected) {
+            const updatedMessages = conversation.messages.map((message) => {
+              if (message.id === messageId) {
+                return { ...message, reportType: reportType };
+              }
+              return message;
+            })
+            return { ...conversation, messages: updatedMessages };
+          }
+          return conversation;
+        });
+
+        setConversations(updatedConversations);
+
+        setIsReportMenuVisible(false);
+        setReportedMessageId(null);
+      })
+      .catch((err) => console.log("Error", err));
+  };
+
+
+  function getNewConversation(userId, userName) {
+
+    const conversation = {
+      avatar: `/images/${userId}.jpg`,
+      user: `${userId}`,
+      name: `${userName}`,
+      title: "Software Engineer",
+      messages: []
+    };
+    return conversation;
+  }
+
+
+
   function mapMessagesToUI(messagesData, respondent) {
 
     const messagesUI = {
@@ -119,6 +260,7 @@ function Messages() {
       user: `${respondent.user}`,
       name: `${respondent.name}`,
       title: "Software Engineer",
+
       messages: messagesData.map((m) => {
 
         let message = {
@@ -129,7 +271,9 @@ function Messages() {
           user: m.sender,
           name: (m.sender === currentUser) ? userName : respondent.name,
           message: m.message,
-          position: (m.sender === currentUser) ? "end" : "start"
+          reportType: m.reportType,
+          position: (m.sender === currentUser) ? "end" : "start",
+          attachments: m.attachments
         };
         return message;
       }
@@ -139,11 +283,20 @@ function Messages() {
   }
 
   function formatTime(time) {
-    const timed = new Date(time);
-    const hours = timed.getHours();
-    const minutes = timed.getMinutes();
-    const formatted = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-    return formatted;
+
+    const date = new Date(time);
+
+    const monthNames = [
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    ];
+
+    const month = monthNames[date.getMonth()];
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+
+    return `${month} ${day}, ${hours}:${minutes}`;
   }
 
 
@@ -156,24 +309,78 @@ function Messages() {
     setShowChatFeed(!showChatFeed);
   }
 
-  function removeChatItem(user) {
-    const newConversations = conversations.filter((c) => c.user !== user);
-    setConversations(newConversations);
-
-    if (userSelected == user && newConversations.length > 0) {
-      setUserSelected(newConversations[0].user);
-    }
-  }
-
   function getSelectedConversation() {
     return conversations.find(conversation => conversation.user === userSelected);
   }
 
-  function addMessage(messageText, receiver) {
+  function addMessage(messageText, receiver, file, password) {
     const nowTime = new Date();
-    postMessage(currentUser, receiver, messageText, nowTime.toISOString());
+    if (file) {
+      //To enable send a file without message text
+      if (messageText.length === 0) {
+        messageText = ' ';
+      }
+      postMessageWithAttachement(currentUser, receiver, messageText, nowTime.toISOString(), file, password);
+    }
+    else {
+      postMessage(currentUser, receiver, messageText, nowTime.toISOString());
+    }
   }
 
+  function removeChatItem(user) {
+    deleteMessage(currentUser, user);
+  }
+
+  function removeMessage(messageId) {
+    deleteMessageById(messageId);
+  }
+
+  function selectReport(messageId) {
+    setReportedMessageId(messageId);
+    setIsReportMenuVisible(true);
+  }
+
+  function reportMessage(type) {
+    reportMessageById(reportedMessageId, type);
+  }
+
+  function openPasswordDecrypt(fileUrl, fileName) {
+    setIsDecryptFileVisible(true);
+    setEncryptedFileName(fileName);
+    setEncryptedFileUrl(fileUrl);
+  }
+
+  function closePasswordDecrypt() {
+    setIsDecryptFileVisible(false);
+  }
+
+  function closeReportMenu() {
+    setIsReportMenuVisible(false);
+    setReportedMessageId(null);
+  }
+
+  async function downloadFile(fileUrl, fileName) {
+    try {
+      const response = await axios.get(fileUrl, {
+        responseType: 'blob',
+      });
+
+      // Create a blob URL for the file
+      const fileBlobUrl = URL.createObjectURL(response.data);
+
+      // Create an anchor element and trigger a download
+      const link = document.createElement('a');
+      link.href = fileBlobUrl;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+
+      // Clean up the DOM after download
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error downloading file:', error);
+    }
+  }
 
   return (
     <div>
@@ -181,7 +388,6 @@ function Messages() {
         <meta charSet='utf-8' />
         <title>Messages</title>
       </Helmet>
-
 
       <div className={`${(conversations.length > 0) ? 'hidden' : ''} mt-40`}>
         <h1 className="font-bold text-center">You have no messages</h1>
@@ -194,14 +400,25 @@ function Messages() {
           </div>
 
           <div className={`${!showChatFeed ? 'hidden' : ''} sm:block  col-span-1 border`}>
-            <ChatFeed conversations={conversations} selectChat={selectChat} removeChatItem={removeChatItem} />
+            <ChatFeed
+              conversations={conversations}
+              selectChat={selectChat}
+              removeChatItem={removeChatItem} />
           </div>
 
           <div className={`${showChatFeed ? 'hidden' : ''}  sm:block col-span-1 border`}>
-            <Chat conversation={getSelectedConversation()} addMessage={addMessage} />
+            <Chat
+              conversation={getSelectedConversation()}
+              addMessage={addMessage}
+              removeMessage={removeMessage}
+              selectReport={selectReport}
+              openPasswordDecrypt={openPasswordDecrypt}
+            />
           </div>
         </div>
       </div>
+      {isReportMenuVisible && <ReportMenu reportMessage={reportMessage} closeReportMenu={closeReportMenu} />}
+      {isDecryptFileVisible && <DecryptFile closePasswordDecrypt={closePasswordDecrypt} encryptedFileName={encryptedFileName} encryptedFileUrl={encryptedFileUrl} />}
     </div>
   )
 }
