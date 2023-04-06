@@ -19,6 +19,9 @@ const app = express();
 
 const bodyParser = require("body-parser");
 
+app.use(bodyParser.json({ limit: "10mb" }));
+app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
+
 dotenv.config();
 connectDB();
 
