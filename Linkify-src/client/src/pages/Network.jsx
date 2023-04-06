@@ -82,47 +82,55 @@ function Network() {
       <div class="flex justify-center w-full md:w-3/4 lg:w-2/3 lg:p-5">
         {/* Profile */}
         <div class="w-full lg:w-2/3 bg-white relative lg:rounded-t-xl">
-          {/* Top */}
-          {networkData.map((network, index) => (
-            <div className="border p-5" key={index}>
-              <div className="flex flex-row justify-between">
-                <div className="flex flex-row items-center">
-                  <figure className="px-5">
-                    <img
-                      src={profile_pic}
-                      alt="Shoes"
-                      className=" w-60 lg:w-40 rounded-full"
-                    />
-                  </figure>
-                  <div className="flex flex-col items-center px-4">
-                    <label className="text-md pl-2 font-semibold">
-                      {network.name}
-                    </label>
-                    <p className="text-center text-bold primaryGray text-[0.8rem] mt-2">
-                      {network.title} at {network.company} at {network.location}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex flex-col justify-center text-sm p-5">
-                  <button
-                    className="btn-sm font-bold font-light"
-                    onClick={() => rejectRequest(network._id)}
-                  >
-                    IGNORE
-                  </button>
-                  <button
-                    className="w-20 primaryBtn btn btn-sm bg-sky-400 font-light"
-                    onClick={() => acceptRequest(network._id)}
-                  >
-                    Accept
-                  </button>
+
+          {/* Network invitations */}
+          {networkData.length != 0 && 
+          <>
+          <div className="p-5">
+              <h1 className="text-xl font-semibold mb-5">Network Invitations</h1>
+              <div className="w-full bg-white rounded-lg shadow sm:p-8 dark:bg-gray-800">
+                <div className="flow-root">
+                  <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
+
+                    {networkData.map((network, index) => (
+                      <div>
+                        <li className="p-3 sm:py-4">
+                          <div className="flex items-center space-x-4">
+                            <div className="flex-shrink-0">
+                              <img className="w-12 h-12 rounded-full" src={profile_pic} alt="Neil image" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-md font-medium text-gray-900 truncate dark:text-white">
+                                {network.name}
+                              </p>
+                              <p className="text-sm text-gray-500 truncate dark:text-gray-400">
+                                <PositionName profile={network} />
+                              </p>
+                            </div>
+                            <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                              {/* <StartDM userId={connections._id} userName={connections.name} /> */}
+                              <button onClick={() => acceptRequest(network._id)} className="mr-2 whiteBtn btn btn-sm bg-sky-400 font-light mt-3" >
+                                Accept
+                              </button>
+
+                              <button onClick={() => rejectRequest(network._id)} className="mr-2 whiteBtn btn btn-sm bg-sky-400 font-light mt-3" >
+                                Ignore
+                              </button>
+                            </div>
+                          </div>
+                        </li>
+                        <hr />
+                      </div>
+                    ))}
+                  </ul>
                 </div>
               </div>
-            </div>
-          ))}
+          </div>
+          </>
+          }
 
           {/* Connection */}
-          <div className="mt-10 p-5">
+          <div className={`p-5 ${networkData.length > 0 ? 'mt-5' : ''}`}>
             <h1 className="text-xl font-semibold mb-5">Your Connections</h1>
               <div className="w-full bg-white rounded-lg shadow sm:p-8 dark:bg-gray-800">
                 <div className="flow-root">
