@@ -10,6 +10,7 @@ import profile_pic from "../../static/images/profile.jpg";
 import CommentBox from "./CommentBox";
 import PostPopup from "./PostPopup";
 import axios from "axios";
+import ShowUserName from "../shared/ShowUserName";
 
 function FeedPosts({ currentUserId, getFeed, getFeeds }) {
 
@@ -193,7 +194,9 @@ function FeedPosts({ currentUserId, getFeed, getFeeds }) {
                     <span className="font-bold">
                       {comment.userId === currentUserId
                         ? "You"
-                        : comment.commenterName}
+                        :
+                        <ShowUserName id={comment.userId}/>
+                        }
                       :
                     </span>{" "}
                     {comment.comment}
