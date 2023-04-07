@@ -94,7 +94,7 @@ function Home() {
             {/* Side Profile Bar */}
             <div className="w-full lg:w-1/4 px-2">
               <div className="flex justify-center">
-                <Sidebar user_skills={user_skills} name={profile.name} />
+                <Sidebar user_skills={user_skills} name={profile.name} userId={profile._id} />
               </div>
             </div>
             {/* Feed */}

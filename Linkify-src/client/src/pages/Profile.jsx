@@ -44,7 +44,7 @@ function Profile() {
 
   const getAllConnections = async () => {
       const res = await axios.get("/api/user/connection/getAllConnections?", {
-        params: { userId: params.id },
+        params: { userId: localStorage.getItem("uid") },
       });
       setConnectionsData(res.data);
   };
@@ -53,7 +53,7 @@ function Profile() {
 
   const getMyEducations = async () => {
       const res = await axios.get("/api/user/property/getMyEducations?", {
-        params: { id: params.id },
+        params: { id: localStorage.getItem("uid") },
       });
       setEducations(res.data);
   };
@@ -79,7 +79,7 @@ function Profile() {
               getUser={getUser}
               isOwner={isOwnProfile}
             />
-            {isOwnProfile && <MyConnections connections={connectionsData}/>}
+            <MyConnections connections={connectionsData} />
           </div>
         </div>
       </div>

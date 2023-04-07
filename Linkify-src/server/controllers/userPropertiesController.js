@@ -7,9 +7,10 @@
  adding/editing/deleting education, adding/deleting/editing projects,
  adding/updating location, and managing experience.*/
 
+const sharp = require("sharp");
 const accountM = require("../models/accountModel");
 const asyncHandler = require("express-async-handler");
-
+const fs = require('fs');
 
 //add skill
 const addSkill = asyncHandler(async (req, res) => {
@@ -78,8 +79,8 @@ const deleteLanguage = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 });
- 
-//edit education 
+
+//edit education
 const editExperience = asyncHandler(async (req, res) => {
   const { id, experience } = req.body;
   const user = await accountM.findById(id);
@@ -143,7 +144,6 @@ const addEducation = asyncHandler(async (req, res) => {
   }
 });
 
-
 // delete education
 const deleteEducation = asyncHandler(async (req, res) => {
   const { id, educationId } = req.body;
@@ -192,8 +192,6 @@ const editEducation = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 });
-
-
 
 // add location
 const addLocation = asyncHandler(async (req, res) => {
@@ -246,6 +244,68 @@ const deleteProject = asyncHandler(async (req, res) => {
   }
 });
 
+// upload avatar and updates the avatar
+const addAvatar = asyncHandler(async (req, res) => {
+  try {
+    const userId = req.body.userId;
+    const filePath = req.file.path.replace(/\\/g, "/");
+
+    const user = await accountM.findById(userId);
+
+    if (!user) {
+      res.status(404).send("User not found.");
+      return;
+    }
+
+    // Delete the existing avatar if it exists
+    if (user.avatar) {
+      try {
+        fs.unlinkSync(user.avatar);
+      } catch (err) {
+        console.error("Failed to delete avatar file:", err);
+      }
+    }
+
+    await accountM.findByIdAndUpdate(userId, { avatar: filePath });
+
+    res.status(200).json({
+      message: "Avatar uploaded successfully.",
+      filePath: filePath,
+    });
+  } catch (error) {
+    console.error("Error uploading avatar:", error.message);
+    res.status(500).send("Error uploading avatar.");
+  }
+});
+
+
+// deleteAvatar
+const deleteAvatar = asyncHandler(async (req, res) => {
+  const { id } = req.body;
+  const user = await accountM.findById(id);
+  if (user) {
+    if (user.avatar) {
+      try {
+        fs.unlinkSync(user.avatar);
+      } catch (err) {
+        console.error("Failed to delete avatar file:", err);
+      }
+      user.avatar = null;
+      await user.save();
+      res.json({
+        message: "Avatar deleted successfully",
+      });
+    } else {
+      res.status(400);
+      throw new Error("No avatar to delete");
+    }
+  } else {
+    res.status(401);
+    throw new Error("User not found");
+  }
+});
+
+
 module.exports = {
   addSkill,
   deleteSkill,
@@ -260,4 +320,6 @@ module.exports = {
   addProject,
   deleteProject,
   addLocation,
+  addAvatar,
+  deleteAvatar,
 };

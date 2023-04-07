@@ -13,7 +13,7 @@ import Skills from "../profile/Skills";
 import Languages from "../profile/Languages";
 import Projects from "../profile/Projects";
 
-import profile_pic from "../../static/images/profile.jpg";
+import Avatar from "../shared/Avatar";
 
 export default function UserProfile(props) {
   var profile = props.user;
@@ -72,15 +72,19 @@ export default function UserProfile(props) {
 
   return (
     <div class="w-full lg:w-3/4 bg-white relative lg:rounded-t-xl">
-      <ProfileCover name={profile_name} position={position} company={company} />
-      <hr />
-
+      <ProfileCover
+        name={profile_name}
+        position={position}
+        company={company}
+        userId={profile._id}
+      />
       <HeadlineTop
         profile={profile}
         company={company}
-        profile_pic={profile_pic}
+        avatar={<Avatar userId={profile._id} />}
         getUser={props.getUser}
         isOwner={props.isOwner}
+        userId={profile._id}
       />
       <hr />
 

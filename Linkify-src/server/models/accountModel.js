@@ -50,6 +50,12 @@ const accountSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+
+  avatar: {
+    type: String,
+    default: null,
+  },
+
   skills: {
     type: Array,
     required: false,

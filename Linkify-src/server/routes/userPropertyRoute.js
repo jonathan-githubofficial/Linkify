@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const multerAvatar = require("../middleware/multerAvatars.js");
 const userPropertyController = require("../controllers/userPropertiesController.js");
 
 // @desc Add a new skill to user profile
@@ -68,5 +69,15 @@ router.post("/addProject", userPropertyController.addProject);
 // @access Public
 router.delete("/deleteProject", userPropertyController.deleteProject);
 
+// @desc Upload a new avatar (profile picture) for the user
+// @route POST /api/user/property/addAvatar
+// @access Public
+router.post("/addAvatar", multerAvatar.single("avatar"), userPropertyController.addAvatar);
+
+// @desc Delete an existing avatar (profile picture)
+// @route POST /api/user/property/deleteAvatar
+// @access Public
+router.delete("/deleteAvatar", userPropertyController.deleteAvatar);
 
 module.exports = router;
+
