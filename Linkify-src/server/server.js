@@ -46,6 +46,7 @@ app.use("/api/notifications", notificationRouter);
 
 app.use("/server/attachments/messages", express.static("server/attachments/messages"));
 app.use("/server/attachments/feeds", express.static("server/attachments/feeds"));
+app.use("/server/attachments/avatars", express.static("server/attachments/avatars"))
 
 app.listen(process.env.PORT || 8080, () =>
   console.log(`App listening on port ${process.env.PORT}!`)

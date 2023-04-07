@@ -3,8 +3,7 @@
 /* Description: The FeedPosts component displays a list of feed posts fetched from the server. It renders the information for each post, such as the author's name, post description, and any associated images. Additionally, it supports interactivity by allowing users to like or remove likes from posts and add comments. The component leverages the useState and useEffect hooks for managing the state and side effects, providing an engaging user experience. */
 
 import React, { useState } from "react";
-import { AiOutlineLike } from "react-icons/ai";
-import { AiTwotoneLike } from "react-icons/ai";
+import { AiOutlineLike, AiTwotoneLike } from "react-icons/ai";
 import { MdOutlineInsertComment } from "react-icons/md";
 import profile_pic from "../../static/images/profile.jpg";
 import CommentBox from "./CommentBox";

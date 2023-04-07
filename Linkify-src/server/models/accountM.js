@@ -51,6 +51,12 @@ const accountSchema = new mongoose.Schema({
     required: true,
     default: false,
   },
+
+  avatar: {
+    type: String,
+    default: null,
+  },
+
   skills: {
     type: Array,
     required: false,
