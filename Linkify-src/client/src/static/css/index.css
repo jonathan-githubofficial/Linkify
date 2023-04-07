@@ -74,3 +74,9 @@ img.eduLogo {
     width: 5rem;
     height: 5rem;
 }
+
+/* feed */
+.feed-image {
+    padding-left: 2rem;
+    padding-right: 3rem;
+}

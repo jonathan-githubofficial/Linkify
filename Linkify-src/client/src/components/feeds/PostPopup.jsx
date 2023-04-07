@@ -16,7 +16,7 @@ const PostPopup = ({ post, closePopup, postComment, currentUserId }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 ">
-      <div className="relative bg-white p-6 w-full max-w-4xl rounded-lg">
+      <div className="relative bg-white p-6 w-full max-w-4xl rounded-lg pb-[6rem] md:pb-6">
         <button
           className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
           onClick={closePopup}
@@ -29,7 +29,7 @@ const PostPopup = ({ post, closePopup, postComment, currentUserId }) => {
               <img
                 src={`${serverBaseURL}/${post.image}`}
                 alt="Post"
-                className="w-full h-auto"
+                className="w-full h-auto feed-image"
               />
             </div>
           )}
