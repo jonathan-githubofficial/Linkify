@@ -62,7 +62,11 @@ export default function HeadlineTop(props) {
         <div class="grid grid-cols-2 gap-2 items-start">
           <div>
             <div className="flex items-center">
-              Hi, you can edit your profile here.
+              {params.id == localStorage.getItem("uid") &&
+              <p>
+                Hi, you can edit your profile here.
+              </p> 
+              }
             </div>
             <div className="mt-5">
               {!props.isOwner && (

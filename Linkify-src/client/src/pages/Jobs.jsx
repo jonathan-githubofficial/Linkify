@@ -5,7 +5,7 @@ import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import MyConnections from "../components/profile/MyConnections";
 import RecruiterDashboard from "../components/jobs/RecruiterDashboard";
-
+import PositionName from "../components/shared/PositionName";
 
 
 
@@ -372,10 +372,10 @@ const Jobs = () => {
                                 <figure className="px-10 pt-10">
                                     <img src={profile_pic} alt="Shoes" className="rounded-xl" />
                                 </figure>
-                                <div className="card-body items-center text-center">
-                                    <h2 className="card-title">{user.name}</h2>
+                                <div className="card-body items-center text-center p-3">
+                                    <h1 className="card-title">{user.name}</h1>
                                     <div className="side-user-info">
-                                    <p>software eng</p>
+                                    <PositionName id={localStorage.getItem("uid")}/>
                                     {/* <p>My Company Inc.</p> */}
                                     </div>
                                     <hr />

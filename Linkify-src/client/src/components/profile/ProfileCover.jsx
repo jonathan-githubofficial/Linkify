@@ -20,7 +20,7 @@ export default function ProfileCover(props) {
   var pos_comp =
     position == undefined && company == undefined
       ? ""
-      : position + (company != undefined ? " | " + company : "");
+      : position + (company == undefined ? "" : " | "  + company);
 
   return (
     <div>

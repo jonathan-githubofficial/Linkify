@@ -150,9 +150,11 @@ function Network() {
                               <img className="w-12 h-12 rounded-full" src={profile_pic} alt="Neil image" />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <p className="text-md font-medium text-gray-900 truncate dark:text-white">
-                                {connections.name}
-                              </p>
+                              <Link to={`/profile/${connections._id}`}>
+                                <p className="text-md font-medium text-gray-900 truncate dark:text-white">
+                                  {connections.name}
+                                </p>
+                              </Link>
                               <p className="text-sm text-gray-500 truncate dark:text-gray-400">
                                 <PositionName id={connections._id} />
                               </p>

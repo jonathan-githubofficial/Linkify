@@ -65,7 +65,7 @@ function Profile() {
   }, []);
 
   return (
-    <div className="">
+    <div key={params.id}>
       <Helmet>
         <meta charSet="utf-8" />
         <title>User Profile</title>

@@ -110,6 +110,7 @@ export default function Experience(props) {
               })}
         </div>
       </div>
+      <hr className='mt-5'/>
     </div>
   );
 }
