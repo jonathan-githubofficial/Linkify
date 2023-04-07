@@ -397,28 +397,6 @@ function Messages() {
     setReportedMessageId(null);
   }
 
-  async function downloadFile(fileUrl, fileName) {
-    try {
-      const response = await axios.get(fileUrl, {
-        responseType: 'blob',
-      });
-
-      // Create a blob URL for the file
-      const fileBlobUrl = URL.createObjectURL(response.data);
-
-      // Create an anchor element and trigger a download
-      const link = document.createElement('a');
-      link.href = fileBlobUrl;
-      link.download = fileName;
-      document.body.appendChild(link);
-      link.click();
-
-      // Clean up the DOM after download
-      document.body.removeChild(link);
-    } catch (error) {
-      console.error('Error downloading file:', error);
-    }
-  }
 
   return (
     <div className='pb-16 sm:pb-0'>
