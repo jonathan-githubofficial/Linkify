@@ -53,7 +53,7 @@ function Profile() {
 
   const getMyEducations = async () => {
       const res = await axios.get("/api/user/property/getMyEducations?", {
-        params: { id: localStorage.getItem("uid") },
+        params: { id: params.id },
       });
       setEducations(res.data);
   };

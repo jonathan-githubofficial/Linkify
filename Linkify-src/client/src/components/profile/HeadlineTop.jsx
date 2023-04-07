@@ -69,9 +69,9 @@ export default function HeadlineTop(props) {
   }, []);
 
   return (
-    <div className="p-5 lg:top-24 md:top-15 w-full" style={{position: 'absolute'}}>
+    <div className="pl-5 pt-5 pr-5 lg:top-24 md:top-15 w-full" style={{position: 'absolute'}}>
       <div className="grid grid-col-2 mb-2 flex">
-        <div class="grid grid-cols-2 gap-2 h-[8.5rem]">
+        <div class="grid grid-cols-2 gap-2 h-[6.5rem]">
           <div>
             <div className="flex items-center">
               <div className="w-24 h-24 lg:flex justify-center md:block sm:block flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" >
