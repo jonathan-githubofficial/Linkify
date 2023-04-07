@@ -48,7 +48,6 @@ const accountSchema = new mongoose.Schema({
   },
   isRecruiter: {
     type: Boolean,
-    required: true,
     default: false,
   },
   skills: {

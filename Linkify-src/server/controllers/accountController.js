@@ -26,7 +26,7 @@ const login = asyncHandler(async (req, res) => {
 });
 
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, isRecruiter} = req.body;
 
   // Convert the email to lowercase before checking for duplicates
   const existingUser = await accountM.findOne({ email: email.toLowerCase() });
@@ -47,6 +47,7 @@ const registerUser = asyncHandler(async (req, res) => {
       name,
       email: email.toLowerCase(),
       password,
+      isRecruiter,
     });
 
     if (newUser) {
@@ -55,6 +56,7 @@ const registerUser = asyncHandler(async (req, res) => {
         name: newUser.name,
         email: newUser.email,
         isAdmin: newUser.isAdmin,
+        isRecruiter: newUser.isRecruiter,
       });
     } else {
       res.status(400);

@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import axios from "axios";
 
 function Register() {
+
+  const navigate = useNavigate(); 
+
+
   const [password, setPass] = useState({});
   const [email, setEmail] = useState({});
   const [name, setName] = useState({});
@@ -15,6 +19,7 @@ function Register() {
       .post("/api/account/register", { email, password, name, isRecruiter })
       .then((res) => {
         console.log("logged in", res);
+        navigate("/");
       })
       .catch((err) => console.log("Error", err));
   };
