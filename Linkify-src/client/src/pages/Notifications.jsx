@@ -106,7 +106,7 @@ function Notifications() {
       </Helmet>
       <div className="flex flex-col h-screen my-auto items-center bgimg bg-cover w-full mb-[6rem]">
         <div className="w-full sm:w-1/2">
-          <ul className="min-w-full">
+          <ul className="min-w-full pb-16">
             {notifications.map((notification) => {
               return (
                 <li className='flex items-center justify-center' key={notification.id} >
@@ -119,7 +119,6 @@ function Notifications() {
         </div>
 
       </div>
-
 
     </div>
   )
