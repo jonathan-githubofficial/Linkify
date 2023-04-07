@@ -2,17 +2,17 @@
 
 const express = require("express");
 const { connectDB } = require("./config/connectDB.js");
-const userRouter = require("./routes/accountR");
-const cvRouter = require("./routes/cvR");
-const userPropertyRouter = require("./routes/userPropertyR");
-const connectionRoutes = require("./routes/connectionR");
-const feedRoutes = require("./routes/feedsR");
-const jobPostsRouter = require("./routes/jobPostsR");
-const messagesRouter = require("./routes/messagesR");
-const groupRouter = require("./routes/groupR");
-const eventRouter = require("./routes/eventR");
-const companiesRouter = require("./routes/companyR.js");
-const notificationRouter = require("./routes/notificationR.js");
+const userRouter = require("./routes/accountRoute");
+const cvRouter = require("./routes/cvRoute");
+const userPropertyRouter = require("./routes/userPropertyRoute");
+const connectionRoutes = require("./routes/connectionRoute");
+const feedRoutes = require("./routes/feedsRoute");
+const jobPostsRouter = require("./routes/jobPostsRoute");
+const messagesRouter = require("./routes/messagesRoute");
+const groupRouter = require("./routes/groupRoute");
+const eventRouter = require("./routes/eventRoute");
+const companiesRouter = require("./routes/companyRoute.js");
+const notificationRouter = require("./routes/notificationRoute.js");
 
 const dotenv = require("dotenv");
 const app = express();
