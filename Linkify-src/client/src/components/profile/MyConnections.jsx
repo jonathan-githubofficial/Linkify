@@ -8,6 +8,7 @@ import { RiSendPlaneFill } from 'react-icons/ri'
 import profile_pic from '../../static/images/profile.jpg'
 import { Link, useNavigate } from "react-router-dom";
 import StartDM from "../messages/StartDM";
+import PositionName from '../shared/PositionName';
 
 export default function MyConnections(props) {
     // var connections = props.connections;
@@ -41,12 +42,14 @@ export default function MyConnections(props) {
                             <div className="flex flex-col pl-5">
                                 {/* <Link to={`/profile/${connections._id}`}> */}
                                 <button onClick={() => profileNavigate(connections._id)}>
-                                    <p className="lg:text-md font-semibold" >
+                                    <p className="lg:text-md font-semibold text-left" >
                                         {connections.name}
                                     </p>
                                 </button>
                                 {/* </Link> */}
-                                <span className="text-sm">Software Engineer</span>
+                                <span className="text-sm">
+                                    <PositionName id={connections._id}/>
+                                </span>
                                 <div className="mt-2">
                                     <StartDM userId={connections._id} userName={connections.name}/>
                                 </div>

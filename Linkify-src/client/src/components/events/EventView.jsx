@@ -183,7 +183,8 @@ export default function EventView() {
                                                 </div>
                                             </div>
                                             <div>
-                                                {event.members} members
+                                                {event.members && event.members.length}&nbsp;
+                                                {event.members && (event.members.length >= 0 && event.members.length <= 1) ? "member" : "members"}
                                             </div>
                                         </div>
                                     </div>

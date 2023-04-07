@@ -21,6 +21,7 @@ export default function GroupView() {
     const [profile, setProfile] = useState([]);
     const [isJoined, setIsJoined] = useState(false);
     const [status, setStatus] = useState(false);
+    const [members, setMembers] = useState([]);
     const [membersCount, setMembersCount] = useState('');
 
 
@@ -38,15 +39,6 @@ export default function GroupView() {
         }).catch(err => {
             console.log(err)
         })
-
-        // axios.get('/api/events/countMembers?', {
-        //     params: {groupId: groupId}
-        // })
-        // .then(res => {
-        //     setMembersCount(res.data);
-        // }).catch(err => {
-        //     console.log(err)
-        // })
 
     }, []);
 
@@ -70,6 +62,7 @@ export default function GroupView() {
         })
         .then(res => {
             setProfile(res.data);
+            setMembers(group.members);
         }).catch(err => {
             console.log(err)
         })
@@ -98,6 +91,7 @@ export default function GroupView() {
             console.log("Group joined", res);
             // setIsNewJoined(true);
             setIsJoined(true);
+            setMembers(group.members);
         })
         .catch(err => console.log('Error', err))
     }
@@ -121,6 +115,7 @@ export default function GroupView() {
             console.log("Group left", res);
             // setIsNewJoined(true);
             setIsJoined(false);
+            setMembers(group.members);
         })
         .catch(err => console.log('Error', err))
     }
@@ -166,7 +161,8 @@ export default function GroupView() {
                                                 </span>
                                             </div>
                                             <div>
-                                                2 members
+                                                {members && members.length}&nbsp;
+                                                {members && (members.length >= 0 && members.length <= 1) ? "member" : "members"}
                                             </div>
                                         </div>
                                     </div>
