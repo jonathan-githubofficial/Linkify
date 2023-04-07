@@ -8,7 +8,7 @@ import { BiPencil } from "react-icons/bi";
 import localExperiences from "../../static/local_experience";
 import ExperienceModal from "./modal/Experience";
 
-import company_logo from "../../static/images/companies/google.png";
+import company_logo from "../../static/images/companies/default_company.png";
 
 export default function Experience(props) {
   let id = props.id;
@@ -18,8 +18,6 @@ export default function Experience(props) {
   useEffect(async () => {
     setExperiences(await props.experiences);
   });
-
-  console.log(experiences);
 
   return (
     <div className="p-5">
@@ -92,7 +90,7 @@ export default function Experience(props) {
                       <div className="flex items-start">
                         <div className="avatar">
                           <div className="w-12">
-                            <img src={company_logo} />
+                            <img src={company_logo} className='eduLogo'/>
                           </div>
                         </div>
                         <div className="flex flex-col pl-5">

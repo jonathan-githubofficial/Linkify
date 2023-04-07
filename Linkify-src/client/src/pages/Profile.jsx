@@ -48,10 +48,20 @@ function Profile() {
       });
       setConnectionsData(res.data);
   };
+  
+  const [educations, setEducations] = useState([]);
+
+  const getMyEducations = async () => {
+      const res = await axios.get("/api/user/property/getMyEducations?", {
+        params: { id: localStorage.getItem("uid") },
+      });
+      setEducations(res.data);
+  };
 
   useEffect(() => {
       getUser();
       getAllConnections();
+      getMyEducations();
   }, []);
 
   return (
@@ -65,6 +75,7 @@ function Profile() {
           <div className="flex lg:gap-8">
             <UserProfile
               user={profile}
+              educations={educations}
               getUser={getUser}
               isOwner={isOwnProfile}
             />
