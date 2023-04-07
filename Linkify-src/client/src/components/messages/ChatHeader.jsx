@@ -4,23 +4,26 @@
 //Description: Show chat header for receiver user
 
 import React from 'react'
+import { Link } from "react-router-dom"
 
 function ChatHeader(props) {
 
-    const {avatar, user,name, title}=props;
+    const { avatar, user, name, title } = props;
 
     return (
         <div className="w-full m-auto p-2 shadow-lg ">
             <div className="container inline-flex justify-between">
                 <div className='w-1/8 avatar'>
                     <div class="w-12 h-12 rounded-full">
-                        <img src={avatar}/>
+                        <Link to={`/profile/${user}`}>
+                            <img src={avatar} />
+                        </Link>
                     </div>
                 </div>
                 <div className="flex-grow p-2">
                     <p className="lg:text-md font-semibold">{name}</p>
                     {/* <p className="lg:text-md">{title}</p> */}
-                </div>              
+                </div>
             </div>
         </div>
     )

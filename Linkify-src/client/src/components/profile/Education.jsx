@@ -5,7 +5,8 @@
 
 import React, { useEffect, useState } from "react";
 import { BiPencil } from "react-icons/bi";
-import localEducation from "../../static/local_education";
+import EducationModal from "./modal/Education";
+import default_education from "../../static/images/education/default_education.png";
 
 export default function Education(props) {
   let id = props.id;
@@ -15,21 +16,6 @@ export default function Education(props) {
     setEducations(await props.educations);
   });
 
-  // const listItems = educations.map(
-  //     (education) => {
-  //         return (
-  //             <ul type="disc">
-  //                 <li style={{
-  //                     fontWeight: 'bold',
-  //                     color: 'red' }}
-  //                 >
-  //                     {education.school}
-  //                 </li>
-  //                 <li>{education.degree}</li>
-  //             </ul>
-  //         )
-  //     }
-  // )
 
   return (
     <div className="p-5">
@@ -41,7 +27,7 @@ export default function Education(props) {
           <div className="flex">
             {props.isOwner && (
               <div style={{ marginLeft: "auto" }}>
-                <label htmlFor="my-modal-5" className="">
+                <label htmlFor="education-modal" className="">
                   <BiPencil className="cursor-pointer text-xl" />
                 </label>
               </div>
@@ -49,33 +35,53 @@ export default function Education(props) {
           </div>
         </div>
       </div>
-      {/* {localEducation.map(education => (
-                <div>
-                    <div className="flex justify-left mt-2">
-                        <div className="flex items-start">
-                            <div className='avatar'>
-                                <div className="w-12">
-                                    <img src={education.school_logo} className='eduLogo' />
-                                </div>
-                            </div>
-                            <div className="flex flex-col pl-5">
-                                <p className="text-lg lg:text-xl">{education.school_name}</p>
-                                <span className="text-sm">{education.degree}</span>
-                                <span className='text-xs mt-1'>{education.startDate} - {education.endDate}</span>
 
-                                <div className='mt-2'>
-                                    <p className='text-s'>
-                                        - {education.description}
-                                    </p>
-                                </div>
-                            </div>
+      <EducationModal
+        id={id}
+        educations={educations}
+        getUser={props.getUser}
+      />
+
+      <div>
+        {educations && educations.length == 0 ? "No education added yet" : ""}
+        {educations.slice(0).reverse().map(education => (
+          <div>
+            <div className="flex justify-left mt-2">
+                <div className="flex items-start">
+                    <div className='avatar'>
+                        <div className="w-12">
+                            <img src={default_education} className='eduLogo' />
                         </div>
                     </div>
-                    <hr className='mt-5' />
+                    <div className="flex flex-col pl-5">
+                        <p className="text-lg lg:text-xl">{education.school}</p>
+                        <span className="text-sm">
+                          
+                          {education.degree} • {education.fieldOfStudy}
+                        
+                        </span>
+                        <span className='text-xs mt-1'>
+                          {new Date(education.from).toLocaleString("default", {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric",
+                          })}
+                          &nbsp;-&nbsp;
+                          {new Date(education.to).toLocaleString("default", {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric",
+                          })}
+                        </span>
+                    </div>
                 </div>
-            ))} */}
+            </div>
+            <hr className='mt-5' />
+          </div>
+        ))}
+      </div>
 
-      <hr />
+      <hr className='mt-5'/>
     </div>
   );
 }

@@ -51,8 +51,9 @@ function RegularRoutes() {
         <Route path="/jobs" element={<Jobs />} />
         <Route path="/Network" element={<Network />} />
         <Route path="/notifications" element={<Notifications />} />
-        <Route path="/profile/:id" element={<Profile />} />
+        <Route exact path="/profile/:id" element={<Profile />} />
         <Route path="/messages" element={<Messages />} />
+        <Route path="/messages/:userIdStartDM/:userNameStartDM" element={<Messages />} />
         <Route path="/events" element={<Events />} />
         <Route path="/event/:eventId" element={<EventView />} />
         <Route path="/events/create" element={<CreateEvent />} />

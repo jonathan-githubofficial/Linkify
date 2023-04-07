@@ -10,6 +10,7 @@ import { RiCalendarEventFill } from 'react-icons/ri';
 import { FaUser } from 'react-icons/fa';
 import { GrGroup } from 'react-icons/gr';
 import { AiOutlineLogout } from 'react-icons/ai';
+import { FaUserFriends } from 'react-icons/fa';
 
 export default function MobileSidebar(props) {
 
@@ -56,6 +57,14 @@ export default function MobileSidebar(props) {
               <span className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                 <FaUser />
                 <span className="flex-1 ml-3 whitespace-nowrap">Profile</span>
+              </span>
+            </Link>
+          </li>
+          <li>
+            <Link to={`/network`}>
+              <span className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                <FaUserFriends />
+                <span className="flex-1 ml-3 whitespace-nowrap">Network</span>
               </span>
             </Link>
           </li>

@@ -24,7 +24,7 @@ export default function UserProfile(props) {
   var languages = profile.languages;
 
   var experiences = profile.experience;
-  var educations = profile.education;
+  var educations = props.educations;
   var projects = profile.projects;
 
   // For Header Cover

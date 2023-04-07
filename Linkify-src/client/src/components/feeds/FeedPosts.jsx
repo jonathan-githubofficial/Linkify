@@ -9,6 +9,9 @@ import profile_pic from "../../static/images/profile.jpg";
 import CommentBox from "./CommentBox";
 import PostPopup from "./PostPopup";
 import axios from "axios";
+import PositionName from "../shared/PositionName"
+import ShowUserName from "../shared/ShowUserName";
+import { Link, useNavigate } from "react-router-dom";
 
 function FeedPosts({ currentUserId, getFeed, getFeeds }) {
 
@@ -113,8 +116,14 @@ function FeedPosts({ currentUserId, getFeed, getFeeds }) {
                 </div>
               </div>
               <div className="flex flex-col pl-5">
-                <p className="text-2xl">{feed.name}</p>
-                <span className="text-xs">Software Engineer</span>
+                <Link to={`/profile/${feed.poster}`}>
+                  <p className="text-2xl">
+                    <ShowUserName id={feed.poster}/>
+                  </p>
+                </Link>
+                <span className="text-xs">
+                  <PositionName id={feed.poster}/>
+                </span>
                 <span className="text-xs">
                   {new Date(feed.postedOn).toLocaleString("default", {
                     year: "numeric",
@@ -188,14 +197,15 @@ function FeedPosts({ currentUserId, getFeed, getFeeds }) {
               .slice(Math.max(feed.comments.length - 3, 0))
               .map((comment) => (
                 <div key={comment._id} className="mb-2">
-                  <div className="rounded-full bg-gray-200 dark:bg-gray-700 px-3 py-2 inline-block mb-1 opacity-75">
-                    <span className="font-bold">
-                      {comment.userId === currentUserId
-                        ? "You"
-                        : comment.commenterName}
-                      :
-                    </span>{" "}
-                    {comment.comment}
+                  <div className="rounded-[0.5rem] w-full bg-gray-200 dark:bg-gray-700 px-3 py-2 inline-block mb-1 opacity-75">
+                    <Link to={`/profile/${comment.userId}`}>
+                      <div className="font-bold">
+                        <ShowUserName id={comment.userId}/>
+                      </div>
+                    </Link>
+                    <div className="text-sm">
+                      {comment.comment}
+                    </div>
                   </div>
                   <div className="text-gray-600 text-xs opacity-50">
                     {/* Display date with hours and minutes */}

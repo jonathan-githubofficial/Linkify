@@ -3,161 +3,62 @@
 // Date created: March 2, 2023
 // Description: Connections component for showing user's connections
 
-import React from 'react'
+import React, { useEffect, useState } from "react";
 import { RiSendPlaneFill } from 'react-icons/ri'
 import profile_pic from '../../static/images/profile.jpg'
+import { Link, useNavigate } from "react-router-dom";
+import StartDM from "../messages/StartDM";
+import PositionName from '../shared/PositionName';
 
-export default function MyConnections() {
-  return (
-    <div class="w-1/4 hidden lg:block bg-white p-5 rounded-t-xl">
-        <div className='mb-5'>
-            <p className='text-lg font-semibold'>
-                My Connections
-            </p>
-        </div>
-        <div className="flex justify-left mt-2 mb-3">
-            <div className="flex items-start">
-                <div className='avatar'>
-                    <div className="w-12 rounded-full">
-                        <img src={profile_pic} />
-                    </div>
-                </div>
-                <div className="flex flex-col pl-5">
-                    <p className="lg:text-md font-semibold">Ayeshah</p>
-                    <span className="text-sm">Software Engineer</span>
-                    <button className="whiteBtn btn btn-sm bg-sky-400 font-light mt-3">
-                        <RiSendPlaneFill /> &nbsp; Message
-                    </button>
-                </div>
-            </div>
-        </div>
-        <hr />
+export default function MyConnections(props) {
+    // var connections = props.connections;
+    
+    const navigate = useNavigate(); 
 
-        <div className="flex justify-left mt-2 mb-3">
-            <div className="flex items-start">
-                <div className='avatar'>
-                    <div className="w-12 rounded-full">
-                        <img src={profile_pic} />
-                    </div>
-                </div>
-                <div className="flex flex-col pl-5">
-                    <p className="lg:text-md font-semibold">Mohamad</p>
-                    <span className="text-sm">Software Engineer</span>
-                    <button className="whiteBtn btn btn-sm bg-sky-400 font-light mt-3">
-                        <RiSendPlaneFill /> &nbsp; Message
-                    </button>
-                </div>
-            </div>
-        </div>
-        <hr />
+    const profileNavigate = (uid) => {
+        navigate(`/profile/${uid}`);
+        window.location.reload();
+    
+    };
 
-        <div className="flex justify-left mt-2 mb-3">
-            <div className="flex items-start">
-                <div className='avatar'>
-                    <div className="w-12 rounded-full">
-                        <img src={profile_pic} />
-                    </div>
-                </div>
-                <div className="flex flex-col pl-5">
-                    <p className="lg:text-md font-semibold">Nadine</p>
-                    <span className="text-sm">Software Engineer</span>
-                    <button className="whiteBtn btn btn-sm bg-sky-400 font-light mt-3">
-                        <RiSendPlaneFill /> &nbsp; Message
-                    </button>
-                </div>
+    return (
+        <div class="w-1/4 hidden lg:block bg-white p-5 rounded-t-xl">
+            <div className='mb-5'>
+                <p className='text-lg font-semibold'>
+                    My Connections
+                </p>
             </div>
-        </div>
-        <hr />
 
-        <div className="flex justify-left mt-2 mb-3">
-            <div className="flex items-start">
-                <div className='avatar'>
-                    <div className="w-12 rounded-full">
-                        <img src={profile_pic} />
+        
+            {props.connections.map((connections) => (
+                <div>
+                    <div className="flex justify-left mt-2 mb-3">
+                        <div className="flex items-start">
+                            <div className='avatar'>
+                                <div className="w-12 rounded-full">
+                                    <img src={profile_pic} />
+                                </div>
+                            </div>
+                            <div className="flex flex-col pl-5">
+                                {/* <Link to={`/profile/${connections._id}`}> */}
+                                <button onClick={() => profileNavigate(connections._id)}>
+                                    <p className="lg:text-md font-semibold text-left" >
+                                        {connections.name}
+                                    </p>
+                                </button>
+                                {/* </Link> */}
+                                <span className="text-sm">
+                                    <PositionName id={connections._id}/>
+                                </span>
+                                <div className="mt-2">
+                                    <StartDM userId={connections._id} userName={connections.name}/>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <hr />
                 </div>
-                <div className="flex flex-col pl-5">
-                    <p className="lg:text-md font-semibold">Saad</p>
-                    <span className="text-sm">Software Engineer</span>
-                    <button className="whiteBtn btn btn-sm bg-sky-400 font-light mt-3">
-                        <RiSendPlaneFill /> &nbsp; Message
-                    </button>
-                </div>
-            </div>
+            ))}
         </div>
-        <hr />
-
-        <div className="flex justify-left mt-2 mb-3">
-            <div className="flex items-start">
-                <div className='avatar'>
-                    <div className="w-12 rounded-full">
-                        <img src={profile_pic} />
-                    </div>
-                </div>
-                <div className="flex flex-col pl-5">
-                    <p className="lg:text-md font-semibold">Jonnathan</p>
-                    <span className="text-sm">Software Engineer</span>
-                    <button className="whiteBtn btn btn-sm bg-sky-400 font-light mt-3">
-                        <RiSendPlaneFill /> &nbsp; Message
-                    </button>
-                </div>
-            </div>
-        </div>
-        <hr />
-
-        <div className="flex justify-left mt-2 mb-3">
-            <div className="flex items-start">
-                <div className='avatar'>
-                    <div className="w-12 rounded-full">
-                        <img src={profile_pic} />
-                    </div>
-                </div>
-                <div className="flex flex-col pl-5">
-                    <p className="lg:text-md font-semibold">Hadi</p>
-                    <span className="text-sm">Software Engineer</span>
-                    <button className="whiteBtn btn btn-sm bg-sky-400 font-light mt-3">
-                        <RiSendPlaneFill /> &nbsp; Message
-                    </button>
-                </div>
-            </div>
-        </div>
-        <hr />
-
-        <div className="flex justify-left mt-2 mb-3">
-            <div className="flex items-start">
-                <div className='avatar'>
-                    <div className="w-12 rounded-full">
-                        <img src={profile_pic} />
-                    </div>
-                </div>
-                <div className="flex flex-col pl-5">
-                    <p className="lg:text-md font-semibold">Daria</p>
-                    <span className="text-sm">Software Engineer</span>
-                    <button className="whiteBtn btn btn-sm bg-sky-400 font-light mt-3">
-                        <RiSendPlaneFill /> &nbsp; Message
-                    </button>
-                </div>
-            </div>
-        </div>
-        <hr />
-
-        <div className="flex justify-left mt-2 mb-3">
-            <div className="flex items-start">
-                <div className='avatar'>
-                    <div className="w-12 rounded-full">
-                        <img src={profile_pic} />
-                    </div>
-                </div>
-                <div className="flex flex-col pl-5">
-                    <p className="lg:text-md font-semibold">Jean</p>
-                    <span className="text-sm">Software Engineer</span>
-                    <button className="whiteBtn btn btn-sm bg-sky-400 font-light mt-3">
-                        <RiSendPlaneFill /> &nbsp; Message
-                    </button>
-                </div>
-            </div>
-        </div>
-        <hr />
-    </div>
-  )
+    )
 }

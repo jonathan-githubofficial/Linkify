@@ -83,7 +83,9 @@ function ListSection(props) {
     var trimmedDescription = description.substring(0, maxLength);
 
     //re-trim if we are in the middle of a word
-    trimmedDescription = trimmedDescription.substring(0, Math.min(trimmedDescription.length, trimmedDescription.lastIndexOf(" ")))
+    if(description.length > 50) {
+        trimmedDescription = trimmedDescription.substring(0, Math.min(trimmedDescription.length, trimmedDescription.lastIndexOf(" "))) + " ...";
+    }
 
 
     return (
@@ -113,7 +115,7 @@ function ListSection(props) {
                     <span className={"jobs-location " + ((props.type == 'events') ? 'hidden' : '')}>{location}</span>
 
                     <div className='jobs-description pt-5'>
-                        {trimmedDescription} ...
+                        {trimmedDescription}
                     </div>
                 </div>
                 <div className='pt-5 text-right'>

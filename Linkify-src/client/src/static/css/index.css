@@ -42,7 +42,7 @@ img.eduLogo {
 }
 
 .editProfileModal {
-    height: 20rem !important;
+    height: 40rem !important;
 }
 
 .jobs-location {
@@ -84,4 +84,9 @@ img.eduLogo {
 .navbar-avatar img { 
     height: 3rem !important;
     width: 3rem !important;
+}
+/* feed */
+.feed-image {
+    padding-left: 2rem;
+    padding-right: 3rem;
 }

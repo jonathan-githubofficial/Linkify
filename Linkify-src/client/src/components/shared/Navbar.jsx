@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Avatar from '../shared/Avatar';
 
@@ -18,10 +18,76 @@ function Navbar(props) {
 
   var profile = props.profile;
 
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchHistory, setSearchHistory] = useState([]);
+
   const isLoggedIn = localStorage.getItem("loggedIn");
   const uid = localStorage.getItem("uid");
 
-  
+  const searchResultsRef = useRef(null);
+
+
+
+  const handleUserClick = (uid) => {
+    setSearchResults([]);
+    navigate(`/profile/${uid}`);
+    window.location.reload();
+
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchResultsRef.current && !searchResultsRef.current.contains(event.target)) {
+        setSearchResults([]);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleSearchInputChange = async (e) => {
+    const searchQuery = e.target.value;
+
+    if (searchQuery.length === 0) {
+      setSearchResults([]);
+    } else {
+      // Fetch users
+      const results = await fetchUsers(searchQuery);
+      setSearchResults(results);
+    }
+  };
+
+
+
+  function SearchResults({ results, onUserClick }) {
+    return (
+        <div className="z-50 search-results bg-white border border-gray-200 dark:bg-gray-800 dark:border-gray-600 rounded-lg mt-2 p-4 absolute w-full">
+          {results.map((user) => (
+              <Link to={`/profile/${user._id}`} key={user._id} onClick={() => onUserClick(user._id)}>
+                <div className="search-result flex items-center mb-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer transition duration-150">
+                  <img
+                      className="w-8 h-8 rounded-full"
+                      src={user.profilePic || profile_pic}
+                      alt="User"
+                  />
+                  <span className="ml-2 text-sm text-gray-700 dark:text-white">
+              {user.name}
+            </span>
+                </div>
+              </Link>
+          ))}
+        </div>
+    );
+  }
+
+  const fetchUsers = async (searchQuery) => {
+    const response = await fetch(`/api/account/search?q=${searchQuery}`);
+    const data = await response.json();
+    return data;
+  };
 
   return (
     <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
@@ -34,7 +100,7 @@ function Navbar(props) {
 
         {isLoggedIn ? (
           <>
-            <div id="search_bar">
+            <div id="search_bar" className="relative">
               <div className="navbar-center hidden lg:block">
                 <div className="form-control w-[47rem]">
                   <form className="flex items-center">
@@ -58,6 +124,8 @@ function Navbar(props) {
                         </svg>
                       </div>
                       <input
+                          autoComplete="off"
+                          onChange={handleSearchInputChange}
                         type="text"
                         id="simple-search"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -70,6 +138,11 @@ function Navbar(props) {
                       <span className="sr-only">Search</span>
                     </button> */}
                   </form>
+                  <div className="relative" ref={searchResultsRef}>
+                  {searchResults.length > 0 && (
+                      <SearchResults results={searchResults} onUserClick={handleUserClick} />
+                  )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -109,7 +182,7 @@ function Navbar(props) {
                   >
                     <FaBell />
                   </div>
-                
+
                 </Link>
               </div>
 
@@ -194,7 +267,7 @@ function Navbar(props) {
                       </li>
                     </ul>
                   </li>
-                  
+
                   <hr className="my-4"/>
                   <li>
                     <a href="#" onClick={logout} className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Logout</a>
@@ -202,7 +275,7 @@ function Navbar(props) {
                 </ul>
               </div>
 
-              
+
             </div>
 
           </>

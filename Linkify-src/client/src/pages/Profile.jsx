@@ -40,12 +40,32 @@ function Profile() {
       });
   };
 
+  const [connectionsData, setConnectionsData] = useState([]);
+
+  const getAllConnections = async () => {
+      const res = await axios.get("/api/user/connection/getAllConnections?", {
+        params: { userId: localStorage.getItem("uid") },
+      });
+      setConnectionsData(res.data);
+  };
+  
+  const [educations, setEducations] = useState([]);
+
+  const getMyEducations = async () => {
+      const res = await axios.get("/api/user/property/getMyEducations?", {
+        params: { id: localStorage.getItem("uid") },
+      });
+      setEducations(res.data);
+  };
+
   useEffect(() => {
-    getUser();
+      getUser();
+      getAllConnections();
+      getMyEducations();
   }, []);
 
   return (
-    <div className="">
+    <div key={params.id}>
       <Helmet>
         <meta charSet="utf-8" />
         <title>User Profile</title>
@@ -55,10 +75,11 @@ function Profile() {
           <div className="flex lg:gap-8">
             <UserProfile
               user={profile}
+              educations={educations}
               getUser={getUser}
               isOwner={isOwnProfile}
             />
-            <MyConnections />
+            <MyConnections connections={connectionsData} />
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@
 // date updated : Aprl 1st, 2023
 // Description: Headline component for showing the key basic info of user
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import { BiPencil } from "react-icons/bi";
 import { useParams } from "react-router-dom";
 import google_icon from "../../static/images/companies/google.png";
@@ -22,6 +22,7 @@ export default function HeadlineTop(props) {
   const [connectStatus, setConnectStatus] = React.useState(false);
   const [showCropModal, setShowCropModal] = React.useState(false);
   const [uploadedImage, setUploadedImage] = React.useState(null);
+  const [connectMessage, setConnectMessage] = React.useState("Connect");
 
   const sendRequest = async () => {
     const res = await axios.post("/api/user/connection/sendConnectionRequest", {
@@ -30,6 +31,7 @@ export default function HeadlineTop(props) {
     });
     if (res) {
       setConnectStatus(true);
+      setConnectMessage("Sent");
     }
     console.log("Accept: ", res);
   };
@@ -41,6 +43,30 @@ export default function HeadlineTop(props) {
   const handleCropModalShow = () => {
     setShowCropModal(true);
   };
+  const checkConnectionStatus = async () => {
+    const userId = localStorage.getItem("uid");
+    const profileId = params.id;
+    const res1 = await axios.get("/api/user/connection/getAllConnections?", {
+      params: { userId },
+    });
+    const res2 = await axios.get(
+      "/api/user/connection/getConnectionRequests?",
+      {
+        params: { userId: profileId },
+      }
+    );
+    if (res1.data.filter((item) => item._id === profileId).length > 0) {
+      setConnectStatus(true);
+      setConnectMessage("Connected");
+    } else if (res2.data.filter((item) => item._id === userId).length > 0) {
+      setConnectStatus(true);
+      setConnectMessage("Sent");
+    }
+  };
+
+  useEffect(() => {
+    checkConnectionStatus();
+  }, []);
 
   return (
     <div className="p-5 lg:top-24 md:top-15 w-full" style={{position: 'absolute'}}>
@@ -52,6 +78,7 @@ export default function HeadlineTop(props) {
                 <Avatar userId={props.userId} />
               </div>
             </div>
+         
             <SetupAvatar
               avatar={avatar}
               isOwner={props.isOwner}
@@ -60,24 +87,29 @@ export default function HeadlineTop(props) {
               setUploadedImage={setUploadedImage}
             />
           </div>
-
-            <div className={`grid content-center`}>
-              {props.isOwner ? (
-                <div style={{ marginLeft: "auto" }}>
-                  <label htmlFor="edit-profile-modal" className="">
-                    <BiPencil className="cursor-pointer text-xl" />
-                  </label>
-                </div>
-              ) : 
-                <button
-                  onClick={() => sendRequest()}
-                  disabled={connectStatus}
-                  className={`${!props.isOwner ? 'text-right col-end-10 justify-items-end' : ''} w-[6rem] primaryBtn btn btn-sm bg-sky-400 font-light`}
-                >
-                  {connectStatus ? "Sent" : "Connect"}
-                </button>
-              }
-            </div>
+          
+          <div className={`grid content-center`}>
+            {props.isOwner ? (
+              <div style={{ marginLeft: "auto" }}>
+                <label htmlFor="edit-profile-modal" className="">
+                  <BiPencil className="cursor-pointer text-xl" />
+                </label>
+              </div>
+            ) : 
+              <button
+                onClick={() => sendRequest()}
+                disabled={connectStatus}
+                className={`${!props.isOwner ? 'text-right col-end-10 justify-items-end' : ''} w-[6rem] primaryBtn btn btn-sm bg-sky-400 font-light`}
+                style={
+                  connectStatus
+                    ? { cursor: "not-allowed", color: "white" }
+                    : {}
+                }
+              >
+                {connectMessage}
+              </button>
+            }
+          </div>
           
           <EditProfile
             profile={profile}

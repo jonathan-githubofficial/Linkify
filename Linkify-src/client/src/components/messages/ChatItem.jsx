@@ -12,7 +12,7 @@ function ChatItem(props) {
 
     return (
 
-        <div className="w-full m-auto p-2 shadow-lg" onClick={() => selectChat(user)}>
+        <div className="w-full m-auto p-2 shadow-lg cursor-pointer" onClick={() => selectChat(user)}>
             <div className="container inline-flex justify-between">
                 <div className='w-1/8 avatar'>
                     <div class="w-12 h-12 rounded-full">
