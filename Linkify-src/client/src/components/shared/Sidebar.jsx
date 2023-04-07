@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import profile_pic from "../../static/images/profile.jpg";
+import Avatar from "./Avatar";
 
 export default function Sidebar(props) {
     var occupation = '';
@@ -17,7 +18,8 @@ export default function Sidebar(props) {
             <div className="w-[15rem]">
                 <div className="card bg-base-100 shadow-xl p-5">
                     <figure className="px-10 pt-10">
-                    <img src={profile_pic} alt="Shoes" className="rounded-xl" />
+                    {/* <img src={profile_pic} alt="Shoes" className="rounded-xl" /> */}
+                    <Avatar userId={props.userId}/>
                     </figure>
                     <div className="card-body items-center text-center">
                     <h2 className="card-title">{name}</h2>

@@ -58,7 +58,7 @@ function Profile() {
               getUser={getUser}
               isOwner={isOwnProfile}
             />
-            {isOwnProfile && <MyConnections />}
+            <MyConnections />
           </div>
         </div>
       </div>

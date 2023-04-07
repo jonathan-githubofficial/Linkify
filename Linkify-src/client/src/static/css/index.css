@@ -74,3 +74,14 @@ img.eduLogo {
     width: 5rem;
     height: 5rem;
 }
+
+/* Navbar */
+.navbar-avatar { 
+    height: 3rem !important;
+    width: 3rem !important;
+}
+
+.navbar-avatar img { 
+    height: 3rem !important;
+    width: 3rem !important;
+}

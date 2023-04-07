@@ -43,62 +43,42 @@ export default function HeadlineTop(props) {
   };
 
   return (
-    <div className="p-5">
+    <div className="p-5 lg:top-24 md:top-15 w-full" style={{position: 'absolute'}}>
       <div className="grid grid-col-2 mb-2 flex">
-        <div class="grid grid-cols-2 gap-2 items-start">
+        <div class="grid grid-cols-2 gap-2 h-[8.5rem]">
           <div>
-          <Avatar userId={props.userId} />
-          <SetupAvatar
+            <div className="flex items-center">
+              <div className="w-24 h-24 lg:flex justify-center md:block sm:block flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" >
+                <Avatar userId={props.userId} />
+              </div>
+            </div>
+            <SetupAvatar
               avatar={avatar}
               isOwner={props.isOwner}
               getUser={props.getUser}
               onEdit={handleCropModalShow}
               setUploadedImage={setUploadedImage}
             />
-            <div className="flex items-center">
-              {company != "" ? (
-                <img src={google_icon} className="w-6" alt="" />
-              ) : (
-                ""
-              )}
-              {company != "" ? (
-                <label className="text-md pl-2 font-semibold">{company}</label>
-              ) : (
-                ""
-              )}
-            </div>
-            <div>
-              <p
-                className="primaryGray text-[0.8rem] mt-2"
-                datat-testid="user-location"
-              >
-                Laval, Quebec, Canada
-              </p>
-            </div>
-            <div className="mt-5">
-              {!props.isOwner && (
-                <button
-                  onClick={() => sendRequest()}
-                  disabled={connectStatus}
-                  className="primaryBtn btn btn-sm bg-sky-400 font-light"
-                >
-                  {connectStatus ? "Sent" : "Connect"}
-                </button>
-              )}
-            </div>
           </div>
 
-          <div>
-            <div className="flex">
-              {props.isOwner && (
+            <div className={`grid content-center`}>
+              {props.isOwner ? (
                 <div style={{ marginLeft: "auto" }}>
                   <label htmlFor="edit-profile-modal" className="">
                     <BiPencil className="cursor-pointer text-xl" />
                   </label>
                 </div>
-              )}
+              ) : 
+                <button
+                  onClick={() => sendRequest()}
+                  disabled={connectStatus}
+                  className={`${!props.isOwner ? 'text-right col-end-10 justify-items-end' : ''} w-[6rem] primaryBtn btn btn-sm bg-sky-400 font-light`}
+                >
+                  {connectStatus ? "Sent" : "Connect"}
+                </button>
+              }
             </div>
-          </div>
+          
           <EditProfile
             profile={profile}
             avatar={avatar}

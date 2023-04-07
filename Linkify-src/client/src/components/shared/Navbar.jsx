@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Avatar from '../shared/Avatar';
 
 import profile_pic from "../../static/images/profile.jpg";
 import { FaSuitcase, FaComments, FaUserFriends, FaBell } from "react-icons/fa";
@@ -114,18 +115,13 @@ function Navbar(props) {
 
               <button
                 type="button"
-                className="hidden lg:block md:block sm:block flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                className="hidden w-10 h-10 lg:block md:block sm:block flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                 id="user-menu-button"
                 aria-expanded="false"
                 data-dropdown-toggle="user-dropdown"
                 data-dropdown-placement="bottom"
               >
-                <span className="sr-only">Profile</span>
-                <img
-                  className="w-8 h-8 rounded-full"
-                  src={profile_pic}
-                  alt="user photo"
-                />
+                <Avatar userId={uid} />
               </button>
 
               {/* Dropdown menu */}

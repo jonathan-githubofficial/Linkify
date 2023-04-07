@@ -9,7 +9,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const Avatar = ({ userId }) => {
+const Avatar = ({ userId, type }) => {
   const [avatarUrl, setAvatarUrl] = useState('');
   const [userName, setUserName] = useState('');
 
@@ -43,9 +43,9 @@ const Avatar = ({ userId }) => {
   const imageUrl = avatarUrl && `http://localhost:8080/${avatarUrl}`;
 
   return (
-    <div className="w-24 h-24 rounded-full bg-purple-200 flex items-center justify-center text-2xl font-bold text-white">
+    <div className={`rounded-full flex items-center justify-center text-2xl font-bold text-white`}>
       {imageUrl ? (
-        <img src={imageUrl} alt="Profile Avatar" className="w-24 h-24 rounded-full" />
+        <img src={imageUrl} alt="Profile Avatar" className={`rounded-full`} />
       ) : (
         getInitials(userName)
       )}

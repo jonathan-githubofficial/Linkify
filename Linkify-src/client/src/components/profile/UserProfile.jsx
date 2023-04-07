@@ -72,14 +72,12 @@ export default function UserProfile(props) {
 
   return (
     <div class="w-full lg:w-3/4 bg-white relative lg:rounded-t-xl">
-           <ProfileCover
+      <ProfileCover
         name={profile_name}
         position={position}
         company={company}
         userId={profile._id}
       />
-      <hr />
-
       <HeadlineTop
         profile={profile}
         company={company}
