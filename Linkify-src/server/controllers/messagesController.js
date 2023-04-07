@@ -7,8 +7,8 @@
  deleting all messages between two users, deleting a single message by ID, 
  getting all users who have a conversation with each other, and getting all messages sent to a specific receiver.*/
 
-const Account = require("../models/accountM");
-const Message = require("../models/messagesM");
+const Account = require("../models/accountModel");
+const Message = require("../models/messagesModel");
 const asyncHandler = require("express-async-handler");
 
 // Create a new message

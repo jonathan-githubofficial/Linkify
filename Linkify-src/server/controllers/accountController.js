@@ -6,7 +6,7 @@
  These include user registration, authentication, getting all users, getting user details by id or email,
   updating user details and password, adding a profile image, deleting a user, matching current password, and updating the user profile.*/
 
-const accountM = require("../models/accountM.js");
+const accountM = require("../models/accountModel.js");
 const asyncHandler = require("express-async-handler");
 
 const login = asyncHandler(async (req, res) => {

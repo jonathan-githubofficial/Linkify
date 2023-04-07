@@ -5,7 +5,7 @@
 /* Description: This file contains the methods for handling the various company related HTTP requests.
  These include getting all companies, creating a new company, getting a specific company by ID, updating a company, and deleting a company.*/
 
-const Company = require('../models/companyM');
+const Company = require('../models/companyModel');
 const asyncHandler = require('express-async-handler');
 
 // Get all companies

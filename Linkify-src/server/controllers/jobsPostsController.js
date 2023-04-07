@@ -6,7 +6,7 @@
  These include getting all job posts, getting a job post by id, creating a job post, deleting a job post,
  updating a job post, getting all job posts by a user, and applying to a job post. */
 
-const jobPostM = require("../models/jobPostM.js");
+const jobPostM = require("../models/jobPostModel.js");
 const asyncHandler = require("express-async-handler");
 
 // @desc    Get all job posts

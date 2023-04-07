@@ -6,7 +6,7 @@
  These include sending connection requests, accepting connection requests, rejecting connection requests, and removing connections.*/
 
 const asyncHandler = require("express-async-handler");
-const accountM = require("../models/accountM.js");
+const accountM = require("../models/accountModel.js");
 
 const getAllConnections = asyncHandler(async (req, res) => {
   const { userId } = req.query;

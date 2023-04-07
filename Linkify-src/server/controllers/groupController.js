@@ -6,7 +6,7 @@
 These include getting all groups, creating a new group, 
 getting a specific group by ID, updating a group, and deleting a group.*/
 
-const Group = require('../models/groupM');
+const Group = require('../models/groupModel');
 const asyncHandler = require('express-async-handler');
 
 // Get all groups

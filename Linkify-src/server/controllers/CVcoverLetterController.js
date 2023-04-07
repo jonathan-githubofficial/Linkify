@@ -6,7 +6,7 @@
  related to CV cover letters. These include adding and deleting cover letters and resumes.*/
 
 
-const accountM = require("../models/accountM.js");
+const accountM = require("../models/accountModel.js");
 const asyncHandler = require("express-async-handler");
 
 // add cover letter

@@ -7,7 +7,7 @@
  adding/editing/deleting education, adding/deleting/editing projects,
  adding/updating location, and managing experience.*/
 
-const accountM = require("../models/accountM");
+const accountM = require("../models/accountModel");
 const asyncHandler = require("express-async-handler");
 
 
