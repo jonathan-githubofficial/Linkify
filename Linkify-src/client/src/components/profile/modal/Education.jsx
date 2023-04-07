@@ -5,24 +5,50 @@
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Buffer } from "buffer";
+import Datepicker from 'flowbite-datepicker/Datepicker';
+import moment from 'moment';
 
-import { BiPencil } from "react-icons/bi";
 
 export default function Education(props) {
   var id = props.id;
   // let id = "63eabb9c07f2dc10446a1c7c";
   var educations = props.educations;
 
-  const [experience, setEducation] = useState("");
+  const [school, setSchool] = useState("");
+  const [degree, setDegree] = useState("");
+  const [fieldOfStudy, setFieldOfStudy] = useState("");
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState("");
 
-  const handleExperience = (e) => {
-    const new_experience = e.target.value;
-    console.log(new_experience);
-    setEducation(new_experience);
+  const handleSchoolName = (e) => {
+    const school_name = e.target.value;
+    console.log(school_name);
+    setSchool(school_name);
   };
-
-  const addExperience = async (e) => {
+  const handleDegree = (e) => {
+    const degree = e.target.value;
+    console.log(degree);
+    setDegree(degree);
+  };
+  const handleFieldOfStudy = (e) => {
+    const field_of_study = e.target.value;
+    console.log(field_of_study);
+    setFieldOfStudy(field_of_study);
+  };
+  
+  const handleStartDate = (e) => {
+    const start_date = e.target.value;
+    console.log(start_date);
+    setStartDate(start_date);
+  }
+  
+  const handleEndDate = (e) => {
+    const end_date = e.target.value;
+    console.log(end_date);
+    setEndDate(end_date);
+  };
+  
+  const addEducation = async (e) => {
     e.preventDefault();
 
     var token =
@@ -34,18 +60,22 @@ export default function Education(props) {
       Authorization: `Bearer ${token}`,
     };
 
-    const newExperience = { id: id, experience: experience };
-    console.log(newExperience);
+    const newEducation = { id: id, school: school, degree : degree, fieldOfStudy: fieldOfStudy, from : startDate, to: endDate };
+    console.log(newEducation);
 
     await axios
-      .post("/api/user/property/addExperience", newExperience, headers)
+      .post("/api/user/property/addEducation", newEducation, headers)
       .then((res) => {
         console.log("Adding", res);
         props.getUser();
       })
       .catch((err) => console.log("Error", err));
 
-    setEducation("");
+    setSchool("");
+    setDegree("");
+    setFieldOfStudy("");
+    setStartDate("");
+    setEndDate("");
   };
 
   return (
@@ -61,14 +91,8 @@ export default function Education(props) {
           </label>
           <h1 className="text-xl font-semibold mb-5">Edit Education</h1>
           <div>
-            <form>
+            <form autoComplete="off">
               <div className="">
-                <p className="mb-5">
-                  Separate each field by comma:&nbsp;
-                  <div className="italic text-sm">
-                    school, degree, field of study, from, to
-                  </div>
-                </p>
 
                 <div className="md:w-1/3">
                   <label
@@ -79,16 +103,49 @@ export default function Education(props) {
                   </label>
                 </div>
                 <div className="md:w-2/3">
-                  <input
-                    value={experience}
-                    onChange={handleExperience}
-                    placeholder="Experience"
-                    className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                    type="text"
-                  />
+
+                  <div className="mb-6">
+                    <label htmlFor="school-name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">School Name</label>
+                    <input type="text" id="school-name" value={school} onChange={handleSchoolName} className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your event name" required />
+                  </div>
+
+                  <div className="mb-6">
+                    <div class="flex space-x-4">
+                      <div class="w-1/2 ">
+                        <div className="">
+                          <label htmlFor="degree" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Degree</label>
+                          <input type="text" id="degree" value={degree} onChange={handleDegree} className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your event name" required />
+                        </div>
+                      </div>
+                      <div class="w-1/2 ">
+                        <div>
+                          <label htmlFor="field-of-study" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Field of Study</label>
+                          <input type="text" id="field-of-study" value={fieldOfStudy} onChange={handleFieldOfStudy} className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your event name" required />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="mb-6">
+                    <div class="flex space-x-4">
+                      <div class="w-1/2 ">
+                        <div className="">
+                          <label htmlFor="start-date" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start Date</label>
+                          <input type="text" id="start-date" value={startDate} onChange={handleStartDate} className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your event name" required />
+                        </div>
+                      </div>
+                      <div class="w-1/2 ">
+                        <div>
+                          <label htmlFor="end-date" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Graduation Date</label>
+                          <input type="text" id="end-date" value={endDate} onChange={handleEndDate} className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your event name" required />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
               </div>
-              <button onClick={addExperience} className="primaryBtn btn mt-5">
+              <button onClick={addEducation} className="primaryBtn btn mt-5">
                 Add
               </button>
               {/* <input type="submit" /> */}

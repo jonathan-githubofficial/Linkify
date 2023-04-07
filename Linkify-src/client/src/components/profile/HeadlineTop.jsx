@@ -62,26 +62,7 @@ export default function HeadlineTop(props) {
         <div class="grid grid-cols-2 gap-2 items-start">
           <div>
             <div className="flex items-center">
-              {/* <img src={google_icon} className='w-6' alt="" />
-                                <label className='text-md pl-2 font-semibold'>{company}</label> */}
-              {company != "" ? (
-                <img src={google_icon} className="w-6" alt="" />
-              ) : (
-                ""
-              )}
-              {company != "" ? (
-                <label className="text-md pl-2 font-semibold">{company}</label>
-              ) : (
-                ""
-              )}
-            </div>
-            <div>
-              <p
-                className="primaryGray text-[0.8rem] mt-2"
-                datat-testid="user-location"
-              >
-                Laval, Quebec, Canada
-              </p>
+              Hi, you can edit your profile here.
             </div>
             <div className="mt-5">
               {!props.isOwner && (

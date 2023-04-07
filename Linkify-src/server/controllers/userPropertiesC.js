@@ -126,8 +126,8 @@ const getMyAllEducation = asyncHandler(async (req, res) => {
 
 // add education
 const addEducation = asyncHandler(async (req, res) => {
-  const { id } = req.query;
-  const { school, degree, fieldOfStudy, from, to } = req.query;
+  const { id } = req.body;
+  const { school, degree, fieldOfStudy, from, to } = req.body;
   const user = await accountM.findById(id);
   if (user) {
     const newEducation = { school, degree, fieldOfStudy, from, to };

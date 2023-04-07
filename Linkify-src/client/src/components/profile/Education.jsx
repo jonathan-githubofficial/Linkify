@@ -10,43 +10,12 @@ import default_education from "../../static/images/education/default_education.p
 
 export default function Education(props) {
   let id = props.id;
-  var educations = props.educations;
-  // const [educations, setEducations] = useState([]);
+  const [educations, setEducations] = useState([]);
 
-  // const getMyEducations = async () => {
-  //   const res = await axios.get("/api/user/property/getMyEducations?", {
-  //     params: { id: localStorage.getItem("uid") },
-  //   });
-  //   setEducations(res.data);
-  // };
+  useEffect(async () => {
+    setEducations(await props.educations);
+  });
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const res = await axios.get("/api/user/property/getMyEducations?", {
-  //       params: { id: localStorage.getItem("uid") },
-  //     });
-  //     console.log("e" + res);
-  //     setEducations(res.data);
-  //   };
-  //   fetchData();
-  // }, []);
-
-
-  // const listItems = educations.map(
-  //     (education) => {
-  //         return (
-  //             <ul type="disc">
-  //                 <li style={{
-  //                     fontWeight: 'bold',
-  //                     color: 'red' }}
-  //                 >
-  //                     {education.school}
-  //                 </li>
-  //                 <li>{education.degree}</li>
-  //             </ul>
-  //         )
-  //     }
-  // )
 
   return (
     <div className="p-5">
@@ -58,7 +27,7 @@ export default function Education(props) {
           <div className="flex">
             {props.isOwner && (
               <div style={{ marginLeft: "auto" }}>
-                <label htmlFor="my-modal-5" className="">
+                <label htmlFor="education-modal" className="">
                   <BiPencil className="cursor-pointer text-xl" />
                 </label>
               </div>
@@ -74,7 +43,8 @@ export default function Education(props) {
       />
 
       <div>
-        {educations.map(education => (
+        {educations && educations.length == 0 ? "No education added yet" : ""}
+        {educations.slice(0).reverse().map(education => (
           <div>
             <div className="flex justify-left mt-2">
                 <div className="flex items-start">
@@ -111,7 +81,7 @@ export default function Education(props) {
         ))}
       </div>
 
-      <hr />
+      <hr className='mt-5'/>
     </div>
   );
 }

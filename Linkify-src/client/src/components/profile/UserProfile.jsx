@@ -24,6 +24,7 @@ export default function UserProfile(props) {
   var languages = profile.languages;
 
   var experiences = profile.experience;
+  var educations = props.educations;
   var projects = profile.projects;
 
   // For Header Cover
@@ -92,7 +93,7 @@ export default function UserProfile(props) {
 
       <Education
         id={profile_id}
-        educations={props.educations}
+        educations={educations}
         getUser={props.getUser}
         isOwner={props.isOwner}
       />

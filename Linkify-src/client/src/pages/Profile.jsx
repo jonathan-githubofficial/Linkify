@@ -64,8 +64,6 @@ function Profile() {
       getMyEducations();
   }, []);
 
-  console.log("education" + educations);
-
   return (
     <div className="">
       <Helmet>
