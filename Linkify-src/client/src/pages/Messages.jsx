@@ -17,6 +17,7 @@ import DecryptFile from '../components/messages/DecryptFile';
 
 function Messages() {
 
+
   const navigate = useNavigate();
 
   // checks if user is logged in, if not, redirects to login page
@@ -44,7 +45,8 @@ function Messages() {
 
   const [encryptedFileName, setEncryptedFileName] = useState('');
   const [encryptedFileUrl, setEncryptedFileUrl] = useState('');
-
+  const [currentMessages, setCurrentMessages] = useState('');
+  
 
 
   useEffect(() => {
@@ -59,7 +61,7 @@ function Messages() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [currentMessages]);
 
   useEffect(() => {
 
@@ -89,6 +91,42 @@ function Messages() {
     });
 
   }, [respondents]);
+
+
+  useEffect(() => {
+    const pollInterval = 2000;
+
+    const pollForNewMessages = () => {      
+      checkForNewMessages();      
+    };
+
+    const intervalId = setInterval(pollForNewMessages, pollInterval);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+
+  function checkForNewMessages() {
+    axios
+      .get("/api/messages/receiver", {
+        params: { receiver: currentUser },
+      })
+      .then((res) => {
+        
+        const newMessages = JSON.stringify(res.data);
+        
+        setCurrentMessages((prevMessages) => {          
+          if (prevMessages  !== newMessages) {              
+            return newMessages;
+          }
+          return prevMessages;
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
 
 
