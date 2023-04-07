@@ -52,6 +52,8 @@ export default function EditProfile(props) {
         .catch(err => {console.log('Error', err); setProfileUpdated(2)})
     }
 
+
+
     const [current_pass, setCurrentPass] = useState('');
     const [new_pass, setNewPass] = useState('');
     const [confirm_pass, setConfirmPass] = useState('');
@@ -130,6 +132,36 @@ export default function EditProfile(props) {
     //     // changePassword();
     //     setPassVerified(pass_verified)
     // }, [pass_verified])
+
+
+
+    const deleteAccount = async () => {
+        const confirmation = window.confirm("Are you sure you want to delete your account? This action cannot be undone.");
+
+        if (!confirmation) {
+            return;
+        }
+
+        const token = 'ewogICAgdXNlcm5hbWU6ICJraGFsaWRAdGVzdC5jb20iLAogICAgcGFzc3dvcmQ6ICJwYXNzMSIKfQ==';
+
+        const headers = {
+            'Content-Type': 'application/json; charset=UTF-8',
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`,
+        };
+
+        await axios.delete(`/api/account/deleteUser?id=${profile._id}`, { headers })
+            .then((res) => {
+                console.log("Account deleted successfully", res);
+
+                localStorage.removeItem("loggedIn");
+
+                window.location.reload()
+            })
+            .catch((err) => {
+                console.log("Error deleting account", err);
+            });
+    };
 
 
     
@@ -274,6 +306,9 @@ export default function EditProfile(props) {
                                                 <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[440px] mb-2.5" />
                                                 <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[460px] mb-2.5" />
                                                 <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]" />
+                                                <button onClick={deleteAccount} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                                    Delete Account
+                                                </button>
                                             </div>
                                             <span className="sr-only">Loading...</span>
                                         </div>
