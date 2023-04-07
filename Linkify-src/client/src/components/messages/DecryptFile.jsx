@@ -30,7 +30,7 @@ function DecryptFile(props) {
 
             const { salt, iv } = await deriveSaltAndIV(password);
 
-            const response = await axios.get(fileUrl, {
+            const response = await axios.get("\\" + fileUrl, {            
                 responseType: 'blob',
             });
 
