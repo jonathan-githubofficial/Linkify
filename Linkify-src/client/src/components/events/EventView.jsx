@@ -183,7 +183,7 @@ export default function EventView() {
                                                 </div>
                                             </div>
                                             <div>
-                                                {2} members
+                                                {event.members} members
                                             </div>
                                         </div>
                                     </div>

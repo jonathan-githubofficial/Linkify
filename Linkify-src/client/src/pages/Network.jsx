@@ -104,7 +104,7 @@ function Network() {
                                 {network.name}
                               </p>
                               <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                                <PositionName profile={network} />
+                                <PositionName id={network._id} />
                               </p>
                             </div>
                             <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
@@ -154,7 +154,7 @@ function Network() {
                                 {connections.name}
                               </p>
                               <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                                <PositionName profile={connections} />
+                                <PositionName id={connections._id} />
                               </p>
                             </div>
                             <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
