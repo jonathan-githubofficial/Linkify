@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import profile_pic from "../static/images/profile.jpg";
+import default_job_pic from '../static/images/default_job.png';
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import MyConnections from "../components/profile/MyConnections";
@@ -523,7 +524,7 @@ const Jobs = () => {
                                             <div onClick={() => handleOpenModal(job)} className="flex flex-col justify-between gap-3 px-6 py-6 border border-gray-200 lg:flex-row group hover:border-black rounded-xl">
                                                 <div className="flex flex-col items-start flex-1 gap-5 lg:flex-row">
                                                     <div className="w-20">
-                                                        <img className={"rounded-lg"} src={profile_pic} alt="Logo"/>
+                                                        <img className={"rounded-lg"} src={default_job_pic} alt="Logo"/>
                                                     </div>
 
                                                     <div className="flex-1 items-initial lg:text-start">
