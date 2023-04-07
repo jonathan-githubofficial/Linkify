@@ -383,7 +383,7 @@ function Messages() {
   }
 
   return (
-    <div>
+    <div className='pb-16 sm:pb-0'>
       <Helmet>
         <meta charSet='utf-8' />
         <title>Messages</title>
