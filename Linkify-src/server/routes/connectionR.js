@@ -1,5 +1,5 @@
 const express = require("express");
-const connectionController = require("../controllers/connectionC.js");
+const connectionController = require("../controllers/connectionController.js");
 
 const router = express.Router();
 

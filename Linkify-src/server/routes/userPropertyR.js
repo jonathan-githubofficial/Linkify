@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const userPropertyController = require("../controllers/userPropertiesC.js");
+const userPropertyController = require("../controllers/userPropertiesController.js");
 
 // @desc Add a new skill to user profile
 // @route POST /api/user/property/addSkill

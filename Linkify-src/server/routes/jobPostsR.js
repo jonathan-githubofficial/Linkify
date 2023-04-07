@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const jobPostsController = require("../controllers/jobsPostsC");
+const jobPostsController = require("../controllers/jobsPostsController");
 
 // @desc Get all job posts
 // @route GET /api/user/jobPosts/getJobPosts

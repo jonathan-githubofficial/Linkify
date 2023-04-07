@@ -1,5 +1,5 @@
 const express = require("express");
-const cvController = require("../controllers/CVcoverLetterC.js");
+const cvController = require("../controllers/CVcoverLetterController.js");
 
 const router = express.Router();
 

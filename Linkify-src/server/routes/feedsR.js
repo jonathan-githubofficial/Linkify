@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const feedsController = require("../controllers/feedsC");
+const feedsController = require("../controllers/feedsController");
 const upload = require("../middleware/multerFeeds");
 
 // @desc Create a new feed post

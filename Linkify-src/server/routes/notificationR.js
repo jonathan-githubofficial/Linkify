@@ -1,7 +1,7 @@
 // notificationRoutes.js
 const express = require("express");
 const router = express.Router();
-const notificationController = require("../controllers/notificationC")
+const notificationController = require("../controllers/notificationController")
 
 /**
  * @desc Create a new notification
