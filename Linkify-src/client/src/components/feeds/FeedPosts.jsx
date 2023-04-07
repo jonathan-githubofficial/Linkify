@@ -89,6 +89,7 @@ function FeedPosts({ currentUserId, getFeed, getFeeds }) {
       console.error("Error removing comment:", error.message);
     }
   };
+  
   const toggleLike = (postId, liked) => {
     if (liked) {
       removeLike(postId);

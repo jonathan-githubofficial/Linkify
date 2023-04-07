@@ -5,6 +5,7 @@ import profile_pic from "../../static/images/profile.jpg";
 import { FaSuitcase, FaComments, FaUserFriends, FaBell } from "react-icons/fa";
 
 import logo from "../../static/images/logo.svg";
+import justLogo from '../../static/images/just-logo.png'
 
 function Navbar(props) {
   const navigate = useNavigate();
@@ -93,7 +94,7 @@ function Navbar(props) {
       <div className="container flex flex-wrap items-center justify-between mx-auto">
         <div className="dropdown">
           <Link to="/">
-            <img className="h-10" src={logo} alt="Linkify" />
+            <img className="h-10" src={justLogo} alt="Linkify" />
           </Link>
         </div>
 
@@ -101,12 +102,12 @@ function Navbar(props) {
           <>
             <div id="search_bar" className="relative">
               <div className="navbar-center hidden lg:block">
-                <div className="form-control w-[47rem]">
+                <div className="form-control md:w-[32rem] xl:w-[47rem]">
                   <form className="flex items-center">
                     <label htmlFor="simple-search" className="sr-only">
                       Search
                     </label>
-                    <div className="relative w-full">
+                    <div className="relative w-1/2 md:w-[32rem] xl:w-full">
                       <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <svg
                           aria-hidden="true"

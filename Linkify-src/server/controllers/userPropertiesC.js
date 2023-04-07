@@ -30,7 +30,7 @@ const addSkill = asyncHandler(async (req, res) => {
 
 // delete Skill
 const deleteSkill = asyncHandler(async (req, res) => {
-  const { id, skill } = req.query;
+  const { id, skill } = req.body;
   const user = await accountM.findById(id);
   if (user) {
     user.skills = user.skills.filter((item) => item !== skill);

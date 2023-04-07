@@ -45,6 +45,14 @@ img.eduLogo {
     height: 40rem !important;
 }
 
+.actualProperty:hover .editProperty {
+    display: initial;
+}
+
+.editProperty {
+    display: none;
+}
+
 .jobs-location {
     font-size: 14px;
     color: gray;
