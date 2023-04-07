@@ -87,7 +87,7 @@ export default function MyGroupsComponent(props) {
                 </div>
                 </>
                 }
-                <Link to={type_redirect} className='whiteBtn btn btn-sm bg-sky-400 font-light mt-3'>
+                <Link to={type_redirect} className='whiteBtn btn btn-sm bg-sky-400 font-light mt-3 w-[5rem]'>
                     View
                 </Link>
             </div>
