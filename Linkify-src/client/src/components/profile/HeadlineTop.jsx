@@ -112,7 +112,7 @@ export default function HeadlineTop(props) {
                 <button
                   onClick={() => sendRequest()}
                   disabled={connectStatus}
-                  className={`w-[6rem] connectedBtn primaryBtn btn btn-sm bg-sky-400 font-light`}
+                  className={`w-[6rem] primaryBtn btn btn-sm bg-sky-400 font-light`}
                   style={
                     connectStatus
                       ? { cursor: "not-allowed", color: "white" }

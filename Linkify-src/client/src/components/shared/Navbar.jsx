@@ -6,6 +6,7 @@ import profile_pic from "../../static/images/profile.jpg";
 import { FaSuitcase, FaComments, FaUserFriends, FaBell } from "react-icons/fa";
 
 import logo from "../../static/images/logo.svg";
+import logo_icon from "../../static/images/logo-icon.png";
 
 function Navbar(props) {
   const navigate = useNavigate();
@@ -96,16 +97,20 @@ function Navbar(props) {
         {/* Logo */}
         <div className="dropdown">
           <Link to="/">
-            <img className="h-10" src={logo} alt="Linkify" />
+            <picture>
+              <source media="(max-width: 390px)" srcSet={logo} className="h-10"/>
+              <img className="h-10" src={logo} alt="Linkify" />
+            </picture>
+
           </Link>
         </div>
 
         {isLoggedIn ? (
           <>
             {/* Search bar */}
-            <div id="search_bar" className="hidden sm:block">
+            <div id="search_bar" className="">
               <div className="navbar-center">
-                <div className="form-control sm:w-[32rem] md:w-[30rem] lg:w-[47rem] ">
+                <div className="form-control w-full sm:w-[32rem] md:w-[30rem] lg:w-[47rem] ">
                   <form className="flex items-center">
                     <label htmlFor="simple-search" className="sr-only">
                       Search
@@ -132,7 +137,7 @@ function Navbar(props) {
                         type="text"
                         id="simple-search"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Search for people on Linkify..."
+                        placeholder="Search on Linkify..."
                         required
                       />
                     </div>
