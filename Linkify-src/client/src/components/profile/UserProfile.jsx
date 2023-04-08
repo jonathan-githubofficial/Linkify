@@ -81,6 +81,8 @@ export default function UserProfile(props) {
       <HeadlineTop
         profile={profile}
         company={company}
+        position={position}
+        country={country}
         avatar={<Avatar userId={profile._id} />}
         getUser={props.getUser}
         isOwner={props.isOwner}

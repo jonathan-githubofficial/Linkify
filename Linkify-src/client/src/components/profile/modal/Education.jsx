@@ -82,7 +82,7 @@ export default function Education(props) {
     <div>
       <input type="checkbox" id="education-modal" className="modal-toggle" />
       <div className="modal items-start pt-10">
-        <div className="modal-box w-11/12 max-w-5xl editProfileModal">
+        <div className="modal-box lg:w-3/5 max-w-5xl editProfileModal">
           <label
             htmlFor="education-modal"
             className="btn btn-sm btn-circle absolute right-2 top-2"
@@ -94,7 +94,7 @@ export default function Education(props) {
             <form autoComplete="off">
               <div className="">
 
-                <div className="md:w-1/3">
+                <div className="">
                   <label
                     className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                     htmlFor="inline-full-name"
@@ -102,7 +102,7 @@ export default function Education(props) {
                     New Education
                   </label>
                 </div>
-                <div className="md:w-2/3">
+                <div className="">
 
                   <div className="mb-6">
                     <label htmlFor="school-name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">School Name</label>

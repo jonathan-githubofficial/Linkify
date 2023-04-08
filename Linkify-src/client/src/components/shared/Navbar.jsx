@@ -6,6 +6,7 @@ import profile_pic from "../../static/images/profile.jpg";
 import { FaSuitcase, FaComments, FaUserFriends, FaBell } from "react-icons/fa";
 
 import logo from "../../static/images/logo.svg";
+import logo_icon from "../../static/images/logo-icon.png";
 
 function Navbar(props) {
   const navigate = useNavigate();
@@ -91,18 +92,25 @@ function Navbar(props) {
 
   return (
     <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
-      <div className="container flex flex-wrap items-center justify-between mx-auto">
+      <div className="md:container lg:container flex flex-wrap items-center justify-between mx-auto">
+        
+        {/* Logo */}
         <div className="dropdown">
           <Link to="/">
-            <img className="h-10" src={logo} alt="Linkify" />
+            <picture>
+              <source media="(max-width: 390px)" srcSet={logo} className="h-10"/>
+              <img className="h-10" src={logo} alt="Linkify" />
+            </picture>
+
           </Link>
         </div>
 
         {isLoggedIn ? (
           <>
-            <div id="search_bar" className="relative">
-              <div className="navbar-center hidden lg:block">
-                <div className="form-control w-[47rem]">
+            {/* Search bar */}
+            <div id="search_bar" className="">
+              <div className="navbar-center">
+                <div className="form-control w-full sm:w-[32rem] md:w-[30rem] lg:w-[47rem] ">
                   <form className="flex items-center">
                     <label htmlFor="simple-search" className="sr-only">
                       Search
@@ -129,7 +137,7 @@ function Navbar(props) {
                         type="text"
                         id="simple-search"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Search for people on Linkify..."
+                        placeholder="Search on Linkify..."
                         required
                       />
                     </div>
@@ -147,6 +155,7 @@ function Navbar(props) {
               </div>
             </div>
 
+            {/* Icons and dropdown */}
             <div className="flex items-center md:order-2" id="profile_dropdown">
               <div className="hidden md:block">
                 <Link to="/Network">
@@ -188,7 +197,7 @@ function Navbar(props) {
 
               <button
                 type="button"
-                className="hidden w-10 h-10 lg:block md:block sm:block flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                className="hidden md:block w-10 h-10 flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                 id="user-menu-button"
                 aria-expanded="false"
                 data-dropdown-toggle="user-dropdown"

@@ -90,3 +90,11 @@ img.eduLogo {
     padding-left: 2rem;
     padding-right: 3rem;
 }
+
+/* Profile */
+.connectedBtn {
+    background: #a7a7a7 !important;
+    color: #0D3D7F !important;
+    font-size: 0.8rem !important;
+    width: 5rem !important;
+}

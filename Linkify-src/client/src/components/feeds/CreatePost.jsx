@@ -55,7 +55,7 @@ const CreatePost = ({ onPostCreated }) => {
   };
 
   return (
-    <div className="w-11/12 bg-white p-4 rounded-lg shadow mb-6">
+    <div className="w-full sm:w-2/3 md:w-2/3 lg:w-11/12 bg-white p-4 rounded-lg shadow mb-6">
       <input
         className="w-full border border-gray-300 p-2 rounded-lg focus:border-blue-500 focus:outline-none mb-2"
         type="text"
