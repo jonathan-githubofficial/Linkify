@@ -42,7 +42,7 @@ export default function Experience(props) {
           getUser={props.getUser}
         />
         <div>
-          {experiences && experiences.length == 0 ? "No experiences yet" : ""}
+          {experiences && experiences.length == 0 ? "No experience added yet" : ""}
           {experiences &&
             Object.keys(experiences)
               .slice(0)

@@ -5,7 +5,7 @@
 // date updated : Aprl 1st, 2023
 // Description: Headline component for showing the key basic info of user
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BiPencil } from "react-icons/bi";
 import { useParams } from "react-router-dom";
 import google_icon from "../../static/images/companies/google.png";
@@ -23,6 +23,15 @@ export default function HeadlineTop(props) {
   const [showCropModal, setShowCropModal] = React.useState(false);
   const [uploadedImage, setUploadedImage] = React.useState(null);
   const [connectMessage, setConnectMessage] = React.useState("Connect");
+
+  const [connectionsData, setConnectionsData] = useState([]);
+  const getAllConnections = async () => {
+    const res = await axios.get("/api/user/connection/getAllConnections?", {
+      params: { userId: params.id },
+    });
+    console.log(res.data);
+    setConnectionsData(res.data);
+  };
 
   const sendRequest = async () => {
     const res = await axios.post("/api/user/connection/sendConnectionRequest", {
@@ -66,56 +75,74 @@ export default function HeadlineTop(props) {
 
   useEffect(() => {
     checkConnectionStatus();
+    getAllConnections();
   }, []);
 
   return (
-    <div className="pl-5 pt-5 pr-5 lg:top-24 md:top-15 w-full" style={{position: 'absolute'}}>
-      <div className="grid grid-col-2 mb-2 flex">
-        <div class="grid grid-cols-2 gap-2 h-[6.5rem]">
+    <div className="pl-5 pt-5 pr-5 mt-[-8rem] lg:top-24 md:top-15 w-full mb-2">
+      <div className="grid grid-col-2">
+        <div className="grid grid-cols-2 gap-2">
+          
           <div>
-            <div className="flex items-center">
-              <div className="w-24 h-24 lg:flex justify-center md:block sm:block flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" >
-                <Avatar userId={props.userId} />
+            <div>
+              <div className="flex items-center">
+                <div className="w-28 h-28 md:w-24 md:h-24 lg:flex justify-center md:block sm:block flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" >
+                  <Avatar userId={props.userId} />
+                </div>
               </div>
+          
+              <SetupAvatar
+                avatar={avatar}
+                isOwner={props.isOwner}
+                getUser={props.getUser}
+                onEdit={handleCropModalShow}
+                setUploadedImage={setUploadedImage}
+              />
             </div>
-         
-            <SetupAvatar
-              avatar={avatar}
-              isOwner={props.isOwner}
-              getUser={props.getUser}
-              onEdit={handleCropModalShow}
-              setUploadedImage={setUploadedImage}
-            />
           </div>
-          
-          <div className={`grid content-center`}>
+
+          <div className={`grid ${props.isOwner ? 'content-end' : 'content-end'} justify-self-end`}>
             {props.isOwner ? (
-              <div style={{ marginLeft: "auto" }}>
-                <label htmlFor="edit-profile-modal" className="">
-                  <BiPencil className="cursor-pointer text-xl" />
-                </label>
-              </div>
-            ) : 
-              <button
-                onClick={() => sendRequest()}
-                disabled={connectStatus}
-                className={`${!props.isOwner ? 'text-right col-end-10 justify-items-end' : ''} w-[6rem] primaryBtn btn btn-sm bg-sky-400 font-light`}
-                style={
-                  connectStatus
-                    ? { cursor: "not-allowed", color: "white" }
-                    : {}
-                }
-              >
-                {connectMessage}
-              </button>
-            }
+                <div style={{ marginLeft: "auto" }}>
+                  <label htmlFor="edit-profile-modal" className="">
+                    <BiPencil className="cursor-pointer text-xl" />
+                  </label>
+                </div>
+              ) :
+                <button
+                  onClick={() => sendRequest()}
+                  disabled={connectStatus}
+                  className={`w-[6rem] connectedBtn primaryBtn btn btn-sm bg-sky-400 font-light`}
+                  style={
+                    connectStatus
+                      ? { cursor: "not-allowed", color: "white" }
+                      : {}
+                  }
+                >
+                  {connectMessage}
+                </button>
+              }
           </div>
-          
           <EditProfile
             profile={profile}
             avatar={avatar}
             getUser={props.getUser}
           />
+        </div>
+      </div>
+
+      <div>
+        <div className="font-extrabold text-xl" style={{fontWeight: 'bolder'}}>
+            {profile.name}
+        </div>
+        <div className="text-sm">
+          {props.position}
+        </div>
+        <div className="text-[0.7rem] text-gray-600">
+          {props.company} • {props.country}
+        </div>
+        <div className="text-sm mt-2 font-bold">
+          {connectionsData && (connectionsData.length <= 1 ?  connectionsData.length + ' connection' : connectionsData.length + ' connections')}
         </div>
       </div>
     </div>

@@ -12,10 +12,10 @@ module.exports = {
       center: true,
     },
     screens: {
-      'sm': '640px',
+      'sm': '640',
       // => @media (min-width: 640px) { ... }
 
-      'md': '834px',
+      'md': '834',
       // => @media (min-width: 834px) { ... }
 
       'lg': '1024px',

@@ -102,7 +102,7 @@ function Navbar(props) {
           <>
             <div id="search_bar" className="relative">
               <div className="navbar-center hidden lg:block">
-                <div className="form-control w-[47rem]">
+                <div className="form-control lg:w-[30rem] xl:w-[47rem]">
                   <form className="flex items-center">
                     <label htmlFor="simple-search" className="sr-only">
                       Search
@@ -148,7 +148,7 @@ function Navbar(props) {
             </div>
 
             <div className="flex items-center md:order-2" id="profile_dropdown">
-              <div className="hidden md:block">
+              <div className="hidden lg:block">
                 <Link to="/Network">
                   <div
                     className="mr-2 btn btn-ghost btn-circle"
