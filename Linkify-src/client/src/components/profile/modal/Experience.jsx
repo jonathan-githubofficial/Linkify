@@ -97,7 +97,7 @@ export default function Experience(props) {
     <div>
       <input type="checkbox" id="experience-modal" className="modal-toggle" />
       <div className="modal items-start pt-10">
-        <div className="modal-box w-11/12 max-w-5xl editProfileModal">
+        <div className="modal-box lg:w-3/5 max-w-5xl editProfileModal">
           <label
             htmlFor="experience-modal"
             className="btn btn-sm btn-circle absolute right-2 top-2"
@@ -108,20 +108,9 @@ export default function Experience(props) {
           <div>
             <form>
               <div className="">
-
-                <div className="md:w-1/3 mb-3">
-                  <label
-                    className="block text-xl text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                    htmlFor="inline-full-name"
-                  >
-                    New Experience
-                  </label>
-                </div>
-
-                
-
-                <div className="md:w-2/3">
-
+                You can add your new experience here.
+                <hr />
+                <div className="mt-5">
                   {(experience_added == 1) &&
                     <div id="alert-1" class="flex p-4 mb-4 text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
                         <svg aria-hidden="true" class="flex-shrink-0 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
@@ -136,43 +125,29 @@ export default function Experience(props) {
                   </div>
                   }
 
-                  <div className="mb-6">
-                    <div class="flex space-x-4">
-                      <div class="w-1/2 ">
-                        <div className="">
-                          <label htmlFor="position" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Position</label>
-                          <input type="text" id="position" value={position} onChange={handlePosition} className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your position" required />
-                        </div>
-                      </div>
-                      <div class="w-1/2 ">
-                        <div>
-                          <label htmlFor="companyh-name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company</label>
-                          <input type="text" id="companyh-name" value={companyName} onChange={handleMyCompany} className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your company name" required />
-                        </div>
-                      </div>
+                  <div className="grid md:grid-cols-2 md:gap-6">
+                    <div class="relative z-0 w-full mb-6 group">
+                      <label htmlFor="position" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Position</label>
+                      <input type="text" id="position" value={position} onChange={handlePosition} className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your position" required />
+                    </div>
+                    <div class="relative z-0 w-full mb-6 group">
+                      <label htmlFor="companyh-name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company</label>
+                      <input type="text" id="companyh-name" value={companyName} onChange={handleMyCompany} className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your company name" required />
                     </div>
                   </div>
 
-                  <div className="mb-6">
-                    <div class="flex space-x-4">
-                      <div class="w-1/2 ">
-                        <div className="">
-                          <label htmlFor="start-date" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start Date</label>
-                          <input type="text" id="start-date" value={startDate} onChange={handleStartDate} className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="e.g. May 2021" required />
-                        </div>
-                      </div>
-                      <div class="w-1/2 ">
-                        <div>
-                          <label htmlFor="end-date" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End Date</label>
-                          <input type="text" id="end-date" value={endDate} onChange={handleEndDate} className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="e.g. Present" required />
-                        </div>
-                      </div>
-                      <div class="w-1/2 ">
-                        <div>
-                          <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Country</label>
-                          <input type="text" id="description" value={country} onChange={handleCountry} className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter country name" required />
-                        </div>
-                      </div>
+                  <div class="grid md:grid-cols-3 md:gap-6">
+                    <div class="relative z-0 w-full mb-6 group">
+                      <label htmlFor="start-date" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start Date</label>
+                      <input type="text" id="start-date" value={startDate} onChange={handleStartDate} className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="e.g. May 2021" required />
+                    </div>
+                    <div class="relative z-0 w-full mb-6 group">
+                      <label htmlFor="end-date" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End Date</label>
+                      <input type="text" id="end-date" value={endDate} onChange={handleEndDate} className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="e.g. Present" required />
+                    </div>
+                    <div class="relative z-0 w-full mb-6 group">
+                      <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Country</label>
+                      <input type="text" id="description" value={country} onChange={handleCountry} className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter country name" required />
                     </div>
                   </div>
                   

@@ -11,7 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 export default function MobileBottomBar() {
 
   return (
-    <div className="lg:hidden md:hidden fixed z-50 w-full h-16 max-w-lg -translate-x-1/2 bg-white border border-gray-200 bottom-0 left-1/2 dark:bg-gray-700 dark:border-gray-600">
+    <div className="lg:hidden fixed z-50 w-full h-16 -translate-x-1/2 bg-white border border-gray-200 bottom-0 left-1/2 dark:bg-gray-700 dark:border-gray-600">
       <div className="grid h-full max-w-lg grid-cols-5 mx-auto">
         <Link to="/" className="inline-flex flex-col items-center justify-center">
           <button data-tooltip-target="tooltip-home" type="button" className="px-5 rounded-l-full group">
