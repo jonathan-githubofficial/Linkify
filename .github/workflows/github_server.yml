@@ -9,8 +9,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    env:
-      MONGO_URI=mongodb+srv://iq882:iq882@cluster0.hkm14qd.mongodb.net/linkify_testing?retryWrites=true&w=majority
+    env: MONGO_URI=mongodb+srv://iq882:iq882@cluster0.hkm14qd.mongodb.net/linkify_testing?retryWrites=true&w=majority
 
     steps:
       - uses: actions/checkout@v2
