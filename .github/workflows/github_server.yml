@@ -9,9 +9,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    env: 
-      MONGO_URI: mongodb+srv://iq882:iq882@cluster0.hkm14qd.mongodb.net/linkify_testing?retryWrites=true&w=majority
-
     steps:
     - uses: actions/checkout@v2
 
@@ -28,6 +25,9 @@ jobs:
 
     - name: Run Tests
       run: npm run test
+      env: 
+      MONGO_URI: mongodb+srv://iq882:iq882@cluster0.hkm14qd.mongodb.net/linkify_testing?retryWrites=true&w=majority
+
 
     # - name: List files in current directory
     #   run: ls -R
