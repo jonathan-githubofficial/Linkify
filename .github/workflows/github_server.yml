@@ -20,8 +20,8 @@ jobs:
       with:
         node-version: '16.x'
         
-    - name: Navigate to App-src directory
-      run: cd App-src
+    - name: Navigate to Linkify-src directory
+      run: cd Linkify-src
 
     - name: Install Dependencies
       run: npm install
