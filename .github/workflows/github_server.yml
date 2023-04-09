@@ -26,7 +26,7 @@ jobs:
     - name: Run Tests
       run: npm run test
       env: 
-      MONGO_URI: mongodb+srv://iq882:iq882@cluster0.hkm14qd.mongodb.net/linkify_testing?retryWrites=true&w=majority
+        MONGO_URI: mongodb+srv://iq882:iq882@cluster0.hkm14qd.mongodb.net/linkify_testing?retryWrites=true&w=majority
 
 
     # - name: List files in current directory
