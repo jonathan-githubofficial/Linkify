@@ -16,8 +16,7 @@ function ChatHeader(props) {
             <div className="container inline-flex justify-between">
                 <div className='w-1/8 avatar'>
                     <div class="w-12 h-12 rounded-full bg-gray-800">
-                        <Link to={`/profile/${user}`}>
-                            {/* <img src={avatar} /> */}
+                        <Link to={`/profile/${user}`}>                            
                             <Avatar userId={user} />
                         </Link>
                     </div>
