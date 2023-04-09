@@ -28,15 +28,29 @@
 #       env: 
 #         MONGO_URI: mongodb+srv://iq882:iq882@cluster0.hkm14qd.mongodb.net/linkify_testing?retryWrites=true&w=majority
 
+name: Node.js CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Clear Cache
-      run: echo "Clear Cache"
-      uses: actions/cache@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
       with:
-        path: ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
+        node-version: '14.x'
+
+    - name: Install dependencies and test
+      working-directory: ./Linkify-src
+      run: |
+        npm install
+        npm run test
