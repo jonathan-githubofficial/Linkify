@@ -1,33 +1,42 @@
-name: Node.js CI
+# name: Node.js CI
 
-on:
-  push:
-    branches: [task/unitTesting]
+# on:
+#   push:
+#     branches: [task/unitTesting]
+
+# jobs:
+#   build:
+
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - uses: actions/checkout@v2
+
+#     - name: Use Node.js 16.x
+#       uses: actions/setup-node@v2
+#       with:
+#         node-version: '16.x'
+        
+#     - name: Navigate to Linkify-src directory
+#       run: cd ./Linkify-src
+
+#     - name: Install Dependencies
+#       run: npm install
+
+#     - name: Run Tests
+#       run: npm run test
+#       env: 
+#         MONGO_URI: mongodb+srv://iq882:iq882@cluster0.hkm14qd.mongodb.net/linkify_testing?retryWrites=true&w=majority
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Use Node.js 16.x
-      uses: actions/setup-node@v2
+    - name: Clear Cache
+      run: echo "Clear Cache"
+      uses: actions/cache@v2
       with:
-        node-version: '16.x'
-        
-    - name: Navigate to Linkify-src directory
-      run: cd ./Linkify-src
-
-    - name: Install Dependencies
-      run: npm install
-
-    - name: Run Tests
-      run: npm run test
-      env: 
-        MONGO_URI: mongodb+srv://iq882:iq882@cluster0.hkm14qd.mongodb.net/linkify_testing?retryWrites=true&w=majority
-
-
-    # - name: List files in current directory
-    #   run: ls -R
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
