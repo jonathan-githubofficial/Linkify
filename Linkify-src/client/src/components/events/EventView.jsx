@@ -4,7 +4,7 @@
 // Description: User profile components that is responsible for rendering all sub parts such as experience, education, skills, etc.
 
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import axios from 'axios'
 import moment from 'moment';
@@ -168,11 +168,13 @@ export default function EventView() {
                                             {/* <div className='text-md font-extrabold' style={{color: '#b74700'}}>
                                                 {eventDate.toLocaleDateString()}
                                             </div> */}
-                                            <div>
-                                                Event by &nbsp;
-                                                <span className='font-extrabold' style={{color: '#266DD3'}}>
-                                                    {profile.name}
-                                                </span>
+                                            <div className='mb-2'>
+                                                Event by:
+                                                <div className='font-extrabold' style={{color: '#266DD3'}}>
+                                                    <Link to={`/profile/${event.creator}`}>
+                                                        {profile.name}
+                                                    </Link>
+                                                </div>
                                             </div>
                                             <div class="flex items-center">
                                                 <div class="w-[16px] mr-2">

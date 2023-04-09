@@ -24,16 +24,20 @@ export default function ProfileCover(props) {
 
   return (
     <div>
-      <img src={profile_cover} className="lg:rounded-t-xl h-[11rem] w-full" />
-      <div className="absolute hidden lg:block top-[0rem] sm:top-[1.4 rem] lg:top-[1rem] lg:left-[8rem] pl-[6rem] py-2">
-        {/* <h3
-          className={`text-[1.4rem] sm:text-[2rem] lg:text-[${heading_size}] text-white font-bold`}
-        >
-          {name}
-        </h3>
-        <p className="mt-0 lg:mt-2 text-[0.8rem] lg:text-lg text-gray-300">
-          {pos_comp}
-        </p> */}
+      <img src={profile_cover} className="md:rounded-t-xl h-[11rem] w-full" />
+      <div className="absolute top-[0rem] sm:top-[1.4 rem] lg:top-[1rem] pl-[1rem] py-2">
+        {type == 'events' && (
+          <>
+            <h3
+              className={`text-[1.4rem] md:text-[1.5rem] lg:text-[${heading_size}] text-white font-bold`}
+            >
+              {name}
+            </h3>
+            <p className="mt-0 lg:mt-2 text-[0.8rem] lg:text-lg text-gray-300">
+              {pos_comp}
+            </p>
+          </>
+        )}
       </div>
     </div>
   );
