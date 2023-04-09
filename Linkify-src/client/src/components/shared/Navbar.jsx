@@ -69,11 +69,9 @@ function Navbar(props) {
           {results.map((user) => (
               <Link to={`/profile/${user._id}`} key={user._id} onClick={() => onUserClick(user._id)}>
                 <div className="search-result flex items-center mb-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer transition duration-150">
-                  <img
-                      className="w-8 h-8 rounded-full"
-                      src={user.profilePic || profile_pic}
-                      alt="User"
-                  />
+                  <span className="w-8 h-8 rounded-full bg-gray-800">
+                    <Avatar userId={user._id} />
+                  </span>
                   <span className="ml-2 text-sm text-gray-700 dark:text-white">
               {user.name}
             </span>

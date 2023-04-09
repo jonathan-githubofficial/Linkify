@@ -12,6 +12,7 @@ import axios from "axios";
 import PositionName from "../shared/PositionName"
 import ShowUserName from "../shared/ShowUserName";
 import { Link, useNavigate } from "react-router-dom";
+import Avatar from "../shared/Avatar";
 
 function FeedPosts({ currentUserId, getFeed, getFeeds }) {
 
@@ -112,7 +113,8 @@ function FeedPosts({ currentUserId, getFeed, getFeeds }) {
             <div className="flex items-center">
               <div className="avatar">
                 <div className="w-10 rounded-full">
-                  <img src={profile_pic} />
+                  {/* <img src={profile_pic} /> */}
+                  <Avatar userId={feed.poster} />
                 </div>
               </div>
               <div className="flex flex-col pl-5">

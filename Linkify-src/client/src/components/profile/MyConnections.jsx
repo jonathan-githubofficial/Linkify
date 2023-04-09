@@ -9,6 +9,7 @@ import profile_pic from '../../static/images/profile.jpg'
 import { Link, useNavigate } from "react-router-dom";
 import StartDM from "../messages/StartDM";
 import PositionName from '../shared/PositionName';
+import Avatar from "../shared/Avatar";
 
 export default function MyConnections(props) {
     // var connections = props.connections;
@@ -36,7 +37,8 @@ export default function MyConnections(props) {
                         <div className="flex items-start">
                             <div className='avatar'>
                                 <div className="w-12 rounded-full">
-                                    <img src={profile_pic} />
+                                    {/* <img src={profile_pic} /> */}
+                                    <Avatar userId={connections._id} />
                                 </div>
                             </div>
                             <div className="flex flex-col pl-5">

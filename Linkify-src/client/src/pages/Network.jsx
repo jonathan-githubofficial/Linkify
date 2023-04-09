@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 
 import { RiSendPlaneFill } from 'react-icons/ri';
 import { HiUserRemove } from 'react-icons/hi';
+import Avatar from "../components/shared/Avatar";
 
 
 function Network() {
@@ -96,8 +97,9 @@ function Network() {
                       <div>
                         <li className="p-3 sm:py-4">
                           <div className="flex items-center space-x-4">
-                            <div className="flex-shrink-0">
-                              <img className="w-12 h-12 rounded-full" src={profile_pic} alt="Neil image" />
+                            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gray-800">
+                              {/* <img className="w-12 h-12 rounded-full" src={profile_pic} alt="Neil image" /> */}
+                              <Avatar userId={network._id} />
                             </div>
                             <div className="flex-1 min-w-0">
                               <p className="text-md font-medium text-gray-900 truncate dark:text-white">
@@ -146,8 +148,9 @@ function Network() {
                       <div>
                         <li className="p-3 sm:py-4">
                           <div className="flex items-center space-x-4">
-                            <div className="flex-shrink-0">
-                              <img className="w-12 h-12 rounded-full" src={profile_pic} alt="Neil image" />
+                            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gray-800">
+                              {/* <img className="w-12 h-12 rounded-full" src={profile_pic} alt="Neil image" /> */}
+                              <Avatar userId={connections._id} />
                             </div>
                             <div className="flex-1 min-w-0">
                               <Link to={`/profile/${connections._id}`}>

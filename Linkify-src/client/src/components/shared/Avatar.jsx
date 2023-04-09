@@ -8,10 +8,12 @@
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import profile_pic from "../../static/images/profile.jpg";
 
 const Avatar = ({ userId, type }) => {
   const [avatarUrl, setAvatarUrl] = useState('');
   const [userName, setUserName] = useState('');
+  const [isInvalidUser, setIsInvalidUser] = useState(false);
 
   const fetchAvatar = async () => {
     if (userId) {
@@ -22,6 +24,7 @@ const Avatar = ({ userId, type }) => {
         setAvatarUrl(avatarPath);
         setUserName(name);
       } catch (error) {
+        setIsInvalidUser(true);
         console.error("Error fetching avatar:", error.message);
       }
     }
@@ -39,8 +42,14 @@ const Avatar = ({ userId, type }) => {
       .map((part) => part.charAt(0).toUpperCase())
       .join('');
   };
-
-  const imageUrl = avatarUrl && `http://localhost:8080/${avatarUrl}`;
+  
+  var imageUrl;
+  if(isInvalidUser == true) {
+    imageUrl = profile_pic;
+  }
+  else {
+    imageUrl = avatarUrl && `http://localhost:8080/${avatarUrl}`;
+  }
 
   return (
     <div className={`rounded-full flex items-center justify-center text-2xl font-bold text-white`}>
