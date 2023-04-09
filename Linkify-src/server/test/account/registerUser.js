@@ -43,7 +43,7 @@ describe('POST /account/register', () => {
 
   it('Ok, password matches the criteria', async () => {
     const newUser = new Account({
-      name: 'james alex',
+      name: 'github test 1',
       email: 'james@email.com',
       password: 'TestUser123?',
     });

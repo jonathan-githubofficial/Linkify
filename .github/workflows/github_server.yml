@@ -17,7 +17,7 @@ jobs:
       with:
         node-version: '16.x'
         
-    - name: Navigate to Linkify-src directory
+    - name: Navigate to Linkify-src directory and run tests
       working-directory: ./Linkify-src
       run: |
         npm install

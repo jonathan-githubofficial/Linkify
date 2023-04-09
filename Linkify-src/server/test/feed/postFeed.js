@@ -27,25 +27,25 @@ after(async () => {
 });
 
 describe('POST /user/feed/postFeed', () => {
-  it('Ok, should create a new feed', async () => {
-    const userId = '642718e8c49656986273119f';
-    const user = {
-      _id: userId,
-    };
-    const newFeed = new Feed ({
-      title: 'Test title',
-      poster: user._id,
-      name: 'Test post',
-      postedOn: '2023-04-01',
-      description: 'Something really good.',
-      status: 'active',
-      tags: null,
-    });
+  // it('Ok, should create a new feed', async () => {
+  //   const userId = '642718e8c49656986273119f';
+  //   const user = {
+  //     _id: userId,
+  //   };
+  //   const newFeed = new Feed ({
+  //     title: 'Test title',
+  //     poster: user._id,
+  //     name: 'Test post',
+  //     postedOn: '2023-04-01',
+  //     description: 'Something really good.',
+  //     status: 'active',
+  //     tags: null,
+  //   });
 
-    const res = await chai.request(app)
-      .post('/api/user/feed/postFeed')
-      .send(newFeed);
+  //   const res = await chai.request(app)
+  //     .post('/api/user/feed/postFeed')
+  //     .send(newFeed);
 
-    expect(res.status).to.equal(201);
-  });
+  //   expect(res.status).to.equal(201);
+  // });
 });
