@@ -174,8 +174,7 @@ function Messages() {
       .then((res) => {
 
         let newMessage = {
-          id: res.data._id,
-          avatar: `/images/${res.data.sender}.jpg`,
+          id: res.data._id,          
           time: formatTime(res.data.time),
           datetime: res.data.time,
           user: res.data.sender,
@@ -210,7 +209,6 @@ function Messages() {
 
         let newMessage = {
           id: res.data._id,
-          avatar: `/images/${res.data.sender}.jpg`,
           time: formatTime(res.data.time),
           datetime: res.data.time,
           user: res.data.sender,
@@ -280,7 +278,6 @@ function Messages() {
   function getNewConversation(userId, userName) {
 
     const conversation = {
-      avatar: `/images/${userId}.jpg`,
       user: `${userId}`,
       name: `${userName}`,
       title: "Software Engineer",
@@ -294,7 +291,6 @@ function Messages() {
   function mapMessagesToUI(messagesData, respondent) {
 
     const messagesUI = {
-      avatar: `/images/${respondent.user}.jpg`,
       user: `${respondent.user}`,
       name: `${respondent.name}`,
       title: "Software Engineer",
@@ -302,8 +298,7 @@ function Messages() {
       messages: messagesData.map((m) => {
 
         let message = {
-          id: m._id,
-          avatar: `/images/${m.sender}.jpg`,
+          id: m._id,          
           time: formatTime(m.time),
           datetime: m.time,
           user: m.sender,

@@ -9,7 +9,7 @@ import Avatar from '../shared/Avatar';
 
 function ChatItem(props) {
 
-    const { avatar, user, name,lastmessage, time, selectChat, removeChatItem } = props;
+    const { user, name,lastmessage, time, selectChat, removeChatItem } = props;
 
     return (
 

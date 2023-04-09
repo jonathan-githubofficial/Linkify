@@ -9,7 +9,7 @@ import Avatar from '../shared/Avatar';
 
 function ChatHeader(props) {
 
-    const { avatar, user, name, title } = props;
+    const {  user, name, title } = props;
 
     return (
         <div className="w-full m-auto p-2 shadow-lg ">
