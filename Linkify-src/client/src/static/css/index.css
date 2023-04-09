@@ -25,6 +25,17 @@
     background: #111640;
 }
 
+.cancelBtn {
+    background: #E02423;
+    border-color: #E02423;
+}
+
+.cancelBtn:hover {
+    background: #9A1C1C;
+    border-color: #9A1C1C;
+
+}
+
 .primaryGray {
     color: #797979;
 }
@@ -99,6 +110,9 @@ img.eduLogo {
     width: 5rem !important;
 }
 
+.verifiedUser {
+    color: #0D3D7F !important;
+}
 /* DMs */
 .avatar > div {
     display: flex !important;

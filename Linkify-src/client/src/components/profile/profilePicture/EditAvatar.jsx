@@ -34,8 +34,8 @@ const EditAvatar = ({ image, onSave, onCancel }) => {
             rotate={0}
           />
           <div className="actions">
-            <button onClick={handleSave}>Confirm</button>
-            <button onClick={onCancel}>Cancel</button>
+            <button onClick={handleSave} className='w-20 primaryBtn btn btn-sm bg-sky-400 font-light'>Confirm</button>
+            <button onClick={onCancel} className='w-20 cancelBtn btn btn-sm bg-red-400 font-light ml-2'>Cancel</button>
           </div>
         </>
       )}

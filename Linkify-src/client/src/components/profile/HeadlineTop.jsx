@@ -8,11 +8,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { BiPencil } from "react-icons/bi";
 import { useParams } from "react-router-dom";
-import google_icon from "../../static/images/companies/google.png";
+
 
 import EditProfile from "./modal/EditProfile";
 import SetupAvatar from "./profilePicture/SetupAvatar";
 import Avatar from "../shared/Avatar";
+import UserIm from "./UserIm";
 
 export default function HeadlineTop(props) {
   const params = useParams();
@@ -23,6 +24,8 @@ export default function HeadlineTop(props) {
   const [showCropModal, setShowCropModal] = React.useState(false);
   const [uploadedImage, setUploadedImage] = React.useState(null);
   const [connectMessage, setConnectMessage] = React.useState("Connect");
+
+ 
 
   const [connectionsData, setConnectionsData] = useState([]);
   const getAllConnections = async () => {
@@ -133,7 +136,13 @@ export default function HeadlineTop(props) {
 
       <div>
         <div className="font-extrabold text-xl" style={{fontWeight: 'bolder'}}>
-            {profile.name}
+            <div className="flex items-center">
+              <div className="w-auto">
+                {profile.name}
+              </div>
+              <UserIm name={profile.name} />
+            </div>
+
         </div>
         <div className="text-sm">
           {props.position}
