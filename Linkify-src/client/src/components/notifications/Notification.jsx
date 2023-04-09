@@ -15,7 +15,7 @@ function Notification(props) {
       </div>
       <div className='flex-grow'>
         <p className='text-left'>
-          <b>{notification.user} {notification.type}</b>  {notification.description}
+          <b>{notification.userName} {notification.type}</b>  {notification.description}
         </p>
       </div>
       <div className='flex flex-col items-center w-1/8'>
