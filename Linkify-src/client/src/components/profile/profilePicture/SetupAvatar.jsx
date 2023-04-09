@@ -45,7 +45,7 @@ const SetupAvatar = ({ avatar, isOwner, getUser }) => {
     <>
       <div className="relative">
         {isOwner && (
-          <label className="cursor-pointer absolute bottom-1 left-9 bg-none p-1 rounded-full">
+          <label className="cursor-pointer absolute bottom-1 left-9 bg-none p-1 rounded-full bg-white">
             <input
               type="file"
               className="hidden"
