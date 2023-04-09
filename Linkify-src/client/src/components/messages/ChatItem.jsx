@@ -5,6 +5,7 @@
 
 import React from 'react'
 import { FaTrashAlt } from 'react-icons/fa'
+import Avatar from '../shared/Avatar';
 
 function ChatItem(props) {
 
@@ -15,8 +16,9 @@ function ChatItem(props) {
         <div className="w-full m-auto p-2 shadow-lg cursor-pointer" onClick={() => selectChat(user)}>
             <div className="container inline-flex justify-between">
                 <div className='w-1/8 avatar'>
-                    <div class="w-12 h-12 rounded-full">
-                        <img src={avatar} />
+                    <div class="w-12 h-12 rounded-full bg-gray-800">
+                        {/* <img src={avatar} /> */}
+                        <Avatar userId={user} />
                     </div>
                 </div>
                 <div className="flex-grow p-2">

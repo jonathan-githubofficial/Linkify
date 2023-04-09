@@ -7,8 +7,11 @@ import React, { useState } from 'react'
 import Attachment from './Attachment'
 import MessageOptions from './MessageOptions'
 import { Link } from "react-router-dom"
+import Avatar from '../shared/Avatar'
 
 function Message(props) {
+
+    const currentUser = localStorage.getItem("uid");
 
     const { message, removeMessage, selectReport, openPasswordDecrypt } = props;
     const [isReportedMessageVisible, setIsReportedMessageVisible] = useState(false);
@@ -32,7 +35,8 @@ function Message(props) {
                             <div>
                                 <div className="chat-image avatar">
                                     <div className="w-10 rounded-full">
-                                        <img src={message.avatar} />
+                                        {/* <img src={message.avatar} /> */}
+                                        <Avatar userId={props.receiver}/>
                                     </div>
                                 </div>
                                 <div>
@@ -52,7 +56,8 @@ function Message(props) {
                             <div className="chat chat-start">
                                 <div className="chat-image avatar">
                                     <div className="w-10 rounded-full">
-                                        <img src={message.avatar} />
+                                        {/* <img src={message.avatar} /> */}
+                                        <Avatar userId={props.receiver}/>
                                     </div>
                                 </div>
                                 <div className="chat-header">
@@ -76,10 +81,11 @@ function Message(props) {
                 else if (message.position === "start") {
                     return (
                         <div className="chat chat-start">
-                            <div className="chat-image avatar">
-                                <div className="w-10 rounded-full">
+                            <div className="chat-image avatar flex items-center ">
+                                <div className="w-10 rounded-full flex mr-3 bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
                                     <Link to={`/profile/${message.user}`}>
-                                        <img src={message.avatar} />
+                                        {/* <img src={message.avatar} /> */}
+                                        <Avatar userId={props.receiver}/>
                                     </Link>
                                 </div>
                             </div>
@@ -111,7 +117,8 @@ function Message(props) {
                             <div className="chat-image avatar">
                                 <div className="w-10 rounded-full">
                                     <Link to={`/profile/${message.user}`}>
-                                        <img src={message.avatar} />
+                                        {/* <img src={message.avatar} /> */}
+                                        <Avatar userId={currentUser}/>
                                     </Link>
                                 </div>
                             </div>

@@ -98,3 +98,10 @@ img.eduLogo {
     font-size: 0.8rem !important;
     width: 5rem !important;
 }
+
+/* DMs */
+.avatar > div {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center;
+}

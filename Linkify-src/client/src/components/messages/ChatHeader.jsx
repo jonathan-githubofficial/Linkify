@@ -5,6 +5,7 @@
 
 import React from 'react'
 import { Link } from "react-router-dom"
+import Avatar from '../shared/Avatar';
 
 function ChatHeader(props) {
 
@@ -14,9 +15,10 @@ function ChatHeader(props) {
         <div className="w-full m-auto p-2 shadow-lg ">
             <div className="container inline-flex justify-between">
                 <div className='w-1/8 avatar'>
-                    <div class="w-12 h-12 rounded-full">
+                    <div class="w-12 h-12 rounded-full bg-gray-800">
                         <Link to={`/profile/${user}`}>
-                            <img src={avatar} />
+                            {/* <img src={avatar} /> */}
+                            <Avatar userId={user} />
                         </Link>
                     </div>
                 </div>
