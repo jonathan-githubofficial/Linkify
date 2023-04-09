@@ -32,11 +32,9 @@ function Chat(props) {
             <ChatHeader avatar={conversation.avatar} user={conversation.user} name={conversation.name} title={conversation.title} />
             <div className="p-2 sm:overflow-y-auto sm:max-h-[calc(100vh-380px)]"  ref={chatRef}>
                 {conversation.messages.map((m) => {
-                    console.log("convo" + conversation.sender);
                     return (
                         <div key={m.id}>
                             <Message
-                                receiver={conversation.user}
                                 message={m}
                                 removeMessage={removeMessage}
                                 selectReport={selectReport}

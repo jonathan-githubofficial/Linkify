@@ -51,7 +51,7 @@ function ChatFeed(props) {
         conversations.map((conversation) => {
           return (
             <div key={conversation.user}>
-              <ChatItem avatar={conversation.avatar}
+              <ChatItem
                 user={conversation.user}
                 name={conversation.name}
                 lastmessage={(conversation.messages.length === 0) ? '' : conversation.messages[conversation.messages.length - 1].message}

@@ -9,7 +9,7 @@ import Avatar from '../shared/Avatar';
 
 function ChatItem(props) {
 
-    const { avatar, user, name,lastmessage, time, selectChat, removeChatItem } = props;
+    const { user, name,lastmessage, time, selectChat, removeChatItem } = props;
 
     return (
 
@@ -17,7 +17,6 @@ function ChatItem(props) {
             <div className="container inline-flex justify-between">
                 <div className='w-1/8 avatar'>
                     <div class="w-12 h-12 rounded-full bg-gray-800">
-                        {/* <img src={avatar} /> */}
                         <Avatar userId={user} />
                     </div>
                 </div>
