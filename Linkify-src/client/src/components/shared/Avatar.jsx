@@ -44,11 +44,18 @@ const Avatar = ({ userId, type }) => {
   };
   
   var imageUrl;
+
+  
+
   if(isInvalidUser == true) {
     imageUrl = profile_pic;
   }
   else {
     imageUrl = avatarUrl && `http://localhost:8080/${avatarUrl}`;
+  }
+
+  if(type == 'sidebar' && !imageUrl) {
+    imageUrl = profile_pic;
   }
 
   return (

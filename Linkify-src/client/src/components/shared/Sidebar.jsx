@@ -19,7 +19,7 @@ export default function Sidebar(props) {
                 <div className="card bg-base-100 shadow-xl p-5">
                     <figure className="px-10 pt-10">
                     {/* <img src={profile_pic} alt="Shoes" className="rounded-xl" /> */}
-                    <Avatar userId={props.userId}/>
+                    <Avatar userId={props.userId} type="sidebar"/>
                     </figure>
                     <div className="card-body items-center text-center">
                     <h2 className="card-title">{name}</h2>
