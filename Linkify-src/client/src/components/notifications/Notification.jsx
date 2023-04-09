@@ -1,5 +1,6 @@
 import React from 'react'
 import { FaTrashAlt } from 'react-icons/fa'
+import Avatar from '../shared/Avatar'
 
 function Notification(props) {
 
@@ -8,8 +9,8 @@ function Notification(props) {
   return (
     <div className="w-full sm:w-3/4 flex gap-5 shadow-lg p-2">
       <div class="avatar">
-        <div class="w-14 h-14 rounded-full">
-          <img src={notification.avatar} />
+        <div class="w-14 h-14 rounded-full">          
+          <Avatar userId={notification.userId} />
         </div>
       </div>
       <div className='flex-grow'>
