@@ -216,7 +216,7 @@ const searchUsers = async (req, res) => {
     const users = await accountM.find({
       $or: [
         { name: { $regex: searchQuery, $options: 'i' } },
-        { email: { $regex: searchQuery, $options: 'i' } },
+        // { email: { $regex: searchQuery, $options: 'i' } },
       ],
     });
     res.status(200).json(users);
