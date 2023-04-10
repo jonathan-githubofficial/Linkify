@@ -11,7 +11,7 @@ export default function UserIm(props) {
     var type = props.type;
 
     // Verified Users
-    const verifiedUser = ["Khalid Sadat", "Nadine El-Mufti", "Daria Koroleva", "Mohamad Salim", "Ayeshah Rehman", "Saad Hanna", "Hadi Hawi", "Jonathan Haddad"];
+    const verifiedUser = ["Khalid Sadat", "Nadine El-Mufti", "Daria Koroleva", "Mohammad Salim", "Ayeshah Rehman", "Saad Hanna", "Hadi Hawi", "Jonathan Haddad"];
     const currentUser = name + "";
     const currentUserWords = currentUser.split(" ");
 
