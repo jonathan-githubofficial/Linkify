@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Avatar from '../shared/Avatar';
+import VerifiedUser from '../profile/VerifiedUser';
 
 import profile_pic from "../../static/images/profile.jpg";
 import { FaSuitcase, FaComments, FaUserFriends, FaBell } from "react-icons/fa";
@@ -73,8 +74,13 @@ function Navbar(props) {
                     <Avatar userId={user._id} />
                   </span>
                   <span className="ml-2 text-sm text-gray-700 dark:text-white">
-              {user.name}
-            </span>
+                    <div className="flex items-center">
+                        <div className="w-auto">
+                            {user.name}
+                        </div>
+                        <VerifiedUser name={user.name} type='dms'/>
+                    </div>
+                  </span>
                 </div>
               </Link>
           ))}
