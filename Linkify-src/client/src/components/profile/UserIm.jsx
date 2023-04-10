@@ -4,24 +4,26 @@
 // Description: Project cover component for showing the the profile cover
 
 import React, { useEffect, useState } from "react";
+import { MdVerified } from "react-icons/md";
 
 export default function UserIm(props) {
     var name = props.name;
 
-    const UserImg = ["avatar"];
+    // Verified Users
+    const verifiedUser = ["Khalid Sadat", "Nadine El-Mufti", "Daria Koroleva", "Mohamad Salim", "Ayeshah Rehman", "Saad Hanna", "Hadi Hawi", "Jonathan Haddad"];
     const currentUser = name + "";
     const currentUserWords = currentUser.split(" ");
 
-    const matchingTexts = UserImg.filter(user => {
+    const matchingTexts = verifiedUser.filter(user => {
         const userWords = user.split(" ");
         const matchingWords = currentUserWords.filter(word => userWords.includes(word));
         return matchingWords.length >= 2;
     });
 
     return (
-        <div className="w-auto UserImg text-md pl-1">
+        <div className="w-auto verifiedUser text-[1rem] pl-1 tooltip tooltip-right" data-tip="Verified">
             {matchingTexts.length > 0 && (
-                'avatar'
+                <MdVerified />
             )}
         </div>
     );
