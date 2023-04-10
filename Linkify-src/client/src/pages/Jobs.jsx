@@ -8,6 +8,7 @@ import MyConnections from "../components/profile/MyConnections";
 import RecruiterDashboard from "../components/jobs/RecruiterDashboard";
 import PositionName from "../components/shared/PositionName";
 import CardSkeleton from '../components/shared/CardSkeleton';
+import VerifiedUser from '../components/profile/VerifiedUser';
 
 
 const Jobs = () => {
@@ -380,23 +381,27 @@ const Jobs = () => {
                                     <img src={profile_pic} alt="Shoes" className="rounded-xl" />
                                 </figure>
                                 <div className="card-body items-center text-center p-3">
-                                    <h1 className="card-title">{user.name}</h1>
+                                    <h1 className="card-title">
+                                        <div className="flex items-center">
+                                            <div className="w-auto">
+                                                {user.name}
+                                            </div>
+                                            <VerifiedUser name={user.name} />
+                                        </div>
+                                    </h1>
                                     <div className="side-user-info">
-                                    <PositionName id={localStorage.getItem("uid")}/>
-                                    {/* <p>My Company Inc.</p> */}
+                                        <PositionName id={localStorage.getItem("uid")}/>
                                     </div>
                                     <hr />
                                     <div className="side-user-info items-left">
-                                    <p>
-                                        <span className="font-semibold">
-                                        {/* Skills: <br /> */}
-                                        </span>
-                                        {/* {user_skills && Object.keys(user_skills).map((skills_txt) => (
-                                        <span>{user_skills[skills_txt]}</span>
-                                    ))} */}
-
-                                    </p>
-                                    {/* {user_skills} */}
+                                        <p>
+                                            <span className="font-semibold">
+                                            {/* Skills: <br /> */}
+                                            </span>
+                                            {/* {user_skills && Object.keys(user_skills).map((skills_txt) => (
+                                            <span>{user_skills[skills_txt]}</span>
+                                        ))} */}
+                                        </p>
                                     </div>
                                 </div>
                                 </div>

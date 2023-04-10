@@ -13,7 +13,7 @@ import { useParams } from "react-router-dom";
 import EditProfile from "./modal/EditProfile";
 import SetupAvatar from "./profilePicture/SetupAvatar";
 import Avatar from "../shared/Avatar";
-import UserIm from "./UserIm";
+import VerifiedUser from "./VerifiedUser";
 
 export default function HeadlineTop(props) {
   const params = useParams();
@@ -140,7 +140,7 @@ export default function HeadlineTop(props) {
               <div className="w-auto">
                 {profile.name}
               </div>
-              <UserIm name={profile.name} />
+              <VerifiedUser name={profile.name} />
             </div>
 
         </div>

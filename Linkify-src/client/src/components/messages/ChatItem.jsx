@@ -6,6 +6,7 @@
 import React from 'react'
 import { FaTrashAlt } from 'react-icons/fa'
 import Avatar from '../shared/Avatar';
+import VerifiedUser from '../profile/VerifiedUser';
 
 function ChatItem(props) {
 
@@ -21,7 +22,14 @@ function ChatItem(props) {
                     </div>
                 </div>
                 <div className="flex-grow p-2">
-                    <p className="lg:text-md font-semibold">{name}</p>
+                    <p className="lg:text-md font-semibold">
+                        <div className="flex items-center">
+                            <div className="w-auto">
+                                {name}
+                            </div>
+                            <VerifiedUser name={name} type='dms'/>
+                        </div>
+                    </p>
                     <p className="lg:text-md">{lastmessage}</p>
                 </div>
                 <div className="w-1/8 flex-none">

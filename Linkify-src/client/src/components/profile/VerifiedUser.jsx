@@ -8,6 +8,7 @@ import { MdVerified } from "react-icons/md";
 
 export default function UserIm(props) {
     var name = props.name;
+    var type = props.type;
 
     // Verified Users
     const verifiedUser = ["Khalid Sadat", "Nadine El-Mufti", "Daria Koroleva", "Mohamad Salim", "Ayeshah Rehman", "Saad Hanna", "Hadi Hawi", "Jonathan Haddad"];
@@ -21,7 +22,7 @@ export default function UserIm(props) {
     });
 
     return (
-        <div className="w-auto verifiedUser text-[1rem] pl-1 tooltip tooltip-right" data-tip="Verified">
+        <div className={`w-auto verifiedUser text-[1rem] pl-1 ${type == 'dms' ? '' : 'tooltip tooltip-right'}`} data-tip="Verified">
             {matchingTexts.length > 0 && (
                 <MdVerified />
             )}

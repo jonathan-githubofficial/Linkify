@@ -6,6 +6,7 @@
 import React from 'react'
 import { Link } from "react-router-dom"
 import Avatar from '../shared/Avatar';
+import VerifiedUser from '../profile/VerifiedUser';
 
 function ChatHeader(props) {
 
@@ -22,7 +23,14 @@ function ChatHeader(props) {
                     </div>
                 </div>
                 <div className="flex-grow p-2">
-                    <p className="lg:text-md font-semibold">{name}</p>
+                    <p className="lg:text-md font-semibold">
+                        <div className="flex items-center">
+                            <div className="w-auto">
+                                {name}
+                            </div>
+                            <VerifiedUser name={name} type='dms'/>
+                        </div>
+                    </p>
                     {/* <p className="lg:text-md">{title}</p> */}
                 </div>
             </div>
