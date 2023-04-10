@@ -25,7 +25,7 @@ router.delete("/deleteJobPost", jobPostsController.deleteJobPost);
 // @desc Update a job post
 // @route PUT /api/user/jobPosts/updateJobPost/:id
 // @access Private
-router.post("/updateJobPost", jobPostsController.updateJobPost);
+router.put("/updateJobPost/:id", jobPostsController.updateJobPost);
 
 // @desc Get all job posts for a specific user
 // @route GET /api/user/jobPosts/getJobsByUser
