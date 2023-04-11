@@ -1,6 +1,5 @@
 const express = require("express");
 const accountController = require("../controllers/accountController.js");
-
 const router = express.Router();
 
 /**
@@ -100,5 +99,20 @@ router.post("/forgotPassword", accountController.forgotPassword);
  * @access Public
  */
 router.post("/resetPassword", accountController.resetPassword);
+
+/**
+ * @desc Google login
+ * @route GET /api/account/login/google
+ * @access Public
+ */
+router.get("/login/google", accountController.googleLogin);
+
+/**
+ * @desc Google callback
+ * @route GET /api/account/login/google/callback
+ * @access Public
+ */
+router.get("/login/google/callback", accountController.googleCallback);
+
 
 module.exports = router;

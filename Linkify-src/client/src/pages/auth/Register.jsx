@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { FaGoogle } from "react-icons/fa";
 import axios from "axios";
 
 function Register() {
-
-  const navigate = useNavigate(); 
-
+  const navigate = useNavigate();
 
   const [password, setPass] = useState({});
   const [email, setEmail] = useState({});
@@ -138,6 +137,23 @@ function Register() {
               Register
             </button>
           </div>
+
+          <div className="mt-4">
+            <button
+              onClick={() => {
+                window.location.href = "/api/account/login/google";
+              }}
+              className="group relative flex w-full justify-center rounded-md border border-transparent bg-gradient-to-r from-green-400 to-blue-500 py-2 px-4 text-sm font-medium text-white hover:from-pink-500 hover:to-yellow-500 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2"
+
+              bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500
+            >
+              <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                <FaGoogle className="h-5 w-5 text-white group-hover:text-red-300" />
+              </span>
+              Sign up with Google
+            </button>
+          </div>
+
           <hr />
 
           <div>

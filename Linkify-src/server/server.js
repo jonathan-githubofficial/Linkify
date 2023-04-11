@@ -13,7 +13,9 @@ const groupRouter = require("./routes/groupRoute");
 const eventRouter = require("./routes/eventRoute");
 const companiesRouter = require("./routes/companyRoute.js");
 const notificationRouter = require("./routes/notificationRoute.js");
-
+const passport = require('passport');
+const session = require('express-session');
+const passportConfig = require('./middleware/passport.js');
 const dotenv = require("dotenv");
 const app = express();
 
@@ -50,6 +52,20 @@ app.use("/api/notifications", notificationRouter);
 app.use("/server/attachments/messages", express.static("server/attachments/messages"));
 app.use("/server/attachments/feeds", express.static("server/attachments/feeds"));
 app.use("/server/attachments/avatars", express.static("server/attachments/avatars"))
+
+
+passportConfig(passport);
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 
 app.listen(process.env.PORT || 8080, () =>
   console.log(`App listening on port ${process.env.PORT}!`)

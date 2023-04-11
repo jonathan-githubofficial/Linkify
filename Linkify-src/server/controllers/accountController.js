@@ -11,6 +11,7 @@ const asyncHandler = require("express-async-handler");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
+const passport = require("passport");
 
 const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -312,7 +313,21 @@ const resetPassword = asyncHandler(async (req, res) => {
 
 
 
+// Google login
+const googleLogin = passport.authenticate("google", {
+  scope: ["profile", "email"],
+});
 
+// Google callback
+const googleCallback = async (req, res) => {
+  // At this point, the user should be authenticated through Google and the user object should be attached to req.user
+  const { _id, name, email, isAdmin } = req.user;
+
+  // we can generate a token here, store it in a cookie, or use any other method to keep the user logged in on the frontend.
+
+  // Redirect the user to the frontend homepage
+  res.redirect("http://localhost:3000/");
+};
 
 
 
@@ -331,4 +346,6 @@ module.exports = {
   updatePassword,
   forgotPassword,
   resetPassword,
+  googleLogin,
+  googleCallback,
 };

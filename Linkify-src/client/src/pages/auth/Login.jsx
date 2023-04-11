@@ -30,13 +30,15 @@ function Login() {
         console.log("Error", err);
       });
   };
-
+  
   React.useEffect(() => {
     if (localStorage.getItem("loggedIn") === 1) {
       navigate("/");
     }
   }, []);
+ 
 
+  
   return (
     <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <Helmet>
