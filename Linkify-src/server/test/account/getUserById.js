@@ -38,3 +38,4 @@ describe('GET /api/account/getUser', () => {
         expect(res).to.have.status(200);
     });
 });
+
