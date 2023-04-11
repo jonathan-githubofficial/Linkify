@@ -8,6 +8,9 @@
 
 const accountM = require("../models/accountModel.js");
 const asyncHandler = require("express-async-handler");
+const nodemailer = require("nodemailer");
+const crypto = require("crypto");
+const bcrypt = require("bcrypt");
 
 const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -210,6 +213,8 @@ const updateProfile = asyncHandler(async (req, res) => {
   }
 });
 
+
+
 const searchUsers = async (req, res) => {
   try {
     const searchQuery = req.query.q;
@@ -226,6 +231,89 @@ const searchUsers = async (req, res) => {
   }
 };
 
+const forgotPassword = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  const user = await accountM.findOne({ email });
+
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+  // Generate a reset token
+  const resetToken = crypto.randomBytes(20).toString("hex");
+
+  console.log('Generated token:', resetToken);
+  console.log('User email:', email);
+  // Set the reset token and its expiration time
+  user.resetPasswordToken = resetToken;
+  user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+  await user.save();
+  
+  // Create a transporter using Outlook and your credentials
+  const transporter = nodemailer.createTransport({
+    host: "smtp.office365.com",
+    port: 587,
+    secure: false,
+    auth: {
+      user: process.env.OUTLOOK_USER,
+      pass: process.env.OUTLOOK_PASS,
+    },
+    tls: {
+      ciphers: "SSLv3",
+    },
+  });
+
+  // Set up the email content
+  const mailOptions = {
+    from: process.env.OUTLOOK_USER,
+    to: email,
+    subject: "Password Reset",
+    text: `You are receiving this email because you (or someone else) have requested the reset of the password for your account.\n\nPlease click on the following link, or paste it into your browser to complete the process:\n\nhttp://localhost:3000/reset-password/${resetToken}\n\nIf you did not request this, please ignore this email and your password will remain unchanged.\n`,
+  };
+
+  // Send the email
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error("Error sending email:", error);
+      res.status(500).json({ message: "Error sending email" });
+    } else {
+      res.status(200).json({ message: "Password reset email sent" });
+    }
+  });
+});
+
+const resetPassword = asyncHandler(async (req, res) => {
+  const { token, newPassword } = req.body;
+  console.log({ token, newPassword });
+  const user = await accountM.findOne({
+    resetPasswordToken: token,
+    resetPasswordExpires: { $gt: Date.now() },
+  });
+  console.log('Found user:', user);
+  if (!user) {
+    res.status(400);
+    throw new Error("Invalid or expired token");
+  }
+
+  // Hash the new password
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+  // Update the password
+  user.password = hashedPassword;
+  // Clear the token and expiration time
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpires = undefined;
+
+  await user.save();
+
+  res.status(200).json({ message: "Password reset successfully" });
+});
+
+
+
+
+
 
 
 module.exports = {
@@ -236,9 +324,11 @@ module.exports = {
   getUserByMail,
   updateUser,
   deleteUser,
-  updatePassword,
   addProfileImage,
   updateProfile,
   matchCurrentPassword,
   searchUsers,
+  updatePassword,
+  forgotPassword,
+  resetPassword,
 };

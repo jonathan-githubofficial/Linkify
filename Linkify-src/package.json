@@ -21,6 +21,7 @@
     "bcrypt": "^5.1.0",
     "buffer": "^6.0.3",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "dotenv": "^16.0.3",
     "express-async-handler": "^1.2.0",
     "morgan": "^1.10.0",

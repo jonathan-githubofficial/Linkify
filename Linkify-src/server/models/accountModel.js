@@ -32,15 +32,28 @@ const accountSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please enter your name'],
   },
+  
   email: {
     type: String,
     required: [true, 'Please enter your email'],
     unique: [true, 'invalid email']
   },
+
   password: {
     type: String,
     required: [true,'Please enter your password'],
   },
+
+  resetPasswordToken: {
+    type: String,
+    default: null,
+  },
+
+  resetPasswordExpires: {
+    type: Date,
+    default: null,
+  },
+
   isAdmin: {
     type: Boolean,
     required: true,

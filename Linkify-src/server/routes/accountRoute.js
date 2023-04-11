@@ -46,13 +46,6 @@ router.get("/userByMail", accountController.getUserByMail);
 router.put("/updateUser", accountController.updateUser);
 
 /**
- * @desc Update user password by ID
- * @route PUT /api/account/updatePassword
- * @access Public
- */
-router.put("/updatePassword", accountController.updatePassword);
-
-/**
  * @desc Add profile image for user
  * @route POST /api/account/addProfileImage
  * @access Public
@@ -87,7 +80,25 @@ router.post("/matchPassword", accountController.matchCurrentPassword);
  */
 router.get("/search", accountController.searchUsers);
 
+/**
+ * @desc Update user password by ID
+ * @route PUT /api/account/updatePassword
+ * @access Public
+ */
+router.put("/updatePassword", accountController.updatePassword);
 
+/**
+ * @desc Request password reset
+ * @route POST /api/account/forgotPassword
+ * @access Public
+ */
+router.post("/forgotPassword", accountController.forgotPassword);
 
+/**
+ * @desc Reset password if forgotten (not to confuse with update password)
+ * @route POST /api/account/resetPassword
+ * @access Public
+ */
+router.post("/resetPassword", accountController.resetPassword);
 
 module.exports = router;
