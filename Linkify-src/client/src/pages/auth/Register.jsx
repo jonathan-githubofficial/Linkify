@@ -5,23 +5,27 @@ import { Helmet } from "react-helmet";
 import axios from "axios";
 
 function Register() {
-
-  const navigate = useNavigate(); 
-
+  const navigate = useNavigate();
 
   const [password, setPass] = useState({});
   const [email, setEmail] = useState({});
   const [name, setName] = useState({});
   const [isRecruiter, setRecruiter] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const register = async () => {
     await axios
       .post("/api/account/register", { email, password, name, isRecruiter })
       .then((res) => {
         console.log("logged in", res);
-        navigate("/");
+        navigate("/login");
       })
-      .catch((err) => console.log("Error", err));
+      .catch((err) => {
+        console.log("Error", err);
+        setErrorMessage(
+          "Please check your email is correct and that your password contains atleast 8 characters, a number and a capital letter ."
+        );
+      });
   };
 
   React.useEffect(() => {
@@ -47,6 +51,14 @@ function Register() {
             Create an account
           </h2>
         </div>
+        {errorMessage && (
+          <div
+            className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+            role="alert"
+          >
+            <span className="block sm:inline">{errorMessage}</span>
+          </div>
+        )}
         <form
           className="mt-8 space-y-6"
           action="#"
