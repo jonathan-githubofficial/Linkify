@@ -16,6 +16,8 @@ function Navbar(props) {
     localStorage.removeItem("uid");
     localStorage.removeItem("loggedIn");
     navigate("/login");
+
+
   };
 
   var profile = props.profile;
@@ -29,6 +31,10 @@ function Navbar(props) {
   const searchResultsRef = useRef(null);
 
 
+  const openUserProfile = (uid) => {
+    navigate(`/profile/${uid}`);
+    window.location.reload();
+  }
 
   const handleUserClick = (uid) => {
     setSearchResults([]);
@@ -218,11 +224,11 @@ function Navbar(props) {
                 </div>
                 <ul className="py-2" aria-labelledby="user-menu-button">
                   <li>
-                    <Link to={`/profile/${uid}`}>
-                      <a className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                    {/* <Link to={`/profile/${uid}`}> */}
+                      <a onClick={() => openUserProfile(profile._id)} className="cursor-pointer block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                         Profile
                       </a>
-                    </Link>
+                    {/* </Link> */}
                   </li>
                   <li>
                     <button type="button" class="flex items-center w-full px-4 py-2 text-md text-gray-700 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-navbar-events" data-collapse-toggle="dropdown-navbar-events">
