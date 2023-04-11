@@ -19,6 +19,7 @@ function Login() {
         localStorage.setItem("uname", res.data.name);
         localStorage.setItem("loggedIn", 1);
         navigate("/");
+        window.location.reload();
       })
       .catch((err) => {
         if (err.response && err.response.status === 401) {

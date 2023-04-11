@@ -10,6 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import StartDM from "../messages/StartDM";
 import PositionName from '../shared/PositionName';
 import Avatar from "../shared/Avatar";
+import VerifiedUser from "./VerifiedUser";
 
 export default function MyConnections(props) {
     // var connections = props.connections;
@@ -44,9 +45,15 @@ export default function MyConnections(props) {
                             <div className="flex flex-col pl-5">
                                 {/* <Link to={`/profile/${connections._id}`}> */}
                                 <button onClick={() => profileNavigate(connections._id)}>
-                                    <p className="lg:text-md font-semibold text-left" >
+                                    {/* <p className="lg:text-md font-semibold text-left" >
                                         {connections.name}
-                                    </p>
+                                    </p> */}
+                                    <div className="flex items-center">
+                                        <div className="w-auto">
+                                            {connections.name}
+                                        </div>
+                                        <VerifiedUser name={connections.name} />
+                                    </div>
                                 </button>
                                 {/* </Link> */}
                                 <span className="text-sm">

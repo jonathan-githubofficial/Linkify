@@ -5,6 +5,7 @@ import profile_pic from "../static/images/profile.jpg";
 import StartDM from "../components/messages/StartDM"
 import { useNavigate } from "react-router-dom";
 import PositionName from "../components/shared/PositionName";
+import VerifiedUser from '../components/profile/VerifiedUser';
 import { Link } from "react-router-dom";
 
 import { RiSendPlaneFill } from 'react-icons/ri';
@@ -103,7 +104,12 @@ function Network() {
                             </div>
                             <div className="flex-1 min-w-0">
                               <p className="text-md font-medium text-gray-900 truncate dark:text-white">
-                                {network.name}
+                                <div className="flex items-center">
+                                    <div className="w-auto">
+                                        {network.name}
+                                    </div>
+                                    <VerifiedUser name={network.name} />
+                                </div>
                               </p>
                               <p className="text-sm text-gray-500 truncate dark:text-gray-400">
                                 <PositionName id={network._id} />
@@ -155,7 +161,12 @@ function Network() {
                             <div className="flex-1 min-w-0">
                               <Link to={`/profile/${connections._id}`}>
                                 <p className="text-md font-medium text-gray-900 truncate dark:text-white">
-                                  {connections.name}
+                                  <div className="flex items-center">
+                                      <div className="w-auto">
+                                          {connections.name}
+                                      </div>
+                                      <VerifiedUser name={connections.name} />
+                                  </div>
                                 </p>
                               </Link>
                               <p className="text-sm text-gray-500 truncate dark:text-gray-400">

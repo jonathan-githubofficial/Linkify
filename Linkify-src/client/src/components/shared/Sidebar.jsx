@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import profile_pic from "../../static/images/profile.jpg";
 import Avatar from "./Avatar";
+import VerifiedUser from "../profile/VerifiedUser";
 
 export default function Sidebar(props) {
     var occupation = '';
@@ -22,7 +23,14 @@ export default function Sidebar(props) {
                     <Avatar userId={props.userId} type="sidebar"/>
                     </figure>
                     <div className="card-body items-center text-center">
-                    <h2 className="card-title">{name}</h2>
+                    <h2 className="card-title">
+                        <div className="flex items-center">
+                            <div className="w-auto">
+                                {name}
+                            </div>
+                            <VerifiedUser name={name} />
+                        </div>
+                    </h2>
                     <div className="side-user-info">
                         <p>{occupation}</p>
                         {/* <p>My Company Inc.</p> */}

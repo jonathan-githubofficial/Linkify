@@ -36,18 +36,16 @@ function Notifications() {
   }, []);
 
 
-
-
   function mapNotificationsToUI(notificationsData) {
 
     const notificationsUI = notificationsData.map((notification) => {
       return {
         id: notification._id,
         age: getAge(notification.time),
-        user: notification.userPosterId.name,
+        userName: notification.userPosterId?.name,
+        userId: notification.userPosterId?._id,
         type: notification.type,
-        description: notification.description,
-        avatar: `/images/${notification.userPosterId._id}.jpg`
+        description: notification.description        
       }
 
     });

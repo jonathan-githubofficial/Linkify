@@ -5,12 +5,7 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import profile_pic from "../../static/images/profile.jpg";
-import { Link, useNavigate } from "react-router-dom";
-import { RiCalendarEventFill } from 'react-icons/ri';
-import { FaUser } from 'react-icons/fa';
-import { GrGroup } from 'react-icons/gr';
-import { AiOutlineLogout } from 'react-icons/ai';
+import VerifiedUser from '../profile/VerifiedUser';
 
 export default function ShowUserName(props) {
     var id = props.id;
@@ -39,7 +34,12 @@ export default function ShowUserName(props) {
 
     return (
         <span>
-            {username}
+            <div className="flex items-center">
+                <div className="w-auto">
+                    {username}
+                </div>
+                <VerifiedUser name={username} />
+            </div>
         </span>
     );
 }

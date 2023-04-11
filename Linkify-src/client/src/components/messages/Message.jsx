@@ -8,6 +8,7 @@ import Attachment from './Attachment'
 import MessageOptions from './MessageOptions'
 import { Link } from "react-router-dom"
 import Avatar from '../shared/Avatar'
+import VerifiedUser from '../profile/VerifiedUser';
 
 function Message(props) {
     
@@ -86,8 +87,13 @@ function Message(props) {
                                 </div>
                             </div>
                             <div className="chat-header">
-                                {`${message.name} `}
-                                <time className="text-xs opacity-50">{message.time}</time>
+                                <div className="flex items-center">
+                                    <div className="w-auto">
+                                        {`${message.name} `}
+                                    </div>
+                                    <VerifiedUser name={message.name} type='dms'/>&nbsp;
+                                    <time className="text-xs opacity-50">{message.time}</time>
+                                </div>
                             </div>
                             <div className="flex items-center group">
                                 <div className="chat-bubble">
@@ -118,8 +124,13 @@ function Message(props) {
                                 </div>
                             </div>
                             <div className="chat-header">
-                                {`${message.name} `}
-                                <time className="text-xs opacity-50">{message.time}</time>
+                                <div className="flex items-center">
+                                    <div className="w-auto">
+                                        {`${message.name} `}
+                                    </div>
+                                    <VerifiedUser name={message.name} type='dms'/>&nbsp;
+                                    <time className="text-xs opacity-50">{message.time}</time>
+                                </div>
                             </div>
                             <div className="flex items-center group">
                                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
