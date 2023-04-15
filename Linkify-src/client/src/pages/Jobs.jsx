@@ -9,6 +9,7 @@ import RecruiterDashboard from "../components/jobs/RecruiterDashboard";
 import PositionName from "../components/shared/PositionName";
 import CardSkeleton from '../components/shared/CardSkeleton';
 import VerifiedUser from '../components/profile/VerifiedUser';
+import Sidebar from '../components/shared/Sidebar';
 
 
 const Jobs = () => {
@@ -376,34 +377,8 @@ const Jobs = () => {
 
                         <div class="flex flex-items items-center hidden lg:block">
                             <div className="w-[15rem]">
-                                <div className="card bg-base-100 shadow-xl p-5">
-                                <figure className="px-10 pt-10">
-                                    <img src={profile_pic} alt="Shoes" className="rounded-xl" />
-                                </figure>
-                                <div className="card-body items-center text-center p-3">
-                                    <h1 className="card-title">
-                                        <div className="flex items-center">
-                                            <div className="w-auto">
-                                                {user.name}
-                                            </div>
-                                            <VerifiedUser name={user.name} />
-                                        </div>
-                                    </h1>
-                                    <div className="side-user-info">
-                                        <PositionName id={localStorage.getItem("uid")}/>
-                                    </div>
-                                    <hr />
-                                    <div className="side-user-info items-left">
-                                        <p>
-                                            <span className="font-semibold">
-                                            {/* Skills: <br /> */}
-                                            </span>
-                                            {/* {user_skills && Object.keys(user_skills).map((skills_txt) => (
-                                            <span>{user_skills[skills_txt]}</span>
-                                        ))} */}
-                                        </p>
-                                    </div>
-                                </div>
+                                <div className="flex justify-center">
+                                    <Sidebar user_skills={user.skills} name={user.name} userId={user._id} />
                                 </div>
                             </div>
                         </div>

@@ -65,7 +65,7 @@ const RecruiterDashboard = ({	handleRejectApplicant,
 			// Fetch user details for each applicant
 			const applicantsWithDetails = await Promise.all(
 				data.map(async (applicant) => {
-					const userResponse = await fetch(`/api/account/getUser/${applicant.userId}`);
+					const userResponse = await fetch(`/api/account/getUser?id=${applicant.userId}`);
 					const userData = await userResponse.json();
 					return { ...applicant, name: userData.name, email: userData.email, jobId: jobId };
 				})
