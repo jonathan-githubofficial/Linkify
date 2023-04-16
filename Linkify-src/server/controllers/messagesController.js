@@ -32,6 +32,7 @@ const postMessage = async (req, res) => {
   }
 };
 
+
 // Get all messages between two users
 const getMessages = async (req, res) => {
   try {
@@ -41,29 +42,28 @@ const getMessages = async (req, res) => {
         {
           sender: sender,
           receiver: receiver,
-          isDeleted: false,
         },
         {
           sender: receiver,
           receiver: sender,
-          isDeleted: false,
         },
       ],
-    })
-      .sort({ time: 1 })
-      .lean();
+    }).sort({ time: 1 });
 
-    // Filter out hidden messages for the specific receiver
-    const filteredMessages = messages.filter(
-      (message) =>
-        !(message.receiver === receiver && message.hiddenForReceiver === true)
-    );
+    // Filter out deleted messages and hidden messages for the specific receiver
+    const filteredMessages = messages.filter((message) => {
+      if (message.isDeleted && (message.sender.toString() === sender || message.sender.toString() === receiver)) return false;
+      if (message.sender.toString() === receiver && message.hiddenForReceiver) return false;
+      return true;
+    });
 
     res.status(200).json(filteredMessages);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
+
 
 
 // Delete all messages between two users
