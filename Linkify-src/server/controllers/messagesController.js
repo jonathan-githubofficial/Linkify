@@ -32,8 +32,6 @@ const postMessage = async (req, res) => {
   }
 };
 
-
-
 // Get all messages between two users
 const getMessages = async (req, res) => {
   try {
@@ -134,7 +132,7 @@ const getMessagesForReceiver = async (req, res) => {
         usersInConversation[message.sender].messages.push(message.message);
       }
     }
-    
+
     res.status(200).json(usersInConversation);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -162,6 +160,43 @@ const reportDM = async (req, res) => {
   }
 };
 
+
+
+const deleteMessageBySender = async (req, res) => {
+  try {
+    const messageId = req.params.id;
+    const message = await Message.findById(messageId);
+
+    if (!message) {
+      return res.status(404).json({ message: "Message not found" });
+    }
+
+    message.isDeleted = true;
+    await message.save();
+    res.status(200).json({ message: "Message deleted by sender successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const hideMessageFromReceiver = async (req, res) => {
+  try {
+    const messageId = req.params.id;
+    const message = await Message.findById(messageId);
+
+    if (!message) {
+      return res.status(404).json({ message: "Message not found" });
+    }
+
+    message.hiddenForReceiver = true;
+    await message.save();
+    res.status(200).json({ message: "Message hidden from receiver successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
 module.exports = {
   postMessage,
   getMessages,
@@ -170,4 +205,7 @@ module.exports = {
   getUsersWithConversation,
   getMessagesForReceiver,
   reportDM,
+  deleteMessageBySender,
+  hideMessageFromReceiver,
 };
+
