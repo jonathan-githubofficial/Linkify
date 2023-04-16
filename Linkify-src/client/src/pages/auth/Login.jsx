@@ -56,6 +56,12 @@ function Login() {
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 mb-6">
             Let's Login To Your Account
           </h2>
+
+          {errorMessage && (
+    <div className="bg-red-100  text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+      <span className="block sm:inline">*{errorMessage}</span>
+    </div>
+  )}
           <form
             className="space-y-4"
             action="#"

@@ -10,7 +10,6 @@ const accountM = require("../models/accountModel.js");
 const asyncHandler = require("express-async-handler");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
-const bcrypt = require("bcrypt");
 const passport = require("passport");
 
 const login = asyncHandler(async (req, res) => {
@@ -296,12 +295,8 @@ const resetPassword = asyncHandler(async (req, res) => {
     throw new Error("Invalid or expired token");
   }
 
-  // Hash the new password
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(newPassword, salt);
-
   // Update the password
-  user.password = hashedPassword;
+  user.password = newPassword;
   // Clear the token and expiration time
   user.resetPasswordToken = undefined;
   user.resetPasswordExpires = undefined;
@@ -317,25 +312,6 @@ const googleLogin = passport.authenticate("google", {
   scope: ["profile", "email"],
 });
 
-
-
-
-
-// const googleCallback = (req, res, next) => {
-//   passport.authenticate('google', { failureRedirect: 'http://localhost:3000/login' }, async (error, user, info) => {
-//     if (error) {
-//       return next(error);
-//     }
-//     if (!user) {
-//       console.log('User not found in callback:', user);
-//       res.status(401).json({ message: "User not found" });
-//     } else {
-//       console.log('User found in callback:', user);
-//       const { _id, name, email, isAdmin } = user;
-//       res.redirect("http://localhost:3000/");
-//     }
-//   })(req, res, next);
-// };
 
 const googleCallback = (req, res, next) => {
   passport.authenticate("google", { failureRedirect: "http://localhost:3000/login" }, async (error, user, info) => {

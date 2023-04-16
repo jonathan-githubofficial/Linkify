@@ -13,6 +13,15 @@ function Register() {
   const [email, setEmail] = useState({});
   const [name, setName] = useState({});
   const [isRecruiter, setRecruiter] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const parseErrorMessageFromHtml = (html) => {
+    const parser = new DOMParser();
+    const htmlDoc = parser.parseFromString(html, "text/html");
+    let errorMessage = htmlDoc.querySelector("pre")?.textContent || "";
+    errorMessage = errorMessage.replace(/\s+at.*/g, "");
+    return errorMessage;
+  };
+  
 
   const register = async () => {
     await axios
@@ -21,7 +30,16 @@ function Register() {
         console.log("logged in", res);
         navigate("/");
       })
-      .catch((err) => console.log("Error", err));
+
+      .catch((err) => {
+        if (err.response && err.response.status === 400) {
+          const parsedMessage = parseErrorMessageFromHtml(err.response.data);
+          setErrorMessage(parsedMessage);
+        } else {
+          setErrorMessage("Something went wrong. Please try again later.");
+        }
+        console.log("Error", err);
+      });
   };
 
   React.useEffect(() => {
@@ -38,12 +56,24 @@ function Register() {
       </Helmet>
       <div className="w-full lg:w-5/6 flex flex-col lg:flex-row bg-white shadow rounded-lg">
         <div className="lg:w-1/2 p-8 hidden lg:block">
-          <img src="/src/static/images/loginimg.png" alt="Your Company" className="mx-auto w-96" />
+          <img
+            src="/src/static/images/loginimg.png"
+            alt="Your Company"
+            className="mx-auto w-96"
+          />
         </div>
         <div className="lg:w-1/2 p-8">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 mb-6">
             Create an account
           </h2>
+          {errorMessage && (
+            <div
+              className="bg-red-100 text-red-700 px-4 py-3 rounded relative mb-4"
+              role="alert"
+            >
+              <span className="block sm:inline">{errorMessage}</span>
+            </div>
+          )}
           <form
             className="space-y-4"
             action="#"
@@ -97,7 +127,7 @@ function Register() {
                 onChange={(e) => setPass(e.target.value)}
               />
             </div>
-    
+
             <div className="flex items-center">
               <input
                 id="isRecruiter"
@@ -115,7 +145,7 @@ function Register() {
                 Are you trying to create an account as recruiter ?
               </label>
             </div>
-    
+
             <button
               type="submit"
               className="w-full mt-6 py-2 px-4 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 flex items-center justify-center"
@@ -123,32 +153,30 @@ function Register() {
               <RiUserAddFill className="mr-2" />
               Register
             </button>
-    
-            <div className="flex gap-4 mt-6">
-            <button
-              onClick={() => {
-                window.location.href = "/api/account/login/google";
-              }}
-              className="w-1/2 py-2 px-4 text-sm font-medium text-white bg-gradient-to-r from-green-400 to-blue-500 rounded-md hover:from-pink-500 hover:to-yellow-500 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 flex items-center justify-center"
-            >
-              <FaGoogle className="mr-2" />
-              Login with Google
-            </button>
 
-            <Link to="/login" className="w-1/2">
+            <div className="flex gap-4 mt-6">
               <button
-                className="w-full py-2 px-4 text-sm font-medium text-indigo-900 bg-blue-200 rounded-md hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 flex items-center justify-center"
+                onClick={() => {
+                  window.location.href = "/api/account/login/google";
+                }}
+                className="w-1/2 py-2 px-4 text-sm font-medium text-white bg-gradient-to-r from-green-400 to-blue-500 rounded-md hover:from-pink-500 hover:to-yellow-500 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 flex items-center justify-center"
               >
-                <BiLogIn className="mr-2 text-indigo-500" />
-                Already have an account ?
+                <FaGoogle className="mr-2" />
+                Login with Google
               </button>
-            </Link>
-          </div>
+
+              <Link to="/login" className="w-1/2">
+                <button className="w-full py-2 px-4 text-sm font-medium text-indigo-900 bg-blue-200 rounded-md hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 flex items-center justify-center">
+                  <BiLogIn className="mr-2 text-indigo-500" />
+                  Already have an account ?
+                </button>
+              </Link>
+            </div>
           </form>
         </div>
       </div>
     </div>
-    );
-  }
-  
-  export default Register;
+  );
+}
+
+export default Register;
