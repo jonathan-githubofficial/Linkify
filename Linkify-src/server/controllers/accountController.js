@@ -313,23 +313,45 @@ const resetPassword = asyncHandler(async (req, res) => {
 
 
 
-// Google login
 const googleLogin = passport.authenticate("google", {
   scope: ["profile", "email"],
 });
 
-// Google callback
-const googleCallback = async (req, res) => {
-  // At this point, the user should be authenticated through Google and the user object should be attached to req.user
-  const { _id, name, email, isAdmin } = req.user;
 
-  // we can generate a token here, store it in a cookie, or use any other method to keep the user logged in on the frontend.
 
-  // Redirect the user to the frontend homepage
-  res.redirect("http://localhost:3000/");
+
+
+// const googleCallback = (req, res, next) => {
+//   passport.authenticate('google', { failureRedirect: 'http://localhost:3000/login' }, async (error, user, info) => {
+//     if (error) {
+//       return next(error);
+//     }
+//     if (!user) {
+//       console.log('User not found in callback:', user);
+//       res.status(401).json({ message: "User not found" });
+//     } else {
+//       console.log('User found in callback:', user);
+//       const { _id, name, email, isAdmin } = user;
+//       res.redirect("http://localhost:3000/");
+//     }
+//   })(req, res, next);
+// };
+
+const googleCallback = (req, res, next) => {
+  passport.authenticate("google", { failureRedirect: "http://localhost:3000/login" }, async (error, user, info) => {
+    if (error) {
+      return next(error);
+    }
+    if (!user) {
+      console.log("User not found in callback:", user);
+      res.status(401).json({ message: "User not found" });
+    } else {
+      console.log("User found in callback:", user);
+      const { _id, name, email, isAdmin } = user;
+      res.redirect(`http://localhost:3000/google/callback?uid=${_id}&email=${email}&uname=${name}`);
+    }
+  })(req, res, next);
 };
-
-
 
 module.exports = {
   login,

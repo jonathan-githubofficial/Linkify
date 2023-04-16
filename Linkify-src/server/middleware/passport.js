@@ -1,6 +1,7 @@
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const mongoose = require("mongoose");
 const accountM = require("../models/accountModel");
+const crypto = require("crypto");
 
 module.exports = function (passport) {
   passport.use(
@@ -11,24 +12,22 @@ module.exports = function (passport) {
         callbackURL: "/api/account/login/google/callback",
       },
       async (accessToken, refreshToken, profile, done) => {
-        const newUser = {
-          googleId: profile.id,
-          name: profile.displayName,
-          email: profile.emails[0].value,
-          avatar: profile.photos[0].value,
-        };
-
         try {
-          let user = await accountM.findOne({ googleId: profile.id });
+          const existingUser = await accountM.findOne({ email: profile.emails[0].value });
 
-          if (user) {
-            done(null, user);
+          if (existingUser) {
+            return done(null, existingUser);
           } else {
-            user = await accountM.create(newUser);
-            done(null, user);
+            const newUser = await accountM.create({
+              name: profile.displayName,
+              email: profile.emails[0].value,
+              password: crypto.randomBytes(16).toString('hex'),
+            });
+
+            return done(null, newUser);
           }
-        } catch (err) {
-          console.error(err);
+        } catch (error) {
+          return done(error, null);
         }
       }
     )
@@ -38,7 +37,12 @@ module.exports = function (passport) {
     done(null, user.id);
   });
 
-  passport.deserializeUser((id, done) => {
-    accountM.findById(id, (err, user) => done(err, user));
+  passport.deserializeUser(async (id, done) => {
+    try {
+      const user = await accountM.findById(id);
+      done(null, user);
+    } catch (error) {
+      done(error, null);
+    }
   });
 };

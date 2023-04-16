@@ -33,7 +33,23 @@ app.use(function (req, res, next) {
   next();
 });
 
-// app.use(bodyParser.urlencoded({ extended: true }));
+//passport google config related 
+passportConfig(passport);
+app.use(
+  session({
+    secret:"qUht3y79Fmi3OF27ZxK9rTNN8Y94AnKfrSqTvPFG86v5CfY0YdMUzLIhsRxK8vCV",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 1000 * 60 * 60 * 24 }, // 1 day cookie expiration
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use((req, res, next) => {
+  res.locals.user = req.user || null;
+  next();
+});
 
 app.use(express.json());
 
@@ -54,16 +70,6 @@ app.use("/server/attachments/feeds", express.static("server/attachments/feeds"))
 app.use("/server/attachments/avatars", express.static("server/attachments/avatars"))
 
 
-passportConfig(passport);
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-  })
-);
-app.use(passport.initialize());
-app.use(passport.session());
 
 
 
