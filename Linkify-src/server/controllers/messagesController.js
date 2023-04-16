@@ -38,15 +38,33 @@ const getMessages = async (req, res) => {
     const { sender, receiver } = req.query;
     const messages = await Message.find({
       $or: [
-        { sender: sender, receiver: receiver },
-        { sender: receiver, receiver: sender },
+        {
+          sender: sender,
+          receiver: receiver,
+          isDeleted: false,
+        },
+        {
+          sender: receiver,
+          receiver: sender,
+          isDeleted: false,
+        },
       ],
-    }).sort({ time: 1 });
-    res.status(200).json(messages);
+    })
+      .sort({ time: 1 })
+      .lean();
+
+    // Filter out hidden messages for the specific receiver
+    const filteredMessages = messages.filter(
+      (message) =>
+        !(message.receiver === receiver && message.hiddenForReceiver === true)
+    );
+
+    res.status(200).json(filteredMessages);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 // Delete all messages between two users
 const deleteMessages = async (req, res) => {
