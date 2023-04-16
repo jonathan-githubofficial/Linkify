@@ -21,6 +21,7 @@ import CreatedEvents from "../components/events/CreatedEvents";
 import RegisteredEvents from "../components/events/RegisteredEvents";
 import JoinedGroups from "../components/groups/JoinedGroups";
 import CreatedGroups from "../components/groups/CreatedGroups";
+import LandingPage from "../pages/LandingPage";
 
 function RegularRoutes() {
   const [profile, setProfile] = useState([]);
@@ -47,7 +48,7 @@ function RegularRoutes() {
     <div>
       <Navbar profile={profile} />
       <Routes>
-        <Route path="/" element={<Home />} />
+      <Route path="/" element={isLoggedIn ? <Home /> : <LandingPage />} />
         <Route path="/jobs" element={<Jobs />} />
         <Route path="/Network" element={<Network />} />
         <Route path="/notifications" element={<Notifications />} />

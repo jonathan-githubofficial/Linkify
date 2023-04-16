@@ -59,4 +59,19 @@ router.get('/receiver', messagesController.getMessagesForReceiver);
 router.put('/report/:messageId', messagesController.reportDM);
 
 
+/**
+ * @desc Delete a message by sender (if the sender deleted their message)
+ * @route PUT /api/messages/deleteBySender/:id
+ * @access Public
+ */
+router.put('/deleteBySender/:id', messagesController.deleteMessageBySender);
+
+/**
+ * @desc Hide a message from receiver's view
+ * @route PUT /api/messages/hideFromReceiver/:id
+ * @access Public
+ */
+router.put('/hideFromReceiver/:id', messagesController.hideMessageFromReceiver);
+
+
 module.exports = router;

@@ -248,6 +248,11 @@ const getPersonalFeed = asyncHandler(async (req, res) => {
   const feed = [];
   try {
     const user = await accountM.findById(id);
+    
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+      return;
+    }
 
     // Fetch user's own posts
     const userPosts = await feedsM.find({ poster: id });
@@ -268,6 +273,7 @@ const getPersonalFeed = asyncHandler(async (req, res) => {
     console.log(err);
   }
 });
+
 
 module.exports = {
   postFeed,
