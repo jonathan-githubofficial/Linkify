@@ -14,6 +14,7 @@ function Register() {
   const [name, setName] = useState({});
   const [isRecruiter, setRecruiter] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
   const parseErrorMessageFromHtml = (html) => {
     const parser = new DOMParser();
     const htmlDoc = parser.parseFromString(html, "text/html");
@@ -23,13 +24,15 @@ function Register() {
   };
   
 
+
   const register = async () => {
     await axios
       .post("/api/account/register", { email, password, name, isRecruiter })
       .then((res) => {
         console.log("logged in", res);
-        navigate("/");
+        navigate("/login");
       })
+
 
       .catch((err) => {
         if (err.response && err.response.status === 400) {
@@ -39,6 +42,7 @@ function Register() {
           setErrorMessage("Something went wrong. Please try again later.");
         }
         console.log("Error", err);
+
       });
   };
 
@@ -66,6 +70,7 @@ function Register() {
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 mb-6">
             Create an account
           </h2>
+
           {errorMessage && (
             <div
               className="bg-red-100 text-red-700 px-4 py-3 rounded relative mb-4"
@@ -85,6 +90,7 @@ function Register() {
           >
             <div className="relative">
               <label htmlFor="name" className="text-sm text-gray-600">
+
                 Name
               </label>
               <input
