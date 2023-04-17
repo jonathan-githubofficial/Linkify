@@ -70,17 +70,21 @@ const getMessages = async (req, res) => {
 const deleteMessages = async (req, res) => {
   try {
     const { sender, receiver } = req.query;
-    await Message.deleteMany({
-      $or: [
-        { sender: sender, receiver: receiver },
-        { sender: receiver, receiver: sender },
-      ],
-    });
+    await Message.updateMany(
+      {
+        $or: [
+          { sender: sender, receiver: receiver },
+          { sender: receiver, receiver: sender },
+        ],
+      },
+      { isDeleted: true }
+    );
     res.status(200).json({ message: "All messages deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 // Delete a single message by ID
 const deleteMessageById = async (req, res) => {
@@ -89,12 +93,14 @@ const deleteMessageById = async (req, res) => {
     if (!message) {
       return res.status(404).json({ message: "Message not found" });
     }
-    await message.delete();
+    message.isDeleted = true;
+    await message.save();
     res.status(200).json({ message: "Message deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 // Get all users who have a conversation with each other
 const getUsersWithConversation = async (req, res) => {
@@ -130,6 +136,9 @@ const getMessagesForReceiver = async (req, res) => {
     const usersInConversation = {};
 
     for (const message of messages) {
+      // Filter out deleted messages
+      if (message.isDeleted) continue;
+
       if (message.sender === receiverId) {
         if (!usersInConversation[message.receiver]) {
           const user = await Account.findById(message.receiver);
@@ -156,6 +165,7 @@ const getMessagesForReceiver = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 // Report a message
 const reportDM = async (req, res) => {

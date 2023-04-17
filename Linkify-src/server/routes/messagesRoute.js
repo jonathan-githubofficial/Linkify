@@ -21,17 +21,17 @@ router.get('/getmessage', messagesController.getMessages);
 
 /**
  * @desc Delete all messages between two users
- * @route DELETE /api/messages/deletemessages
+ * @route PUT /api/messages/deletemessages
  * @access Public
  */
-router.delete('/deletemessages', messagesController.deleteMessages);
+router.put('/deletemessages', messagesController.deleteMessages);
 
 /**
  * @desc Delete a single message by ID
- * @route DELETE /api/messages/deletemessage/:id
+ * @route PUT /api/messages/deletemessage/:id
  * @access Public
  */
-router.delete('/deletemessage/:id', messagesController.deleteMessageById);
+router.put('/deletemessage/:id', messagesController.deleteMessageById);
 
 
 /**
