@@ -13,9 +13,16 @@ import Skills from "../profile/Skills";
 import Languages from "../profile/Languages";
 import Projects from "../profile/Projects";
 
+import CardSkeleton from "../shared/CardSkeleton";
+
+import { useTranslation } from "react-i18next";
+
 import Avatar from "../shared/Avatar";
 
 export default function UserProfile(props) {
+  const [t] = useTranslation();
+
+  var isLoading = props.isLoading;
   var isProfileExists = props.isProfileExists;
 
   var profile = props.user;
@@ -28,6 +35,7 @@ export default function UserProfile(props) {
   var experiences = profile.experience;
   var educations = props.educations;
   var projects = profile.projects;
+
 
   // For Header Cover
   const [position, setPosition] = useState("");
@@ -75,6 +83,7 @@ export default function UserProfile(props) {
   return (
     <div class="w-full lg:w-3/4 bg-white relative lg:rounded-t-xl">
 
+
       <ProfileCover
         name={profile_name}
         position={position}
@@ -94,8 +103,11 @@ export default function UserProfile(props) {
       />
       <hr />
 
+      
+
       {isProfileExists ? 
       <>
+      {isLoading && <CardSkeleton cards={1} />}
       <Experience
         id={profile_id}
         experiences={experiences}
@@ -134,10 +146,10 @@ export default function UserProfile(props) {
       :
       <div className="p-5 text-center text-lg mt-4">
         <div className="text-red-800">
-          This profile does not exist anymore.
+          {t("userProfile.nonExistentUser")}
         </div>
         <div className="mt-4 text-[1rem]">
-          You can still see their posts, if they were in your network.
+          {t("userProfile.nonExistentUserRedirect")}
         </div>
       </div>
       }

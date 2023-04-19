@@ -158,6 +158,8 @@
     "title": "Avis"
   },
   "userProfile": {
+    "nonExistentUser": "Ce profil n'existe plus",
+    "nonExistentUserRedirect": "Vous pouvez toujours voir leurs messages s'ils étaient dans votre réseau.",
     "headline": {
       "connect": "Se connecter",
       "sent": "Envoyé",
