@@ -1,13 +1,20 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Avatar from '../shared/Avatar';
-import VerifiedUser from '../profile/VerifiedUser';
+import Avatar from "../shared/Avatar";
+import VerifiedUser from "../profile/VerifiedUser";
 
 import profile_pic from "../../static/images/profile.jpg";
-import { FaSuitcase, FaComments, FaUserFriends, FaBell } from "react-icons/fa";
+import {
+  FaSuitcase,
+  FaComments,
+  FaUserFriends,
+  FaBell,
+  FaGlobe,
+} from "react-icons/fa";
 
 import logo from "../../static/images/logo.svg";
 import logo_icon from "../../static/images/logo-icon.png";
+import { useTranslation } from "react-i18next";
 
 function Navbar(props) {
   const navigate = useNavigate();
@@ -16,36 +23,46 @@ function Navbar(props) {
     localStorage.removeItem("uid");
     localStorage.removeItem("loggedIn");
     navigate("/login");
-
-
+    window.location.reload();
   };
 
   var profile = props.profile;
 
   const [searchResults, setSearchResults] = useState([]);
   const [searchHistory, setSearchHistory] = useState([]);
+  const [t, i18n] = useTranslation();
 
   const isLoggedIn = localStorage.getItem("loggedIn");
   const uid = localStorage.getItem("uid");
 
   const searchResultsRef = useRef(null);
 
-
   const openUserProfile = (uid) => {
     navigate(`/profile/${uid}`);
     window.location.reload();
-  }
+  };
 
   const handleUserClick = (uid) => {
     setSearchResults([]);
     navigate(`/profile/${uid}`);
     window.location.reload();
+  };
 
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+    localStorage.setItem("lang", lng);
   };
 
   useEffect(() => {
+    if (localStorage.getItem("lang")) {
+      changeLanguage(localStorage.getItem("lang"));
+    }
+
     const handleClickOutside = (event) => {
-      if (searchResultsRef.current && !searchResultsRef.current.contains(event.target)) {
+      if (
+        searchResultsRef.current &&
+        !searchResultsRef.current.contains(event.target)
+      ) {
         setSearchResults([]);
       }
     };
@@ -68,29 +85,29 @@ function Navbar(props) {
     }
   };
 
-
-
   function SearchResults({ results, onUserClick }) {
     return (
-        <div className="z-50 search-results bg-white border border-gray-200 dark:bg-gray-800 dark:border-gray-600 rounded-lg mt-2 p-4 absolute w-full">
-          {results.map((user) => (
-              <Link to={`/profile/${user._id}`} key={user._id} onClick={() => onUserClick(user._id)}>
-                <div className="search-result flex items-center mb-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer transition duration-150">
-                  <span className="w-8 h-8 rounded-full bg-gray-800">
-                    <Avatar userId={user._id} />
-                  </span>
-                  <span className="ml-2 text-sm text-gray-700 dark:text-white">
-                    <div className="flex items-center">
-                        <div className="w-auto">
-                            {user.name}
-                        </div>
-                        <VerifiedUser name={user.name} type='dms'/>
-                    </div>
-                  </span>
+      <div className="z-50 search-results bg-white border border-gray-200 dark:bg-gray-800 dark:border-gray-600 rounded-lg mt-2 p-4 absolute w-full">
+        {results.map((user) => (
+          <Link
+            to={`/profile/${user._id}`}
+            key={user._id}
+            onClick={() => onUserClick(user._id)}
+          >
+            <div className="search-result flex items-center mb-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer transition duration-150">
+              <span className="w-8 h-8 rounded-full bg-gray-800">
+                <Avatar userId={user._id} />
+              </span>
+              <span className="ml-2 text-sm text-gray-700 dark:text-white">
+                <div className="flex items-center">
+                  <div className="w-auto">{user.name}</div>
+                  <VerifiedUser name={user.name} type="dms" />
                 </div>
-              </Link>
-          ))}
-        </div>
+              </span>
+            </div>
+          </Link>
+        ))}
+      </div>
     );
   }
 
@@ -103,15 +120,17 @@ function Navbar(props) {
   return (
     <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
       <div className="md:container lg:container flex flex-wrap items-center justify-between mx-auto">
-        
         {/* Logo */}
         <div className="dropdown">
           <Link to="/">
             <picture>
-              <source media="(max-width: 390px)" srcSet={logo} className="h-10"/>
+              <source
+                media="(max-width: 390px)"
+                srcSet={logo}
+                className="h-10"
+              />
               <img className="h-10" src={logo} alt="Linkify" />
             </picture>
-
           </Link>
         </div>
 
@@ -142,8 +161,8 @@ function Navbar(props) {
                         </svg>
                       </div>
                       <input
-                          autoComplete="off"
-                          onChange={handleSearchInputChange}
+                        autoComplete="off"
+                        onChange={handleSearchInputChange}
                         type="text"
                         id="simple-search"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -157,9 +176,12 @@ function Navbar(props) {
                     </button> */}
                   </form>
                   <div className="relative" ref={searchResultsRef}>
-                  {searchResults.length > 0 && (
-                      <SearchResults results={searchResults} onUserClick={handleUserClick} />
-                  )}
+                    {searchResults.length > 0 && (
+                      <SearchResults
+                        results={searchResults}
+                        onUserClick={handleUserClick}
+                      />
+                    )}
                   </div>
                 </div>
               </div>
@@ -195,13 +217,12 @@ function Navbar(props) {
                 </Link>
 
                 <Link to="/notifications">
-                <div
+                  <div
                     className="mr-2 btn btn-ghost btn-circle"
                     style={{ fontSize: "20px" }}
                   >
                     <FaBell />
                   </div>
-
                 </Link>
               </div>
 
@@ -217,88 +238,235 @@ function Navbar(props) {
               </button>
 
               {/* Dropdown menu */}
-              <div className="z-50 hidden w-56 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
+              <div
+                className="z-50 hidden w-56 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
+                id="user-dropdown"
+              >
                 <div className="px-4 py-3">
-                  <span className="block text-md font-bold text-gray-900 dark:text-white">{profile.name}</span>
-                  <span className="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">{profile.email}</span>
+                  <span className="block text-md font-bold text-gray-900 dark:text-white">
+                    {profile.name}
+                  </span>
+                  <span className="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">
+                    {profile.email}
+                  </span>
                 </div>
                 <ul className="py-2" aria-labelledby="user-menu-button">
                   <li>
                     {/* <Link to={`/profile/${uid}`}> */}
-                      <a onClick={() => openUserProfile(profile._id)} className="cursor-pointer block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-                        Profile
-                      </a>
+                    <a
+                      onClick={() => openUserProfile(profile._id)}
+                      className="cursor-pointer block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                    >
+                      Profile
+                    </a>
                     {/* </Link> */}
                   </li>
                   <li>
-                    <button type="button" class="flex items-center w-full px-4 py-2 text-md text-gray-700 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-navbar-events" data-collapse-toggle="dropdown-navbar-events">
-                      <span class="flex-1 text-left whitespace-nowrap">Events</span>
-                      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    <button
+                      type="button"
+                      class="flex items-center w-full px-4 py-2 text-md text-gray-700 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                      aria-controls="dropdown-navbar-events"
+                      data-collapse-toggle="dropdown-navbar-events"
+                    >
+                      <span class="flex-1 text-left whitespace-nowrap">
+                        Events
+                      </span>
+                      <svg
+                        class="w-6 h-6"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
                     </button>
-                    <ul id="dropdown-navbar-events" class="hidden py-2 space-y-2">
+                    <ul
+                      id="dropdown-navbar-events"
+                      class="hidden py-2 space-y-2"
+                    >
                       <li>
                         <Link to="/events">
-                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">All Events</span>
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            All Events
+                          </span>
                         </Link>
                       </li>
                       <li>
                         <Link to="/events/create">
-                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Create Event</span>
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            Create Event
+                          </span>
                         </Link>
                       </li>
                       <li>
                         <Link to="/events/my_events">
-                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Created Event</span>
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            Created Event
+                          </span>
                         </Link>
                       </li>
                       <li>
                         <Link to="/events/registered_events">
-                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Registered Event</span>
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            Registered Event
+                          </span>
                         </Link>
                       </li>
                     </ul>
                   </li>
                   <li>
-                    <button type="button" class="flex items-center w-full px-4 py-2 text-md text-gray-700 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-navbar-groups" data-collapse-toggle="dropdown-navbar-groups">
-                      <span class="flex-1 text-left whitespace-nowrap">Groups</span>
-                      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    <button
+                      type="button"
+                      class="flex items-center w-full px-4 py-2 text-md text-gray-700 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                      aria-controls="dropdown-navbar-groups"
+                      data-collapse-toggle="dropdown-navbar-groups"
+                    >
+                      <span class="flex-1 text-left whitespace-nowrap">
+                        Groups
+                      </span>
+                      <svg
+                        class="w-6 h-6"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
                     </button>
-                    <ul id="dropdown-navbar-groups" class="hidden py-2 space-y-2">
+                    <ul
+                      id="dropdown-navbar-groups"
+                      class="hidden py-2 space-y-2"
+                    >
                       <li>
                         <Link to="/groups">
-                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">All Groups</span>
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            All Groups
+                          </span>
                         </Link>
                       </li>
                       <li>
                         <Link to="/groups/create">
-                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Create Group</span>
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            Create Group
+                          </span>
                         </Link>
                       </li>
                       <li>
                         <Link to="/groups/my_groups">
-                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Created Groups</span>
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            Created Groups
+                          </span>
                         </Link>
                       </li>
                       <li>
                         <Link to="/groups/joined_groups">
-                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Joined Groups</span>
+                          <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            Joined Groups
+                          </span>
                         </Link>
                       </li>
                     </ul>
                   </li>
-
-                  <hr className="my-4"/>
                   <li>
-                    <a href="#" onClick={logout} className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Logout</a>
+                    <button
+                      type="button"
+                      class="flex items-center w-full px-4 py-2 text-md text-gray-700 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                      aria-controls="dropdown-navbar-lang"
+                      data-collapse-toggle="dropdown-navbar-lang"
+                    >
+                      <span class="flex-1 text-left whitespace-nowrap">
+                        Languages
+                      </span>
+                      <svg
+                        class="w-6 h-6"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
+                    </button>
+                    <ul id="dropdown-navbar-lang" class="hidden py-2 space-y-2">
+                      <li>
+                        <span
+                          class="flex cursor-pointer items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                          onClick={() => changeLanguage("en")}
+                        >
+                          English
+                        </span>
+                      </li>
+                      <li>
+                        <span
+                          class="flex cursor-pointer items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                          onClick={() => changeLanguage("fr")}
+                        >
+                          Français
+                        </span>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <hr className="my-4" />
+                  <li>
+                    <a
+                      href="#"
+                      onClick={logout}
+                      className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                    >
+                      Logout
+                    </a>
                   </li>
                 </ul>
               </div>
-
-
             </div>
-
           </>
-        ) : null}
+        ) : (
+          <div className="flex items-center md:order-2" id="profile_dropdown">
+            <button
+              type="button"
+              className="hidden md:block"
+              id="user-menu-button"
+              aria-expanded="false"
+              data-dropdown-toggle="user-dropdown"
+              data-dropdown-placement="bottom"
+            >
+              <FaGlobe />
+            </button>
+            <div
+              className="z-50 hidden w-56 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
+              id="user-dropdown"
+            >
+              <div className="px-3 py-2">
+                <span
+                  className="cursor-pointer block px-2 py-2 text-md text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                  onClick={() => changeLanguage("en")}
+                >
+                  English
+                </span>
+              </div>
+              <div className="px-3 py-2">
+                <span
+                  className="cursor-pointer block px-2 py-2 text-md text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                  onClick={() => changeLanguage("fr")}
+                >
+                  Français
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );

@@ -5,6 +5,7 @@ import { Helmet } from "react-helmet";
 import { FaGoogle } from "react-icons/fa";
 import { BiLogIn } from "react-icons/bi";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 function Register() {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ function Register() {
   const [name, setName] = useState({});
   const [isRecruiter, setRecruiter] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [t] = useTranslation();
 
   const parseErrorMessageFromHtml = (html) => {
     const parser = new DOMParser();
@@ -22,8 +24,6 @@ function Register() {
     errorMessage = errorMessage.replace(/\s+at.*/g, "");
     return errorMessage;
   };
-  
-
 
   const register = async () => {
     await axios
@@ -33,16 +33,14 @@ function Register() {
         navigate("/login");
       })
 
-
       .catch((err) => {
         if (err.response && err.response.status === 400) {
           const parsedMessage = parseErrorMessageFromHtml(err.response.data);
           setErrorMessage(parsedMessage);
         } else {
-          setErrorMessage("Something went wrong. Please try again later.");
+          setErrorMessage(t("login.unknown"));
         }
         console.log("Error", err);
-
       });
   };
 
@@ -68,7 +66,7 @@ function Register() {
         </div>
         <div className="lg:w-1/2 p-8">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 mb-6">
-            Create an account
+            {t("register.title")}
           </h2>
 
           {errorMessage && (
@@ -90,8 +88,7 @@ function Register() {
           >
             <div className="relative">
               <label htmlFor="name" className="text-sm text-gray-600">
-
-                Name
+                {t("register.name")}
               </label>
               <input
                 id="name"
@@ -99,13 +96,13 @@ function Register() {
                 type="text"
                 required
                 className="block w-full px-4 py-2 mt-1 text-gray-900 bg-gray-100 border border-gray-300 rounded focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                placeholder="User Name"
+                placeholder={t("register.name")}
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div className="relative">
               <label htmlFor="email-address" className="text-sm text-gray-600">
-                Email address
+                {t("register.email")}
               </label>
               <input
                 id="email-address"
@@ -114,13 +111,13 @@ function Register() {
                 autoComplete="email"
                 required
                 className="block w-full px-4 py-2 mt-1 text-gray-900 bg-gray-100 border border-gray-300 rounded focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                placeholder="Email address"
+                placeholder={t("register.email")}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="relative">
               <label htmlFor="password" className="text-sm text-gray-600">
-                Password
+                {t("register.password")}
               </label>
               <input
                 id="password"
@@ -129,7 +126,7 @@ function Register() {
                 autoComplete="current-password"
                 required
                 className="block w-full px-4 py-2 mt-1 text-gray-900 bg-gray-100 border border-gray-300 rounded focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                placeholder="Password"
+                placeholder={t("register.password")}
                 onChange={(e) => setPass(e.target.value)}
               />
             </div>
@@ -148,7 +145,7 @@ function Register() {
                 htmlFor="isRecruiter"
                 className="ml-2 block text-sm text-gray-900"
               >
-                Are you trying to create an account as recruiter ?
+                {t("register.recruiter")}
               </label>
             </div>
 
@@ -157,7 +154,7 @@ function Register() {
               className="w-full mt-6 py-2 px-4 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 flex items-center justify-center"
             >
               <RiUserAddFill className="mr-2" />
-              Register
+              {t("register.register")}
             </button>
 
             <div className="flex gap-4 mt-6">
@@ -168,13 +165,13 @@ function Register() {
                 className="w-1/2 py-2 px-4 text-sm font-medium text-white bg-gradient-to-r from-green-400 to-blue-500 rounded-md hover:from-pink-500 hover:to-yellow-500 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 flex items-center justify-center"
               >
                 <FaGoogle className="mr-2" />
-                Login with Google
+                {t("register.google")}
               </button>
 
               <Link to="/login" className="w-1/2">
                 <button className="w-full py-2 px-4 text-sm font-medium text-indigo-900 bg-blue-200 rounded-md hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 flex items-center justify-center">
                   <BiLogIn className="mr-2 text-indigo-500" />
-                  Already have an account ?
+                  {t("register.login")}
                 </button>
               </Link>
             </div>

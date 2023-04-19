@@ -3,12 +3,10 @@
 // Date created: Apr 1, 2023
 // Description: allows user to upload an new avatar.
 
-
-
-import React, { useState } from 'react';
-import axios from 'axios';
-import EditAvatar from './EditAvatar';
-import { FaCamera } from 'react-icons/fa';
+import React, { useState } from "react";
+import axios from "axios";
+import EditAvatar from "./EditAvatar";
+import { FaCamera } from "react-icons/fa";
 
 const SetupAvatar = ({ avatar, isOwner, getUser }) => {
   const [showEditor, setShowEditor] = useState(false);
@@ -25,21 +23,20 @@ const SetupAvatar = ({ avatar, isOwner, getUser }) => {
     try {
       const response = await fetch(imageDataURL);
       const blob = await response.blob();
-      const file = new File([blob], 'avatar.jpg', { type: 'image/jpeg' });
-  
+      const file = new File([blob], "avatar.jpg", { type: "image/jpeg" });
+
       const formData = new FormData();
-      formData.append('avatar', file);
-      formData.append('userId', localStorage.getItem('uid'));
-  
-      await axios.post('/api/user/property/addAvatar', formData);
+      formData.append("avatar", file);
+      formData.append("userId", localStorage.getItem("uid"));
+
+      await axios.post("/api/user/property/addAvatar", formData);
       setShowEditor(false);
       setSelectedImage(null);
       getUser();
     } catch (error) {
-      console.error('Error uploading image:', error.message);
+      console.error("Error uploading image:", error.message);
     }
   };
-  
 
   return (
     <>
@@ -53,7 +50,6 @@ const SetupAvatar = ({ avatar, isOwner, getUser }) => {
               onChange={handleImageChange}
             />
             <FaCamera className="" />
-          
           </label>
         )}
       </div>

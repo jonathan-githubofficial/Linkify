@@ -9,11 +9,13 @@ import localExperiences from "../../static/local_experience";
 import ExperienceModal from "./modal/Experience";
 
 import company_logo from "../../static/images/companies/default_company.png";
+import { useTranslation } from "react-i18next";
 
 export default function Experience(props) {
   let id = props.id;
   // var user_skills = props.skills;
   const [experiences, setExperiences] = useState([]);
+  const [t] = useTranslation();
 
   useEffect(async () => {
     setExperiences(await props.experiences);
@@ -24,7 +26,9 @@ export default function Experience(props) {
       <div className="grid grid-col-2 mb-2 flex">
         <div class="grid grid-cols-2 gap-2 items-start">
           <div>
-            <h1 className="text-xl font-semibold mb-5">Experience</h1>
+            <h1 className="text-xl font-semibold mb-5">
+              {t("userProfile.experience.title")}
+            </h1>
           </div>
           <div className="flex">
             {props.isOwner && (
@@ -42,7 +46,9 @@ export default function Experience(props) {
           getUser={props.getUser}
         />
         <div>
-          {experiences && experiences.length == 0 ? "No experience added yet" : ""}
+          {experiences && experiences.length == 0
+            ? t("userProfile.experience.noExp")
+            : ""}
           {experiences &&
             Object.keys(experiences)
               .slice(0)
@@ -90,7 +96,7 @@ export default function Experience(props) {
                       <div className="flex items-start">
                         <div className="avatar">
                           <div className="w-12">
-                            <img src={company_logo} className='eduLogo'/>
+                            <img src={company_logo} className="eduLogo" />
                           </div>
                         </div>
                         <div className="flex flex-col pl-5">
@@ -110,7 +116,7 @@ export default function Experience(props) {
               })}
         </div>
       </div>
-      <hr className='mt-5'/>
+      <hr className="mt-5" />
     </div>
   );
 }

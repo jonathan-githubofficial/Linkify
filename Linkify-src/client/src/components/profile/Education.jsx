@@ -7,22 +7,25 @@ import React, { useEffect, useState } from "react";
 import { BiPencil } from "react-icons/bi";
 import EducationModal from "./modal/Education";
 import default_education from "../../static/images/education/default_education.png";
+import { useTranslation } from "react-i18next";
 
 export default function Education(props) {
   let id = props.id;
   const [educations, setEducations] = useState([]);
+  const [t] = useTranslation();
 
   useEffect(async () => {
     setEducations(await props.educations);
   });
-
 
   return (
     <div className="p-5">
       <div className="grid grid-col-2 mb-2 flex">
         <div class="grid grid-cols-2 gap-2 items-start">
           <div>
-            <h1 className="text-xl font-semibold mb-5">Education</h1>
+            <h1 className="text-xl font-semibold mb-5">
+              {t("userProfile.education.title")}
+            </h1>
           </div>
           <div className="flex">
             {props.isOwner && (
@@ -36,52 +39,51 @@ export default function Education(props) {
         </div>
       </div>
 
-      <EducationModal
-        id={id}
-        educations={educations}
-        getUser={props.getUser}
-      />
+      <EducationModal id={id} educations={educations} getUser={props.getUser} />
 
       <div>
-        {educations && educations.length == 0 ? "No education added yet" : ""}
-        {educations.slice(0).reverse().map(education => (
-          <div>
-            <div className="flex justify-left mt-2">
+        {educations && educations.length == 0
+          ? t("userProfile.education.noEdu")
+          : ""}
+        {educations
+          .slice(0)
+          .reverse()
+          .map((education) => (
+            <div>
+              <div className="flex justify-left mt-2">
                 <div className="flex items-start">
-                    <div className='avatar'>
-                        <div className="w-12">
-                            <img src={default_education} className='eduLogo' />
-                        </div>
+                  <div className="avatar">
+                    <div className="w-12">
+                      <img src={default_education} className="eduLogo" />
                     </div>
-                    <div className="flex flex-col pl-5">
-                        <p className="text-lg lg:text-xl">{education.school}</p>
-                        <span className="text-sm">
-                          
-                          {education.degree} • {education.fieldOfStudy}
-                        
-                        </span>
-                        <span className='text-xs mt-1'>
-                          {new Date(education.from).toLocaleString("default", {
-                            year: "numeric",
-                            month: "short",
-                            day: "numeric",
-                          })}
-                          &nbsp;-&nbsp;
-                          {new Date(education.to).toLocaleString("default", {
-                            year: "numeric",
-                            month: "short",
-                            day: "numeric",
-                          })}
-                        </span>
-                    </div>
+                  </div>
+                  <div className="flex flex-col pl-5">
+                    <p className="text-lg lg:text-xl">{education.school}</p>
+                    <span className="text-sm">
+                      {education.degree} • {education.fieldOfStudy}
+                    </span>
+                    <span className="text-xs mt-1">
+                      {new Date(education.from).toLocaleString("default", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
+                      &nbsp;-&nbsp;
+                      {new Date(education.to).toLocaleString("default", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </span>
+                  </div>
                 </div>
+              </div>
+              <hr className="mt-5" />
             </div>
-            <hr className='mt-5' />
-          </div>
-        ))}
+          ))}
       </div>
 
-      <hr className='mt-5'/>
+      <hr className="mt-5" />
     </div>
   );
 }
