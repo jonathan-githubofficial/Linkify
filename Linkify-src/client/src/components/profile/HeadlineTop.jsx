@@ -20,6 +20,7 @@ export default function HeadlineTop(props) {
   var avatar = props.avatar;
   var profile = props.profile;
   var company = props.company;
+  var isProfileExists = props.isProfileExists;
   const [connectStatus, setConnectStatus] = React.useState(false);
   const [showCropModal, setShowCropModal] = React.useState(false);
   const [uploadedImage, setUploadedImage] = React.useState(null);
@@ -27,6 +28,9 @@ export default function HeadlineTop(props) {
   const [t] = useTranslation();
 
   const [connectionsData, setConnectionsData] = useState([]);
+
+  var isProfileExists = props.isProfileExists;
+
   const getAllConnections = async () => {
     const res = await axios.get("/api/user/connection/getAllConnections?", {
       params: { userId: params.id },
@@ -103,6 +107,8 @@ export default function HeadlineTop(props) {
             </div>
           </div>
 
+          {isProfileExists ? 
+          <>
           <div
             className={`grid ${
               props.isOwner ? "content-end" : "content-end"
@@ -127,6 +133,8 @@ export default function HeadlineTop(props) {
               </button>
             )}
           </div>
+          </>
+          : ''}
           <EditProfile
             profile={profile}
             avatar={avatar}

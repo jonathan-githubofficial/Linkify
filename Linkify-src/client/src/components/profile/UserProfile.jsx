@@ -16,6 +16,8 @@ import Projects from "../profile/Projects";
 import Avatar from "../shared/Avatar";
 
 export default function UserProfile(props) {
+  var isProfileExists = props.isProfileExists;
+
   var profile = props.user;
   let profile_id = profile._id;
   var profile_name = profile.name;
@@ -72,6 +74,7 @@ export default function UserProfile(props) {
 
   return (
     <div class="w-full lg:w-3/4 bg-white relative lg:rounded-t-xl">
+
       <ProfileCover
         name={profile_name}
         position={position}
@@ -87,9 +90,12 @@ export default function UserProfile(props) {
         getUser={props.getUser}
         isOwner={props.isOwner}
         userId={profile._id}
+        isProfileExists={isProfileExists}
       />
       <hr />
 
+      {isProfileExists ? 
+      <>
       <Experience
         id={profile_id}
         experiences={experiences}
@@ -124,6 +130,20 @@ export default function UserProfile(props) {
         getUser={props.getUser}
         isOwner={props.isOwner}
       />
+      </>
+      :
+      <div className="p-5 text-center text-lg mt-4">
+        <div className="text-red-800">
+          This profile does not exist anymore.
+        </div>
+        <div className="mt-4 text-[1rem]">
+          You can still see their posts, if they were in your network.
+        </div>
+      </div>
+      }
+      
+
+      
     </div>
   );
 }
