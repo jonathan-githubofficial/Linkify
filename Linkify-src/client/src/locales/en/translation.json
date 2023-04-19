@@ -1,0 +1,234 @@
+{
+  "login": {
+    "title": "Let's Login To Your Account",
+    "email": "Email Address",
+    "password": "Password",
+    "login": "Login",
+    "forgot": "Forgot Password?",
+    "google": "Login with Google",
+    "register": "Dont have an account? SignUp",
+    "error": "Invalid username or password",
+    "unknown": "Something went wrong. Please try again later."
+  },
+  "register": {
+    "title": "Let's Create Your Account",
+    "email": "Email Address",
+    "password": "Password",
+    "name": "Name",
+    "recruiter": "Are you trying to create an account as recruiter?",
+    "register": "Register",
+    "google": "Login with Google",
+    "login": "Already have an account? Login",
+    "unknown": "Something went wrong. Please try again later."
+  },
+  "forgotPassword": {
+    "title": "Forgot Password",
+    "desc": "Don't worry, enter your email address and we'll send you a link to reset your password.",
+    "button": "Send Reset Link",
+    "success": "We have sent you an email with a link to reset your password.",
+    "error": "Error sending reset password email. Please check your email and try again."
+  },
+  "resetPassword": {
+    "title": "Reset Password",
+    "new": "New Password",
+    "confirm": "Confirm Password",
+    "reset": "Reset Password",
+    "success": "Your password has been successfully reset",
+    "error": "Error resetting your password. Please try again",
+    "dontMatch": "Passwords do not match"
+  },
+  "landingPage": {
+    "title": "Welcome to Linkify",
+    "login": "Log in",
+    "message": "Or if you don't have an account",
+    "register": "SignUp"
+  },
+  "events": {
+    "title": "Events",
+    "available": "List of available events",
+    "empty": "No event available yet to register. Please come back later",
+    "myEvents": "My Events",
+    "createGrp": "Create group",
+    "notReg": "You are not registered to any events yet.",
+    "register": "Register",
+    "regEventsTitle": "List of your registered events",
+    "noRegEvents": "You are not registered to any events yet.",
+    "visitPage": "You can visit events page to register for any available events.",
+    "view": "View Events Page",
+    "nearby": "Events Nearby",
+    "createNewEvent": "Create a New Event",
+    "createSuccess": "Event created successfully",
+    "date": "Date",
+    "eventDateSelect": "Select Your Event Date",
+    "name": "Name",
+    "description": "Description",
+    "location": "Location",
+    "status": "Active",
+    "statusMsg": "Active Status: This event will be active and users can register for it anytime.",
+    "create": "Create",
+    "createdEvents": "List of your created events",
+    "createdEventsTitle": "Created Events",
+    "alreadyReg": "You are already registered to this event",
+    "eventExpired": "Event Expired",
+    "by": "Event by",
+    "cancelReg": "Cancel Registration"
+  },
+  "groups": {
+    "title": "Groups",
+    "available": "List of available groups",
+    "noGroups": "No groups available yet to join. Please come back later.",
+    "myGroups": "My Groups",
+    "owner": "Owner",
+    "create": "Create Group",
+    "noManage": "You are not managing any group yet",
+    "joinedGroups": "List of your joined groups",
+    "notJoined": "You are not joined to any group yet.",
+    "favGroup": "You can visit groups page to join your favourite group.",
+    "view": "View Groups Page",
+    "createdGroups": "List of your created groups",
+    "noGroupsCreated": "You have not created any group yet.",
+    "createMsg": "You can you create a new group by clicking Create Group button.",
+    "newGroup": "Create a New Group",
+    "success": "Group created successfully",
+    "name": "Group Name",
+    "desc": "Description",
+    "status": "Active",
+    "statusMsg": "Active Status: This group will be active and users can join it anytime.",
+    "note": "Note: You will be the owner of this group.",
+    "alreadyMember": "You are already a member of this group.",
+    "closed": "This group does not accept new members at this time!",
+    "by": "Group by",
+    "join": "Join",
+    "leave": "Leave Group"
+  },
+  "home": {
+    "sideBar": {
+      "skills": "skills"
+    },
+    "createPost": {
+      "success": "Post created successfully",
+      "error": "Error creating post: ",
+      "placeHolder": "Description with hashtags (e.g. #example)",
+      "button": "Post"
+    },
+    "feedPosts": {
+      "comments": "Comments",
+      "remove": "remove"
+    }
+  },
+  "jobs": {
+    "cvError": "Please upload your CV and enter a cover letter before applying",
+    "rejectApplication": "Are you sure you want to reject this applicant?",
+    "withdrawApplication": "Are you sure you want to withdraw your application?",
+    "title": "Job Application",
+    "search": "Search",
+    "available": "Available Jobs",
+    "recentAvailable": "Recent Available Jobs",
+    "applied": "Applied Jobs",
+    "apply": "Apply Now",
+    "edit": "Edit Application",
+    "delete": "Delete",
+    "desc": "Description",
+    "salary": "Salary",
+    "update": "Update",
+    "coverLetter": "Cover Letter",
+    "submit": "Submit Application",
+    "applyJobTitle": "Apply for Job"
+  },
+  "messages": {
+    "title": "Messages",
+    "noMessages": "You have no messages",
+    "send": "Send",
+    "report": "Report",
+    "reportTitle": "Why are you reporting this message?",
+    "cancel": "Cancel",
+    "download": "Download"
+  },
+  "networks": {
+    "title": "My Network",
+    "yourConnections": "Your Connections",
+    "invite": "Network Invitations",
+    "accept": "Accept",
+    "ignore": "Ignore",
+    "noNetwork": "You do not have any people in your network",
+    "message": "Message",
+    "remove": "Remove"
+  },
+  "notifications": {
+    "title": "Notifications"
+  },
+  "userProfile": {
+    "headline": {
+      "connect": "Connect",
+      "sent": "Sent",
+      "connected": "Connected"
+    },
+    "editProfile": {
+      "title": "Edit Profile",
+      "basicInfo": "Basic Info",
+      "password": "Password",
+      "settings": "Settings",
+      "info": "Info",
+      "success": "Profile updated successfully",
+      "close": "Close",
+      "fullName": "Full Name",
+      "email": "Email Address",
+      "update": "Update",
+      "passSuccess": "Password updated successfully",
+      "passError": "Error updating password",
+      "typeCurrPass": "Type your current password",
+      "typeNewPass": "Type your new password",
+      "retypePass": "Retype your new password",
+      "deleteAccDesc": "To delete your, click the button below",
+      "deleteAccConfirm": "Are you sure you want to delete your account? This action cannot be undone.",
+      "deleteAcc": "Delete Account"
+    },
+    "experience": {
+      "title": "Experience",
+      "noExp": "No experience added yet"
+    },
+    "education": {
+      "title": "Education",
+      "noEdu": "No education added yet"
+    },
+    "skills": {
+      "title": "Skills",
+      "noSkills": "No skills added yet"
+    },
+    "languages": {
+      "title": "Languages",
+      "noLang": "No languages added yet"
+    },
+    "projects": {
+      "title": "Projects",
+      "noProjects": "No projects added yet"
+    },
+    "rightBar": {
+      "myConnects": "My Connections",
+      "message": "Message"
+    }
+  },
+  "listSection": {
+    "viewMore": "View More",
+    "eventExpired": "Event Expired",
+    "apply": "Apply",
+    "view": "View"
+  },
+  "navBar": {
+    "search": "Search",
+    "searchText": "Search for people ...",
+    "profile": "Profile",
+    "events": "Events",
+    "allEvents": "All Events",
+    "createEvents": "Create Events",
+    "createdEvents": "Created Events",
+    "registeredEvents": "Registered Events",
+    "groups": "Groups",
+    "allGroups": "All Groups",
+    "createGroup": "Create Group",
+    "createdGroups": "Created Groups",
+    "joinedGroups": "Joined Groups",
+    "languages": "Languages",
+    "logout": "Logout"
+  }
+}

@@ -1,52 +1,125 @@
-import React, { useState , useEffect} from 'react';
-import { Helmet } from 'react-helmet';
-import Notification from '../components/Notification';
+//Notifications
+//Author: Daria Koroleva
+//Created: Feb 11,2023
+//Description: Notifications page
+import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
+import Notification from "../components/notifications/Notification";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 function Notifications() {
-
   const navigate = useNavigate();
+  const [notifications, setNotifications] = useState([]);
+  const [t] = useTranslation();
 
   // checks if user is logged in, if not, redirects to login page
   useEffect(() => {
     if (localStorage.getItem("loggedIn") !== "1") {
       navigate("/login");
-    }  
+    }
   }, []);
 
-  const [notifications, setNotifications] = useState([
-    { id: 1, age:"16m", user: "Monkey", type: "posted", description: "I am a happy Developer. I have five years of experience. I use HTML, JS, and CSS. I am also learning React.", avatar: "/images/avatar1.jpg" },
-    { id: 2, age:"1h", user: "Bunny", type: "commented", description: "What if every window in your house could generate electricity? Learn more about the importance of solar power", avatar: "/images/avatar2.jpg" },
-    { id: 3, age:"5h",user: "Cow", type: "posted", description: "Our Leadership Masterclass Series is starting soon!Feel free to message me if you have any questions.", avatar: "/images/avatar3.jpg" },
-    { id: 4, age:"14h",user: "Monkey", type: "posted", description: "Passionate about Data Governance and Management? My team is growing and we are looking for Data Stewards to continuously bring value to our data consumers and producers.", avatar: "/images/avatar4.jpg" },
-    { id: 5, age:"1d",user: "Bear", type: "commented", description: "We are honoured to be included in this year’s #SustainableYearbook as one of the top 5% sustainability performers in the transportation industry.", avatar: "/images/avatar5.jpg" },
-    { id: 6, age:"5d",user: "Fox", type: "posted", description: "Hiring a Front-End Developer with experience in JS, HTML and CSS. Knowing React and UX design will be a plus. Remote Opportunity and competitive compensation.", avatar: "/images/avatar6.jpg" }
-   
-  ]);
+  const currentUser = localStorage.getItem("uid");
 
-  const removeNotification = (i) => setNotifications(notifications.filter( x => x.id!=i));
+  useEffect(() => {
+    axios
+      .get(`/api/notifications/user/${currentUser}`)
+      .then((res) => {
+        // handle the response data
+        setNotifications(mapNotificationsToUI(res.data));
+      })
+      .catch((err) => {
+        // handle any errors
+        console.log(err);
+      });
+  }, []);
+
+  function mapNotificationsToUI(notificationsData) {
+    const notificationsUI = notificationsData.map((notification) => {
+      return {
+        id: notification._id,
+        age: getAge(notification.time),
+        userName: notification.userPosterId?.name,
+        userId: notification.userPosterId?._id,
+        type: notification.type,
+        description: notification.description,
+      };
+    });
+
+    return notificationsUI;
+  }
+
+  function getAge(time) {
+    const current = new Date();
+    const datetime = new Date(time);
+
+    const difference = current - datetime;
+
+    const sec = 1000;
+    const min = 60 * sec;
+    const hour = 60 * min;
+    const day = 24 * hour;
+    const week = 7 * day;
+
+    if (difference < min) {
+      return `${Math.round(difference / sec)}s`;
+    } else if (difference < hour) {
+      return `${Math.round(difference / min)}m`;
+    } else if (difference < day) {
+      return `${Math.round(difference / hour)}h`;
+    } else if (difference < week) {
+      return `${Math.round(difference / day)}d`;
+    } else {
+      return `${Math.round(difference / week)}w`;
+    }
+  }
+
+  const deleteNotificationById = async (notificationId) => {
+    await axios
+      .delete(`/api/notifications/deleteNotification/${notificationId}`)
+      .then(() => {
+        setNotifications(
+          notifications.filter(
+            (notification) => notification.id != notificationId
+          )
+        );
+      })
+      .catch((err) => console.log("Error", err));
+  };
+
+  function removeNotification(notificationId) {
+    deleteNotificationById(notificationId);
+  }
 
   return (
     <div>
       <Helmet>
-        <meta charSet='utf-8' />
-        <title>Notifications</title>
+        <meta charSet="utf-8" />
+        <title>{t("notifications.title")}</title>
       </Helmet>
-      <div className="flex flex-col h-screen my-auto items-center bgimg bg-cover w-full">
-        <ul> 
-          {notifications.map((notification) => {
-            return (
-              <li className='flex flex-col items-center' key={notification.id} >
-                <Notification notification={notification} removeNotification={removeNotification}></Notification>
-              </li>
-            )
-          })}
-        </ul>
+      <div className="flex flex-col h-screen my-auto items-center bgimg bg-cover w-full mb-[6rem]">
+        <div className="w-full sm:w-1/2">
+          <ul className="min-w-full pb-16">
+            {notifications.map((notification) => {
+              return (
+                <li
+                  className="flex items-center justify-center"
+                  key={notification.id}
+                >
+                  <Notification
+                    notification={notification}
+                    removeNotification={removeNotification}
+                  ></Notification>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </div>
-
-
     </div>
-  )
+  );
 }
 
-export default Notifications
+export default Notifications;
