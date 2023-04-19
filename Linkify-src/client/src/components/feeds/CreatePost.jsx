@@ -5,12 +5,14 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { BiImageAdd } from "react-icons/bi";
-import 'flowbite';
+import "flowbite";
+import { useTranslation } from "react-i18next";
 
 const CreatePost = ({ onPostCreated }) => {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
   const [message, setMessage] = useState(null);
+  const [t] = useTranslation();
 
   const handleSubmit = async () => {
     setMessage(null);
@@ -39,14 +41,14 @@ const CreatePost = ({ onPostCreated }) => {
       })
       .then((res) => {
         console.log(res.data);
-        setMessage("Post created successfully.");
+        setMessage(t("home.createPost.success"));
         setDescription("");
         setImage(null);
-        onPostCreated(res.data); 
+        onPostCreated(res.data);
       })
       .catch((err) => {
         console.log(err);
-        setMessage("Error creating post: " + err.message);
+        setMessage(t("home.createPost.error") + err.message);
       });
   };
 
@@ -59,14 +61,12 @@ const CreatePost = ({ onPostCreated }) => {
       <input
         className="w-full border border-gray-300 p-2 rounded-lg focus:border-blue-500 focus:outline-none mb-2"
         type="text"
-        placeholder="Description with hashtags (e.g. #example)"
+        placeholder={t("home.createPost.placeHolder")}
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
       <div className="flex justify-between items-center">
-        <label
-          className="text-white bg-[#050708] hover:bg-[#050708]/80 focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#050708]/40 dark:focus:ring-gray-600 mr-2 mb-2"
-        >
+        <label className="text-white bg-[#050708] hover:bg-[#050708]/80 focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#050708]/40 dark:focus:ring-gray-600 mr-2 mb-2">
           <BiImageAdd className="text-lg" />
           <input
             type="file"
@@ -79,10 +79,9 @@ const CreatePost = ({ onPostCreated }) => {
         {image && <span className="mr-2">{image.name}</span>}
         <button
           className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#050708]/40 dark:focus:ring-gray-600 mr-2 mb-2"
-       
           onClick={handleSubmit}
         >
-          Post
+          {t("home.createPost.button")}
         </button>
       </div>
       {message && (

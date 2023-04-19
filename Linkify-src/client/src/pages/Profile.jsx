@@ -43,25 +43,25 @@ function Profile() {
   const [connectionsData, setConnectionsData] = useState([]);
 
   const getAllConnections = async () => {
-      const res = await axios.get("/api/user/connection/getAllConnections?", {
-        params: { userId: localStorage.getItem("uid") },
-      });
-      setConnectionsData(res.data);
+    const res = await axios.get("/api/user/connection/getAllConnections?", {
+      params: { userId: localStorage.getItem("uid") },
+    });
+    setConnectionsData(res.data);
   };
-  
+
   const [educations, setEducations] = useState([]);
 
   const getMyEducations = async () => {
-      const res = await axios.get("/api/user/property/getMyEducations?", {
-        params: { id: params.id },
-      });
-      setEducations(res.data);
+    const res = await axios.get("/api/user/property/getMyEducations?", {
+      params: { id: params.id },
+    });
+    setEducations(res.data);
   };
 
   useEffect(() => {
-      getUser();
-      getAllConnections();
-      getMyEducations();
+    getUser();
+    getAllConnections();
+    getMyEducations();
   }, []);
 
   return (

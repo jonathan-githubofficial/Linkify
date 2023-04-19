@@ -1,0 +1,234 @@
+{
+  "login": {
+    "title": "Connectons-nous à votre compte",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "login": "Connexion",
+    "forgot": "Mot de passe oublié ?",
+    "google": "Connexion avec Google",
+    "register": "Vous n'avez pas de compte ? Inscrivez-vous",
+    "error": "Identifiant ou mot de passe invalide",
+    "unknown": "Une erreur s'est produite. Veuillez réessayer plus tard"
+  },
+  "register": {
+    "title": "Créons votre compte",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "name": "nom",
+    "recruiter": "Essayez-vous de créer un compte en tant que recruteur ?",
+    "register": "S'inscrire",
+    "google": "Connexion avec Google",
+    "login": "Vous avez déjà un compte ? Connectez-vous",
+    "unknown": "Une erreur s'est produite. Veuillez réessayer plus tard"
+  },
+  "forgotPassword": {
+    "title": "Mot de passe oublié",
+    "desc": "Ne vous inquiétez pas, entrez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe",
+    "button": "Envoyer le lien de réinitialisation",
+    "success": "Nous vous avons envoyé un e-mail avec un lien pour réinitialiser votre mot de passe",
+    "error": "Erreur lors de l'envoi de l'e-mail de réinitialisation du mot de passe. Veuillez vérifier votre e-mail et réessayer"
+  },
+  "resetPassword": {
+    "title": "Réinitialiser le mot de passe",
+    "new": "Nouveau mot de passe",
+    "confirm": "Confirmer le mot de passe",
+    "reset": "Réinitialiser le mot de passe",
+    "success": "Votre mot de passe a été réinitialisé avec succès",
+    "error": "Erreur lors de la réinitialisation de votre mot de passe. Veuillez réessayer",
+    "dontMatch": "Les mots de passe ne correspondent pas"
+  },
+  "landingPage": {
+    "title": "Bienvenue sur Linkify",
+    "login": "Connexion",
+    "message": "Ou si vous n'avez pas de compte",
+    "register": "S'inscrire"
+  },
+  "events": {
+    "title": "Événements",
+    "available": "Liste des événements disponibles",
+    "empty": "Aucun événement disponible pour le moment pour s'inscrire. Veuillez revenir plus tard",
+    "myEvents": "Mes événements",
+    "createGrp": "Créer un groupe",
+    "notReg": "Vous n'êtes encore inscrit à aucun événement.",
+    "register": "S'inscrire",
+    "regEventsTitle": "Liste de vos événements enregistrés",
+    "noRegEvents": "Vous n'êtes pas encore inscrit à des événements.",
+    "visitPage": "Vous pouvez visiter la page des événements pour vous inscrire à tout événement disponible.",
+    "view": "Voir la page des événements",
+    "nearby": "Événements à proximité",
+    "createNewEvent": "Créer un nouvel événement",
+    "createSuccess": "Événement créé avec succès",
+    "date": "Date",
+    "eventDateSelect": "Sélectionnez la date de votre événement",
+    "name": "Nom",
+    "description": "Description",
+    "location": "Emplacement",
+    "status": "Actif",
+    "statusMsg": "Statut actif : cet événement sera actif et les utilisateurs peuvent s'y inscrire à tout moment.",
+    "create": "Créer",
+    "createdEvents": "Liste de vos événements créés",
+    "createdEventsTitle": "Événements créés",
+    "alreadyReg": "Vous êtes déjà inscrit à cet événement",
+    "eventExpired": "Événement expiré",
+    "by": "Événement par",
+    "cancelReg": "Annuler l'inscription"
+  },
+  "groups": {
+    "title": "Groupes",
+    "available": "Liste des groupes disponibles",
+    "noGroups": "Aucun groupe disponible pour le moment. Veuillez revenir plus tard.",
+    "myGroups": "Mes groupes",
+    "owner": "Propriétaire",
+    "create": "Créer un groupe",
+    "noManage": "Vous ne gérez pas encore de groupe",
+    "joinedGroups": "Liste de vos groupes rejoins",
+    "notJoined": "Vous n'avez pas encore rejoint de groupe.",
+    "favGroup": "Vous pouvez visiter la page des groupes pour rejoindre votre groupe préféré.",
+    "view": "Voir la page des groupes",
+    "createdGroups": "Liste de vos groupes créés",
+    "noGroupsCreated": "Vous n'avez pas encore créé de groupe.",
+    "createMsg": "Vous pouvez créer un nouveau groupe en cliquant sur le bouton Créer un groupe.",
+    "newGroup": "Créer un nouveau groupe",
+    "success": "Groupe créé avec succès",
+    "name": "Nom du groupe",
+    "desc": "Description",
+    "status": "Actif",
+    "statusMsg": "Statut actif : ce groupe sera actif et les utilisateurs peuvent le rejoindre à tout moment.",
+    "note": "Note : vous serez le propriétaire de ce groupe.",
+    "alreadyMember": "Vous êtes déjà membre de ce groupe.",
+    "closed": "Ce groupe n'accepte pas de nouveaux membres pour le moment !",
+    "by": "Groupe par",
+    "join": "Rejoindre",
+    "leave": "Quitter le groupe"
+  },
+  "home": {
+    "sideBar": {
+      "skills": "compétences"
+    },
+    "createPost": {
+      "success": "Message créé avec succès",
+      "error": "Erreur lors de la création du message: ",
+      "placeHolder": "Description avec hashtags (par exemple #exemple)",
+      "button": "Publier"
+    },
+    "feedPosts": {
+      "comments": "commentaires",
+      "remove": "retirer"
+    }
+  },
+  "jobs": {
+    "cvError": "Veuillez télécharger votre CV et saisir une lettre de motivation avant de postuler",
+    "rejectApplication": "Êtes-vous sûr de vouloir rejeter ce candidat ?",
+    "withdrawApplication": "Êtes-vous sûr de vouloir retirer votre candidature ?",
+    "title": "Demande d'emploi",
+    "search": "Chercher",
+    "available": "Emplois disponibles",
+    "recentAvailable": "Emplois disponibles récents",
+    "applied": "Tâches appliquées",
+    "apply": "Appliquer maintenant",
+    "edit": "Modifier l'application",
+    "delete": "Supprimer",
+    "desc": "Description",
+    "salary": "Salaire",
+    "update": "Mettre à jour",
+    "coverLetter": "Lettre de motivation",
+    "submit": "Soumettre la candidature",
+    "applyJobTitle": "Postuler pour un emploi"
+  },
+  "messages": {
+    "title": "Messages",
+    "noMessages": "Vous n'avez aucun message",
+    "send": "Envoyer",
+    "report": "Rapport",
+    "reportTitle": "Pourquoi signalez-vous ce message ?",
+    "cancel": "Annuler",
+    "download": "Télécharger"
+  },
+  "networks": {
+    "title": "Mon réseau",
+    "yourConnections": "Vos relations",
+    "invite": "Invitations réseau",
+    "accept": "Accepter",
+    "ignore": "Ignorer",
+    "noNetwork": "Vous n'avez personne dans votre réseau",
+    "message": "Message",
+    "remove": "Supprimer"
+  },
+  "notifications": {
+    "title": "Avis"
+  },
+  "userProfile": {
+    "headline": {
+      "connect": "Se connecter",
+      "sent": "Envoyé",
+      "connected": "Connecté"
+    },
+    "editProfile": {
+      "title": "Modifier le profil",
+      "basicInfo": "Informations de base",
+      "password": "Mot de passe",
+      "settings": "Paramètres",
+      "info": "Infos",
+      "success": "Profil mis à jour avec succès",
+      "close": "Fermer",
+      "fullName": "Nom complet",
+      "email": "Adresse e-mail",
+      "update": "Mettre à jour",
+      "passSuccess": "Mot de passe mis à jour avec succès",
+      "passError": "Erreur lors de la mise à jour du mot de passe",
+      "typeCurrPass": "Tapez votre mot de passe actuel",
+      "typeNewPass": "Tapez votre nouveau mot de passe",
+      "retypePass": "Retapez votre nouveau mot de passe",
+      "deleteAccDesc": "Pour supprimer votre compte, cliquez sur le bouton ci-dessous",
+      "deleteAccConfirm": "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action ne peut pas être annulée.",
+      "deleteAcc": "Supprimer le compte"
+    },
+    "experience": {
+      "title": "Expérience",
+      "noExp": "Aucune expérience ajoutée pour l'instant"
+    },
+    "educaiton": {
+      "title": "Éducation",
+      "noEdu": "Aucune éducation ajoutée pour l'instant"
+    },
+    "skills": {
+      "title": "Compétences",
+      "noSkills": "Aucune compétence ajoutée pour l'instant"
+    },
+    "languages": {
+      "title": "Langues",
+      "noLang": "Aucune langue ajoutée pour l'instant"
+    },
+    "projects": {
+      "title": "Projets",
+      "noProjects": "Aucun projet ajouté pour l'instant"
+    },
+    "rightBar": {
+      "myConnects": "Mes connexions",
+      "message": "Message"
+    }
+  },
+  "listSection": {
+    "viewMore": "Voir plus",
+    "eventExpired": "Événement expiré",
+    "apply": "Postuler",
+    "view": "Voir"
+  },
+  "navBar": {
+    "search": "Rechercher",
+    "searchText": "Rechercher des personnes...",
+    "profile": "Profil",
+    "events": "Événements",
+    "allEvents": "Tous les événements",
+    "createEvents": "Créer un événement",
+    "createdEvents": "Événements créés",
+    "registeredEvents": "Événements inscrits",
+    "groups": "Groupes",
+    "allGroups": "Tous les groupes",
+    "createGroup": "Créer un groupe",
+    "createdGroups": "Groupes créés",
+    "joinedGroups": "Groupes rejoints",
+    "languages": "Langues",
+    "logout": "Se déconnecter"
+  }
+}

@@ -6,11 +6,13 @@
 import React, { useEffect, useState } from "react";
 import { BiPencil } from "react-icons/bi";
 import SkillsModal from "./modal/Skills";
+import { useTranslation } from "react-i18next";
 
 export default function Skills(props) {
   let id = props.id;
   // var user_skills = props.skills;
   const [user_skills, setSkills] = useState([]);
+  const [t] = useTranslation();
 
   useEffect(async () => {
     setSkills(await props.skills);
@@ -21,7 +23,9 @@ export default function Skills(props) {
       <div className="grid grid-col-2 mb-2 flex">
         <div class="grid grid-cols-2 gap-2 items-start">
           <div>
-            <h1 className="text-xl font-semibold mb-5">Skills</h1>
+            <h1 className="text-xl font-semibold mb-5">
+              {t("userProfile.skills.title")}
+            </h1>
           </div>
           <div className="flex">
             {props.isOwner && (
@@ -35,7 +39,9 @@ export default function Skills(props) {
         </div>
         <SkillsModal id={id} skills={user_skills} getUser={props.getUser} />
         <div>
-          {user_skills && user_skills.length == 0 ? "No skills added" : ""}
+          {user_skills && user_skills.length == 0
+            ? t("userProfile.skills.noSkills")
+            : ""}
           {user_skills &&
             Object.keys(user_skills).map((skills_txt) => (
               <p>&bull; {user_skills[skills_txt]}</p>

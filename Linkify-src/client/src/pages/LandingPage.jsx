@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { BiLogIn } from "react-icons/bi";
+import { useTranslation } from "react-i18next";
 
 function LandingPage() {
-
+  const [t] = useTranslation();
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <Helmet>
@@ -21,7 +22,7 @@ function LandingPage() {
         </div>
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <h2 className="text-center text-3xl font-bold tracking-tight text-gray-900">
-            Welcome to Linkify
+            {t("landingPage.title")}
           </h2>
           <br></br>
 
@@ -30,7 +31,7 @@ function LandingPage() {
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                 <BiLogIn className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" />
               </span>
-              Log in
+              {t("landingPage.login")}
             </button>
           </Link>
 
@@ -41,14 +42,14 @@ function LandingPage() {
               </div>
               <div className="relative flex justify-center text-sm">
                 <span className="px-2 bg-white text-gray-500">
-                  Or if you don't have an account
+                  {t("landingPage.message")}
                 </span>
               </div>
             </div>
             <div className="mt-4">
               <Link to="/register">
                 <button className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-indigo-600 bg-white hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                  Sign up
+                  {t("landingPage.register")}
                 </button>
               </Link>
             </div>

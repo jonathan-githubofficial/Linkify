@@ -9,11 +9,13 @@ import localExperiences from "../../static/local_experience";
 import ProjectModal from "./modal/Project";
 
 import company_logo from "../../static/images/companies/google.png";
+import { useTranslation } from "react-i18next";
 
 export default function Projects(props) {
   let id = props.id;
   // var user_skills = props.skills;
   const [projects, setProjects] = useState([]);
+  const [t] = useTranslation();
 
   useEffect(async () => {
     setProjects(await props.projects);
@@ -24,7 +26,9 @@ export default function Projects(props) {
       <div className="grid grid-col-2 mb-2 flex">
         <div class="grid grid-cols-2 gap-2 items-start">
           <div>
-            <h1 className="text-xl font-semibold mb-5">Projects</h1>
+            <h1 className="text-xl font-semibold mb-5">
+              {t("userProfile.projects.title")}
+            </h1>
           </div>
           <div className="flex">
             {props.isOwner && (
@@ -38,7 +42,9 @@ export default function Projects(props) {
         </div>
         <ProjectModal id={id} projects={projects} getUser={props.getUser} />
         <div>
-          {projects && projects.length == 0 ? "No projects added yet" : ""}
+          {projects && projects.length == 0
+            ? t("userProfile.projects.noProjects")
+            : ""}
           {projects &&
             Object.keys(projects)
               .slice(0)
