@@ -55,7 +55,23 @@
     "noRegEvents": "Vous n'êtes pas encore inscrit à des événements.",
     "visitPage": "Vous pouvez visiter la page des événements pour vous inscrire à tout événement disponible.",
     "view": "Voir la page des événements",
-    "nearby": "Événements à proximité"
+    "nearby": "Événements à proximité",
+    "createNewEvent": "Créer un nouvel événement",
+    "createSuccess": "Événement créé avec succès",
+    "date": "Date",
+    "eventDateSelect": "Sélectionnez la date de votre événement",
+    "name": "Nom",
+    "description": "Description",
+    "location": "Emplacement",
+    "status": "Actif",
+    "statusMsg": "Statut actif : cet événement sera actif et les utilisateurs peuvent s'y inscrire à tout moment.",
+    "create": "Créer",
+    "createdEvents": "Liste de vos événements créés",
+    "createdEventsTitle": "Événements créés",
+    "alreadyReg": "Vous êtes déjà inscrit à cet événement",
+    "eventExpired": "Événement expiré",
+    "by": "Événement par",
+    "cancelReg": "Annuler l'inscription"
   },
   "groups": {
     "title": "Groupes",
@@ -68,7 +84,22 @@
     "joinedGroups": "Liste de vos groupes rejoins",
     "notJoined": "Vous n'avez pas encore rejoint de groupe.",
     "favGroup": "Vous pouvez visiter la page des groupes pour rejoindre votre groupe préféré.",
-    "view": "Voir la page des groupes"
+    "view": "Voir la page des groupes",
+    "createdGroups": "Liste de vos groupes créés",
+    "noGroupsCreated": "Vous n'avez pas encore créé de groupe.",
+    "createMsg": "Vous pouvez créer un nouveau groupe en cliquant sur le bouton Créer un groupe.",
+    "newGroup": "Créer un nouveau groupe",
+    "success": "Groupe créé avec succès",
+    "name": "Nom du groupe",
+    "desc": "Description",
+    "status": "Actif",
+    "statusMsg": "Statut actif : ce groupe sera actif et les utilisateurs peuvent le rejoindre à tout moment.",
+    "note": "Note : vous serez le propriétaire de ce groupe.",
+    "alreadyMember": "Vous êtes déjà membre de ce groupe.",
+    "closed": "Ce groupe n'accepte pas de nouveaux membres pour le moment !",
+    "by": "Groupe par",
+    "join": "Rejoindre",
+    "leave": "Quitter le groupe"
   },
   "home": {
     "sideBar": {
@@ -171,6 +202,10 @@
     "projects": {
       "title": "Projets",
       "noProjects": "Aucun projet ajouté pour l'instant"
+    },
+    "rightBar": {
+      "myConnects": "Mes connexions",
+      "message": "Message"
     }
   },
   "listSection": {
@@ -178,5 +213,22 @@
     "eventExpired": "Événement expiré",
     "apply": "Postuler",
     "view": "Voir"
+  },
+  "navBar": {
+    "search": "Rechercher",
+    "searchText": "Rechercher des personnes...",
+    "profile": "Profil",
+    "events": "Événements",
+    "allEvents": "Tous les événements",
+    "createEvents": "Créer un événement",
+    "createdEvents": "Événements créés",
+    "registeredEvents": "Événements inscrits",
+    "groups": "Groupes",
+    "allGroups": "Tous les groupes",
+    "createGroup": "Créer un groupe",
+    "createdGroups": "Groupes créés",
+    "joinedGroups": "Groupes rejoints",
+    "languages": "Langues",
+    "logout": "Se déconnecter"
   }
 }

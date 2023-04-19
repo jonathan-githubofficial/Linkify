@@ -142,7 +142,7 @@ function Navbar(props) {
                 <div className="form-control w-full sm:w-[32rem] md:w-[30rem] lg:w-[47rem] ">
                   <form className="flex items-center">
                     <label htmlFor="simple-search" className="sr-only">
-                      Search
+                      {t("navBar.search")}
                     </label>
                     <div className="relative w-full">
                       <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -166,7 +166,7 @@ function Navbar(props) {
                         type="text"
                         id="simple-search"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Search on Linkify..."
+                        placeholder={t("navBar.searchText")}
                         required
                       />
                     </div>
@@ -257,7 +257,7 @@ function Navbar(props) {
                       onClick={() => openUserProfile(profile._id)}
                       className="cursor-pointer block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                     >
-                      Profile
+                      {t("navBar.profile")}
                     </a>
                     {/* </Link> */}
                   </li>
@@ -269,7 +269,7 @@ function Navbar(props) {
                       data-collapse-toggle="dropdown-navbar-events"
                     >
                       <span class="flex-1 text-left whitespace-nowrap">
-                        Events
+                        {t("navBar.events")}
                       </span>
                       <svg
                         class="w-6 h-6"
@@ -291,28 +291,28 @@ function Navbar(props) {
                       <li>
                         <Link to="/events">
                           <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            All Events
+                            {t("navBar.allEvents")}
                           </span>
                         </Link>
                       </li>
                       <li>
                         <Link to="/events/create">
                           <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            Create Event
+                            {t("navBar.createEvents")}
                           </span>
                         </Link>
                       </li>
                       <li>
                         <Link to="/events/my_events">
                           <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            Created Event
+                            {t("navBar.createdEvents")}
                           </span>
                         </Link>
                       </li>
                       <li>
                         <Link to="/events/registered_events">
                           <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            Registered Event
+                            {t("navBar.registeredEvents")}
                           </span>
                         </Link>
                       </li>
@@ -326,7 +326,7 @@ function Navbar(props) {
                       data-collapse-toggle="dropdown-navbar-groups"
                     >
                       <span class="flex-1 text-left whitespace-nowrap">
-                        Groups
+                        {t("navBar.groups")}
                       </span>
                       <svg
                         class="w-6 h-6"
@@ -348,28 +348,28 @@ function Navbar(props) {
                       <li>
                         <Link to="/groups">
                           <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            All Groups
+                            {t("navBar.allGroups")}
                           </span>
                         </Link>
                       </li>
                       <li>
                         <Link to="/groups/create">
                           <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            Create Group
+                            {t("navBar.createGroup")}
                           </span>
                         </Link>
                       </li>
                       <li>
                         <Link to="/groups/my_groups">
                           <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            Created Groups
+                            {t("navBar.createdGroups")}
                           </span>
                         </Link>
                       </li>
                       <li>
                         <Link to="/groups/joined_groups">
                           <span class="flex items-center text-sm w-full p-2 text-gray-700 transition duration-75 pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            Joined Groups
+                            {t("navBar.joinedGroups")}
                           </span>
                         </Link>
                       </li>
@@ -383,7 +383,7 @@ function Navbar(props) {
                       data-collapse-toggle="dropdown-navbar-lang"
                     >
                       <span class="flex-1 text-left whitespace-nowrap">
-                        Languages
+                        {t("navBar.languages")}
                       </span>
                       <svg
                         class="w-6 h-6"
@@ -425,7 +425,7 @@ function Navbar(props) {
                       onClick={logout}
                       className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                     >
-                      Logout
+                      {t("navBar.logout")}
                     </a>
                   </li>
                 </ul>

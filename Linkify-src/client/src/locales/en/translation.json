@@ -55,7 +55,23 @@
     "noRegEvents": "You are not registered to any events yet.",
     "visitPage": "You can visit events page to register for any available events.",
     "view": "View Events Page",
-    "nearby": "Events Nearby"
+    "nearby": "Events Nearby",
+    "createNewEvent": "Create a New Event",
+    "createSuccess": "Event created successfully",
+    "date": "Date",
+    "eventDateSelect": "Select Your Event Date",
+    "name": "Name",
+    "description": "Description",
+    "location": "Location",
+    "status": "Active",
+    "statusMsg": "Active Status: This event will be active and users can register for it anytime.",
+    "create": "Create",
+    "createdEvents": "List of your created events",
+    "createdEventsTitle": "Created Events",
+    "alreadyReg": "You are already registered to this event",
+    "eventExpired": "Event Expired",
+    "by": "Event by",
+    "cancelReg": "Cancel Registration"
   },
   "groups": {
     "title": "Groups",
@@ -68,7 +84,22 @@
     "joinedGroups": "List of your joined groups",
     "notJoined": "You are not joined to any group yet.",
     "favGroup": "You can visit groups page to join your favourite group.",
-    "view": "View Groups Page"
+    "view": "View Groups Page",
+    "createdGroups": "List of your created groups",
+    "noGroupsCreated": "You have not created any group yet.",
+    "createMsg": "You can you create a new group by clicking Create Group button.",
+    "newGroup": "Create a New Group",
+    "success": "Group created successfully",
+    "name": "Group Name",
+    "desc": "Description",
+    "status": "Active",
+    "statusMsg": "Active Status: This group will be active and users can join it anytime.",
+    "note": "Note: You will be the owner of this group.",
+    "alreadyMember": "You are already a member of this group.",
+    "closed": "This group does not accept new members at this time!",
+    "by": "Group by",
+    "join": "Join",
+    "leave": "Leave Group"
   },
   "home": {
     "sideBar": {
@@ -171,6 +202,10 @@
     "projects": {
       "title": "Projects",
       "noProjects": "No projects added yet"
+    },
+    "rightBar": {
+      "myConnects": "My Connections",
+      "message": "Message"
     }
   },
   "listSection": {
@@ -178,5 +213,22 @@
     "eventExpired": "Event Expired",
     "apply": "Apply",
     "view": "View"
+  },
+  "navBar": {
+    "search": "Search",
+    "searchText": "Search for people ...",
+    "profile": "Profile",
+    "events": "Events",
+    "allEvents": "All Events",
+    "createEvents": "Create Events",
+    "createdEvents": "Created Events",
+    "registeredEvents": "Registered Events",
+    "groups": "Groups",
+    "allGroups": "All Groups",
+    "createGroup": "Create Group",
+    "createdGroups": "Created Groups",
+    "joinedGroups": "Joined Groups",
+    "languages": "Languages",
+    "logout": "Logout"
   }
 }
