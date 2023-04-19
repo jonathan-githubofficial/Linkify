@@ -42,7 +42,7 @@ export default function HeadlineTop(props) {
     });
     if (res) {
       setConnectStatus(true);
-      setConnectMessage(t("userProfile.sent"));
+      setConnectMessage(t("userProfile.headline.sent"));
     }
     console.log("Accept: ", res);
   };
@@ -68,15 +68,15 @@ export default function HeadlineTop(props) {
     );
     if (res1.data.filter((item) => item._id === profileId).length > 0) {
       setConnectStatus(true);
-      setConnectMessage(t("userProfile.connected"));
+      setConnectMessage(t("userProfile.headline.connected"));
     } else if (res2.data.filter((item) => item._id === userId).length > 0) {
       setConnectStatus(true);
-      setConnectMessage(t("userProfile.sent"));
+      setConnectMessage(t("userProfile.headline.sent"));
     }
   };
 
   useEffect(() => {
-    setConnectMessage(t("userProfile.connect"));
+    setConnectMessage(t("userProfile.headline.connect"));
     checkConnectionStatus();
     getAllConnections();
   }, []);
