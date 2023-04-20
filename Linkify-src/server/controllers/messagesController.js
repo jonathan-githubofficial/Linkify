@@ -66,24 +66,43 @@ const getMessages = async (req, res) => {
 
 
 
-// Delete all messages between two users
+// // Delete all messages between two users
+// const deleteMessages = async (req, res) => {
+//   try {
+//     const { sender, receiver } = req.query;
+//     await Message.updateMany(
+//       {
+//         $or: [
+//           { sender: sender, receiver: receiver },
+//           { sender: receiver, receiver: sender },
+//         ],
+//       },
+//       { isDeleted: true }
+//     );
+//     res.status(200).json({ message: "All messages deleted successfully" });
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
+
+
+// Hide all messages between two users for the receiver
 const deleteMessages = async (req, res) => {
   try {
     const { sender, receiver } = req.query;
     await Message.updateMany(
       {
-        $or: [
-          { sender: sender, receiver: receiver },
-          { sender: receiver, receiver: sender },
-        ],
+        sender: sender,
+        receiver: receiver,
       },
-      { isDeleted: true }
+      { hiddenForReceiver: true }
     );
-    res.status(200).json({ message: "All messages deleted successfully" });
+    res.status(200).json({ message: "All messages hidden for receiver successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 
 // Delete a single message by ID
