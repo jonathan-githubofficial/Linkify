@@ -150,7 +150,7 @@ function Messages() {
 
   const deleteMessage = async (sender, receiver) => {
     await axios
-      .delete("/api/messages/deletemessages", {
+      .put("/api/messages/deletemessages", null, {
         params: { sender, receiver },
       })
       .then(() => {
