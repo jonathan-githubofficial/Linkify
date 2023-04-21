@@ -8,14 +8,14 @@ import { HiEllipsisHorizontal } from 'react-icons/hi2';
 
 function MessageOptions(props) {
 
-    const { id, removeMessage, canReport, selectReport } = props;
+    const { id, removeMessage, canReport, isSender, selectReport } = props;
 
     return (
         <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle">
                 <HiEllipsisHorizontal />
             </label>
-            <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-30">
+            <ul tabIndex={0} className="p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-30">
                 {canReport &&
                     (<li>
                         <a onClick={() => selectReport(id)}
@@ -25,7 +25,7 @@ function MessageOptions(props) {
                     </li>)
                 }
                 <li>
-                    <a onClick={() => removeMessage(id)}
+                    <a onClick={() => removeMessage(id,isSender)}
                         className="active:text-current active:bg-transparent">
                         Delete
                     </a>

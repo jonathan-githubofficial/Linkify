@@ -40,7 +40,7 @@ function Chat(props) {
         title={conversation.title}
       />
       <div
-        className="p-2 sm:overflow-y-auto sm:max-h-[calc(100vh-380px)]"
+        className="p-2 sm:overflow-y-auto sm:max-h-[calc(100vh-380px)] sm:min-h-[calc(100vh-380px)]"
         ref={chatRef}
       >
         {conversation.messages.map((m) => {
