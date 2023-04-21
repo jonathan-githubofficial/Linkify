@@ -5,7 +5,7 @@
   "main": "server/server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "mocha 'server/test/**/*.js' --exit"
+    "test": "nyc mocha 'server/test/**/*.js' --exit"
   },
   "repository": {
     "type": "git",

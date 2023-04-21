@@ -1,0 +1,2432 @@
+{
+	"info": {
+		"_postman_id": "13a96bf9-9510-4997-b5f5-b2bbbfe703cf",
+		"name": "Sprint 5 Integration Testing Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25835634"
+	},
+	"item": [
+		{
+			"name": "Get user by id Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Valid user id\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/account/getUser?id=642718e8c49656986273119f",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account",
+						"getUser"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "642718e8c49656986273119f"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user by email Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Valid user account\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/account/userByMail?email=email@email.com",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account",
+						"userByMail"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "test1@gmail.com",
+							"disabled": true
+						},
+						{
+							"key": "pass",
+							"value": "test",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "email@email.com"
+						},
+						{
+							"key": "pass",
+							"value": "pass12",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user by invalid email Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Invalid user profile\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/account/getUser?email=khalid@tests.com&pass=pass",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account",
+						"getUser"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "khalid@tests.com"
+						},
+						{
+							"key": "pass",
+							"value": "pass"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all users Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Getting all users successfull\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/account/users",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful login\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time less than 3000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(300);",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/account/login?email=githubtest12@email.com&password=TestUser123?",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account",
+						"login"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "githubtest12@email.com"
+						},
+						{
+							"key": "password",
+							"value": "TestUser123?"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Match password Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Password should match\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/account/matchPassword?email=githubtest12@email.com&password=TestUser123?",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account",
+						"matchPassword"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "githubtest12@email.com"
+						},
+						{
+							"key": "password",
+							"value": "TestUser123?"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid Login Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Invalid login\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/account/login?email=khalid@test.com&password=pass",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account",
+						"login"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "khalid@test.com"
+						},
+						{
+							"key": "password",
+							"value": "pass"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Register successfull\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Registration failed successfully\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/account/register?name=emil test&email=emil@test.com&password=Password123?",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account",
+						"register"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "emil test"
+						},
+						{
+							"key": "email",
+							"value": "emil@test.com"
+						},
+						{
+							"key": "password",
+							"value": "Password123?"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update password Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Password update successfull\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							" "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/account/updatePassword?id=6441fc2765196c52112e4d34&oldPassword=TestUser123$&newPassword=TestUser123?",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account",
+						"updatePassword"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "6441fc2765196c52112e4d34"
+						},
+						{
+							"key": "oldPassword",
+							"value": "TestUser123$"
+						},
+						{
+							"key": "newPassword",
+							"value": "TestUser123?"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete skill Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete skill successfull\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "ewogICAgdXNlcm5hbWU6ICJraGFsaWRAdGVzdC5jb20iLAogICAgcGFzc3dvcmQ6ICJwYXNzMSIKfQ==",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/property/deleteSkill/?id=64289d90ff91e950f52cee72&skill=adriel",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"property",
+						"deleteSkill",
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "64289d90ff91e950f52cee72"
+						},
+						{
+							"key": "skill",
+							"value": "adriel"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add skill Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Skill addition successfull\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "ewogICAgdXNlcm5hbWU6ICJraGFsaWRAdGVzdC5jb20iLAogICAgcGFzc3dvcmQ6ICJwYXNzMSIKfQ==",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/property/addSkill?id=64289d90ff91e950f52cee72&skill=Lisb",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"property",
+						"addSkill"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "64289d90ff91e950f52cee72"
+						},
+						{
+							"key": "skill",
+							"value": "Lisb"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update profile Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Register successfull\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/account/updateProfile?id=64289d90ff91e950f52cee72&name=James Alex New&email=james@email.com",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account",
+						"updateProfile"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "64289d90ff91e950f52cee72"
+						},
+						{
+							"key": "name",
+							"value": "James Alex New"
+						},
+						{
+							"key": "email",
+							"value": "james@email.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add experience Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Experience added successfull\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/property/addExperience?id=64289d90ff91e950f52cee72&experience=Software Engineer",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"property",
+						"addExperience"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "64289d90ff91e950f52cee72"
+						},
+						{
+							"key": "experience",
+							"value": "Software Engineer"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add education Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Education added successfull\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/api/user/property/addEducation?id=64289d90ff91e950f52cee72&school=Vanier College D&degree=DEC&fieldOfStudy=CS&from=2017-01-01&to=2020-05-30",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"property",
+						"addEducation"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "64289d90ff91e950f52cee72"
+						},
+						{
+							"key": "education",
+							"value": "{\n  \"school\": \"Concordia University\",\n  \"degree\": \"SOEN\",\n  \"fieldOfStudy\": \"xyz\",\n  \"from\": \"2010-09-01T00:00:00Z\",\n  \"to\": \"2014-05-01T00:00:00Z\"\n}",
+							"disabled": true
+						},
+						{
+							"key": "school",
+							"value": "Vanier College D"
+						},
+						{
+							"key": "degree",
+							"value": "DEC"
+						},
+						{
+							"key": "fieldOfStudy",
+							"value": "CS"
+						},
+						{
+							"key": "from",
+							"value": "2017-01-01"
+						},
+						{
+							"key": "to",
+							"value": "2020-05-30"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add language Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Language added successfull\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/property/addLanguage?id=64289d90ff91e950f52cee72&language=French",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"property",
+						"addLanguage"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "64289d90ff91e950f52cee72"
+						},
+						{
+							"key": "language",
+							"value": "French"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete language Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Language deleted successfull\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/property/deleteLanguage?id=64289d90ff91e950f52cee72&language=French",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"property",
+						"deleteLanguage"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "64289d90ff91e950f52cee72"
+						},
+						{
+							"key": "language",
+							"value": "French"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add project Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Project added successfull\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/property/addProject?id=64289d90ff91e950f52cee72&project=project 2, may - present, some descriptionasdf",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"property",
+						"addProject"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "64289d90ff91e950f52cee72"
+						},
+						{
+							"key": "project",
+							"value": "project 2, may - present, some descriptionasdf"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete project Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Project deleted successfull\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/property/deleteProject?id=64289d90ff91e950f52cee72&project=project 2, may - present, some descriptionasdf",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"property",
+						"deleteProject"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "64289d90ff91e950f52cee72"
+						},
+						{
+							"key": "project",
+							"value": "project 2, may - present, some descriptionasdf"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Connection already sent Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/connection/sendConnectionRequest?senderId=64289d90ff91e950f52cee72&receiverId=6432d2b209b95ad6aafe0fce",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"connection",
+						"sendConnectionRequest"
+					],
+					"query": [
+						{
+							"key": "senderId",
+							"value": "64289d90ff91e950f52cee72"
+						},
+						{
+							"key": "receiverId",
+							"value": "6432d2b209b95ad6aafe0fce"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Send new connection request Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/connection/sendConnectionRequest?senderId=644224f261a8538f738ad2dc&receiverId=6432d2b209b95ad6aafe0fce",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"connection",
+						"sendConnectionRequest"
+					],
+					"query": [
+						{
+							"key": "senderId",
+							"value": "644224f261a8538f738ad2dc"
+						},
+						{
+							"key": "receiverId",
+							"value": "6432d2b209b95ad6aafe0fce"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Accept connection Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/connection/acceptConnectionRequest?senderId=64289d90ff91e950f52cee72&receiverId=6432d2b209b95ad6aafe0fce&=",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"connection",
+						"acceptConnectionRequest"
+					],
+					"query": [
+						{
+							"key": "senderId",
+							"value": "64289d90ff91e950f52cee72"
+						},
+						{
+							"key": "receiverId",
+							"value": "6432d2b209b95ad6aafe0fce"
+						},
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove connection Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/connection/removeConnection?userId=64289d90ff91e950f52cee72&connectionId=6432d2b209b95ad6aafe0fce&=",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"connection",
+						"removeConnection"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "64289d90ff91e950f52cee72"
+						},
+						{
+							"key": "connectionId",
+							"value": "6432d2b209b95ad6aafe0fce"
+						},
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all my connections Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/connection/getAllConnections?userId=64289d90ff91e950f52cee72",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"connection",
+						"getAllConnections"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "64289d90ff91e950f52cee72"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all my connection requests Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/connection/getConnectionRequests?userId=6432d2b209b95ad6aafe0fce",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"connection",
+						"getConnectionRequests"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "6432d2b209b95ad6aafe0fce"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new event Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful event creation\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/events/createevent?name=Event Passed&description=Ldfha asdflkvuwelkjad asdlfkajldfj aldshfa a dfa dsf adlfkje3 adsfhasd fasdlfkjaer adfbasdf asdlfkje3 adsfbadsfljadsf adsfbadsfl asdf asdf asdf asdf asdf wet asg asdg aser qweg tadsg asdg dsfg sdtg aet afg sdfhg sdfga sea sdf asdf asdf asdf waerlkajsd asdf asd.&date=2023-03-21&location=Online&creator=642480f0d575b17d9018cc8a",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"events",
+						"createevent"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Event Passed"
+						},
+						{
+							"key": "description",
+							"value": "Ldfha asdflkvuwelkjad asdlfkajldfj aldshfa a dfa dsf adlfkje3 adsfhasd fasdlfkjaer adfbasdf asdlfkje3 adsfbadsfljadsf adsfbadsfl asdf asdf asdf asdf asdf wet asg asdg aser qweg tadsg asdg dsfg sdtg aet afg sdfhg sdfga sea sdf asdf asdf asdf waerlkajsd asdf asd."
+						},
+						{
+							"key": "date",
+							"value": "2023-03-21"
+						},
+						{
+							"key": "location",
+							"value": "Online"
+						},
+						{
+							"key": "creator",
+							"value": "642480f0d575b17d9018cc8a"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get event by id Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/events/getEventById?id=644228a58b6a0993bdcf2d74",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"events",
+						"getEventById"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "644228a58b6a0993bdcf2d74"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all events Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/events/getAllEvents",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"events",
+						"getAllEvents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Join an event Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/events/join?eventId=644228a58b6a0993bdcf2d74&memberId=64289d90ff91e950f52cee72",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"events",
+						"join"
+					],
+					"query": [
+						{
+							"key": "eventId",
+							"value": "644228a58b6a0993bdcf2d74"
+						},
+						{
+							"key": "memberId",
+							"value": "64289d90ff91e950f52cee72"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check if member is registered for event Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/events/checkMember?eventId=644228a58b6a0993bdcf2d74&memberId=64289d90ff91e950f52cee72",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"events",
+						"checkMember"
+					],
+					"query": [
+						{
+							"key": "eventId",
+							"value": "644228a58b6a0993bdcf2d74"
+						},
+						{
+							"key": "memberId",
+							"value": "64289d90ff91e950f52cee72"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Leave an event Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/events/unjoin?eventId=644228a58b6a0993bdcf2d74&memberId=64289d90ff91e950f52cee72",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"events",
+						"unjoin"
+					],
+					"query": [
+						{
+							"key": "eventId",
+							"value": "644228a58b6a0993bdcf2d74"
+						},
+						{
+							"key": "memberId",
+							"value": "64289d90ff91e950f52cee72"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Count members Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/events/countMembers?eventId=644228a58b6a0993bdcf2d74",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"events",
+						"countMembers"
+					],
+					"query": [
+						{
+							"key": "eventId",
+							"value": "644228a58b6a0993bdcf2d74"
+						},
+						{
+							"key": "memberId",
+							"value": "63eabb9c07f2dc10446a1c7c",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get my registered events Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/events/myEvents?memberId=64289d90ff91e950f52cee72",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"events",
+						"myEvents"
+					],
+					"query": [
+						{
+							"key": "memberId",
+							"value": "64289d90ff91e950f52cee72"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get my created events Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/events/createdEvents?memberId=64289d90ff91e950f52cee72",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"events",
+						"createdEvents"
+					],
+					"query": [
+						{
+							"key": "memberId",
+							"value": "64289d90ff91e950f52cee72"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post feed Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful feed creation\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/feed/postFeed?userId=6432d2b209b95ad6aafe0fce&description=New new and new",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"feed",
+						"postFeed"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "6432d2b209b95ad6aafe0fce"
+						},
+						{
+							"key": "postedOn",
+							"value": "2023-03-16",
+							"disabled": true
+						},
+						{
+							"key": "description",
+							"value": "New new and new"
+						},
+						{
+							"key": "status",
+							"value": "active",
+							"disabled": true
+						},
+						{
+							"key": "tags",
+							"value": "null",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add like Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful feed creation\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/feed/addLike?id=64421cd4eaf57b8448dc2a4c&like=6432d2b209b95ad6aafe0fce",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"feed",
+						"addLike"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "64421cd4eaf57b8448dc2a4c"
+						},
+						{
+							"key": "like",
+							"value": "6432d2b209b95ad6aafe0fce"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update feed Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful feed creation\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/feed/updatePost?id=64421d619fdb058594863b76&poster=6432d2b209b95ad6aafe0fce&postedOn=2023-03-16&description=something good updated 1&status=active&tags=null",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"feed",
+						"updatePost"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "64421d619fdb058594863b76"
+						},
+						{
+							"key": "poster",
+							"value": "6432d2b209b95ad6aafe0fce"
+						},
+						{
+							"key": "name",
+							"value": "New Post",
+							"disabled": true
+						},
+						{
+							"key": "postedOn",
+							"value": "2023-03-16"
+						},
+						{
+							"key": "description",
+							"value": "something good updated 1"
+						},
+						{
+							"key": "likes",
+							"value": "[]",
+							"disabled": true
+						},
+						{
+							"key": "comments",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "status",
+							"value": "active"
+						},
+						{
+							"key": "tags",
+							"value": "null"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Feed by id Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful feed get\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/feed/getFeedById?id=64286b1afecc7ab007652516",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"feed",
+						"getFeedById"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "64286b1afecc7ab007652516"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete feed Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful feed removal\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/feed/deletePost?id=64286b1afecc7ab007652516",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"feed",
+						"deletePost"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "64286b1afecc7ab007652516"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all feed Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful feed removal\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/feed/getFeeds",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"feed",
+						"getFeeds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new group Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/groups/createGroup?name=React Community SOEN 2&description=React is a good language, use it. React is a good language, use it. React is a good language, use it. React is a good language, use it. React is a good language, use it. React is a good language, use it. &status=true&creator=6423880e9e382f90ad0077ff",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"groups",
+						"createGroup"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "React Community SOEN 2"
+						},
+						{
+							"key": "description",
+							"value": "React is a good language, use it. React is a good language, use it. React is a good language, use it. React is a good language, use it. React is a good language, use it. React is a good language, use it. "
+						},
+						{
+							"key": "status",
+							"value": "true"
+						},
+						{
+							"key": "members[0]",
+							"value": "63eabb9c07f2dc10446a1c7c",
+							"disabled": true
+						},
+						{
+							"key": "members[1]",
+							"value": "63eabd2509946e05d438560e",
+							"disabled": true
+						},
+						{
+							"key": "creator",
+							"value": "6423880e9e382f90ad0077ff"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all groups Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/groups/getAllGroups",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"groups",
+						"getAllGroups"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Group by id Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/groups/getGroupById?id=644229a7fb19b794b67316b3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"groups",
+						"getGroupById"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "644229a7fb19b794b67316b3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Join a group Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/groups/join?groupId=644229a7fb19b794b67316b3&memberId=64289d90ff91e950f52cee72",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"groups",
+						"join"
+					],
+					"query": [
+						{
+							"key": "groupId",
+							"value": "644229a7fb19b794b67316b3"
+						},
+						{
+							"key": "memberId",
+							"value": "64289d90ff91e950f52cee72"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check member existence Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/groups/checkMember?groupId=644229a7fb19b794b67316b3&memberId=64289d90ff91e950f52cee72",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"groups",
+						"checkMember"
+					],
+					"query": [
+						{
+							"key": "groupId",
+							"value": "644229a7fb19b794b67316b3"
+						},
+						{
+							"key": "memberId",
+							"value": "64289d90ff91e950f52cee72"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Leave a group Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/groups/leave?groupId=644229a7fb19b794b67316b3&memberId=64289d90ff91e950f52cee72",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"groups",
+						"leave"
+					],
+					"query": [
+						{
+							"key": "groupId",
+							"value": "644229a7fb19b794b67316b3"
+						},
+						{
+							"key": "memberId",
+							"value": "64289d90ff91e950f52cee72"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get my joined groups Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/groups/myjoinedgroups?memberId=64289d90ff91e950f52cee72",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"groups",
+						"myjoinedgroups"
+					],
+					"query": [
+						{
+							"key": "memberId",
+							"value": "64289d90ff91e950f52cee72"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get my created groups Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/groups/myCreatedGroups?memberId=64289d90ff91e950f52cee72",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"groups",
+						"myCreatedGroups"
+					],
+					"query": [
+						{
+							"key": "groupId",
+							"value": "641efab03d94cb2086048955",
+							"disabled": true
+						},
+						{
+							"key": "memberId",
+							"value": "64289d90ff91e950f52cee72"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create job post Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful feed creation\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/jobPosts/createJobPost?title=Software Engineer Intern&company=Facebook&location=Montreal&salary=$30&description=You have to work on a good project to beat ChatGPT.&skills[0]=Java&postedBy=Khalid&postedOn=2023-03-14&isExternal=1&externalLink=www.google.com&status=Posted&skills[1]=Python",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"jobPosts",
+						"createJobPost"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "Software Engineer Intern"
+						},
+						{
+							"key": "company",
+							"value": "Facebook"
+						},
+						{
+							"key": "location",
+							"value": "Montreal"
+						},
+						{
+							"key": "salary",
+							"value": "$30"
+						},
+						{
+							"key": "description",
+							"value": "You have to work on a good project to beat ChatGPT."
+						},
+						{
+							"key": "skills[0]",
+							"value": "Java"
+						},
+						{
+							"key": "postedBy",
+							"value": "Khalid"
+						},
+						{
+							"key": "postedOn",
+							"value": "2023-03-14"
+						},
+						{
+							"key": "applicants",
+							"value": "{[\"userId\": \"63eabb9c07f2dc10446a1c7c\", \"resume\":\"something\"]}",
+							"disabled": true
+						},
+						{
+							"key": "isExternal",
+							"value": "1"
+						},
+						{
+							"key": "externalLink",
+							"value": "www.google.com"
+						},
+						{
+							"key": "status",
+							"value": "Posted"
+						},
+						{
+							"key": "skills[1]",
+							"value": "Python"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete job post Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful feed creation\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/jobPosts/deleteJobPost?id=644222452f3f148bc990f104",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"jobPosts",
+						"deleteJobPost"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "644222452f3f148bc990f104"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all jobs Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful feed creation\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/jobPosts/getJobPosts",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"jobPosts",
+						"getJobPosts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get applicants by job Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful feed creation\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/user/jobPosts/getApplicantsByJob?jobId=644221a22f3f148bc990f103",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"jobPosts",
+						"getApplicantsByJob"
+					],
+					"query": [
+						{
+							"key": "jobId",
+							"value": "644221a22f3f148bc990f103"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Send message Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/messages/postMessage?sender=642718e8c49656986273119f&receiver=642718e8c49656986273119f&message=First t&time=2023-04-01",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"messages",
+						"postMessage"
+					],
+					"query": [
+						{
+							"key": "sender",
+							"value": "642718e8c49656986273119f"
+						},
+						{
+							"key": "receiver",
+							"value": "642718e8c49656986273119f"
+						},
+						{
+							"key": "message",
+							"value": "First t"
+						},
+						{
+							"key": "time",
+							"value": "2023-04-01"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Report DM Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/messages/report?messageId=64422097a01bee8a0efedc92&reportType=Spam",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"messages",
+						"report"
+					],
+					"query": [
+						{
+							"key": "messageId",
+							"value": "64422097a01bee8a0efedc92"
+						},
+						{
+							"key": "reportType",
+							"value": "Spam"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
