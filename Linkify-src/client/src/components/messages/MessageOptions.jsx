@@ -15,7 +15,7 @@ function MessageOptions(props) {
             <label tabIndex={0} className="btn btn-ghost btn-circle">
                 <HiEllipsisHorizontal />
             </label>
-            <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-30">
+            <ul tabIndex={0} className="p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-30">
                 {canReport &&
                     (<li>
                         <a onClick={() => selectReport(id)}
