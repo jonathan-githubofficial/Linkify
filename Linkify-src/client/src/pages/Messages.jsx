@@ -29,6 +29,15 @@ function Messages() {
   //start dm
   const { userIdStartDM, userNameStartDM } = useParams();
 
+  
+  //clean url
+  if (userIdStartDM && userNameStartDM) {
+    const currentUrl = window.location.href;
+    const parts = currentUrl.split('/');
+    const cleanedUrl = parts.slice(0, -2).join('/');
+    window.history.replaceState(null, '', cleanedUrl);
+  }
+
   const currentUser = localStorage.getItem("uid");
   const userName = localStorage.getItem("uname");
   const [conversations, setConversations] = useState([]);
