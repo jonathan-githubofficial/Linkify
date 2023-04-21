@@ -21,7 +21,37 @@ jobs:
       working-directory: ./Linkify-src
       run: |
         npm install
-        npm run test
+        npm run test -- --coverage --json
+
+    - name: Check Test Coverage
+      run: |
+        nyc report --reporter=text-summary --report-dir=coverage > coverage/coverage-summary.txt
+        COVERAGE=$(grep -oP '(?<=All files)\s+\K\d+%' coverage-summary.txt)
+        if (( $(echo "$COVERAGE < 80" | bc -l) )); then
+          echo "Test coverage below 80%: $COVERAGE"
+          exit 1
+        else
+          echo "Test coverage above 80%: $COVERAGE"
+        fi
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     # - name: Run Tests
