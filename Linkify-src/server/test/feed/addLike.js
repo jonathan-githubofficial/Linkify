@@ -26,20 +26,15 @@ after(async () => {
   await mongoServer.stop();
 });
 
-describe('POST /user/feed/postFeed', () => {
-  it('Ok, should create a new feed', async () => {
-    const userId = '6432d2b209b95ad6aafe0fce';
-    const description = 'Something really good test.';
-
-    const newFeed = new Feed ({
-      userId: userId,
-      description: 'Something really good test.',
-    });
+describe('POST /user/feed/addLike', () => {
+  it('Ok, liked a post successfully', async () => {
+    const id = '64421b600ab3c7812ab4708e';
+    const like = '6432d2b209b95ad6aafe0fce';
 
     const res = await chai.request(app)
-      .post('/api/user/feed/postFeed')
-      .send({userId, description});
+      .post('/api/user/feed/addLike')
+      .send({id, like});
 
-    expect(res.status).to.equal(201);
+    expect(res.status).to.equal(200);
   });
 });

@@ -16,7 +16,7 @@ const asyncHandler = require("express-async-handler");
 const accountM = require("../models/accountModel.js");
 
 const postFeed = asyncHandler(async (req, res) => {
-  const { description, tags, userId } = req.query;
+  const { description, tags, userId } = req.body;
   // Get the user's information
   const user = await accountM.findById(userId);
 
@@ -106,7 +106,7 @@ const getFeedById = asyncHandler(async (req, res) => {
 });
 
 const deleteFeed = asyncHandler(async (req, res) => {
-  const feed = await feedsM.findById(req.params.id);
+  const feed = await feedsM.findById(req.query.id);
   if (feed) {
     await feed.remove();
     res.json({ message: "Feed removed" });
@@ -119,22 +119,21 @@ const deleteFeed = asyncHandler(async (req, res) => {
 
 const updateFeed = asyncHandler(async (req, res) => {
   const {
-    title,
+    // title,    
     poster,
-    postedOn,
+    // postedOn,
     description,
     likes,
     comments,
     status,
     tags,
-  } = req.body;
-  const feed = await feedsM.findById(req.params.id);
+  } = req.query;
+  const feed = await feedsM.findById(req.query.id);
   const image = req.file ? req.file.path : feed.image;
 
   if (feed) {
-    feed.title = title;
     feed.poster = poster;
-    feed.postedOn = postedOn;
+    // feed.postedOn = postedOn;
     feed.description = description;
     feed.image = image;
     feed.likes = likes;
