@@ -3,33 +3,46 @@
 // Date created: March 2, 2023
 // Description: for mobile sidebar
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import profile_pic from "../../static/images/profile.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { RiCalendarEventFill } from 'react-icons/ri';
 import { FaUser } from 'react-icons/fa';
 import { GrGroup } from 'react-icons/gr';
 import { AiOutlineLogout } from 'react-icons/ai';
+import { FaUserFriends } from 'react-icons/fa';
 
-export default function MobileSidebar() {
+export default function MobileSidebar(props) {
 
   const navigate = useNavigate();
-  
+
   const logout = () => {
     localStorage.removeItem("uid");
     localStorage.removeItem("loggedIn");
     navigate("/login");
   };
+  
+  var profile = props.profile;
+  var profile_name = profile.name;
+  var profile_id = profile._id;
+  const [position, setPosition] = useState("");
+  useEffect(async () => {
+    var occupations = await props.profile.experience;
+    occupations = occupations[occupations.length - 1];
+    const pos_comma_split = occupations.indexOf(",");
+    var position_str = occupations.substring(0, pos_comma_split);
+    setPosition(position_str);
+  });
 
   return (
     <div id="drawer-navigation" className="fixed top-0 left-0 z-40 w-64 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white dark:bg-gray-800" tabIndex={-1} aria-labelledby="drawer-navigation-label">
       
       <img src={profile_pic} alt="User profile" className="w-12 h-12 rounded-full" />
       <div className="text-[1.2rem] font-extrabold mt-2">
-        Khalid Sadat
+        {profile_name}
       </div>
       <div className="text-md">
-        Software Engineer
+        {position}
       </div>
       
       <button type="button" data-drawer-hide="drawer-navigation" aria-controls="drawer-navigation" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
@@ -40,10 +53,18 @@ export default function MobileSidebar() {
       <div className="py-4 overflow-y-auto">
         <ul className="space-y-2 font-medium">
           <li>
-            <Link to="/profile">
+            <Link to={`/profile/${profile_id}`}>
               <span className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                 <FaUser />
                 <span className="flex-1 ml-3 whitespace-nowrap">Profile</span>
+              </span>
+            </Link>
+          </li>
+          <li>
+            <Link to={`/network`}>
+              <span className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                <FaUserFriends />
+                <span className="flex-1 ml-3 whitespace-nowrap">Network</span>
               </span>
             </Link>
           </li>

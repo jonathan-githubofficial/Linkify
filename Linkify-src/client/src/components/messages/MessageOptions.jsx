@@ -2,6 +2,7 @@
 //Author: Daria Koroleva
 //Created: March 24,2023
 //Description: Component to display an options menu
+
 import React from 'react'
 import { HiEllipsisHorizontal } from 'react-icons/hi2';
 

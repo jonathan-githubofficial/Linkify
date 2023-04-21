@@ -25,6 +25,17 @@
     background: #111640;
 }
 
+.cancelBtn {
+    background: #E02423;
+    border-color: #E02423;
+}
+
+.cancelBtn:hover {
+    background: #9A1C1C;
+    border-color: #9A1C1C;
+
+}
+
 .primaryGray {
     color: #797979;
 }
@@ -42,7 +53,7 @@ img.eduLogo {
 }
 
 .editProfileModal {
-    height: 20rem !important;
+    height: 40rem !important;
 }
 
 .jobs-location {
@@ -73,4 +84,38 @@ img.eduLogo {
     border-radius: 0.5rem;
     width: 5rem;
     height: 5rem;
+}
+
+/* Navbar */
+.navbar-avatar { 
+    height: 3rem !important;
+    width: 3rem !important;
+}
+
+.navbar-avatar img { 
+    height: 3rem !important;
+    width: 3rem !important;
+}
+/* feed */
+.feed-image {
+    padding-left: 2rem;
+    padding-right: 3rem;
+}
+
+/* Profile */
+.connectedBtn {
+    background: #a7a7a7 !important;
+    color: #0D3D7F !important;
+    font-size: 0.8rem !important;
+    width: 5rem !important;
+}
+
+.verifiedUser {
+    color: #0D3D7F !important;
+}
+/* DMs */
+.avatar > div {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center;
 }

@@ -1,14 +1,18 @@
 import React, { useState } from "react";
-import { LockClosedIcon } from "@heroicons/react/20/solid";
-import { Link, Router, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { FaGoogle } from "react-icons/fa";
+import { BiLogIn } from "react-icons/bi";
+import { RiUserAddFill } from "react-icons/ri";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 function Login() {
   const [password, setPass] = useState({});
   const [email, setEmail] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+  const [t] = useTranslation();
 
   const login = async () => {
     await axios
@@ -19,17 +23,17 @@ function Login() {
         localStorage.setItem("uname", res.data.name);
         localStorage.setItem("loggedIn", 1);
         navigate("/");
+        window.location.reload();
       })
       .catch((err) => {
         if (err.response && err.response.status === 401) {
-          setErrorMessage("Invalid email or password.");
+          setErrorMessage(t("login.error"));
         } else {
-          setErrorMessage("Something went wrong. Please try again later.");
+          setErrorMessage(t("login.unknown"));
         }
         console.log("Error", err);
       });
   };
-
   React.useEffect(() => {
     if (localStorage.getItem("loggedIn") === 1) {
       navigate("/");
@@ -37,47 +41,44 @@ function Login() {
   }, []);
 
   return (
-    <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="flex items-center justify-center min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <Helmet>
         <meta charSet="utf-8" />
-        <title>User Login</title>
+        <title>User Registration</title>
       </Helmet>
-      <div className="w-full max-w-md space-y-8">
-        <div>
+      <div className="w-full lg:w-5/6 flex flex-col lg:flex-row bg-white shadow rounded-lg">
+        <div className="lg:w-1/2 p-8 hidden lg:block">
           <img
-            className="mx-auto h-48 w-auto"
             src="/src/static/images/loginimg.png"
             alt="Your Company"
+            className="mx-auto w-96"
           />
-          <h2
-            className="text-center text-4xl font-bold tracking-tight text-gray-900"
-            data-testid="login-title"
-          >
-            Let's Connect!
-          </h2>
         </div>
-        {errorMessage && (
-          <div
-            className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-            role="alert"
+        <div className="lg:w-1/2 p-8">
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 mb-6">
+            {t("login.title")}
+          </h2>
+
+          {errorMessage && (
+            <div
+              className="bg-red-100  text-red-700 px-4 py-3 rounded relative mb-4"
+              role="alert"
+            >
+              <span className="block sm:inline">*{errorMessage}</span>
+            </div>
+          )}
+          <form
+            className="space-y-4"
+            action="#"
+            method="POST"
+            onSubmit={(e) => {
+              e.preventDefault();
+              login();
+            }}
           >
-            <span className="block sm:inline">{errorMessage}</span>
-          </div>
-        )}
-        <form
-          className="mt-8 space-y-6"
-          action="#"
-          method="POST"
-          onSubmit={(e) => {
-            e.preventDefault();
-            login();
-          }}
-        >
-          <input type="hidden" name="remember" defaultValue="true" />
-          <div className="-space-y-px rounded-md shadow-sm">
-            <div>
-              <label htmlFor="email-address" className="sr-only">
-                Email address
+            <div className="relative">
+              <label htmlFor="email-address" className="text-sm text-gray-600">
+                {t("login.email")}
               </label>
               <input
                 id="email-address"
@@ -85,16 +86,14 @@ function Login() {
                 type="email"
                 autoComplete="email"
                 required
-                className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                placeholder="Email address"
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
+                className="block w-full px-4 py-2 mt-1 text-gray-900 bg-gray-100 border border-gray-300 rounded focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                placeholder={t("login.email")}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div>
-              <label htmlFor="password" className="sr-only">
-                Password
+            <div className="relative">
+              <label htmlFor="password" className="text-sm text-gray-600">
+                {t("login.password")}
               </label>
               <input
                 id="password"
@@ -102,75 +101,53 @@ function Login() {
                 type="password"
                 autoComplete="current-password"
                 required
-                className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                placeholder="Password"
-                onChange={(e) => {
-                  setPass(e.target.value);
-                }}
+                className="block w-full px-4 py-2 mt-1 text-gray-900 bg-gray-100 border border-gray-300 rounded focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                placeholder={t("login.password")}
+                onChange={(e) => setPass(e.target.value)}
               />
             </div>
-          </div>
 
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-              />
-              <label
-                htmlFor="remember-me"
-                className="ml-2 block text-sm text-gray-900"
-              >
-                Remember me
-              </label>
-            </div>
-
-            <div className="text-sm">
-              <a
-                href="#"
-                className="font-medium text-indigo-600 hover:text-indigo-500"
-              >
-                Forgot your password?
-              </a>
-            </div>
-          </div>
-
-          <div>
             <button
               type="submit"
-              className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="w-full mt-6 py-2 px-4 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 flex items-center justify-center"
             >
-              <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                <LockClosedIcon
-                  className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
-                  aria-hidden="true"
-                />
-              </span>
-              Sign in
+              <BiLogIn className="mr-2" />
+              {t("login.login")}
             </button>
-          </div>
-          <hr />
-
-          <div>
-            <Link to="/register">
-              <button
-                type="submit"
-                className="group relative flex w-full justify-center rounded-md border border
-            border-transparent bg-blue-200 py-2 px-4 text-sm font-medium text-slate-900 hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              >
-                <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                  <LockClosedIcon
-                    className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
-                    aria-hidden="true"
-                  />
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center"></div>
+              <div className="relative flex justify-left text-sm">
+                <span className="px-2 bg-white text-gray-500">
+                  <Link
+                    to="/forgot-password"
+                    className="font-medium text-indigo-600 hover:text-indigo-500 "
+                  >
+                    {t("login.forgot")}
+                  </Link>
                 </span>
-                Create an account
+              </div>
+            </div>
+
+            <div className="flex gap-4 mt-6">
+              <button
+                onClick={() => {
+                  window.location.href = "/api/account/login/google";
+                }}
+                className="w-1/2 py-2 px-4 text-sm font-medium text-white bg-gradient-to-r from-green-400 to-blue-500 rounded-md hover:from-pink-500 hover:to-yellow-500 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 flex items-center justify-center"
+              >
+                <FaGoogle className="mr-2" />
+                {t("login.google")}
               </button>
-            </Link>
-          </div>
-        </form>
+
+              <Link to="/register" className="w-1/2">
+                <button className="w-full py-2 px-4 text-sm font-medium text-indigo-900 bg-blue-200 rounded-md hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 flex items-center justify-center">
+                  <RiUserAddFill className="mr-2 text-indigo-500" />
+                  {t("login.register")}
+                </button>
+              </Link>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
