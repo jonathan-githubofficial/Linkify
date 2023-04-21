@@ -26,21 +26,17 @@ after(async () => {
   await mongoServer.stop();
 });
 
-describe('POST /messages/postMessage', () => {
-  it('Ok, message sent sucessfully', async () => {
-    const sender = '64289d90ff91e950f52cee72';
-    const receiver = '6432d2b209b95ad6aafe0fce';
-    const message = "My first message";
-    const time = "2023-04-01";
+describe('PUT /messages/report', () => {
+  it('Ok, message reported sucessfully', async () => {
+    const messageId = '64421186023c6b74f1c9f311';
+    const reportType = 'Spam';
 
-    const newMessage = new Message({ sender , receiver, message, time });
 
     const res = await chai.request(app)
-      .post('/api/messages/postMessage')
-      .send(newMessage);
+      .put(`/api/messages/report/${messageId}`)
+      .send(reportType);
 
-    expect(res.status).to.equal(201);
-    expect(res.body.message).to.equal(newMessage.message);
+    expect(res.status).to.equal(200);
   });
   
 });

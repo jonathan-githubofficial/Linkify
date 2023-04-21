@@ -2,7 +2,7 @@ process.env.NODE_ENV = 'test';
 
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
-const Message = require('../../models/messagesModel');
+const Job = require('../../models/jobPostModel');
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
@@ -26,21 +26,27 @@ after(async () => {
   await mongoServer.stop();
 });
 
-describe('POST /messages/postMessage', () => {
-  it('Ok, message sent sucessfully', async () => {
-    const sender = '64289d90ff91e950f52cee72';
-    const receiver = '6432d2b209b95ad6aafe0fce';
-    const message = "My first message";
-    const time = "2023-04-01";
-
-    const newMessage = new Message({ sender , receiver, message, time });
+describe('POST /user/jobPosts', () => {
+  it('should create a new job post', async () => {
+    const newJob = new Job({
+      title: "New job test",
+      company: "Google test",
+      location: "Laval test",
+      salary: "$40/hour",
+      descripton: "Good time good work",
+      skill: ['java test'],
+      postedBy: 'Test User',
+      postedOn: '2023-03-14',
+      isExternal: true,
+      externalLink: 'www.google.com',
+      status: 'active',
+    });
 
     const res = await chai.request(app)
-      .post('/api/messages/postMessage')
-      .send(newMessage);
+      .post('/api/user/jobPosts')
+      .send(newJob);
 
     expect(res.status).to.equal(201);
-    expect(res.body.message).to.equal(newMessage.message);
+    expect(res.body.title).to.equal(newJob.title);
   });
-  
 });

@@ -16,7 +16,7 @@ const asyncHandler = require("express-async-handler");
 const accountM = require("../models/accountModel.js");
 
 const postFeed = asyncHandler(async (req, res) => {
-  const { description, tags, userId } = req.body;
+  const { description, tags, userId } = req.query;
   // Get the user's information
   const user = await accountM.findById(userId);
 

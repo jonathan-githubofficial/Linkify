@@ -53,7 +53,7 @@ const feedsSchema = new mongoose.Schema({
   },
   tags: {
     type: Array,
-    required: true,
+    required: false,
   },
 });
 

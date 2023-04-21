@@ -26,21 +26,15 @@ after(async () => {
   await mongoServer.stop();
 });
 
-describe('POST /messages/postMessage', () => {
-  it('Ok, message sent sucessfully', async () => {
-    const sender = '64289d90ff91e950f52cee72';
-    const receiver = '6432d2b209b95ad6aafe0fce';
-    const message = "My first message";
-    const time = "2023-04-01";
+describe('PUT /messages/deletemessage', () => {
+  it('Ok, message deleted sucessfully', async () => {
+    const id = '64421112aa0ca173f9dc10c3'
 
-    const newMessage = new Message({ sender , receiver, message, time });
 
     const res = await chai.request(app)
-      .post('/api/messages/postMessage')
-      .send(newMessage);
+      .put(`/api/messages/deletemessage/${id}`)
 
-    expect(res.status).to.equal(201);
-    expect(res.body.message).to.equal(newMessage.message);
+    expect(res.status).to.equal(200);
   });
   
 });
