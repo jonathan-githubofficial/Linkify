@@ -2,7 +2,7 @@ process.env.NODE_ENV = 'test';
 
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
-const Message = require('../../models/messagesM');
+const Message = require('../../models/messagesModel');
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');

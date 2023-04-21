@@ -2,7 +2,7 @@ process.env.NODE_ENV = 'test';
 
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
-const Company = require('../../models/companyM');
+const Company = require('../../models/companyModel');
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
@@ -29,8 +29,8 @@ after(async () => {
 describe('POST /companies/createCompany', () => {
   it('OK, should create a new company', async () => {
     const newCompany = {
-      name: 'Test event 3',
-      description: 'This is a test event',
+      name: 'Test company new',
+      description: 'This is a test company',
       address: 'Test Location',
     };
 

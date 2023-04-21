@@ -26,21 +26,28 @@ after(async () => {
   await mongoServer.stop();
 });
 
-describe('POST /events/createEvent', () => {
-  it('should create a new event', async () => {
+describe('GET /events/getEventById', () => {
+  it('should get a correct event', async () => {
     const newEvent = new Event({
-      name: 'Test event 3',
-      description: 'This is a test event',
-      location: 'Test Location',
-      date: '2023-03-3',
-      creator: 'Test Creator'
+      _id: '6427148b56fecdea4830e97b',
     });
 
     const res = await chai.request(app)
-      .post('/api/events/createEvent')
-      .send(newEvent);
+      .get('/api/events/getEventById')
+      .send({ id: newEvent._id });
 
-    expect(res.status).to.equal(201);
-    expect(res.body.name).to.equal(newEvent.name);
+    expect(res.status).to.equal(200);
+  });
+
+  it('Ok, trying to get an invalid event by id', async () => {
+    const newEvent = new Event({
+      _id: '64vx7148b56fecdea4830e97b',
+    });
+
+    const res = await chai.request(app)
+      .get('/api/events/getEventById')
+      .send({ id: newEvent._id });
+
+    expect(res.status).to.equal(401);
   });
 });

@@ -31,7 +31,7 @@ const createEvent = asyncHandler(async (req, res) => {
 
 // Get a specific event by id
 const getEventById = asyncHandler(async (req, res) => {
-  const { id } = req.query;
+  const { id } = req.body;
   const event = await Event.findById(id);
   if (event) {
     res.json(event);
@@ -90,7 +90,7 @@ const joinEvent = asyncHandler(async (req, res) => {
 // remove member from event
 const unjoinEvent = asyncHandler(async (req, res) => {
   try {
-    const { eventId, memberId } = req.body;
+    const { eventId, memberId } = req.query;
     const event = await Event.findById(eventId);
 
     if (!event) {

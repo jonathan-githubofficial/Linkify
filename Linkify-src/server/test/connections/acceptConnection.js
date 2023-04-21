@@ -26,30 +26,29 @@ after(async () => {
   await mongoServer.stop();
 });
 
-describe('POST /account/login', () => {
-  it('Ok, invalid password.', async () => {
-    const newUser = new Account({
-      email: 'email@email.com',
-      password: 'Test',
-    });
+describe('POST /user/connection/acceptConnectionRequest', () => {
+  it('Ok, connection accepted successfully', async () => {
+    const sender = '64289d90ff91e950f52cee72'; // james
+    const receiver = '6432d2b209b95ad6aafe0fce'; // githubtest1
+    // const receiver = '6427dbdeab4d44c1034a1a59';
+    const senderUser = {
+        _id: sender
+    };
+
+    const receiverUser = {
+        _id: receiver
+    }
+
+    const newConnection = {
+      sender: senderUser._id,
+      receiver: receiverUser._id,
+    };
 
     const res = await chai.request(app)
-      .post('/api/account/login')
-      .send(newUser);
-
-    expect(res.status).to.equal(401);
-  });
-
-  it('Ok, valid password.', async () => {
-    const newUser = new Account({
-      email: 'githubtest1@email.com',
-      password: 'TestUser123?',
-    });
-
-    const res = await chai.request(app)
-      .post('/api/account/login')
-      .send(newUser);
+      .post('/api/user/connection/acceptConnectionRequest')
+      .send({ senderId: senderUser._id, receiverId: receiverUser._id });
 
     expect(res.status).to.equal(200);
   });
+  
 });

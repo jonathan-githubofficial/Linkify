@@ -1,30 +1,22 @@
-const mongoose = require('mongoose');
-const { MongoMemoryServer } = require('mongodb-memory-server');
+const mongoose = require("mongoose");
 
-let mongoServer;
-let mongoUri;
+mongoose.set('strictQuery', true);
 
+// connection to mongo DB using mongoose, uri is stored in .env file
 const connectDB = async () => {
-  if (mongoose.connection.readyState === 0) {
-    mongoServer = await MongoMemoryServer.create();
-    mongoUri = mongoServer.getUri();
-    await mongoose.connect(mongoUri, {
+  try {
+    const conn = await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
+    console.log("Connected to MongoDB: " + conn.connection.host);
+  } catch (e) {
+    console.log("Error connecting to DB: " + e);
   }
 };
 
-const close = async () => {
-  if (mongoose.connection.readyState !== 0) {
-    // await mongoose.connection.dropDatabase();
-    // await mongoose.connection.close();
-    await mongoose.disconnect();
-  }
-  if (mongoServer) {
-    // await mongoServer.stop();
-    await mongoServer.disconnect();
-  }
-};
+function close() {
+  return mongoose.disconnect();
+}
 
-module.exports = { connectDB, close };
+module.exports = {connectDB, close};

@@ -16,7 +16,7 @@ const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await accountM.findOne({ email });
   if (user && (await user.matchPassword(password))) {
-    res.status(201).json({
+    res.json({
       _id: user._id,
       name: user.name,
       email: user.email,
@@ -86,7 +86,7 @@ const getUserDetailsById = asyncHandler(async (req, res) => {
   const { id } = req.body;
   const user = await accountM.findById(id);
   if (user) {
-    res.status(200).json(user);
+    res.json(user);
   } else {
     res.status(401);
     throw new Error("User not found");

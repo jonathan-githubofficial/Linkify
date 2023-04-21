@@ -2,7 +2,7 @@ process.env.NODE_ENV = 'test';
 
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
-const Account = require('../../models/accountM');
+const Account = require('../../models/accountModel');
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
@@ -28,8 +28,8 @@ after(async () => {
 
 describe('POST /user/connection/sendConnectionRequest', () => {
   it('Ok, connection sent sucessfully', async () => {
-    const sender = '6427dbdeab4d44c1034a1a59';
-    const receiver = '642718e8c49656986273119f';
+    const sender = '64289d90ff91e950f52cee72'; // james
+    const receiver = '6432d2b209b95ad6aafe0fce'; // githubtest1
     // const receiver = '6427dbdeab4d44c1034a1a59';
     const senderUser = {
         _id: sender
@@ -50,4 +50,5 @@ describe('POST /user/connection/sendConnectionRequest', () => {
 
     expect(res.status).to.equal(200);
   });
+  
 });

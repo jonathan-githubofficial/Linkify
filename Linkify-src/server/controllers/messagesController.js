@@ -12,9 +12,9 @@ const Message = require("../models/messagesModel");
 const asyncHandler = require("express-async-handler");
 
 // Create a new message
-const postMessage = asyncHandler(async (req, res) => {
+const postMessage = async (req, res) => {
   try {
-    const { sender, receiver, message, time } = req.query;
+    const { sender, receiver, message, time } = req.body;
     const newMessage = new Message({ sender, receiver, message, time });
 
     // Add the file to the attachments field
@@ -30,7 +30,7 @@ const postMessage = asyncHandler(async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
+};
 
 
 // Get all messages between two users

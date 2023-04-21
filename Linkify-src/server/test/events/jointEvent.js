@@ -26,21 +26,30 @@ after(async () => {
   await mongoServer.stop();
 });
 
-describe('POST /events/createEvent', () => {
-  it('should create a new event', async () => {
+describe('PUT /events/join', () => {
+  it('should get a correct event', async () => {
     const newEvent = new Event({
-      name: 'Test event 3',
-      description: 'This is a test event',
-      location: 'Test Location',
-      date: '2023-03-3',
-      creator: 'Test Creator'
+      _eventId: '64271b0dc78a163d16f39e04',
+      memberId: '6432d2b209b95ad6aafe0fce',
     });
 
     const res = await chai.request(app)
-      .post('/api/events/createEvent')
+      .put('/api/events/join')
       .send(newEvent);
 
-    expect(res.status).to.equal(201);
-    expect(res.body.name).to.equal(newEvent.name);
+    expect(res.status).to.equal(404);
+  });
+
+  it('Ok, trying to join an invalid event', async () => {
+    const newEvent = new Event({
+      eventId: '6asdf148b56fedddcdea4830e97b',
+      memberId: '6432d2b209b95ad6aafe0fce',
+    });
+
+    const res = await chai.request(app)
+      .put('/api/events/join')
+      .send(newEvent);
+
+    expect(res.status).to.equal(404);
   });
 });

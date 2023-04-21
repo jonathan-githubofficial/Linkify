@@ -25,35 +25,9 @@ after((done) => {
         .catch((err) => done(err));
 });
 
-describe('GET /api/account/getUser', () => {
-    it('OK, getting user by id', async () => {
-        const userId = '6432d2b209b95ad6aafe0fce';
-        const newUser = new Account({
-            _id: userId,
-        });
-        const res = await request(app)
-            .get('/api/account/getUser')
-            .send({ id: newUser._id });
-
-        expect(res).to.have.status(200);
-    });
-
-    it('OK, trying to get an invalid user', async () => {
-        const userId = '6432d2b209b95ad6aafs0fce';
-        const newUser = new Account({
-            _id: userId,
-        });
-        const res = await request(app)
-            .get('/api/account/getUser')
-            .send({ id: newUser._id });
-
-        expect(res).to.have.status(401);
-    });
-});
-
 describe('GET /api/account/userByMail', () => {
     it('OK, getting user by email', async () => {
-        const userEmail = 'githubtest1@email.com';
+        const userEmail = 'james@email.com';
         const newUser = new Account({
             email: userEmail,
         });

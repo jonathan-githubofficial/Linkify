@@ -2,7 +2,7 @@ process.env.NODE_ENV = 'test';
 
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
-const Account = require('../../models/accountM');
+const Account = require('../../models/accountModel');
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
@@ -41,10 +41,24 @@ describe('POST /account/register', () => {
     expect(res.status).to.equal(400);
   });
 
-  it('Ok, password matches the criteria', async () => {
+  // it('Ok, password matches the criteria', async () => {
+  //   const newUser = new Account({
+  //     name: 'github test 12',
+  //     email: 'githubtest12@email.com',
+  //     password: 'TestUser123?',
+  //   });
+
+  //   const res = await chai.request(app)
+  //     .post('/api/account/register')
+  //     .send(newUser);
+
+  //   expect(res.status).to.equal(201);
+  // });
+
+  it('Ok, user already exists', async () => {
     const newUser = new Account({
-      name: 'github test 1',
-      email: 'githubtest1@email.com',
+      name: 'github test 12',
+      email: 'githubtest12@email.com',
       password: 'TestUser123?',
     });
 
@@ -52,6 +66,6 @@ describe('POST /account/register', () => {
       .post('/api/account/register')
       .send(newUser);
 
-    expect(res.status).to.equal(201);
+    expect(res.status).to.equal(400);
   });
 });

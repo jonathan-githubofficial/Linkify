@@ -2,7 +2,7 @@ process.env.NODE_ENV = 'test';
 
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
-const Event = require('../../models/eventModel');
+const Group = require('../../models/groupModel');
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
@@ -26,21 +26,28 @@ after(async () => {
   await mongoServer.stop();
 });
 
-describe('POST /events/createEvent', () => {
-  it('should create a new event', async () => {
-    const newEvent = new Event({
-      name: 'Test event 3',
-      description: 'This is a test event',
-      location: 'Test Location',
-      date: '2023-03-3',
-      creator: 'Test Creator'
+describe('GET /groups/getGroupById', () => {
+  it('should get a correct group', async () => {
+    const newGroup = new Group({
+      _id: '642717c06052d59cd6deb7e8',
     });
 
     const res = await chai.request(app)
-      .post('/api/events/createEvent')
-      .send(newEvent);
+      .get('/api/groups/getGroupById')
+      .send({ id: newGroup._id });
 
-    expect(res.status).to.equal(201);
-    expect(res.body.name).to.equal(newEvent.name);
+    expect(res.status).to.equal(200);
+  });
+
+  it('Ok, trying to get an invalid group by id', async () => {
+    const newGroup = new Group({
+      _id: '642717ge06052d59cd6deb7e8',
+    });
+
+    const res = await chai.request(app)
+      .get('/api/groups/getGroupById')
+      .send({ id: newGroup._id });
+
+    expect(res.status).to.equal(200);
   });
 });

@@ -12,7 +12,7 @@ import company_logo from "../../static/images/companies/google.png";
 import { useTranslation } from "react-i18next";
 
 export default function Projects(props) {
-  var id = props.id;
+  let id = props.id;
   // var user_skills = props.skills;
   const [projects, setProjects] = useState([]);
   const [t] = useTranslation();

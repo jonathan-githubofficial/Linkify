@@ -2,7 +2,7 @@ process.env.NODE_ENV = 'test';
 
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
-const Group = require('../../models/groupM');
+const Group = require('../../models/groupModel');
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
