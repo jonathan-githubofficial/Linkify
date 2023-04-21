@@ -26,6 +26,7 @@ jobs:
     - name: Check Test Coverage
       if: always()
       run: |
+        npm install nyc
         nyc report --reporter=text-summary --dir coverage > ./Linkify-src/coverage/coverage-summary.txt
         if [ -f ./Linkify-src/coverage/coverage-summary.txt ]; then
           COVERAGE=$(grep -oP '(?<=All files)\s+\K\d+%' ./Linkify-src/coverage/coverage-summary.txt)
