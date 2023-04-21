@@ -45,6 +45,8 @@ function Messages() {
   const [encryptedFileUrl, setEncryptedFileUrl] = useState("");
   const [currentMessages, setCurrentMessages] = useState("");
 
+  const [isPollingUpdate, setIsPollingUpdate] = useState(false);
+
   useEffect(() => {
     axios
       .get("/api/messages/receiver", {
@@ -87,6 +89,8 @@ function Messages() {
           ...conversations,
         ];
         setUserSelected(userIdStartDM);
+      } else if (isPollingUpdate) {
+        setIsPollingUpdate(false);
       } else if (respondents.length > 0) {
         setUserSelected(conversations[0].user);
       }
@@ -119,6 +123,7 @@ function Messages() {
 
         setCurrentMessages((prevMessages) => {
           if (prevMessages !== newMessages) {
+            setIsPollingUpdate(true);
             return newMessages;
           }
           return prevMessages;
@@ -414,16 +419,13 @@ function Messages() {
     deleteMessage(currentUser, user);
   }
 
-
   function removeMessage(messageId, isSender) {
-
-    if(isSender){
-      deleteMessageBySender(messageId);      
+    if (isSender) {
+      deleteMessageBySender(messageId);
     }
     else {
-      hideMessageFromReceiver(messageId);      
-    }
-    //deleteMessageById(messageId);
+      hideMessageFromReceiver(messageId);
+    }    
   }
 
   function selectReport(messageId) {
