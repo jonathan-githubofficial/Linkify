@@ -24,6 +24,7 @@ jobs:
         npm run test -- --coverage --json
 
     - name: Check Test Coverage
+      if: always()
       run: |
         nyc report --reporter=text-summary --report-dir=coverage > coverage/coverage-summary.txt
         COVERAGE=$(grep -oP '(?<=All files)\s+\K\d+%' coverage-summary.txt)
