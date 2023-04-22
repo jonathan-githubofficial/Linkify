@@ -1,5 +1,6 @@
-import { defineConfig } from 'vite'
-import reactRefresh from '@vitejs/plugin-react-refresh'
+import { defineConfig } from "vite";
+import reactRefresh from "@vitejs/plugin-react-refresh";
+const { resolve } = require("path");
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -7,8 +8,14 @@ export default defineConfig({
   server: {
     host: true,
     proxy: {
-      '/api': 'http://localhost:8080',
-      '/server': 'http://localhost:8080',
-    }
-  }
-})
+      "/api": "http://localhost:8080",
+      "/server": "http://localhost:8080",
+    },
+  },
+  build: {
+    outDir: resolve(__dirname, "build"),
+    emptyOutDir: true,
+    assetsDir: "static",
+    manifest: true,
+  },
+});

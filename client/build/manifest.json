@@ -1,0 +1,18 @@
+{
+  "index.html": {
+    "file": "static/index.fa6dcbb0.js",
+    "src": "index.html",
+    "isEntry": true,
+    "css": [
+      "static/index.585faa40.css"
+    ],
+    "assets": [
+      "static/profile.33b3875f.jpg",
+      "static/logo.a6c2eb72.svg",
+      "static/default_job.71dc1e89.png",
+      "static/profile-cover.6f8232d7.png",
+      "static/default_company.53fbcde2.png",
+      "static/default_education.4a912a77.png"
+    ]
+  }
+}
