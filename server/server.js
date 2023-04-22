@@ -13,10 +13,11 @@ const groupRouter = require("./routes/groupRoute");
 const eventRouter = require("./routes/eventRoute");
 const companiesRouter = require("./routes/companyRoute.js");
 const notificationRouter = require("./routes/notificationRoute.js");
-const passport = require('passport');
-const session = require('express-session');
-const passportConfig = require('./middleware/passport.js');
+const passport = require("passport");
+const session = require("express-session");
+const passportConfig = require("./middleware/passport.js");
 const dotenv = require("dotenv");
+const path = require("path");
 const app = express();
 
 const bodyParser = require("body-parser");
@@ -33,11 +34,11 @@ app.use(function (req, res, next) {
   next();
 });
 
-//passport google config related 
+//passport google config related
 passportConfig(passport);
 app.use(
   session({
-    secret:"qUht3y79Fmi3OF27ZxK9rTNN8Y94AnKfrSqTvPFG86v5CfY0YdMUzLIhsRxK8vCV",
+    secret: "qUht3y79Fmi3OF27ZxK9rTNN8Y94AnKfrSqTvPFG86v5CfY0YdMUzLIhsRxK8vCV",
     resave: false,
     saveUninitialized: false,
     cookie: { maxAge: 1000 * 60 * 60 * 24 }, // 1 day cookie expiration
@@ -65,14 +66,23 @@ app.use("/api/events", eventRouter);
 app.use("/api/companies", companiesRouter);
 app.use("/api/notifications", notificationRouter);
 
-app.use("/server/attachments/messages", express.static("server/attachments/messages"));
-app.use("/server/attachments/feeds", express.static("server/attachments/feeds"));
-app.use("/server/attachments/avatars", express.static("server/attachments/avatars"))
-
-
-
-
-
-app.listen(process.env.PORT || 8080, () =>
-  console.log(`App listening on port ${process.env.PORT}!`)
+app.use(
+  "/server/attachments/messages",
+  express.static("server/attachments/messages")
 );
+app.use(
+  "/server/attachments/feeds",
+  express.static("server/attachments/feeds")
+);
+app.use(
+  "/server/attachments/avatars",
+  express.static("server/attachments/avatars")
+);
+
+if (process.env.NODE_ENV === "production") {
+  app.use();
+} else {
+  app.listen(process.env.PORT || 8080, () =>
+    console.log(`App listening on port ${process.env.PORT}!`)
+  );
+}
