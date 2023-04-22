@@ -20,12 +20,13 @@ const dotenv = require("dotenv");
 const path = require("path");
 const app = express();
 
+dotenv.config();
+
 const bodyParser = require("body-parser");
 
 app.use(bodyParser.json({ limit: "10mb" }));
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 
-dotenv.config();
 connectDB();
 
 app.use(function (req, res, next) {

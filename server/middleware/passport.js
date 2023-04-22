@@ -13,7 +13,9 @@ module.exports = function (passport) {
       },
       async (accessToken, refreshToken, profile, done) => {
         try {
-          const existingUser = await accountM.findOne({ email: profile.emails[0].value });
+          const existingUser = await accountM.findOne({
+            email: profile.emails[0].value,
+          });
 
           if (existingUser) {
             return done(null, existingUser);
@@ -21,7 +23,7 @@ module.exports = function (passport) {
             const newUser = await accountM.create({
               name: profile.displayName,
               email: profile.emails[0].value,
-              password: crypto.randomBytes(16).toString('hex'),
+              password: crypto.randomBytes(16).toString("hex"),
             });
 
             return done(null, newUser);
