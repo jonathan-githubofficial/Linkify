@@ -48,7 +48,7 @@ export default function Skills(props) {
     }
     
     return (
-        <div>
+        <div role="list-skills-modal">
             <input type="checkbox" id="skills-modal" className="modal-toggle" />
             <div className="modal items-start pt-10">
                 <div className="modal-box w-11/12 max-w-5xl editProfileModal">

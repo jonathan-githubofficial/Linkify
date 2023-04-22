@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import { BiPencil } from "react-icons/bi";
 import SkillsModal from "./modal/Skills";
 import { useTranslation } from "react-i18next";
+import { act } from "react-dom/test-utils";
 
 export default function Skills(props) {
   let id = props.id;
@@ -15,13 +16,15 @@ export default function Skills(props) {
   const [t] = useTranslation();
 
   useEffect(async () => {
-    setSkills(await props.skills);
+    await act(async () => {
+      setSkills(await props.skills);
+    });
   });
 
   return (
-    <div className="p-5">
+    <div className="p-5" role="list-skills">
       <div className="grid grid-col-2 mb-2 flex">
-        <div class="grid grid-cols-2 gap-2 items-start">
+        <div className="grid grid-cols-2 gap-2 items-start">
           <div>
             <h1 className="text-xl font-semibold mb-5">
               {t("userProfile.skills.title")}
@@ -43,8 +46,8 @@ export default function Skills(props) {
             ? t("userProfile.skills.noSkills")
             : ""}
           {user_skills &&
-            Object.keys(user_skills).map((skills_txt) => (
-              <p>&bull; {user_skills[skills_txt]}</p>
+            Object.keys(user_skills).map((skills_txt, i) => (
+              <p key={i}>&bull; {user_skills[skills_txt]}</p>
             ))}
           {/* {typeof(user_skills)} */}
         </div>

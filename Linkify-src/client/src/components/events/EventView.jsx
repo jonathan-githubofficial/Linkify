@@ -9,7 +9,7 @@ import { Helmet } from "react-helmet";
 import axios from "axios";
 import moment from "moment";
 
-import ProfileCover from "../profile/ProfileCover";
+// import ProfileCover from "../profile/ProfileCover";
 import SimilarEvents from "./SimilarEvents";
 
 import { BsCalendarDate } from "react-icons/bs";
@@ -156,11 +156,11 @@ export default function EventView() {
         <div class="flex-auto w-full md:w-3/4 lg:w-4/5 lg:p-5">
           <div className="flex lg:gap-8">
             <div class="w-full lg:w-3/4 bg-white relative lg:rounded-t-xl">
-              <ProfileCover
+              {/* <ProfileCover
                 name={event.name}
                 position={event.location}
                 type="events"
-              />
+              /> */}
               <hr />
 
               <div class="flex items-center">

@@ -6,8 +6,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import moment from "moment";
-import { RiSendPlaneFill } from "react-icons/ri";
-import profile_pic from "../../static/images/profile.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
