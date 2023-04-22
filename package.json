@@ -2,7 +2,7 @@
   "name": "linkify",
   "version": "1.0.0",
   "description": "A bettter linkedIn",
-  "main": "index.js",
+  "main": "server/server.js",
   "dependencies": {
     "abbrev": "^1.1.1",
     "accepts": "^1.3.8",
@@ -371,7 +371,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/server.js",
+    "start": "node server.js",
     "client": "npm start --prefix client"
   },
   "repository": {
