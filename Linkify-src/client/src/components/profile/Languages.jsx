@@ -6,11 +6,13 @@
 import React, { useEffect, useState } from "react";
 import { BiPencil } from "react-icons/bi";
 import LanguageModal from "./modal/Language";
+import { useTranslation } from "react-i18next";
 
 export default function Languages(props) {
   let id = props.id;
   // var user_skills = props.skills;
   const [user_languages, setLanguages] = useState([]);
+  const [t] = useTranslation();
 
   useEffect(async () => {
     setLanguages(await props.languages);
@@ -21,7 +23,9 @@ export default function Languages(props) {
       <div className="grid grid-col-2 mb-2 flex">
         <div class="grid grid-cols-2 gap-2 items-start">
           <div>
-            <h1 className="text-xl font-semibold mb-5">Languages</h1>
+            <h1 className="text-xl font-semibold mb-5">
+              {t("userProfile.languages.title")}
+            </h1>
           </div>
           <div className="flex">
             {props.isOwner && (
@@ -40,7 +44,7 @@ export default function Languages(props) {
         />
         <div>
           {user_languages && user_languages.length == 0
-            ? "No languages added yet"
+            ? t("userProfile.languages.noLang")
             : ""}
           {user_languages &&
             Object.keys(user_languages).map((language_txt) => (

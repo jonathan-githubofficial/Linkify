@@ -105,8 +105,9 @@ function Message(props) {
                                     <MessageOptions
                                         id={message.id}
                                         canReport={true}
-                                        selectReport={selectReport}
-                                        removeMessage={removeMessage} />
+                                        isSender={false}
+                                        removeMessage={removeMessage}
+                                        selectReport={selectReport}/>
                                 </div>
                             </div>
                         </div>
@@ -134,7 +135,11 @@ function Message(props) {
                             </div>
                             <div className="flex items-center group">
                                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                                    <MessageOptions id={message.id} removeMessage={removeMessage} canReport={false} />
+                                    <MessageOptions 
+                                    id={message.id}                                     
+                                    canReport={false} 
+                                    isSender={true} 
+                                    removeMessage={removeMessage} />
                                 </div>
                                 <div className="chat-bubble">
                                     {message.message}

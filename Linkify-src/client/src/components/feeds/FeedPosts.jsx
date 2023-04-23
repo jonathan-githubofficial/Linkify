@@ -9,15 +9,16 @@ import profile_pic from "../../static/images/profile.jpg";
 import CommentBox from "./CommentBox";
 import PostPopup from "./PostPopup";
 import axios from "axios";
-import PositionName from "../shared/PositionName"
+import PositionName from "../shared/PositionName";
 import ShowUserName from "../shared/ShowUserName";
 import { Link, useNavigate } from "react-router-dom";
 import Avatar from "../shared/Avatar";
+import { useTranslation } from "react-i18next";
 
 function FeedPosts({ currentUserId, getFeed, getFeeds }) {
-
   const [comment, setComment] = useState("");
   const [showPostPopup, setShowPostPopup] = useState(null);
+  const [t] = useTranslation();
   const openPostPopup = (postId) => {
     setShowPostPopup(postId);
   };
@@ -120,11 +121,11 @@ function FeedPosts({ currentUserId, getFeed, getFeeds }) {
               <div className="flex flex-col pl-5">
                 <Link to={`/profile/${feed.poster}`}>
                   <p className="text-2xl">
-                    <ShowUserName id={feed.poster}/>
+                    <ShowUserName id={feed.poster} />
                   </p>
                 </Link>
                 <span className="text-xs">
-                  <PositionName id={feed.poster}/>
+                  <PositionName id={feed.poster} />
                 </span>
                 <span className="text-xs">
                   {new Date(feed.postedOn).toLocaleString("default", {
@@ -187,7 +188,7 @@ function FeedPosts({ currentUserId, getFeed, getFeeds }) {
                 {/* end of like logic*/}
 
                 <div className="text-right text-sm">
-                  {feed.comments.length} Comments
+                  {feed.comments.length} {t("home.feedPosts.comments")}
                 </div>
               </div>
             </div>
@@ -202,12 +203,10 @@ function FeedPosts({ currentUserId, getFeed, getFeeds }) {
                   <div className="rounded-[0.5rem] w-full bg-gray-200 dark:bg-gray-700 px-3 py-2 inline-block mb-1 opacity-75">
                     <Link to={`/profile/${comment.userId}`}>
                       <div className="font-bold">
-                        <ShowUserName id={comment.userId}/>
+                        <ShowUserName id={comment.userId} />
                       </div>
                     </Link>
-                    <div className="text-sm">
-                      {comment.comment}
-                    </div>
+                    <div className="text-sm">{comment.comment}</div>
                   </div>
                   <div className="text-gray-600 text-xs opacity-50">
                     {/* Display date with hours and minutes */}
@@ -224,7 +223,7 @@ function FeedPosts({ currentUserId, getFeed, getFeeds }) {
                       className="text-red-500 text-xs"
                       onClick={() => removeComment(feed._id, comment._id)}
                     >
-                      Remove
+                      {t("home.feedPosts.remove")}
                     </button>
                   )}
                 </div>

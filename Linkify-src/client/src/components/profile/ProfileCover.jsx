@@ -20,13 +20,13 @@ export default function ProfileCover(props) {
   var pos_comp =
     position == undefined && company == undefined
       ? ""
-      : position + (company == undefined ? "" : " | "  + company);
+      : position + (company == undefined ? "" : " | " + company);
 
   return (
     <div>
       <img src={profile_cover} className="md:rounded-t-xl h-[11rem] w-full" />
       <div className="absolute top-[0rem] sm:top-[1.4 rem] lg:top-[1rem] pl-[1rem] py-2">
-        {type == 'events' && (
+        {type == "events" && (
           <>
             <h3
               className={`text-[1.4rem] md:text-[1.5rem] lg:text-[${heading_size}] text-white font-bold`}

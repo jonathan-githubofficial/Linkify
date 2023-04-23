@@ -15,8 +15,14 @@ import SimilarEvents from "../components/events/SimilarEvents";
 function Profile() {
   const [profile, setProfile] = useState([]);
   const [isOwnProfile, setIsOwnProfile] = useState(false);
+  const [isProfileExists, setIsProfileExists] = useState(false);
   const params = useParams();
   const navigate = useNavigate();
+
+  // loading
+  const [isLoading, setIsLoading] = useState(true);
+  
+
   // checks if user is logged in, if not, redirects to login page
   useEffect(() => {
     if (localStorage.getItem("loggedIn") !== "1") {
@@ -33,7 +39,9 @@ function Profile() {
         params: { id: params.id },
       })
       .then((res) => {
+        setIsProfileExists(true);
         setProfile(res.data);
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -43,25 +51,25 @@ function Profile() {
   const [connectionsData, setConnectionsData] = useState([]);
 
   const getAllConnections = async () => {
-      const res = await axios.get("/api/user/connection/getAllConnections?", {
-        params: { userId: localStorage.getItem("uid") },
-      });
-      setConnectionsData(res.data);
+    const res = await axios.get("/api/user/connection/getAllConnections?", {
+      params: { userId: localStorage.getItem("uid") },
+    });
+    setConnectionsData(res.data);
   };
-  
+
   const [educations, setEducations] = useState([]);
 
   const getMyEducations = async () => {
-      const res = await axios.get("/api/user/property/getMyEducations?", {
-        params: { id: params.id },
-      });
-      setEducations(res.data);
+    const res = await axios.get("/api/user/property/getMyEducations?", {
+      params: { id: params.id },
+    });
+    setEducations(res.data);
   };
 
   useEffect(() => {
-      getUser();
-      getAllConnections();
-      getMyEducations();
+    getUser();
+    getAllConnections();
+    getMyEducations();
   }, []);
 
   return (
@@ -78,6 +86,8 @@ function Profile() {
               educations={educations}
               getUser={getUser}
               isOwner={isOwnProfile}
+              isProfileExists={isProfileExists}
+              isLoading={isLoading}
             />
             <MyConnections connections={connectionsData} />
           </div>

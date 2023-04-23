@@ -80,6 +80,34 @@ const getAllUsers = asyncHandler(async (req, res) => {
   }
 });
 
+const getRandomUsers = asyncHandler(async (req, res) => {
+  // get size or default random size is 4
+  const size  = req.query.size || 4;
+  const currentUserID = req.user ? req.user._id.toString() : undefined;
+
+  // const {size, currentUserID} = req.query;
+
+  // Define the pipeline to aggregate random users
+  const pipeline = [
+    // Convert the values in the connections array to strings
+    { $addFields: { connections: { $map: { input: "$connections", in: { $toString: "$$this" } } } } },
+  
+    // Exclude users where the current user is in their connections array
+    { $match: { connections: { $not: { $in: [currentUserID] } } } },
+    // Select a random sample of users from the collection
+    { $sample: {size: parseInt(size)}},
+  ];
+
+
+  // const users = await accountM.aggregate([{$sample: {size: parseInt(size)}}]);
+  const users = await accountM.aggregate(pipeline);
+  return res.json(users);
+});
+
+
+
+
+
 
 
 const getUserDetailsById = asyncHandler(async (req, res) => {
@@ -373,6 +401,7 @@ module.exports = {
   resetPassword,
   googleLogin,
   googleCallback,
-    updateResume,
-    updateCoverLetter
+  updateResume,
+  updateCoverLetter,
+  getRandomUsers,
 };

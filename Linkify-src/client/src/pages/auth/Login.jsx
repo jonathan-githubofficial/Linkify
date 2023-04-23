@@ -5,12 +5,14 @@ import { FaGoogle } from "react-icons/fa";
 import { BiLogIn } from "react-icons/bi";
 import { RiUserAddFill } from "react-icons/ri";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 function Login() {
   const [password, setPass] = useState({});
   const [email, setEmail] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+  const [t] = useTranslation();
 
   const login = async () => {
     await axios
@@ -25,9 +27,9 @@ function Login() {
       })
       .catch((err) => {
         if (err.response && err.response.status === 401) {
-          setErrorMessage("Invalid email or password.");
+          setErrorMessage(t("login.error"));
         } else {
-          setErrorMessage("Something went wrong. Please try again later.");
+          setErrorMessage(t("login.unknown"));
         }
         console.log("Error", err);
       });
@@ -54,14 +56,17 @@ function Login() {
         </div>
         <div className="lg:w-1/2 p-8">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 mb-6">
-            Let's Login To Your Account
+            {t("login.title")}
           </h2>
 
           {errorMessage && (
-    <div className="bg-red-100  text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-      <span className="block sm:inline">*{errorMessage}</span>
-    </div>
-  )}
+            <div
+              className="bg-red-100  text-red-700 px-4 py-3 rounded relative mb-4"
+              role="alert"
+            >
+              <span className="block sm:inline">*{errorMessage}</span>
+            </div>
+          )}
           <form
             className="space-y-4"
             action="#"
@@ -73,7 +78,7 @@ function Login() {
           >
             <div className="relative">
               <label htmlFor="email-address" className="text-sm text-gray-600">
-                Email address
+                {t("login.email")}
               </label>
               <input
                 id="email-address"
@@ -82,13 +87,13 @@ function Login() {
                 autoComplete="email"
                 required
                 className="block w-full px-4 py-2 mt-1 text-gray-900 bg-gray-100 border border-gray-300 rounded focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                placeholder="Email address"
+                placeholder={t("login.email")}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="relative">
               <label htmlFor="password" className="text-sm text-gray-600">
-                Password
+                {t("login.password")}
               </label>
               <input
                 id="password"
@@ -97,7 +102,7 @@ function Login() {
                 autoComplete="current-password"
                 required
                 className="block w-full px-4 py-2 mt-1 text-gray-900 bg-gray-100 border border-gray-300 rounded focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                placeholder="Password"
+                placeholder={t("login.password")}
                 onChange={(e) => setPass(e.target.value)}
               />
             </div>
@@ -107,7 +112,7 @@ function Login() {
               className="w-full mt-6 py-2 px-4 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 flex items-center justify-center"
             >
               <BiLogIn className="mr-2" />
-              Log in
+              {t("login.login")}
             </button>
             <div className="relative">
               <div className="absolute inset-0 flex items-center"></div>
@@ -117,7 +122,7 @@ function Login() {
                     to="/forgot-password"
                     className="font-medium text-indigo-600 hover:text-indigo-500 "
                   >
-                    Forgot your password?
+                    {t("login.forgot")}
                   </Link>
                 </span>
               </div>
@@ -131,13 +136,13 @@ function Login() {
                 className="w-1/2 py-2 px-4 text-sm font-medium text-white bg-gradient-to-r from-green-400 to-blue-500 rounded-md hover:from-pink-500 hover:to-yellow-500 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 flex items-center justify-center"
               >
                 <FaGoogle className="mr-2" />
-                Login with Google
+                {t("login.google")}
               </button>
 
               <Link to="/register" className="w-1/2">
                 <button className="w-full py-2 px-4 text-sm font-medium text-indigo-900 bg-blue-200 rounded-md hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 flex items-center justify-center">
                   <RiUserAddFill className="mr-2 text-indigo-500" />
-                  Dont have an account ? Sign up
+                  {t("login.register")}
                 </button>
               </Link>
             </div>
