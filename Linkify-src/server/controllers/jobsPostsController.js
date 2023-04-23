@@ -136,6 +136,7 @@ const getJobPostsByUser = asyncHandler(async (req, res) => {
 // @return updated job post
 const applyToJobPost = asyncHandler(async (req, res) => {
   const { userId, jobId, resume, coverLetter } = req.body;
+  console.log("Request body:", req.body); // Add this line
   const jobPost = await jobPostM.findById(jobId);
 
   if (jobPost) {

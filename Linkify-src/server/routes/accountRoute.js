@@ -115,4 +115,8 @@ router.get("/login/google", accountController.googleLogin);
 router.get("/login/google/callback", accountController.googleCallback);
 
 
+router.put("/updateResume", accountController.updateResume);
+
+router.put("/updateCoverLetter", accountController.updateCoverLetter);
+
 module.exports = router;

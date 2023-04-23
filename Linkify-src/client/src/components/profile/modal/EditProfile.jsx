@@ -133,6 +133,8 @@ export default function EditProfile(props) {
     //     setPassVerified(pass_verified)
     // }, [pass_verified])
 
+    const [cvFile, setCvFile] = useState(null);
+    const [coverLetter, setCoverLetter] = useState('');
 
 
     const deleteAccount = async () => {
@@ -163,8 +165,71 @@ export default function EditProfile(props) {
             });
     };
 
+    const [user, setUser] = useState([]);
+    const email = localStorage.getItem('email') || '';
 
-    
+    // Fetch user data
+    useEffect(() => {
+        if (email) {
+            axios
+                .get('../api/account/userbymail', { params: { email } })
+                .then(res => {
+                    setUser(res.data)
+
+                })
+
+                .catch(err => console.log(err));
+
+        }
+    }, [email]);
+
+    const toBase64 = (file) =>
+        new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = (error) => reject(error);
+        });
+
+    const handleApplyResume = async (event) => {
+        event.preventDefault();
+        let base64CvFile, base64CoverFile;
+
+        if (!cvFile || !coverLetter) {
+            alert("Please upload your CV and a cover letter before saving to your profile");
+            return;
+        }
+
+        base64CvFile = await toBase64(cvFile);
+        base64CoverFile = await toBase64(coverLetter);
+
+        const token = 'ewogICAgdXNlcm5hbWU6ICJraGFsaWRAdGVzdC5jb20iLAogICAgcGFzc3dvcmQ6ICJwYXNzMSIKfQ==';
+
+        const headers = {
+            'Content-Type': 'application/json; charset=UTF-8',
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`,
+        };
+
+        try {
+            await axios.put("../api/account/updateResume", {
+                id: user._id,
+                resume: base64CvFile,
+            }, { headers });
+
+            await axios.put("../api/account/updateCoverLetter", {
+                id: user._id,
+                coverLetter: base64CoverFile,
+            }, { headers });
+
+            alert("CV and cover letter uploaded to your profile successfully.");
+            window.location.reload();
+        } catch (error) {
+            console.error("Error uploading CV and cover letter to profile:", error);
+        }
+    };
+
+
 
     return (
         <div>
@@ -191,6 +256,11 @@ export default function EditProfile(props) {
                                             Password
                                         </button>
                                     </li>
+                                        <li className="mr-2" role="presentation">
+                                            <button className="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300" id="resume-tab" data-tabs-target="#resume" type="button" role="tab" aria-controls="resume-tab" aria-selected="false">
+                                                Resume & Cover Letter
+                                            </button>
+                                        </li>
                                     <li className="mr-2" role="presentation">
                                         <button className="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300" id="settings-tab" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Settings</button>
                                     </li>
@@ -290,6 +360,60 @@ export default function EditProfile(props) {
                                             </div>
 
                                             <button onClick={updatePassword} className='primaryBtn btn btn-sm mt-5'>Update</button>
+                                        </form>
+                                    </div>
+
+                                    <div
+                                        className="bg-gray-50 p-4 rounded-lg dark:bg-gray-800 hidden"
+                                        id="resume"
+                                        role="tabpanel"
+                                        aria-labelledby="resume-tab"
+                                    >
+                                        <form>
+
+
+                                            {user.resume && user.resume.length > 0 ? (
+                                                <a className="text-indigo-600 underline" href={user.resume[0]} download>Download Resume</a>
+                                            ) : (
+                                                <p>No resume uploaded</p>
+                                            )}
+                                            <br />
+                                            {user.coverLetter && user.coverLetter.length > 0 ? (
+                                                <a className="text-indigo-600 underline" href={user.coverLetter[0]} download>Download Cover Letter</a>
+                                            ) : (
+                                                <p>No cover letter uploaded</p>
+                                            )}
+
+                                            <label htmlFor="cv" className="block mt-4 text-sm font-medium text-gray-700">
+                                                Upload new CV:
+                                            </label>
+                                            <input
+                                                type="file"
+                                                id="cv"
+                                                name="cv"
+                                                className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                                onChange={(e) => setCvFile(e.target.files[0])}
+                                            />
+                                            <label
+                                                htmlFor="coverLetter"
+                                                className="block mt-4 text-sm font-medium text-gray-700"
+                                            >
+                                                Upload new cover letter:
+                                            </label>
+                                            <input
+                                                type="file"
+                                                id="CoverLetter"
+                                                name="CoverLetter"
+                                                className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                                onChange={(e) => setCoverLetter(e.target.files[0])}
+                                            />
+                                            <button
+                                                type="submit"
+                                                className="mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                                onClick={() => handleApplyResume(event)}
+                                            >
+                                                Submit
+                                            </button>
                                         </form>
                                     </div>
                                     

@@ -59,6 +59,9 @@ const Jobs = () => {
     const [editApplicationModal, setEditApplicationModal] = useState(false);
 
 
+    const [useExistingCv, setUseExistingCv] = useState(true);
+    const [useExistingCoverLetter, setUseExistingCoverLetter] = useState(true);
+
 
     // Redirect to login if not logged in
     useEffect(() => {
@@ -159,27 +162,57 @@ const Jobs = () => {
         });
 
     const handleApplyJob = async (jobId) => {
-        console.log(jobId)
-        if (!cvFile || !coverLetter) {
-            alert("Please upload your CV and enter a cover letter before applying");
-        } else {
-            try {
-                const base64CvFile = await toBase64(cvFile);
-                const base64CoverFile = await toBase64(coverLetter);
+        console.log(jobId);
+        let base64CvFile, base64CoverFile;
 
-
-                await axios.post("../api/user/jobPosts/applyForJob", {
-                    userId: user._id,
-                    jobId: jobId,
-                    resume: base64CvFile,
-                    coverLetter: base64CoverFile,
-                });
-
-                // Close the modal and clear the data after submitting
-                window.location.reload();
-            } catch (error) {
-                console.error("Error applying for job:", error);
+        if (useExistingCv && useExistingCoverLetter) {
+            if (!user.resume[0] || !user.coverLetter[0]) {
+                alert("Please make sure you have a CV and cover letter saved on your profile.");
+                return;
             }
+            base64CvFile = user.resume[0];
+            base64CoverFile = user.coverLetter[0];
+        } else if (useExistingCv && !useExistingCoverLetter) {
+            if (!user.resume[0]) {
+                alert("Please make sure you have a CV saved on your profile.");
+                return;
+            }
+            if (!coverLetter) {
+                alert("Please upload a cover letter before applying.");
+                return;
+            }
+            base64CvFile = user.resume[0];
+            base64CoverFile = await toBase64(coverLetter);
+        } else if (!useExistingCv && useExistingCoverLetter) {
+            if (!user.coverLetter[0]) {
+                alert("Please make sure you have a cover letter saved on your profile.");
+                return;
+            }
+            if (!cvFile) {
+                alert("Please upload a CV before applying.");
+                return;
+            }
+            base64CvFile = await toBase64(cvFile);
+            base64CoverFile = user.coverLetter[0];
+        } else {
+            if (!cvFile || !coverLetter) {
+                alert("Please upload your CV and a cover letter before applying");
+                return;
+            }
+            base64CvFile = await toBase64(cvFile);
+            base64CoverFile = await toBase64(coverLetter);
+        }
+
+        try {
+            await axios.post("../api/user/jobPosts/applyForJob", {
+                userId: user._id,
+                jobId: jobId,
+                resume: base64CvFile,
+                coverLetter: base64CoverFile,
+            });
+            window.location.reload();
+        } catch (error) {
+            console.error("Error applying for job:", error);
         }
     };
 
@@ -610,28 +643,56 @@ const Jobs = () => {
                                                                 </button>
                                                             </div>
                                                             <form className="mt-4" onSubmit={(e) => e.preventDefault()}>
-                                                                <label htmlFor="cv" className="block text-sm font-medium text-gray-700">
-                                                                    CV:
+                                                                <div className = "flex flex-row">
+                                                                <label className="mb-4 block mt-4 text-sm font-medium text-gray-700">
+                                                                    Use existing CV:
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        className="ml-2"
+                                                                        checked={useExistingCv}
+                                                                        onChange={() => setUseExistingCv(!useExistingCv)}
+                                                                    />
                                                                 </label>
-                                                                <input
-                                                                    type="file"
-                                                                    id="cv"
-                                                                    name="cv"
-                                                                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                                                                    onChange={(e) => setCvFile(e.target.files[0])}
-                                                                    required
-                                                                />
-                                                                <label htmlFor="coverLetter" className="block mt-4 text-sm font-medium text-gray-700">
-                                                                    Cover Letter:
+
+                                                                <label className="ml-4 block mt-4 text-sm font-medium text-gray-700">
+                                                                    Use existing cover letter:
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        className="ml-2"
+                                                                        checked={useExistingCoverLetter}
+                                                                        onChange={() => setUseExistingCoverLetter(!useExistingCoverLetter)}
+                                                                    />
                                                                 </label>
-                                                                <input
-                                                                    type="file"
-                                                                    id="CoverLetter"
-                                                                    name="CoverLetter"
-                                                                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                                                                    onChange={(e) => setCoverLetter(e.target.files[0])}
-                                                                    required
-                                                                />
+                                                                </div>
+                                                                {!useExistingCv && (
+                                                                    <>
+                                                                        <label htmlFor="cv" className="block text-sm font-medium text-gray-700">
+                                                                            Upload new CV:
+                                                                        </label>
+                                                                        <input
+                                                                            type="file"
+                                                                            id="cv"
+                                                                            name="cv"
+                                                                            className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                                                            onChange={(e) => setCvFile(e.target.files[0])}
+                                                                        />
+                                                                    </>
+                                                                )}
+                                                                {!useExistingCoverLetter && (
+                                                                    <>
+                                                                        <label htmlFor="coverLetter" className="block mt-4 text-sm font-medium text-gray-700">
+                                                                            Upload new cover letter:
+                                                                        </label>
+                                                                        <input
+                                                                            type="file"
+                                                                            id="CoverLetter"
+                                                                            name="CoverLetter"
+                                                                            className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                                                            onChange={(e) => setCoverLetter(e.target.files[0])}
+                                                                        />
+                                                                    </>
+                                                                )}
+
                                                                 <button
                                                                     type="submit"
                                                                     className="mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"

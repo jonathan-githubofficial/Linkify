@@ -329,6 +329,33 @@ const googleCallback = (req, res, next) => {
   })(req, res, next);
 };
 
+const updateResume = asyncHandler(async (req, res) => {
+  const { id, resume } = req.body;
+  const user = await accountM.findById(id);
+  console.log(user);
+  if (user) {
+    user.resume.unshift(resume);
+    const updatedUser = await user.save();
+    res.json(updatedUser);
+  } else {
+    res.status(401);
+    throw new Error("User not found");
+  }
+});
+
+const updateCoverLetter = asyncHandler(async (req, res) => {
+  const { id, coverLetter } = req.body;
+  const user = await accountM.findById(id);
+  if (user) {
+    user.coverLetter.unshift(coverLetter);
+    const updatedUser = await user.save();
+    res.json(updatedUser);
+  } else {
+    res.status(401);
+    throw new Error("User not found");
+  }
+});
+
 module.exports = {
   login,
   registerUser,
@@ -346,4 +373,6 @@ module.exports = {
   resetPassword,
   googleLogin,
   googleCallback,
+    updateResume,
+    updateCoverLetter
 };
