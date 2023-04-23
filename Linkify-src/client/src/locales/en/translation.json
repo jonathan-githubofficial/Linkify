@@ -158,6 +158,8 @@
     "title": "Notifications"
   },
   "userProfile": {
+    "nonExistentUser": "This profile does not exist anymore",
+    "nonExistentUserRedirect": "You can still see their posts if they were in your network.",
     "headline": {
       "connect": "Connect",
       "sent": "Sent",

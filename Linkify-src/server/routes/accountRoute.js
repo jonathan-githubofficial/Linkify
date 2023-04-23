@@ -31,6 +31,13 @@ router.get("/users", accountController.getAllUsers);
 router.get("/getUser", accountController.getUserDetailsById);
 
 /**
+ * @desc Get random users
+ * @route GET /api/account/getRandomUsers
+ * @access Public
+ */
+router.get("/getRandomUsers", accountController.getRandomUsers);
+
+/**
  * @desc Get user details by email
  * @route GET /api/account/userByMail
  * @access Public
@@ -114,5 +121,9 @@ router.get("/login/google", accountController.googleLogin);
  */
 router.get("/login/google/callback", accountController.googleCallback);
 
+
+router.put("/updateResume", accountController.updateResume);
+
+router.put("/updateCoverLetter", accountController.updateCoverLetter);
 
 module.exports = router;

@@ -80,6 +80,34 @@ const getAllUsers = asyncHandler(async (req, res) => {
   }
 });
 
+const getRandomUsers = asyncHandler(async (req, res) => {
+  // get size or default random size is 4
+  const size  = req.query.size || 4;
+  const currentUserID = req.user ? req.user._id.toString() : undefined;
+
+  // const {size, currentUserID} = req.query;
+
+  // Define the pipeline to aggregate random users
+  const pipeline = [
+    // Convert the values in the connections array to strings
+    { $addFields: { connections: { $map: { input: "$connections", in: { $toString: "$$this" } } } } },
+  
+    // Exclude users where the current user is in their connections array
+    { $match: { connections: { $not: { $in: [currentUserID] } } } },
+    // Select a random sample of users from the collection
+    { $sample: {size: parseInt(size)}},
+  ];
+
+
+  // const users = await accountM.aggregate([{$sample: {size: parseInt(size)}}]);
+  const users = await accountM.aggregate(pipeline);
+  return res.json(users);
+});
+
+
+
+
+
 
 
 const getUserDetailsById = asyncHandler(async (req, res) => {
@@ -329,6 +357,33 @@ const googleCallback = (req, res, next) => {
   })(req, res, next);
 };
 
+const updateResume = asyncHandler(async (req, res) => {
+  const { id, resume } = req.body;
+  const user = await accountM.findById(id);
+  console.log(user);
+  if (user) {
+    user.resume.unshift(resume);
+    const updatedUser = await user.save();
+    res.json(updatedUser);
+  } else {
+    res.status(401);
+    throw new Error("User not found");
+  }
+});
+
+const updateCoverLetter = asyncHandler(async (req, res) => {
+  const { id, coverLetter } = req.body;
+  const user = await accountM.findById(id);
+  if (user) {
+    user.coverLetter.unshift(coverLetter);
+    const updatedUser = await user.save();
+    res.json(updatedUser);
+  } else {
+    res.status(401);
+    throw new Error("User not found");
+  }
+});
+
 module.exports = {
   login,
   registerUser,
@@ -346,4 +401,7 @@ module.exports = {
   resetPassword,
   googleLogin,
   googleCallback,
+  updateResume,
+  updateCoverLetter,
+  getRandomUsers,
 };

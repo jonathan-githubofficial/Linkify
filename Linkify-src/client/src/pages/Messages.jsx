@@ -29,6 +29,15 @@ function Messages() {
   //start dm
   const { userIdStartDM, userNameStartDM } = useParams();
 
+  
+  //clean url
+  if (userIdStartDM && userNameStartDM) {
+    const currentUrl = window.location.href;
+    const parts = currentUrl.split('/');
+    const cleanedUrl = parts.slice(0, -2).join('/');
+    window.history.replaceState(null, '', cleanedUrl);
+  }
+
   const currentUser = localStorage.getItem("uid");
   const userName = localStorage.getItem("uname");
   const [conversations, setConversations] = useState([]);
@@ -44,6 +53,8 @@ function Messages() {
   const [encryptedFileName, setEncryptedFileName] = useState("");
   const [encryptedFileUrl, setEncryptedFileUrl] = useState("");
   const [currentMessages, setCurrentMessages] = useState("");
+
+  const [isPollingUpdate, setIsPollingUpdate] = useState(false);
 
   useEffect(() => {
     axios
@@ -87,6 +98,8 @@ function Messages() {
           ...conversations,
         ];
         setUserSelected(userIdStartDM);
+      } else if (isPollingUpdate) {
+        setIsPollingUpdate(false);
       } else if (respondents.length > 0) {
         setUserSelected(conversations[0].user);
       }
@@ -119,6 +132,7 @@ function Messages() {
 
         setCurrentMessages((prevMessages) => {
           if (prevMessages !== newMessages) {
+            setIsPollingUpdate(true);
             return newMessages;
           }
           return prevMessages;
@@ -150,7 +164,7 @@ function Messages() {
 
   const deleteMessage = async (sender, receiver) => {
     await axios
-      .delete("/api/messages/deletemessages", {
+      .put("/api/messages/deletemessages", null, {
         params: { sender, receiver },
       })
       .then(() => {
@@ -252,6 +266,42 @@ function Messages() {
       })
       .catch((err) => console.log("Error", err));
   };
+
+  const deleteMessageBySender = async (messageId) => {
+    await axios
+      .put(`/api/messages/deleteBySender/${messageId}`)
+      .then(() => {
+        const updatedConversations = conversations.map((conversation) => {
+          if (conversation.user === userSelected) {
+            const filteredMessages = conversation.messages.filter((message) => message.id !== messageId);
+            return { ...conversation, messages: filteredMessages };
+          }
+          return conversation;
+        });
+
+        setConversations(updatedConversations);
+      })
+      .catch((err) => console.log("Error", err));
+  };
+
+
+  const hideMessageFromReceiver = async (messageId) => {
+    await axios
+      .put(`/api/messages/hideFromReceiver/${messageId}`)
+      .then(() => {
+        const updatedConversations = conversations.map((conversation) => {
+          if (conversation.user === userSelected) {
+            const filteredMessages = conversation.messages.filter((message) => message.id !== messageId);
+            return { ...conversation, messages: filteredMessages };
+          }
+          return conversation;
+        });
+
+        setConversations(updatedConversations);
+      })
+      .catch((err) => console.log("Error", err));
+  };
+
 
   const reportMessageById = async (messageId, reportType) => {
     await axios
@@ -378,8 +428,13 @@ function Messages() {
     deleteMessage(currentUser, user);
   }
 
-  function removeMessage(messageId) {
-    deleteMessageById(messageId);
+  function removeMessage(messageId, isSender) {
+    if (isSender) {
+      deleteMessageBySender(messageId);
+    }
+    else {
+      hideMessageFromReceiver(messageId);
+    }    
   }
 
   function selectReport(messageId) {
@@ -418,9 +473,8 @@ function Messages() {
       </div>
 
       <div
-        className={`${
-          conversations.length === 0 ? "hidden" : ""
-        } w-full sm:w-3/4 md:w-1/2 border m-auto`}
+        className={`${conversations.length === 0 ? "hidden" : ""
+          } w-full sm:w-3/4 md:w-1/2 border m-auto`}
       >
         <div className="grid grid-cols-1 sm:grid-cols-2">
           <div
@@ -432,9 +486,8 @@ function Messages() {
           </div>
 
           <div
-            className={`${
-              !showChatFeed ? "hidden" : ""
-            } sm:block  col-span-1 border`}
+            className={`${!showChatFeed ? "hidden" : ""
+              } sm:block  col-span-1 border`}
           >
             <ChatFeed
               conversations={conversations}
@@ -444,9 +497,8 @@ function Messages() {
           </div>
 
           <div
-            className={`${
-              showChatFeed ? "hidden" : ""
-            }  sm:block col-span-1 border`}
+            className={`${showChatFeed ? "hidden" : ""
+              }  sm:block col-span-1 border`}
           >
             <Chat
               conversation={getSelectedConversation()}
