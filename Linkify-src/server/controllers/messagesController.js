@@ -33,6 +33,31 @@ const postMessage = async (req, res) => {
 };
 
 
+
+// Hide chat for a specific user
+const hideChatForUser = async (req, res) => {
+  try {
+    const { sender, receiver } = req.query;
+
+    await Message.updateMany(
+      {
+        $or: [
+          { sender: sender, receiver: receiver },
+          { sender: receiver, receiver: sender },
+        ],
+      },
+      { $addToSet: { hiddenFor: receiver } }
+    );
+
+    res.status(200).json({ message: "Chat hidden for user successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+
+
 // Get all messages between two users
 const getMessages = async (req, res) => {
   try {
@@ -53,7 +78,8 @@ const getMessages = async (req, res) => {
     // Filter out deleted messages and hidden messages for the specific receiver
     const filteredMessages = messages.filter((message) => {
       if (message.isDeleted && (message.sender.toString() === sender || message.sender.toString() === receiver)) return false;
-      if (message.sender.toString() === receiver && message.hiddenForReceiver) return false;
+      if (message.hiddenForReceiver && message.sender.toString() === receiver) return false;
+      if (message.hiddenFor.includes(sender) || message.hiddenFor.includes(receiver)) return false;
       return true;
     });
 
@@ -62,7 +88,6 @@ const getMessages = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
 
 
 
@@ -84,6 +109,7 @@ const deleteMessages = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 
 // Delete a single message by ID
@@ -235,5 +261,6 @@ module.exports = {
   reportDM,
   deleteMessageBySender,
   hideMessageFromReceiver,
+  hideChatForUser,
 };
 
