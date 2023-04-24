@@ -122,8 +122,18 @@ router.get("/login/google", accountController.googleLogin);
 router.get("/login/google/callback", accountController.googleCallback);
 
 
+/**
+ * @desc Update a user's resume
+ * @route PUT /api/accounts/updateResume
+ * @access Public
+ */
 router.put("/updateResume", accountController.updateResume);
 
+/**
+ * @desc Update a user's cover letter
+ * @route PUT /api/accounts/updateCoverLetter
+ * @access Public
+ */
 router.put("/updateCoverLetter", accountController.updateCoverLetter);
 
 module.exports = router;
