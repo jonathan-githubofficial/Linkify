@@ -20,6 +20,7 @@ export default function UserIm(props) {
     "Saad Hanna",
     "Hadi Hawi",
     "Jonathan Haddad",
+    "Linkify main",
   ];
   const currentUser = name + "";
   const currentUserWords = currentUser.split(" ");

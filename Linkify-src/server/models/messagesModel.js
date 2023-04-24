@@ -38,17 +38,24 @@ const messageSchema = new Schema({
     type: Date,
     required: true,
   },
-  // IsDeleted field, if the sender deleted their message 
+  // IsDeleted field, if the sender deleted their message
   isDeleted: {
     type: Boolean,
     default: false,
   },
 
-  // HiddenForReceiver field, if the recover deleted someones message from their view 
+  // HiddenForReceiver field, if the recover deleted someones message from their view
   hiddenForReceiver: {
     type: Boolean,
     default: false,
   },
+
+  // HiddenFor field, stores an array of user IDs that have hidden the conversation
+  hiddenFor: [
+    {
+      type: String,
+    },
+  ],
 });
 
 // Create the Message model using the message schema
