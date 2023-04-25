@@ -172,8 +172,8 @@ function Messages() {
           (conversation) => conversation.user !== receiver
         );
         setConversations(newConversations);
-
-        if (userSelected == receiver && newConversations.length > 0) {
+  
+        if (userSelected === receiver && newConversations.length > 0) {
           setUserSelected(newConversations[0].user);
         }
       })

@@ -73,12 +73,12 @@ router.put('/deleteBySender/:id', messagesController.deleteMessageBySender);
  */
 router.put('/hideFromReceiver/:id', messagesController.hideMessageFromReceiver);
 
+
 /**
- * @desc Hide chat for a specific user
- * @route PUT /api/messages/hideChatForUser
+ * @desc Hide a conversation for a user
+ * @route PUT /api/messages/hidechat
  * @access Public
  */
-router.put('/hideChatForUser', messagesController.hideChatForUser);
-
+router.put('/hidechat', messagesController.hideChatForUser);
 
 module.exports = router;

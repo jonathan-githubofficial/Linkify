@@ -33,64 +33,6 @@ const postMessage = async (req, res) => {
 };
 
 
-
-// Hide chat for a specific user
-const hideChatForUser = async (req, res) => {
-  try {
-    const { sender, receiver } = req.query;
-
-    await Message.updateMany(
-      {
-        $or: [
-          { sender: sender, receiver: receiver },
-          { sender: receiver, receiver: sender },
-        ],
-      },
-      { $addToSet: { hiddenFor: receiver } }
-    );
-
-    res.status(200).json({ message: "Chat hidden for user successfully" });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-
-
-
-// Get all messages between two users
-const getMessages = async (req, res) => {
-  try {
-    const { sender, receiver } = req.query;
-    const messages = await Message.find({
-      $or: [
-        {
-          sender: sender,
-          receiver: receiver,
-        },
-        {
-          sender: receiver,
-          receiver: sender,
-        },
-      ],
-    }).sort({ time: 1 });
-
-    // Filter out deleted messages and hidden messages for the specific receiver
-    const filteredMessages = messages.filter((message) => {
-      if (message.isDeleted && (message.sender.toString() === sender || message.sender.toString() === receiver)) return false;
-      if (message.hiddenForReceiver && message.sender.toString() === receiver) return false;
-      if (message.hiddenFor.includes(sender) || message.hiddenFor.includes(receiver)) return false;
-      return true;
-    });
-
-    res.status(200).json(filteredMessages);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-
-
 // Delete all messages between two users
 const deleteMessages = async (req, res) => {
   try {
@@ -242,7 +184,7 @@ const hideMessageFromReceiver = async (req, res) => {
       return res.status(404).json({ message: "Message not found" });
     }
 
-    message.hiddenForReceiver = true;
+    message.hidden = true;
     await message.save();
     res.status(200).json({ message: "Message hidden from receiver successfully" });
   } catch (error) {
@@ -250,10 +192,67 @@ const hideMessageFromReceiver = async (req, res) => {
   }
 };
 
+// Hide a conversation for a user
+const hideChatForUser = async (req, res) => {
+  try {
+    const { sender, receiver } = req.body;
+
+    // Update messages sent by the sender to have hiddenForSender set to true
+    await Message.updateMany({ sender: sender, receiver: receiver }, { hiddenForSender: true });
+
+    // Update messages received by the sender to have hidden set to true
+    await Message.updateMany({ sender: receiver, receiver: sender }, { hidden: true });
+
+    res.status(200).json({ message: "Conversation hidden successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+// Get all messages between two users
+const getMessages = async (req, res) => {
+  try {
+    const { sender, receiver } = req.query;
+
+    const messages = await Message.find({
+      $or: [
+        {
+          sender: sender,
+          receiver: receiver,
+        },
+        {
+          sender: receiver,
+          receiver: sender,
+        },
+      ],
+    }).sort({ time: 1 });
+
+    // Filter out deleted messages and hidden messages for the specific sender
+    const filteredMessages = messages.filter((message) => {
+      if (message.isDeleted) return false;
+
+      if (message.sender.toString() === sender && message.hiddenForSender) {
+        return false;
+      }
+
+      if (message.receiver.toString() === sender && message.hidden) {
+        return false;
+      }
+
+      return true;
+    });
+
+    res.status(200).json(filteredMessages);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
 
 module.exports = {
   postMessage,
-  getMessages,
   deleteMessages,
   deleteMessageById,
   getUsersWithConversation,
@@ -262,5 +261,6 @@ module.exports = {
   deleteMessageBySender,
   hideMessageFromReceiver,
   hideChatForUser,
+  getMessages,
 };
 
