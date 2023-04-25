@@ -154,6 +154,7 @@ const accountSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+
 });
 
 // Middleware to encrypt password before saving
@@ -171,6 +172,7 @@ accountSchema.pre("save", async function (next) {
 accountSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
+
 
 
 const accountM = mongoose.model("Account", accountSchema);

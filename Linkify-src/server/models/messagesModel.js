@@ -44,20 +44,18 @@ const messageSchema = new Schema({
     default: false,
   },
 
-  // HiddenForReceiver field, if the recover deleted someones message from their view
-  hiddenForReceiver: {
+  // Hidden fields, if the recover deleted someones message from their view
+  hidden: {
     type: Boolean,
     default: false,
   },
 
-  // HiddenFor field, stores an array of user IDs that have hidden the conversation
-  hiddenFor: [
-    {
-      type: String,
-    },
-  ],
+  hiddenForSender: {
+    type: Boolean,
+    default: false,
+  },
+  
 });
-
 // Create the Message model using the message schema
 const Message = mongoose.model("Message", messageSchema);
 
