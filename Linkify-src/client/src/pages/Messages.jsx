@@ -56,6 +56,10 @@ function Messages() {
 
   const [isPollingUpdate, setIsPollingUpdate] = useState(false);
 
+  const [hasNewSelection, setHasNewSelection] = useState(false);
+
+  
+
   useEffect(() => {
     axios
       .get("/api/messages/receiver", {
@@ -86,13 +90,13 @@ function Messages() {
         )
       );
 
-      if (
+      if ( !hasNewSelection &&
         conversations.some(
           (conversation) => conversation.user === userIdStartDM
         )
       ) {
         setUserSelected(userIdStartDM);
-      } else if (userIdStartDM) {
+      } else if (!hasNewSelection && userIdStartDM) {
         conversations = [
           getNewConversation(userIdStartDM, userNameStartDM),
           ...conversations,
@@ -164,9 +168,7 @@ function Messages() {
 
   const deleteMessage = async (sender, receiver) => {
     await axios
-      .put("/api/messages/deletemessages", null, {
-        params: { sender, receiver },
-      })
+      .put("/api/messages/hidechat", { sender, receiver })
       .then(() => {
         const newConversations = conversations.filter(
           (conversation) => conversation.user !== receiver
@@ -391,6 +393,7 @@ function Messages() {
 
   function selectChat(user) {
     setUserSelected(user);
+    setHasNewSelection(true);
     mobileToggle();
   }
 
