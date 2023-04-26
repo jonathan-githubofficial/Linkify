@@ -107,6 +107,10 @@ const getMessagesForReceiver = async (req, res) => {
       // Filter out deleted messages
       if (message.isDeleted) continue;
 
+      // Filter out hidden messages
+      if (message.sender.toString() === receiverId && message.hiddenForSender) continue;
+      if (message.receiver.toString() === receiverId && message.hidden) continue;
+
       if (message.sender === receiverId) {
         if (!usersInConversation[message.receiver]) {
           const user = await Account.findById(message.receiver);
@@ -133,6 +137,7 @@ const getMessagesForReceiver = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 
 // Report a message
