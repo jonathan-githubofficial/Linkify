@@ -15,8 +15,8 @@ Linkify is an employment focused platform for hiring managers and recruiters to 
 - [X] Sprint 1
 - [X] Sprint 2
 - [X] Sprint 3
-- [ ] Sprint 4
-- [ ] Sprint 5
+- [X] Sprint 4
+- [X] Sprint 5
 
 ## Core Features
  
