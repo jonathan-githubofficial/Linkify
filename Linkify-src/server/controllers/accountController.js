@@ -268,7 +268,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
     from: process.env.OUTLOOK_USER,
     to: email,
     subject: "Password Reset",
-    text: `You are receiving this email because you (or someone else) have requested the reset of the password for your account.\n\nPlease click on the following link, or paste it into your browser to complete the process:\n\nhttp://localhost:3000/reset-password/${resetToken}\n\nIf you did not request this, please ignore this email and your password will remain unchanged.\n`,
+    text: `You are receiving this email because you (or someone else) have requested the reset of the password for your account.\n\nPlease click on the following link, or paste it into your browser to complete the process:\n\nhttp://134.209.69.104/reset-password/${resetToken}\n\nIf you did not request this, please ignore this email and your password will remain unchanged.\n`,
   };
 
   // Send the email
@@ -314,7 +314,7 @@ const googleLogin = passport.authenticate("google", {
 
 
 const googleCallback = (req, res, next) => {
-  passport.authenticate("google", { failureRedirect: "http://localhost:3000/login" }, async (error, user, info) => {
+  passport.authenticate("google", { failureRedirect: "http://134.209.69.104/login" }, async (error, user, info) => {
     if (error) {
       return next(error);
     }
@@ -324,7 +324,7 @@ const googleCallback = (req, res, next) => {
     } else {
       console.log("User found in callback:", user);
       const { _id, name, email, isAdmin } = user;
-      res.redirect(`http://localhost:3000/google/callback?uid=${_id}&email=${email}&uname=${name}`);
+      res.redirect(`http://134.209.69.104/google/callback?uid=${_id}&email=${email}&uname=${name}`);
     }
   })(req, res, next);
 };

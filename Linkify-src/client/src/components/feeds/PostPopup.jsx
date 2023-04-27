@@ -12,7 +12,8 @@ import ShowUserName from '../shared/ShowUserName';
 import PositionName from '../shared/PositionName';
 
 const PostPopup = ({ post, closePopup, postComment, currentUserId }) => {
-  const serverBaseURL = 'http://localhost:8080'; // should be changed when deployed
+  // const serverBaseURL = 'http://localhost:8080'; // should be changed when deployed
+  const serverBaseURL = 'http://134.209.69.104:8080'; // should be changed when deployed
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 ">

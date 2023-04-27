@@ -6,9 +6,14 @@ export default defineConfig({
   plugins: [reactRefresh()],
   server: {
     host: true,
+    build: {
+      chunkSizeWarningLimit: 5000, // Set the warning limit to 1000 KiB
+    },
     proxy: {
-      '/api': 'http://localhost:8080',
-      '/server': 'http://localhost:8080',
+      // '/api': 'http://localhost:8080',
+      '/api': 'http://134.209.69.104:8080',
+      // '/server': 'http://localhost:8080',
+      '/server': 'http://134.209.69.104:8080',
     }
   }
 })

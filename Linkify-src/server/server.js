@@ -1,4 +1,6 @@
 //Backend Authors: Jonathan Haddad 40111053, Saad Hanna  40113826
+const path = require('path');
+const mongoose = require("mongoose");
 
 const express = require("express");
 const { connectDB } = require("./config/connectDB.js");
@@ -17,6 +19,11 @@ const passport = require('passport');
 const session = require('express-session');
 const passportConfig = require('./middleware/passport.js');
 const dotenv = require("dotenv");
+
+const aws = require('aws-sdk');
+const multer = require('multer');
+const multerS3 = require('multer-s3');
+
 const app = express();
 
 const bodyParser = require("body-parser");
@@ -26,6 +33,9 @@ app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 
 dotenv.config();
 connectDB();
+// mongoose.connect('mongodb+srv://doadmin:486PeXpW10I3C79K@linkify-connect-c0d3d76c.mongo.ondigitalocean.com/admin')
+// mongoose.connect('mongodb+srv://doadmin:486PeXpW10I3C79K@linkify-connect-c0d3d76c.mongo.ondigitalocean.com/admin?authSource=admin&replicaSet=linkify-connect&tls=true')
+
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -52,6 +62,8 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
+app.use(express.static('dist'))
+
 
 app.use("/api/account", userRouter);
 app.use("/api/user/cv", cvRouter);
@@ -70,9 +82,11 @@ app.use("/server/attachments/feeds", express.static("server/attachments/feeds"))
 app.use("/server/attachments/avatars", express.static("server/attachments/avatars"))
 
 
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, 'dist/index.html'))
+})
 
-
-
-app.listen(process.env.PORT || 8080, () =>
-  console.log(`App listening on port ${process.env.PORT}!`)
+const port = process.env.PORT || 8080;
+app.listen(port, () =>
+  console.log(`App listening on port ${port}!`)
 );

@@ -97,7 +97,8 @@ function FeedPosts({ currentUserId, getFeed, getFeeds }) {
     }
   };
 
-  const serverBaseURL = "http://localhost:8080"; // should be changed when deployed
+  // const serverBaseURL = "http://localhost:8080"; // should be changed when deployed
+  const serverBaseURL = "http://134.209.69.104:8080"; // should be changed when deployed
   const isLikedByCurrentUser = (likes) => {
     return likes.some((like) => like === currentUserId);
   };

@@ -6,7 +6,8 @@ import VerifiedUser from '../profile/VerifiedUser';
 import profile_pic from "../../static/images/profile.jpg";
 import { FaSuitcase, FaComments, FaUserFriends, FaBell } from "react-icons/fa";
 
-import logo from "../../static/images/logo.svg";
+// import logo from "../../static/images/logo.svg";
+import logo from '/root/Linkify/Linkify-src/server/attachments/logo.svg';
 import logo_icon from "../../static/images/logo-icon.png";
 
 function Navbar(props) {
