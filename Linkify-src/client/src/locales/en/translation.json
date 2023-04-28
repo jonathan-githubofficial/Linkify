@@ -231,6 +231,7 @@
     "createdGroups": "Created Groups",
     "joinedGroups": "Joined Groups",
     "languages": "Languages",
-    "logout": "Logout"
+    "logout": "Logout",
+    "myCompany": "My Company"
   }
 }

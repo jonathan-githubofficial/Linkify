@@ -22,6 +22,8 @@ import RegisteredEvents from "../components/events/RegisteredEvents";
 import JoinedGroups from "../components/groups/JoinedGroups";
 import CreatedGroups from "../components/groups/CreatedGroups";
 import LandingPage from "../pages/LandingPage";
+import MyCompany from "../pages/MyCompany";
+import CreateCompany from "../components/mycompany/CreateCompany";
 
 function RegularRoutes() {
   const [profile, setProfile] = useState([]);
@@ -65,6 +67,8 @@ function RegularRoutes() {
         <Route path="/groups/create" element={<CreateGroup />} />
         <Route path="/groups/my_groups" element={<CreatedGroups />} />
         <Route path="/groups/joined_groups" element={<JoinedGroups />} />
+        <Route path="/mycompany" element={<MyCompany />} />
+        <Route path="/mycompany/create" element={<CreateCompany />} />
         <Route path="/test" element={<div>Hello from Test</div>} />
       </Routes>
 

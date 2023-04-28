@@ -262,6 +262,13 @@ function Navbar(props) {
                     {/* </Link> */}
                   </li>
                   <li>
+                    <Link to="/mycompany">
+                      <span className="cursor-pointer block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                        {t("navBar.myCompany")}
+                      </span>
+                    </Link>
+                  </li>
+                  <li>
                     <button
                       type="button"
                       class="flex items-center w-full px-4 py-2 text-md text-gray-700 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
