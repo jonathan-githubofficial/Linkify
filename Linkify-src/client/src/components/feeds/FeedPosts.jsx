@@ -98,7 +98,8 @@ function FeedPosts({ currentUserId, getFeed, getFeeds }) {
     }
   };
 
-  const serverBaseURL = "http://localhost:8080"; // should be changed when deployed
+  // const serverBaseURL = "http://localhost:8080"; // should be changed when deployed
+  const serverBaseURL = "http://134.209.69.104:8080"; // should be changed when deployed
   const isLikedByCurrentUser = (likes) => {
     return likes.some((like) => like === currentUserId);
   };
@@ -113,7 +114,7 @@ function FeedPosts({ currentUserId, getFeed, getFeeds }) {
           <div className="flex items-center justify-left">
             <div className="flex items-center">
               <div className="avatar">
-                <div className="w-10 rounded-full">
+                <div className="w-10 rounded-full bg-gray-800">
                   {/* <img src={profile_pic} /> */}
                   <Avatar userId={feed.poster} />
                 </div>

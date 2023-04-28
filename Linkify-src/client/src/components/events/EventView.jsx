@@ -172,13 +172,13 @@ export default function EventView() {
                           id="badge-dismiss-yellow"
                           class="inline-flex items-center mb-4 px-2 py-1 mr-2 text-sm font-medium text-yellow-800 bg-yellow-100 rounded dark:bg-yellow-900 dark:text-yellow-300"
                         >
-                          {t("event.alreadyReg")}
+                          {t("events.alreadyReg")}
                         </span>
                       )}
 
                       {eventDaysDifference > 0 && (
                         <div className="badge badge-error gap-2 mb-4">
-                          {t("event.eventExpired")}
+                          {t("events.eventExpired")}
                         </div>
                       )}
 
@@ -186,7 +186,7 @@ export default function EventView() {
                                                 {eventDate.toLocaleDateString()}
                                             </div> */}
                       <div className="mb-2">
-                        {t("event.by")} :
+                        {t("events.by")} :
                         <div
                           className="font-extrabold"
                           style={{ color: "#266DD3" }}
@@ -222,7 +222,7 @@ export default function EventView() {
                           type="button"
                           class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                         >
-                          {t("event.cancelReg")}
+                          {t("events.cancelReg")}
                         </button>
                       </form>
                     </>
@@ -235,7 +235,7 @@ export default function EventView() {
                         } `}
                         disabled={eventDaysDifference > 0 ? true : false}
                       >
-                        {t("event.register")}
+                        {t("events.register")}
                       </button>
                     </form>
                   )}

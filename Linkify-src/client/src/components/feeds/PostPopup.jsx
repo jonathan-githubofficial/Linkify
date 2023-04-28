@@ -10,9 +10,11 @@ import CommentBox from './CommentBox';
 import { IoClose } from 'react-icons/io5';
 import ShowUserName from '../shared/ShowUserName';
 import PositionName from '../shared/PositionName';
+import Avatar from "../shared/Avatar";
 
 const PostPopup = ({ post, closePopup, postComment, currentUserId }) => {
-  const serverBaseURL = 'http://localhost:8080'; // should be changed when deployed
+  // const serverBaseURL = 'http://localhost:8080'; // should be changed when deployed
+  const serverBaseURL = 'http://134.209.69.104:8080'; // should be changed when deployed
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 ">
@@ -35,8 +37,11 @@ const PostPopup = ({ post, closePopup, postComment, currentUserId }) => {
           )}
           <div className="w-full md:w-1/2">
             <div className="flex items-center">
-              <div className="w-10 h-10 rounded-full">
-                <img src={profile_pic} alt="Profile" />
+              <div className="avatar">
+                <div className="w-10 rounded-full bg-gray-800">
+                  {/* <img src={profile_pic} /> */}
+                  <Avatar userId={post.poster} />
+                </div>
               </div>
               <div className="flex flex-col pl-5">
                 <Link to={`/profile/${post.poster}`}>
@@ -47,21 +52,27 @@ const PostPopup = ({ post, closePopup, postComment, currentUserId }) => {
                 <span className="text-xs">
                   <PositionName id={post.poster}/>
                 </span>
+                <p className="text-gray-600 text-xs">
+                  <span className='font-bold'>
+                    {new Date(post.postedOn).toLocaleString("default", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </span>
+                </p>
               </div>
             </div>
             <div className="mt-5">
               <p className="text-gray-700 text-base">{post.description}</p>
-              <p className="text-gray-600 text-xs mt-2">
-                <span className='font-bold'>
-                  {new Date(post.postedOn).toLocaleString("default", {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
-                </span>
-              </p>
+              <div className="mt-2 text-sm text-gray-500">
+                {}
+                {JSON.parse(post.tags).map((item) => (
+                  <span>#{item} </span>
+                ))}
+              </div>
             </div>
             <hr className="my-5" />
             <div className="overflow-y-scroll h-64">

@@ -342,7 +342,7 @@ const googleLogin = passport.authenticate("google", {
 
 
 const googleCallback = (req, res, next) => {
-  passport.authenticate("google", { failureRedirect: "http://localhost:3000/login" }, async (error, user, info) => {
+  passport.authenticate("google", { failureRedirect: "http://134.209.69.104/login" }, async (error, user, info) => {
     if (error) {
       return next(error);
     }
@@ -352,7 +352,7 @@ const googleCallback = (req, res, next) => {
     } else {
       console.log("User found in callback:", user);
       const { _id, name, email, isAdmin } = user;
-      res.redirect(`http://localhost:3000/google/callback?uid=${_id}&email=${email}&uname=${name}`);
+      res.redirect(`http://134.209.69.104/google/callback?uid=${_id}&email=${email}&uname=${name}`);
     }
   })(req, res, next);
 };
