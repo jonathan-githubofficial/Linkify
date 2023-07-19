@@ -128,4 +128,3 @@ newman run <collection_file>.json
 | `Saad Hanna`         | `40113826`         | ([GitHub/iq882](https://github.com/iq882))   | saadhanna882@gmail.com
 | `Daria Koroleva`         | `40096402`         | ([GitHub/daria-koroleva](https://github.com/daria-koroleva))   | dasha.koroleva499@gmail.com
 | `Mohamad Salim`           | `40111460`         | ([GitHub/MohamadGSalim](https://github.com/MohamadGSalim))   | mohammedsalim1909@hotmail.com
-| `Jean-Claude Abou-Elias`    |  `40086851`      | ([GitHub/jcjc1233](https://github.com/jcjc1233)) | jeanclaudeabouelias@gmail.com 
